@@ -1,0 +1,97 @@
+src/
+ └── main/
+     ├── java/
+     │    └── com/
+     │        └── mycompany/
+     │            └── domain/
+     │                ├── user/                     # Domínio User
+     │                │   ├── application/          # Casos de uso e lógica de aplicação
+     │                │   │   ├── usecases/
+     │                │   │   │   ├── CreateUserUseCase.java
+     │                │   │   │   └── GetUserUseCase.java
+     │                │   │   └── services/
+     │                │   │       └── UserService.java
+     │                │   ├── domain/               # Lógica de negócio e entidades
+     │                │   │   ├── models/
+     │                │   │   │   └── User.java
+     │                │   │   ├── repositories/
+     │                │   │   │   └── UserRepository.java
+     │                │   │   └── services/
+     │                │   │       └── UserDomainService.java
+     │                │   ├── infrastructure/       # Implementações técnicas
+     │                │   │   ├── repositories/
+     │                │   │   │   └── JpaUserRepository.java
+     │                │   │   ├── persistence/
+     │                │   │   │   └── JpaUserEntity.java
+     │                │   │   └── adapters/
+     │                │   │       └── rest/
+     │                │   │           └── UserController.java
+     │                │   └── shared/               # Componentes compartilhados dentro deste domínio
+     │                │       ├── exceptions/
+     │                │       │   └── UserNotFoundException.java
+     │                │       └── utils/
+     │                │           └── UserValidator.java
+     │                │
+     │                ├── company/                  # Domínio Company
+     │                │   ├── application/
+     │                │   │   ├── usecases/
+     │                │   │   │   └── CreateCompanyUseCase.java
+     │                │   │   └── services/
+     │                │   │       └── CompanyService.java
+     │                │   ├── domain/
+     │                │   │   ├── models/
+     │                │   │   │   └── Company.java
+     │                │   │   ├── repositories/
+     │                │   │   │   └── CompanyRepository.java
+     │                │   │   └── services/
+     │                │   │       └── CompanyDomainService.java
+     │                │   ├── infrastructure/
+     │                │   │   ├── repositories/
+     │                │   │   │   └── MongoCompanyRepository.java
+     │                │   │   ├── persistence/
+     │                │   │   │   └── MongoCompanyEntity.java
+     │                │   │   └── adapters/
+     │                │   │       └── rest/
+     │                │   │           └── CompanyController.java
+     │                │   └── shared/
+     │                │       ├── exceptions/
+     │                │       │   └── CompanyNotFoundException.java
+     │                │       └── utils/
+     │                │           └── CompanyValidator.java
+     │                │
+     │                └── shared/                   # Código compartilhado entre diferentes domínios
+     │                    ├── utils/
+     │                    │   └── DateTimeUtil.java
+     │                    ├── events/
+     │                    │   └── DomainEvent.java
+     │                    └── exceptions/
+     │                        └── ApplicationException.java
+     │
+     └── resources/                                 # Arquivos de configuração e recursos
+         ├── application.properties
+         └── logback.xml
+
+ └── test/                                          # Testes organizados pelos domínios
+     ├── java/
+     │    └── com/
+     │        └── mycompany/
+     │            └── domain/
+     │                ├── user/
+     │                │   ├── application/
+     │                │   │   └── usecases/
+     │                │   │       └── CreateUserUseCaseTest.java
+     │                │   ├── domain/
+     │                │   │   └── services/
+     │                │   │       └── UserDomainServiceTest.java
+     │                │   └── infrastructure/
+     │                │       └── repositories/
+     │                │           └── JpaUserRepositoryTest.java
+     │                └── company/
+     │                    ├── application/
+     │                    │   └── usecases/
+     │                    │       └── CreateCompanyUseCaseTest.java
+     │                    └── domain/
+     │                        └── services/
+     │                            └── CompanyDomainServiceTest.java
+     └── resources/
+         └── application-test.properties

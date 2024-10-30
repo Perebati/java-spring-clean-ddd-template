@@ -1,0 +1,14 @@
+package org.gfinnovation.dealsafe.domains.tree.entity.repository.components;
+
+import org.gfinnovation.dealsafe._shared.entity.GenericRepository;
+import org.gfinnovation.dealsafe.domains.tree.entity.RootTreeDynamicEntity;
+
+/**
+ * @author Lucas Batista Pereira
+ * @version DealSafe_alpha_v1
+ * @interface RootTreeDynamicRepository
+ * @authorNote n/a
+ * @since 30/10/2024
+ */
+public interface RootTreeDynamicRepository extends GenericRepository<RootTreeDynamicEntity> {
+}

@@ -1,0 +1,14 @@
+package org.gfinnovation.dealsafe.configuration.exception.models;
+
+/**
+ * @author Lucas Batista Pereira
+ * @version DealSafe_alpha_v1
+ * @class EntityNotFoundException
+ * @authorNote throw it when you method didn't find what it was looking for.
+ * @since 30/10/2024
+ */
+public class EntityNotFoundException extends RuntimeException {
+    public EntityNotFoundException(String message) {
+        super(message);
+    }
+}
