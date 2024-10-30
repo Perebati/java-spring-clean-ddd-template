@@ -35,13 +35,13 @@ class RootTreeBusinessImpl implements RootTreeBusiness {
     @Override
     @Transactional
     public RootTreeStaticEntity create(UUID user_id, UUID company_id, String name, PredefinedTypeEnum static_input) throws RuntimeException {
-        return this.treeRepository.getRootTreeStaticRepository().create(treeFactory.getRootTreeFactory().createRootNode(user_id, company_id, name, static_input));
+        return this.treeRepository.getRootTreeStaticRepository().create(treeFactory.getRootTreeFactory().produce(user_id, company_id, name, static_input));
     }
 
     @Override
     @Transactional
     public RootTreeDynamicEntity create(UUID user_id, UUID company_id, String name, UUID dynamic_input) throws RuntimeException {
-        return this.treeRepository.getRootTreeDynamicRepository().create(treeFactory.getRootTreeFactory().createRootNode(user_id, company_id, name, dynamic_input));
+        return this.treeRepository.getRootTreeDynamicRepository().create(treeFactory.getRootTreeFactory().produce(user_id, company_id, name, dynamic_input));
     }
 
     @Override

@@ -13,5 +13,5 @@ import java.util.UUID;
  */
 
 public interface NodeTreeFactory {
-    NodeTreeEntity createNode(UUID user_id, UUID company_id, String name, Integer sequence);
+    NodeTreeEntity produce(UUID user_id, UUID company_id, String name, Integer sequence);
 }

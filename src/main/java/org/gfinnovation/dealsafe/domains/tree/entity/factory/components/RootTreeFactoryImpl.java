@@ -28,13 +28,13 @@ class RootTreeFactoryImpl extends GenericBusinessFactory implements RootTreeFact
         this.inputBusiness = inputBusiness;
     }
 
-    public RootTreeDynamicEntity createRootNode(UUID user_id, UUID company_id, String name, UUID dynamic_input) {
+    public RootTreeDynamicEntity produce(UUID user_id, UUID company_id, String name, UUID dynamic_input) {
         this.validadeBusiness(user_id, company_id);
         this.inputBusiness.check(dynamic_input);
         return new RootTreeDynamicEntity(user_id, company_id, name, dynamic_input);
     }
 
-    public RootTreeStaticEntity createRootNode(UUID user_id, UUID company_id, String name, PredefinedTypeEnum static_input) {
+    public RootTreeStaticEntity produce(UUID user_id, UUID company_id, String name, PredefinedTypeEnum static_input) {
         this.validadeBusiness(user_id, company_id);
         return new RootTreeStaticEntity(user_id, company_id, name, static_input);
     }

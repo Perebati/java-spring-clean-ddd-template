@@ -1,23 +1,31 @@
 package org.gfinnovation.dealsafe._shared;
 
 import jakarta.transaction.Transactional;
+import org.apache.coyote.BadRequestException;
 import org.gfinnovation.dealsafe._shared.entity.GenericEntity;
 import org.gfinnovation.dealsafe._shared.entity.GenericRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * @author Lucas Batista Pereira
+ * @version DealSafe_alpha_v1
+ * @class GenericRepositoryTest
+ * @authorNote This class should be used to test if an entity is being handled
+ * correctly by the genericRepository.
+ * @since 30/10/2024
+ */
 public abstract class GenericRepositoryTest<
         E extends GenericEntity> {
 
     protected GenericRepository<E> repository;
 
-    protected abstract E createEntity();
+    protected abstract E createEntity() throws BadRequestException;
 
     protected abstract GenericRepository<E> createRepository();
 
@@ -28,7 +36,7 @@ public abstract class GenericRepositoryTest<
 
     @Test
     @Transactional
-    public void testCreate() {
+    public void testCreate() throws Exception {
         E entity = createEntity();
         E createdEntity = repository.create(entity);
 
@@ -38,7 +46,7 @@ public abstract class GenericRepositoryTest<
 
     @Test
     @Transactional
-    public void testRead() {
+    public void testRead() throws Exception {
         E entity = createEntity();
         E createdEntity = repository.create(entity);
         Optional<E> readEntity = repository.read(createdEntity.getId());
@@ -49,7 +57,7 @@ public abstract class GenericRepositoryTest<
 
     @Test
     @Transactional
-    public void testReadDeleted() {
+    public void testReadDeleted() throws Exception {
         E entity = createEntity();
         E createdEntity = repository.create(entity);
         repository.delete(createdEntity.getId());
@@ -61,11 +69,11 @@ public abstract class GenericRepositoryTest<
 
     @Test
     @Transactional
-    public void testUpdate() {
+    public void testUpdate() throws Exception {
         E entity = createEntity();
         E createdEntity = repository.create(entity);
 
-        createdEntity.setUpdatedAt(LocalDateTime.now());
+        createdEntity.setDeleted(false);
         E updatedEntity = repository.update(createdEntity);
 
         assertNotNull(updatedEntity.getId(), "O ID da entidade atualizada não deve ser nulo.");
@@ -74,7 +82,7 @@ public abstract class GenericRepositoryTest<
 
     @Test
     @Transactional
-    public void testUpdateDeleted() {
+    public void testUpdateDeleted() throws Exception {
         E entity = createEntity();
         E createdEntity = repository.create(entity);
         repository.delete(createdEntity.getId());
@@ -85,7 +93,7 @@ public abstract class GenericRepositoryTest<
 
     @Test
     @Transactional
-    public void testDelete() {
+    public void testDelete() throws Exception {
         E entity = createEntity();
         E createdEntity = repository.create(entity);
         repository.delete(createdEntity.getId());
@@ -96,7 +104,7 @@ public abstract class GenericRepositoryTest<
 
     @Test
     @Transactional
-    public void testFindAllAfterDelete() {
+    public void testFindAllAfterDelete() throws Exception {
         E entity = createEntity();
         E createdEntity = repository.create(entity);
 
@@ -108,7 +116,7 @@ public abstract class GenericRepositoryTest<
 
     @Test
     @Transactional
-    public void testFindAll() {
+    public void testFindAll() throws Exception {
         E entity = createEntity();
         repository.create(entity);
 

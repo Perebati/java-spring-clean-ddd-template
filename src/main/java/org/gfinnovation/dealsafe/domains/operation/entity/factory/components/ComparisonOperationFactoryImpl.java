@@ -27,7 +27,6 @@ import java.util.UUID;
  * @authorNote Handles Comparisons creation.
  * @since 30/10/2024
  */
-
 @Component
 public class ComparisonOperationFactoryImpl extends GenericBusinessFactory implements ComparisonOperationFactory {
     private final TreeBusiness treeBusiness;

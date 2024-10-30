@@ -15,7 +15,7 @@ import java.util.UUID;
  */
 
 public interface RootTreeFactory {
-    RootTreeDynamicEntity createRootNode(UUID user_id, UUID company_id, String name, UUID dynamic_input);
+    RootTreeDynamicEntity produce(UUID user_id, UUID company_id, String name, UUID dynamic_input);
 
-    RootTreeStaticEntity createRootNode(UUID user_id, UUID company_id, String name, PredefinedTypeEnum static_input);
+    RootTreeStaticEntity produce(UUID user_id, UUID company_id, String name, PredefinedTypeEnum static_input);
 }

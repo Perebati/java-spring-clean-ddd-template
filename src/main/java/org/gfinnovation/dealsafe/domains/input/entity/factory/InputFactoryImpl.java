@@ -22,7 +22,7 @@ class InputFactoryImpl extends GenericBusinessFactory implements InputFactory {
         super(userBusiness, companyBusiness);
     }
 
-    public InputEntity create(UUID user_id, UUID company_id, String name, String json) {
+    public InputEntity produce(UUID user_id, UUID company_id, String name, String json) {
         this.validadeBusiness(user_id, company_id);
         return new InputEntity(user_id, company_id, name, json);
     }

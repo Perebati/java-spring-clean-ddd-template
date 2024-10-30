@@ -22,7 +22,7 @@ class NodeTreeFactoryImpl extends GenericBusinessFactory implements NodeTreeFact
         super(userBusiness, companyBusiness);
     }
 
-    public NodeTreeEntity createNode(UUID user_id, UUID company_id, String name, Integer sequence) {
+    public NodeTreeEntity produce(UUID user_id, UUID company_id, String name, Integer sequence) {
         this.validadeBusiness(user_id, company_id);
         return new NodeTreeEntity(user_id, company_id, name, sequence);
     }

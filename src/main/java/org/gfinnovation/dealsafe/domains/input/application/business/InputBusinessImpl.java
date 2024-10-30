@@ -31,7 +31,7 @@ class InputBusinessImpl implements InputBusiness {
 
     @Override
     public InputEntity create(UUID user_id, UUID company_id, String name, String json) {
-        return this.inputRepository.create(this.inputFactory.create(user_id, company_id, name, json));
+        return this.inputRepository.create(this.inputFactory.produce(user_id, company_id, name, json));
     }
 
     @Override

@@ -43,7 +43,7 @@ class NodeTreeBusinessImpl implements NodeTreeBusiness {
             if (parent instanceof RootTreeStaticEntity) {
                 RootTreeStaticEntity parent_root = this.rootTreeBusiness.readRootStatic(parent_id).orElseThrow(() ->
                         new EntityNotFoundException("Parent of node not found!"));
-                NodeTreeEntity createdNodeEntity = this.treeRepository.getNodeTreeRepository().create(treeFactory.getNodeTreeFactory().createNode(user_id, company_id, name, sequence));
+                NodeTreeEntity createdNodeEntity = this.treeRepository.getNodeTreeRepository().create(treeFactory.getNodeTreeFactory().produce(user_id, company_id, name, sequence));
                 this.rootTreeBusiness.update(parent_root.addNode(createdNodeEntity));
 
                 return createdNodeEntity;
@@ -51,13 +51,13 @@ class NodeTreeBusinessImpl implements NodeTreeBusiness {
                 RootTreeDynamicEntity parent_root = this.rootTreeBusiness.readRootDynamic(parent_id).orElseThrow(() ->
                         new EntityNotFoundException("Parent of node not found!"));
 
-                NodeTreeEntity createdNodeEntity = this.treeRepository.getNodeTreeRepository().create(treeFactory.getNodeTreeFactory().createNode(user_id, company_id, name, sequence));
+                NodeTreeEntity createdNodeEntity = this.treeRepository.getNodeTreeRepository().create(treeFactory.getNodeTreeFactory().produce(user_id, company_id, name, sequence));
                 this.rootTreeBusiness.update(parent_root.addNode(createdNodeEntity));
 
                 return createdNodeEntity;
             } else {
                 NodeTreeEntity parent_node = this.read(parent_id).orElseThrow();
-                NodeTreeEntity createdNodeEntity = this.treeRepository.getNodeTreeRepository().create(treeFactory.getNodeTreeFactory().createNode(user_id, company_id, name, sequence));
+                NodeTreeEntity createdNodeEntity = this.treeRepository.getNodeTreeRepository().create(treeFactory.getNodeTreeFactory().produce(user_id, company_id, name, sequence));
                 this.update(parent_node.addChild(createdNodeEntity));
 
                 return createdNodeEntity;
