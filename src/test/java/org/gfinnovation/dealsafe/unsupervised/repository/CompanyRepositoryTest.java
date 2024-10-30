@@ -1,12 +1,12 @@
-package org.gfinnovation.dealsafe.repository;
+package org.gfinnovation.dealsafe.unsupervised.repository;
 
 import org.apache.coyote.BadRequestException;
-import org.gfinnovation.dealsafe._shared.GenericRepositoryTest;
 import org.gfinnovation.dealsafe.authentication.company.entity.CompanyEntity;
 import org.gfinnovation.dealsafe.authentication.company.entity.factory.CompanyFactory;
 import org.gfinnovation.dealsafe.authentication.company.entity.repository.CompanyRepository;
 import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
 import org.gfinnovation.dealsafe.authentication.user.entity.UserEntity;
+import org.gfinnovation.dealsafe.unsupervised._shared.GenericRepositoryTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;

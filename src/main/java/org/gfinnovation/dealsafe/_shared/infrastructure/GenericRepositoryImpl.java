@@ -41,6 +41,7 @@ public class GenericRepositoryImpl<E extends GenericEntity, S extends GenericSch
             schema.setCreatedAt(LocalDateTime.now());
             schema.setDeleted(false);
             S savedSchema = jpaRepository.save(schema);
+            logger.info("A new " + entity.getClass().getName() + " were created in the system!");
             return mapper.toEntity(savedSchema);
         } catch (DataAccessException e) {
             logger.error("Failed to save entity: {}", entity, e);
@@ -63,6 +64,7 @@ public class GenericRepositoryImpl<E extends GenericEntity, S extends GenericSch
     @Transactional
     public E update(E entity) {
         try {
+            logger.info("An existing entity of class " + entity.getClass().getName() + " is being updated in the system!");
             return jpaRepository.findById(entity.getId())
                     .filter(existing -> !existing.getDeleted())
                     .map(existing -> {

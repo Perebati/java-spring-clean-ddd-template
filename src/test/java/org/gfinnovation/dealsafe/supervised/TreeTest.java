@@ -1,4 +1,4 @@
-package org.gfinnovation.dealsafe.domains.tree.infrastructure.inbound;
+package org.gfinnovation.dealsafe.supervised;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -10,7 +10,6 @@ import org.gfinnovation.dealsafe.authentication.company.entity.CompanyEntity;
 import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
 import org.gfinnovation.dealsafe.authentication.user.entity.UserEntity;
 import org.gfinnovation.dealsafe.domains.input.entity.InputEntity;
-import org.gfinnovation.dealsafe.domains.input.infrastructure.inbound.InputController;
 import org.gfinnovation.dealsafe.domains.operation.application.business.interfaces.OperationBusiness;
 import org.gfinnovation.dealsafe.domains.operation.entity.ComparisonOperationEntity;
 import org.gfinnovation.dealsafe.domains.operation.entity.comparison.ComparisonTypeEnum;
@@ -31,20 +30,19 @@ import java.util.UUID;
 /**
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
- * @class TestNodeTreeController
+ * @class TreeTest
  * @authorNote n/a
  * @since 30/10/2024
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("teste/root")
-public class TestNodeTreeController {
+@RequestMapping("teste/tree")
+public class TreeTest {
     private final TreeBusiness treeBusiness;
     private final UserBusiness userBusiness;
     private final CompanyBusiness companyBusiness;
     private final OperationBusiness operationBusiness;
-
-    private final InputController inputController;
+    private final InputTest inputController;
 
 
     @PostMapping("/tree2")

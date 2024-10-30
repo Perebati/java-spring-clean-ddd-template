@@ -7,8 +7,6 @@ import org.gfinnovation.dealsafe.authentication.company.business.interfaces.Comp
 import org.gfinnovation.dealsafe.authentication.company.entity.CompanyEntity;
 import org.gfinnovation.dealsafe.authentication.company.entity.factory.CompanyFactory;
 import org.gfinnovation.dealsafe.authentication.company.entity.repository.CompanyRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,7 +19,7 @@ import java.util.UUID;
  * @version DealSafe_alpha_v1
  * @class CompanyBusinessImpl
  * @authorNote The way authentication works in DealSafe will change in the future,
- * so don't even bother trying to understand this
+ * so don't even bother trying to understand this.
  * @since 30/10/2024
  */
 
@@ -30,8 +28,6 @@ import java.util.UUID;
 class CompanyBusinessImpl implements CompanyBusiness {
     private final CompanyRepository companyRepository;
     private final CompanyFactory companyFactory;
-    Logger logger = LoggerFactory.getLogger(CompanyBusinessImpl.class);
-
     @Transactional
     @Override
     public CompanyEntity create(String name, Set<UUID> users_id) throws BadRequestException {
