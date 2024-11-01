@@ -36,10 +36,10 @@ public enum PredefinedTypeEnum {
     /**
      * Verifies if the jsonPath is mapped inside the predefined class.
      *
-     * @author Lucas Batista Pereira
      * @param predefinedTypeEnum Enum that pre-maps predefined input types.
      * @param jsonPath           Path to a variable.
      * @throws NoSuchFieldException Thrown when a path doesn't match the input.
+     * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
     public void validateJsonPath(PredefinedTypeEnum predefinedTypeEnum, String jsonPath) throws NoSuchFieldException {

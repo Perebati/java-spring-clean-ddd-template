@@ -33,14 +33,14 @@ public class Engine {
      * This is an early version of that validates a json based on a tree previously created.
      * Still in beta, it will change in the future.
      *
-     * @author Lucas Batista Pereira
-     * @param root Validation tree.
+     * @param root             Validation tree.
      * @param objectToValidate Json to validate.
      * @return boolean
-     * @throws NoSuchMethodException Thrown when the type in the validation tree doesn't correlate to exists types defined in this system.
+     * @throws NoSuchMethodException     Thrown when the type in the validation tree doesn't correlate to exists types defined in this system.
      * @throws InvocationTargetException Thrown when a null pointer returns of a json reading.
-     * @throws IllegalAccessException Thrown when an internal Java error occurs.
-     * @throws InstantiationException Thrown when is not possible to get a class via a name of type String.
+     * @throws IllegalAccessException    Thrown when an internal Java error occurs.
+     * @throws InstantiationException    Thrown when is not possible to get a class via a name of type String.
+     * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
     public static boolean bfsValidation(JsonNode root, JsonNode objectToValidate) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException {

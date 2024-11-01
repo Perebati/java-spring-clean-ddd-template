@@ -16,10 +16,10 @@ public class ComparisonOperation {
      * Performs a comparison, this is a generic class, so the comparison is
      * done inside the class that inherits this.
      *
-     * @author Lucas Batista Pereira
      * @param a Comparison parameter.
      * @param b Compared parameter.
      * @return Boolean
+     * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
     public Boolean doOperation(String a, String b) {
@@ -29,9 +29,9 @@ public class ComparisonOperation {
     /**
      * Checks if a value is either an Int, Float or Double.
      *
-     * @author Lucas Batista Pereira
      * @param value Parsed value.
      * @return Number
+     * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
     public Number parseNumericValue(String value) {

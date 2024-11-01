@@ -41,14 +41,14 @@ class NodeTreeBusinessImpl implements NodeTreeBusiness {
      * Every Node needs a parent, in this case the parent can be either an RootNode or a common Node.
      * ParentId can either belong to a Root or a Node, this method supports both.
      *
-     * @author Lucas Batista Pereira
-     * @param user_id UserId.
+     * @param user_id    UserId.
      * @param company_id CompanyId.
-     * @param name Name of the new node.
-     * @param sequence Position/Priority of node execution.
-     * @param parent_id ParentId, tha can be either an id from a RootNode or another Node.
+     * @param name       Name of the new node.
+     * @param sequence   Position/Priority of node execution.
+     * @param parent_id  ParentId, tha can be either an id from a RootNode or another Node.
      * @return NodeTreeEntity
      * @throws RuntimeException Generic error, TODO: need refactor
+     * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
     @Override

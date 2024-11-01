@@ -37,13 +37,13 @@ public class ActionOperationBusinessImpl implements ActionOperationBusiness {
     /**
      * Creates an action linked to a comparison operation.
      *
-     * @author Lucas Batista Pereira
      * @param user_id      Userid.
      * @param company_id   CompanyId.
      * @param url          Target message url.
      * @param message      Message given.
      * @param operation_id Parent operation.
      * @return ActionOperationEntity
+     * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
     public ActionOperationEntity create(UUID user_id, UUID company_id, String url, String message, UUID operation_id) {

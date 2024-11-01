@@ -47,9 +47,9 @@ class TreeRepositoryImpl implements TreeRepository {
      * The goal of this method is to find the root node
      * that originate the tree where the given node(id) exists.
      *
-     * @author Lucas Batista Pereira
      * @param node_id NodeId.
      * @return Optional of UUID
+     * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
     @Override

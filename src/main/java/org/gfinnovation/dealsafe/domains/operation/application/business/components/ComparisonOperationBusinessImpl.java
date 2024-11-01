@@ -36,7 +36,6 @@ public class ComparisonOperationBusinessImpl implements ComparisonOperationBusin
     /**
      * Creates a comparison operation.
      *
-     * @author Lucas Batista Pereira
      * @param user_id    UserId.
      * @param company_id CompanyId.
      * @param type       Type of comparison.
@@ -45,6 +44,7 @@ public class ComparisonOperationBusinessImpl implements ComparisonOperationBusin
      * @param node_id    Parent node.
      * @return ComparisonOperationEntity
      * @throws BadRequestException When wrong input from user.
+     * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
     @Override
