@@ -10,10 +10,11 @@ import org.springframework.stereotype.Component;
 import java.util.UUID;
 
 /**
+ * Standard entity factory.
+ *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class InputFactoryImpl
- * @authorNote Standard entity factory.
  * @since 30/10/2024
  */
 @Component

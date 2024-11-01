@@ -12,10 +12,11 @@ import java.util.Set;
 import java.util.UUID;
 
 /**
+ * It sets off what type of tree will be build using nodes.
+ *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class RootTreeEntity
- * @authorNote It sets off what type of tree will be build using nodes.
  * @since 30/10/2024
  */
 @Getter

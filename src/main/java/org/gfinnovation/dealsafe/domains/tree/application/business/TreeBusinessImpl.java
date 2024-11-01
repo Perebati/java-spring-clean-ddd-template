@@ -8,10 +8,11 @@ import org.gfinnovation.dealsafe.domains.tree.application.business.interfaces.Tr
 import org.springframework.stereotype.Service;
 
 /**
+ * Main Business implementation of this domain.
+ *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class TreeBusinessImpl
- * @authorNote Main Business implementation of this domain.
  * @since 30/10/2024
  */
 @Getter

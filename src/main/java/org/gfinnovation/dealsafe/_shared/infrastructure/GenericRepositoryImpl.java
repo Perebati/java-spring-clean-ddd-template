@@ -18,12 +18,13 @@ import java.util.Set;
 import java.util.UUID;
 
 /**
+ * To avoid the need to implement a CRUD operation on every single
+ * repository in this system, each repository implementation should extend
+ * from this class.
+ *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class GenericRepositoryImpl
- * @authorNote To avoid the need to implement a CRUD operation on every single
- * repository in this system, each repository implementation should extend
- * from this class.
  * @since 30/10/2024
  */
 @RequiredArgsConstructor
@@ -33,6 +34,17 @@ public class GenericRepositoryImpl<E extends GenericEntity, S extends GenericSch
     private static final Logger logger = LoggerFactory.getLogger(GenericRepositoryImpl.class);
     private final GenericMapper<E, S> mapper;
     private final SimpleJpaRepository<S, UUID> jpaRepository;
+
+
+    /**
+     * Handles entity mapping and creation.
+     *
+     * @param entity Generic entity.
+     * @return Entity.
+     * @throws RepositoryException Thrown when that an error on the database level occurs.
+     * @author Lucas Batista Pereira
+     * @since 30/10/2024
+     */
 
     @Transactional
     public E create(E entity) {
@@ -49,6 +61,15 @@ public class GenericRepositoryImpl<E extends GenericEntity, S extends GenericSch
         }
     }
 
+    /**
+     * Handles entity mapping and reading via id.
+     *
+     * @param id Generic entityId.
+     * @return Optional Entity.
+     * @throws RepositoryException Thrown when that an error on the database level occurs.
+     * @author Lucas Batista Pereira
+     * @since 30/10/2024
+     */
     @Transactional
     public Optional<E> read(UUID id) {
         try {
@@ -61,6 +82,16 @@ public class GenericRepositoryImpl<E extends GenericEntity, S extends GenericSch
         }
     }
 
+    /**
+     * Handles entity mapping and updating.
+     *
+     * @param entity Generic entity.
+     * @return Entity.
+     * @throws EntityNotFoundException Thrown when an entity doesn't existis in db.
+     * @throws RepositoryException     Thrown when that an error on the database level occurs.
+     * @author Lucas Batista Pereira
+     * @since 30/10/2024
+     */
     @Transactional
     public E update(E entity) {
         try {
@@ -79,10 +110,19 @@ public class GenericRepositoryImpl<E extends GenericEntity, S extends GenericSch
                     .orElseThrow(() -> new EntityNotFoundException("Entity not found or deleted"));
         } catch (DataAccessException e) {
             logger.error("Failed to update entity: {}", entity, e);
-            throw new org.gfinnovation.dealsafe.configuration.exception.models.RepositoryException("Failed to update entity", e);
+            throw new RepositoryException("Failed to update entity", e);
         }
     }
 
+    /**
+     * Handles entity deletion via id.
+     *
+     * @param id Generic entityId.
+     * @throws EntityNotFoundException Thrown when an entity doesn't existis in db.
+     * @throws RepositoryException     Thrown when that an error on the database level occurs.
+     * @author Lucas Batista Pereira
+     * @since 30/10/2024
+     */
     @Transactional
     public void delete(UUID id) {
         try {
@@ -94,10 +134,18 @@ public class GenericRepositoryImpl<E extends GenericEntity, S extends GenericSch
             jpaRepository.save(schema);
         } catch (DataAccessException e) {
             logger.error("Failed to delete entity with id: {}", id, e);
-            throw new org.gfinnovation.dealsafe.configuration.exception.models.RepositoryException("Failed to delete entity", e);
+            throw new RepositoryException("Failed to delete entity", e);
         }
     }
 
+    /**
+     * Handles entity reading and mapping of all entities given its type.
+     *
+     * @return Optional List of Entities.
+     * @throws RepositoryException Thrown when that an error on the database level occurs.
+     * @author Lucas Batista Pereira
+     * @since 30/10/2024
+     */
     @Transactional
     public Optional<List<E>> findAll() {
         try {
@@ -108,10 +156,18 @@ public class GenericRepositoryImpl<E extends GenericEntity, S extends GenericSch
             return entities.isEmpty() ? Optional.empty() : Optional.of(entities);
         } catch (DataAccessException e) {
             logger.error("Failed to find all entities", e);
-            throw new org.gfinnovation.dealsafe.configuration.exception.models.RepositoryException("Failed to find all entities", e);
+            throw new RepositoryException("Failed to find all entities", e);
         }
     }
 
+    /**
+     * Handles entity reading and mapping of all entities given its ids.
+     *
+     * @return Optional List of Entities.
+     * @throws RepositoryException Thrown when that an error on the database level occurs.
+     * @author Lucas Batista Pereira
+     * @since 30/10/2024
+     */
     @Transactional
     public Optional<List<E>> findAllByIds(List<UUID> ids) {
         try {
@@ -122,10 +178,17 @@ public class GenericRepositoryImpl<E extends GenericEntity, S extends GenericSch
             return entities.isEmpty() ? Optional.empty() : Optional.of(entities);
         } catch (DataAccessException e) {
             logger.error("Failed to find entities by IDs: {}", ids, e);
-            throw new org.gfinnovation.dealsafe.configuration.exception.models.RepositoryException("Failed to find entities by IDs", e);
+            throw new RepositoryException("Failed to find entities by IDs", e);
         }
     }
 
+    /**
+     * Handles entity checking via id.
+     *
+     * @throws EntityNotFoundException Thrown when an entity doesn't existis in db.
+     * @author Lucas Batista Pereira
+     * @since 30/10/2024
+     */
     @Transactional
     public void check(UUID id) {
         if (read(id).isEmpty()) {
@@ -133,6 +196,13 @@ public class GenericRepositoryImpl<E extends GenericEntity, S extends GenericSch
         }
     }
 
+    /**
+     * Handles entity checking via a set of ids.
+     *
+     * @throws EntityNotFoundException Thrown when an entity doesn't existis in db.
+     * @author Lucas Batista Pereira
+     * @since 30/10/2024
+     */
     @Transactional
     public void checkAll(Set<UUID> ids) {
         ids.forEach(this::check);

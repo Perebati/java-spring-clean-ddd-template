@@ -20,12 +20,13 @@ import java.util.Set;
 import java.util.UUID;
 
 /**
+ * Handles business operations of Nodes in the validation tree.
+ * Every node has a parent, that being either a Root or another Node.
+ * Each node can have linked operations.
+ *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class NodeTreeBusinessImpl
- * @authorNote Handles the creation of Nodes in the validation tree.
- * Every node has a parent, that being either a Root or another Node.
- * Each node can have linked operations.
  * @since 30/10/2024
  */
 @Component
@@ -35,6 +36,21 @@ class NodeTreeBusinessImpl implements NodeTreeBusiness {
     private final TreeFactory treeFactory;
     private final RootTreeBusiness rootTreeBusiness;
 
+    /**
+     * Handles the creation of a Node.
+     * Every Node needs a parent, in this case the parent can be either an RootNode or a common Node.
+     * ParentId can either belong to a Root or a Node, this method supports both.
+     *
+     * @author Lucas Batista Pereira
+     * @param user_id UserId.
+     * @param company_id CompanyId.
+     * @param name Name of the new node.
+     * @param sequence Position/Priority of node execution.
+     * @param parent_id ParentId, tha can be either an id from a RootNode or another Node.
+     * @return NodeTreeEntity
+     * @throws RuntimeException Generic error, TODO: need refactor
+     * @since 30/10/2024
+     */
     @Override
     @Transactional
     public NodeTreeEntity create(UUID user_id, UUID company_id, String name, Integer sequence, UUID parent_id) throws RuntimeException {

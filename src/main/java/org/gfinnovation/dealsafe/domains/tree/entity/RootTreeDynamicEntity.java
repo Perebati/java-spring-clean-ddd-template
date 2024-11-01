@@ -9,10 +9,11 @@ import org.gfinnovation.dealsafe.utils.annotations.Default;
 import java.util.UUID;
 
 /**
+ * Maps Root attributes if the input of the validation tree is dynamic.
+ *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class RootTreeDynamicEntity
- * @authorNote Maps Root attributes if the input of the validation tree is dynamic.
  * @since 30/10/2024
  */
 @Getter

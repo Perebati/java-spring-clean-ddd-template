@@ -17,13 +17,14 @@ import java.util.Set;
 import java.util.UUID;
 
 /**
+ *  Handles business operations of RootNode.
+ *  A root is strongly linked to the input type, that can be
+ *  either a predefined input or a dynamic one. Depending on the chosen input
+ *  type, it will be crated a RootStatic (for predefined input) or a RootDynamic (for dynamic input).
+ *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class RootTreeBusinessImpl
- * @authorNote Handles the creation o the root node.
- * A root is strongly linked to the input type, that can be
- * either a predefined input or a dynamic one. Depending on the chosen input
- * type, it will be crated a RootStatic (for predefined input) or a RootDynamic (for dynamic input).
  * @since 30/10/2024
  */
 @Component

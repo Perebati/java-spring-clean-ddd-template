@@ -13,10 +13,11 @@ import org.springframework.stereotype.Component;
 import java.util.UUID;
 
 /**
+ * Handles the creation and validation of Root nodes.
+ *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class TreeRootFactoryImpl
- * @authorNote Handles the creation and validation of Root nodes.
  * @since 30/10/2024
  */
 @Component

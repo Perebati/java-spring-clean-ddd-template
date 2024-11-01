@@ -11,7 +11,6 @@ import java.util.Set;
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class RootTreeSchema
- * @authorNote Check RootTreeEntity for details.
  * @since 30/10/2024
  */
 @Data

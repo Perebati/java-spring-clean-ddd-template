@@ -10,10 +10,11 @@ import org.gfinnovation.dealsafe.utils.annotations.Default;
 import java.util.UUID;
 
 /**
+ * Maps Root attributes if the input of the validation tree is predefined.
+ *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class RootTreeStaticEntity
- * @authorNote Maps Root attributes if the input of the validation tree is predefined.
  * @since 30/10/2024
  */
 @Getter

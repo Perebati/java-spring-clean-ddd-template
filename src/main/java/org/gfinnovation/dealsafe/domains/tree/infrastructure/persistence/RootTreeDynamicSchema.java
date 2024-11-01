@@ -10,7 +10,6 @@ import java.util.UUID;
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class RootTreeDynamicSchema
- * @authorNote Check RootTreeDynamicEntity for details.
  * @since 30/10/2024
  */
 @Data

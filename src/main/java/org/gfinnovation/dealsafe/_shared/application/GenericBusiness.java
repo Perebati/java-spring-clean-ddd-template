@@ -8,11 +8,12 @@ import java.util.Set;
 import java.util.UUID;
 
 /**
+ * Every single business class in this system should extend from this.
+ * It sets a pattern for the whole system, witch is easy to follow.
+ *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @interface GenericBusinessInterface
- * @authorNote Every single business class in this system should extend from this.
- * It sets a pattern for the whole system, witch is easy to follow.
  * @since 30/10/2024
  */
 public interface GenericBusiness<E extends GenericEntity> {

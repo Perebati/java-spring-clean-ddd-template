@@ -11,13 +11,14 @@ import java.io.IOException;
 import java.util.Date;
 
 /**
- * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
- * @class RequestLoggingFilter
- * @authorNote Every single requisition in this system is registered, this class does that.
+ * Every single requisition in this system is registered, this class does that.
  * This class also should throw an exception if 'user_id' and 'company_id' are not present,
  * but because this is a beta and proper authentication is not yet implemented, this class
  * is shallow.
+ *
+ * @author Lucas Batista Pereira
+ * @version DealSafe_alpha_v1
+ * @class RequestLoggingFilter
  * @since 30/10/2024
  */
 @Component

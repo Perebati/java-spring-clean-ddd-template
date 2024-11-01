@@ -19,7 +19,6 @@ import java.util.Set;
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class InputRepositoryTest
- * @authorNote n/a
  * @since 30/10/2024
  */
 @SpringBootTest

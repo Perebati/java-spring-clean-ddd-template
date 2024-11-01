@@ -4,12 +4,13 @@ import org.gfinnovation.dealsafe.domains.operation.entity.comparison.logic.Compa
 import org.gfinnovation.dealsafe.domains.operation.entity.comparison.types.*;
 
 /**
+ * This enum maps all possible comparisons in this system,
+ * The logic behind operations are scripted inside the referenced class
+ * in each enum.
+ *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @enum ComparisonTypeEnum
- * @authorNote This enum maps all possible comparisons in this system,
- * The logic behind operations are scripted inside the referenced class
- * in each enum.
  * @since 30/10/2024
  */
 public enum ComparisonTypeEnum {

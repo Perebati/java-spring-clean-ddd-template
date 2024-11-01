@@ -7,11 +7,12 @@ import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBus
 import java.util.UUID;
 
 /**
+ * Every single factory that is not linked to authentication entities should extend
+ * from this.
+ *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class GenericBusinessFactory
- * @authorNote Every single factory that is not linked to authentication entities should extend
- * from this.
  * @since 30/10/2024
  */
 @RequiredArgsConstructor

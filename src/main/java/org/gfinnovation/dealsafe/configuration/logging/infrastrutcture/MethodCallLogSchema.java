@@ -6,11 +6,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Date;
 
 /**
+ * If a method throws an exception, it gets saved
+ * in MongoDb. This class maps the error.
+ *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class MethodCallLogSchema
- * @authorNote If a method throws an exception, it gets saved
- * in MongoDb. This class maps the error.
  * @since 30/10/2024
  */
 @Data

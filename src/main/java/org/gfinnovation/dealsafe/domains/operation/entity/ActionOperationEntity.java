@@ -9,11 +9,12 @@ import org.gfinnovation.dealsafe._shared.entity.GenericBusinessEntity;
 import java.util.UUID;
 
 /**
+ * An action will 'do' something when it's called.
+ * This one only sends a message to a URL.
+ *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class ActionOperationEntity
- * @authorNote An action will 'do' something when it's called.
- * This one only sends a message to a URL.
  * @since 30/10/2024
  */
 @EqualsAndHashCode(callSuper = true)

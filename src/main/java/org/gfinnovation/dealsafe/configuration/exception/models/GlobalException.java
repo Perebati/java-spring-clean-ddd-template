@@ -5,10 +5,11 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
+ * It should be used to save an error on the db.
+ *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class GlobalException
- * @authorNote It should be used to save an error on the db.
  * @since 30/10/2024
  */
 @EqualsAndHashCode(callSuper = true)

@@ -8,10 +8,11 @@ import jakarta.persistence.Converter;
 import java.util.HashMap;
 
 /**
+ * Useful for converting Map to string and vice versa.
+ *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class HashMapConverter
- * @authorNote Useful for converting Map to string and vice versa.
  * @since 30/10/2024
  */
 @Converter

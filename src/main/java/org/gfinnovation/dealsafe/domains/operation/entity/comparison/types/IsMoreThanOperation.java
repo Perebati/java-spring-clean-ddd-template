@@ -6,7 +6,6 @@ import org.gfinnovation.dealsafe.domains.operation.entity.comparison.logic.Compa
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class IsMoreThanOperation
- * @authorNote n/a
  * @since 30/10/2024
  */
 public class IsMoreThanOperation extends ComparisonOperation {

@@ -8,10 +8,11 @@ import org.gfinnovation.dealsafe.domains.operation.entity.repository.components.
 import org.springframework.stereotype.Repository;
 
 /**
+ * The main repository impl in this domain.
+ *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class OperationRepositoryImpl
- * @authorNote The main repository impl in this domain.
  * @since 30/10/2024
  */
 

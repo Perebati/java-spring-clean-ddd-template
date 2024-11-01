@@ -19,11 +19,12 @@ import java.util.Date;
 import java.util.stream.Collectors;
 
 /**
+ * Every single thrown exception pass through here.
+ * The error is saved on db and then filtered for the client.
+ *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class GlobalExceptionHandler
- * @authorNote Every single thrown exception pass through here.
- * The error is saved on db and then filtered for the client.
  * @since 30/10/2024
  */
 @RequiredArgsConstructor

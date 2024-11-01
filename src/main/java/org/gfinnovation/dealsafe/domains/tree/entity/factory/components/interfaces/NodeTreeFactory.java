@@ -8,7 +8,6 @@ import java.util.UUID;
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @interface NodeFactory
- * @authorNote n/a
  * @since 30/10/2024
  */
 

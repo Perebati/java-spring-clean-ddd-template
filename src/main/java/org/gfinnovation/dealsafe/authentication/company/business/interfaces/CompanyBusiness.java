@@ -11,7 +11,6 @@ import java.util.UUID;
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @interface CompanyBusiness
- * @authorNote n/a
  * @since 30/10/2024
  */
 public interface CompanyBusiness extends GenericBusiness<CompanyEntity> {

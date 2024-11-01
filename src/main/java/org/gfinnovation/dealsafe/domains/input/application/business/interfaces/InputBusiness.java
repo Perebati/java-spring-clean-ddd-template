@@ -9,7 +9,6 @@ import java.util.UUID;
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class InputBusiness
- * @authorNote n/a
  * @since 30/10/2024
  */
 public interface InputBusiness extends GenericBusiness<InputEntity> {

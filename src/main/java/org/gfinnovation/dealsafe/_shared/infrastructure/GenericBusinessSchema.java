@@ -7,10 +7,11 @@ import lombok.NoArgsConstructor;
 import java.util.UUID;
 
 /**
+ * JPA class used for saving business information on business classes.
+ *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class GenericBusinessSchema
- * @authorNote JPA class used for saving business information on business classes.
  * @since 30/10/2024
  */
 @EqualsAndHashCode(callSuper = true)

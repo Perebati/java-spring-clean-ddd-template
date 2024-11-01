@@ -12,7 +12,6 @@ import org.gfinnovation.dealsafe._shared.infrastructure.GenericSchema;
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class UserSchema
- * @authorNote n/a
  * @since 30/10/2024
  */
 @Data

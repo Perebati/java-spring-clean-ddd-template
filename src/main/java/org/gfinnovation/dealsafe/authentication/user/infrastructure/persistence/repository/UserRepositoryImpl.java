@@ -13,7 +13,6 @@ import org.springframework.stereotype.Repository;
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class UserRepositoryImpl
- * @authorNote n/a
  * @since 30/10/2024
  */
 @Repository

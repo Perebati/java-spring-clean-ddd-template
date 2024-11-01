@@ -13,7 +13,6 @@ import java.util.UUID;
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class NodeTreeSchema
- * @authorNote Check NodeTreeEntity for details.
  * @since 30/10/2024
  */
 @Data

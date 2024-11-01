@@ -6,11 +6,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Date;
 
 /**
+ * Every single requisition is saved in this system.
+ * This class maps what it gets saved.
+ *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class RequestLogSchema
- * @authorNote Every single requisition is saved in this system.
- * This class maps what it gets saved.
  * @since 30/10/2024
  */
 @Data

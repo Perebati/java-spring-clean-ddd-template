@@ -6,11 +6,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Date;
 
 /**
+ * Every exception thrown is this system is saved asynchronously
+ * in MongoDb. This class represents a saved error.
+ *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class ErrorLogSchema
- * @authorNote Every exception thrown is this system is saved asynchronously
- * in MongoDb. This class represents a saved error.
  * @since 30/10/2024
  */
 @Data

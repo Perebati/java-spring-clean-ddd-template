@@ -10,10 +10,11 @@ import org.gfinnovation.dealsafe.domains.tree.entity.factory.interfaces.TreeFact
 import org.springframework.stereotype.Component;
 
 /**
+ * Main factory implementation.
+ *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class TreeFactoryImpl
- * @authorNote Main factory implementation.
  * @since 30/10/2024
  */
 @Getter

@@ -9,10 +9,11 @@ import java.util.Optional;
 import java.util.UUID;
 
 /**
+ * Main repository interface of this domain.
+ *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @interface TreeRepository
- * @authorNote Main repository interface of this domain.
  * @since 30/10/2024
  */
 public interface TreeRepository {

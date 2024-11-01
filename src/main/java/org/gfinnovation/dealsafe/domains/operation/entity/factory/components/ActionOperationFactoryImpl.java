@@ -10,10 +10,11 @@ import org.springframework.stereotype.Component;
 import java.util.UUID;
 
 /**
+ * Handles Action creation.
+ *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class ActionOperationFactoryImpl
- * @authorNote Handles Action creation.
  * @since 30/10/2024
  */
 

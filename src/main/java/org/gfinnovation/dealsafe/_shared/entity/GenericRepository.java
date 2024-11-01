@@ -8,12 +8,13 @@ import java.util.Set;
 import java.util.UUID;
 
 /**
+ * Every repository in this system should use this Generic interface
+ * for handling data in the database. This one is used for entities that
+ * gets saved on a relational database, that being Postgres.
+ *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @interface GenericRepository
- * @authorNote Every repository in this system should use this Generic interface
- * for handling data in the database. This one is used for entities that
- * gets saved on a relational database, that being Postgres.
  * @since 30/10/2024
  */
 @Repository

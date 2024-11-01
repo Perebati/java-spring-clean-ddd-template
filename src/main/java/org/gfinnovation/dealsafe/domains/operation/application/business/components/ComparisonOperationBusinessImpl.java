@@ -18,13 +18,13 @@ import java.util.Set;
 import java.util.UUID;
 
 /**
+ * Handles comparisons operations.
+ *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class ComparisonOperationBusinessImpl
- * @authorNote Handles comparisons operations.
  * @since 30/10/2024
  */
-
 @Component
 @RequiredArgsConstructor
 public class ComparisonOperationBusinessImpl implements ComparisonOperationBusiness {
@@ -32,6 +32,21 @@ public class ComparisonOperationBusinessImpl implements ComparisonOperationBusin
     private final OperationRepository operationRepository;
     private final OperationFactory operationFactory;
 
+
+    /**
+     * Creates a comparison operation.
+     *
+     * @author Lucas Batista Pereira
+     * @param user_id    UserId.
+     * @param company_id CompanyId.
+     * @param type       Type of comparison.
+     * @param jsonPath   Path to the compared variable.
+     * @param variable   Variable to compare.
+     * @param node_id    Parent node.
+     * @return ComparisonOperationEntity
+     * @throws BadRequestException When wrong input from user.
+     * @since 30/10/2024
+     */
     @Override
     public ComparisonOperationEntity create(UUID user_id, UUID company_id, ComparisonTypeEnum type, String jsonPath, String variable, UUID node_id) throws BadRequestException {
         NodeTreeEntity parent = this.treeBusiness.getNodeTreeBusiness().read(node_id).orElseThrow(() -> new EntityNotFoundException("Parent not found!"));

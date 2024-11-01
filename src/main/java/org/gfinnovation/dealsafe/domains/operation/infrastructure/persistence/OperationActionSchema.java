@@ -8,10 +8,11 @@ import lombok.EqualsAndHashCode;
 import org.gfinnovation.dealsafe._shared.infrastructure.GenericBusinessSchema;
 
 /**
+ * This class will soon be replaced in later versions of dealsafe.
+ *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class OperationActionSchema
- * @authorNote This class will soon be replaced in later versions of dealsafe.
  * @since 30/10/2024
  */
 @Data

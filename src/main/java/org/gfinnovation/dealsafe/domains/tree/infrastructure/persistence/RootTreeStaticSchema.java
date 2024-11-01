@@ -9,7 +9,6 @@ import org.gfinnovation.dealsafe.domains.input.entity.predefined.PredefinedTypeE
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class RootTreeStaticSchema
- * @authorNote Check RootTreeStaticEntity for details.
  * @since 30/10/2024
  */
 @Data

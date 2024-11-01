@@ -13,10 +13,11 @@ import java.util.Set;
 import java.util.UUID;
 
 /**
+ * An comparison compares variables (:
+ *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class ComparisonOperationEntity
- * @authorNote An comparison compares variables (:
  * @since 30/10/2024
  */
 @EqualsAndHashCode(callSuper = true)

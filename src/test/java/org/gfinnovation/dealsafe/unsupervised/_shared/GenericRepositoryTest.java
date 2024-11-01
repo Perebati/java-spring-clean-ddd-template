@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class GenericRepositoryTest
- * @authorNote This class should be used to test if an entity is being handled
+ * This class should be used to test if an entity is being handled
  * correctly by the genericRepository.
  * @since 30/10/2024
  */

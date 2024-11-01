@@ -7,7 +7,7 @@ import org.gfinnovation.dealsafe._shared.infrastructure.GenericSchema;
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class GenericBusiness
- * @authorNote Deprecated. It still exists only because the idea behind this is ingenious.
+ * Deprecated. It still exists only because the idea behind this is ingenious.
  * @since 30/10/2024
  */
 @Deprecated

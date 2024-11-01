@@ -19,12 +19,13 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
+ * This class stores the structure of a dynamic input.
+ * It also has methods that can validade an operation by
+ * checking if the comparison field existis in the dynamic input.
+ *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class InputEntity
- * @authorNote This class stores the structure of a dynamic input.
- * It also has methods that can validade an operation by
- * checking if the comparison field existis in the dynamic input.
  * @since 30/10/2024
  */
 @EqualsAndHashCode(callSuper = true)

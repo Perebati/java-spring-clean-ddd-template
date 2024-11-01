@@ -10,10 +10,11 @@ import org.springframework.stereotype.Component;
 import java.util.UUID;
 
 /**
+ * Handles the creation and validation of Nodes.
+ *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class NodeFactoryImpl
- * @authorNote Handles the creation and validation of Nodes.
  * @since 30/10/2024
  */
 @Component

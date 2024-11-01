@@ -7,7 +7,6 @@ import org.gfinnovation.dealsafe.domains.operation.entity.factory.components.int
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @interface OperationFactory
- * @authorNote n/a
  * @since 30/10/2024
  */
 public interface OperationFactory {

@@ -7,7 +7,6 @@ import org.gfinnovation.dealsafe.authentication.user.entity.UserEntity;
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @interface UserBusiness
- * @authorNote n/a
  * @since 30/10/2024
  */
 public interface UserBusiness extends GenericBusiness<UserEntity> {

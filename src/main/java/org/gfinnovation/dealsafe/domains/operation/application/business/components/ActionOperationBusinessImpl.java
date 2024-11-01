@@ -18,10 +18,11 @@ import java.util.Set;
 import java.util.UUID;
 
 /**
+ * Handles action operations.
+ *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class ActionOperationImpl
- * @authorNote Handles action operations.
  * @since 30/10/2024
  */
 @Component
@@ -33,6 +34,18 @@ public class ActionOperationBusinessImpl implements ActionOperationBusiness {
     private final ComparisonOperationBusiness comparisonOperationBusiness;
     private final OperationRepository operationRepository;
 
+    /**
+     * Creates an action linked to a comparison operation.
+     *
+     * @author Lucas Batista Pereira
+     * @param user_id      Userid.
+     * @param company_id   CompanyId.
+     * @param url          Target message url.
+     * @param message      Message given.
+     * @param operation_id Parent operation.
+     * @return ActionOperationEntity
+     * @since 30/10/2024
+     */
     public ActionOperationEntity create(UUID user_id, UUID company_id, String url, String message, UUID operation_id) {
         this.userBusiness.check(user_id);
         this.companyBusiness.check(company_id);

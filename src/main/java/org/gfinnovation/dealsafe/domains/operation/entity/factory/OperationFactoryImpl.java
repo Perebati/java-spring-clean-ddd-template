@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class OperationFactoryImpl
- * @authorNote Handles the creation of operations.
+ * Handles the creation of operations.
  * @since 30/10/2024
  */
 @Component

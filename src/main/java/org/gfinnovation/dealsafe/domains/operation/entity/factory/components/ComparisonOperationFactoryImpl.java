@@ -21,10 +21,11 @@ import java.util.Set;
 import java.util.UUID;
 
 /**
+ * Handles Comparisons creation.
+ *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class ComparisonOperationFactory
- * @authorNote Handles Comparisons creation.
  * @since 30/10/2024
  */
 @Component
@@ -38,9 +39,31 @@ public class ComparisonOperationFactoryImpl extends GenericBusinessFactory imple
         this.inputBusiness = inputBusiness;
     }
 
+    /**
+     * This method creates an operation,
+     * however before creating it checks the node in order to find the root node,
+     * then through the root it checks if the jsonPath existis inside the input variable.
+     * After all this validation, the ComparisonOperation is created.
+     *
+     * @param user_id    UserId.
+     * @param company_id CompanyId.
+     * @param type       Comparison type.
+     * @param jsonPath   JsonPath to compared variable.
+     * @param variable   Variable value.
+     * @param node_id    Node parentId.
+     * @return ComparisonOperationEntity
+     * @throws BadRequestException User input error.
+     * @author Lucas Batista Pereira
+     * @since 30/10/2024
+     */
     public ComparisonOperationEntity produce(UUID user_id, UUID company_id, ComparisonTypeEnum type, String jsonPath, Object variable, UUID node_id) throws BadRequestException {
         this.validadeBusiness(user_id, company_id);
-        Object rootTreeEntity = this.treeBusiness.getRootTreeBusiness().readGenericRoot(this.treeBusiness.getRootTreeBusiness().findRootIdByNodeId(node_id).orElseThrow(() -> new EntityNotFoundException("Root parent not found!")));
+        Object rootTreeEntity = this.treeBusiness
+                .getRootTreeBusiness()
+                .readGenericRoot(this.treeBusiness
+                        .getRootTreeBusiness()
+                        .findRootIdByNodeId(node_id)
+                        .orElseThrow(() -> new EntityNotFoundException("Root parent not found!")));
         if (rootTreeEntity instanceof RootTreeStaticEntity) {
             PredefinedTypeEnum predefinedTypeEnum = ((RootTreeStaticEntity) rootTreeEntity).getType();
             try {

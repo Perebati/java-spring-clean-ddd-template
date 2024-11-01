@@ -13,14 +13,15 @@ import java.util.Set;
 import java.util.UUID;
 
 /**
- * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
- * @class InputBusinessImpl
- * @authorNote This class handles dynamic input structures for a validation tree.
+ * This class handles dynamic input structures for a validation tree.
  * Inputs can be dynamic or predefined.
  * If the input is dynamic, it passes through this business class.
  * There's no business class for static input, all validations for that
- * type of input is done inside de enumerator.
+ * type of input is done inside an enumerator.
+ *
+ * @author Lucas Batista Pereira
+ * @version DealSafe_alpha_v1
+ * @class InputBusinessImpl
  * @since 30/10/2024
  */
 @Service

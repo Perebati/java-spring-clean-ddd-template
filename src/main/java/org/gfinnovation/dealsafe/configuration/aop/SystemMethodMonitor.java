@@ -12,12 +12,13 @@ import java.util.Arrays;
 import java.util.Date;
 
 /**
+ * This class basically monitors the whole domains package.
+ * If a method throws an exception, this class captures that, and then
+ * it saves on MongoDb for later analysis.
+ *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class SystemMethodMonitor
- * @authorNote This class basically monitors the whole domains package.
- * If a method throws an exception, this class captures that, and then
- * it saves on MongoDb for later analysis.
  * @since 30/10/2024
  */
 @Aspect

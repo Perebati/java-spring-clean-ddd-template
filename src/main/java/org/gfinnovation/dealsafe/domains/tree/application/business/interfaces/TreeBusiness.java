@@ -4,10 +4,11 @@ import org.gfinnovation.dealsafe.domains.tree.application.business.components.in
 import org.gfinnovation.dealsafe.domains.tree.application.business.components.interfaces.RootTreeBusiness;
 
 /**
+ * Main business interface of this domain.
+ *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @interface TreeBusiness
- * @authorNote Main business interface of this domain.
  * @since 30/10/2024
  */
 public interface TreeBusiness {

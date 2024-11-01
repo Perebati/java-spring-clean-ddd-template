@@ -6,12 +6,13 @@ import org.gfinnovation.dealsafe._shared.entity.GenericEntity;
 import java.util.List;
 
 /**
+ * This system uses MapStruct for transforming Entities to Schemas and vice-versa.
+ * To avoid boilerplate code, every single Mapper in this system should extend from
+ * this one.
+ *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @interface GenericMapper
- * @authorNote This system uses MapStruct for transforming Entities to Schemas and vice-versa.
- * To avoid boilerplate code, every single Mapper in this system should extend from
- * this one.
  * @since 30/10/2024
  */
 public interface GenericMapper<E extends GenericEntity, S extends GenericSchema> {

@@ -17,10 +17,11 @@ import java.util.Optional;
 import java.util.UUID;
 
 /**
+ * Main repository implementation of this domain.
+ *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class TreeRepositoryImpl
- * @authorNote Main repository implementation of this domain.
  * @since 30/10/2024
  */
 @Getter
@@ -42,8 +43,14 @@ class TreeRepositoryImpl implements TreeRepository {
         this.rootTreeStaticRepository = rootTreeStaticRepository;
     }
 
-    /*
-        Método usando a consulta SQL recursiva nativa para buscar o RootTreeEntity com base no nodeId.
+    /**
+     * The goal of this method is to find the root node
+     * that originate the tree where the given node(id) exists.
+     *
+     * @author Lucas Batista Pereira
+     * @param node_id NodeId.
+     * @return Optional of UUID
+     * @since 30/10/2024
      */
     @Override
     public Optional<UUID> findRootIdByNodeId(UUID node_id) {

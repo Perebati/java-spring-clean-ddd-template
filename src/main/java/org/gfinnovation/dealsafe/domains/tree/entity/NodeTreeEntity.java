@@ -13,10 +13,13 @@ import java.util.Set;
 import java.util.UUID;
 
 /**
+ * NodeTreeEntity is the base foundation where Dealsafe sits upon.
+ * It follows the general struct of leafs on an ordinary data tree.
+ * A node can be both a parent and a child, algo it can contain operations.
+ *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class NodeTreeEntity
- * @authorNote NodeTreeEntity is the base foundation where Dealsafe sits upon.
  * @since 30/10/2024
  */
 @EqualsAndHashCode(callSuper = true)

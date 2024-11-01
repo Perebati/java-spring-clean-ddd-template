@@ -5,10 +5,11 @@ import org.gfinnovation.dealsafe.domains.tree.entity.factory.components.interfac
 
 
 /**
+ * Main factory interface
+ *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @interface TreeFactory
- * @authorNote Main factory interface
  * @since 30/10/2024
  */
 public interface TreeFactory {

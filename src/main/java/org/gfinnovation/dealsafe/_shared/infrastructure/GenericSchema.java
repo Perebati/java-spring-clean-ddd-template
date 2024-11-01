@@ -10,10 +10,11 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 /**
+ * Trivial class used for storing basic information from saved entities.
+ *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class GenericSchema
- * @authorNote Trivial class used for storing basic information from saved entities.
  * @since 30/10/2024
  */
 @Data

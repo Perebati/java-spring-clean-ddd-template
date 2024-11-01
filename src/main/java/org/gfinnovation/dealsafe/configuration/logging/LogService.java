@@ -12,12 +12,12 @@ import org.springframework.stereotype.Service;
 import java.util.concurrent.CompletableFuture;
 
 /**
+ * TODO: Need refactor.
+ * This is a mess, is works but its not worth commenting on.
+ *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class LogService
- * @authorNote TODO: Need refactor.
- * <p>
- * This is a mess, is works but its not worth commenting on.
  * @since 30/10/2024
  */
 @Service
