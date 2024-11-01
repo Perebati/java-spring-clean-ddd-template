@@ -12,4 +12,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("tree/input")
 public class InputController {
+
 }

@@ -33,8 +33,8 @@ class UserBusinessImpl implements UserBusiness {
     }
 
     @Override
-    public UserEntity create(String name) {
-        return this.userRepository.create(userFactory.createUser(name));
+    public UserEntity create(String email) {
+        return this.userRepository.create(userFactory.createUser(email));
     }
 
     @Override
@@ -50,6 +50,11 @@ class UserBusinessImpl implements UserBusiness {
     @Override
     public Optional<List<UserEntity>> readAllByIds(List<UUID> users_id) {
         return userRepository.findAllByIds(users_id);
+    }
+
+    @Override
+    public Optional<UserEntity> findUserByEmail(String email){
+        return userRepository.findUserByEmail(email);
     }
 
     @Override

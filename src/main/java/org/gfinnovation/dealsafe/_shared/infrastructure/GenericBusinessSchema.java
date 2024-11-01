@@ -18,6 +18,6 @@ import java.util.UUID;
 @NoArgsConstructor
 @Data
 public class GenericBusinessSchema extends org.gfinnovation.dealsafe._shared.infrastructure.GenericSchema {
-    private UUID user_id;
-    private UUID company_id;
+    private UUID userId;
+    private UUID companyId;
 }

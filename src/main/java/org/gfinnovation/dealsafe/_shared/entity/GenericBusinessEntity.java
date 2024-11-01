@@ -19,11 +19,11 @@ import java.util.UUID;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public abstract class GenericBusinessEntity extends org.gfinnovation.dealsafe._shared.entity.GenericEntity {
-    private UUID user_id;
-    private UUID company_id;
+    private UUID userId;
+    private UUID companyId;
 
     public GenericBusinessEntity(UUID user_id, UUID company_id) {
-        this.user_id = user_id;
-        this.company_id = company_id;
+        this.userId = user_id;
+        this.companyId = company_id;
     }
 }

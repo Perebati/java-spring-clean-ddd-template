@@ -8,6 +8,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.gfinnovation.dealsafe._shared.infrastructure.GenericSchema;
 
+import java.util.UUID;
+
 /**
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
@@ -20,6 +22,7 @@ import org.gfinnovation.dealsafe._shared.infrastructure.GenericSchema;
 @Table(name = "auth_user")
 @NoArgsConstructor
 public class UserSchema extends GenericSchema {
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Column(name = "email", nullable = false)
+    private String email;
+    private UUID companyId;
 }

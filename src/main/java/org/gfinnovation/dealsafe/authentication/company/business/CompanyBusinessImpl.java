@@ -7,6 +7,9 @@ import org.gfinnovation.dealsafe.authentication.company.business.interfaces.Comp
 import org.gfinnovation.dealsafe.authentication.company.entity.CompanyEntity;
 import org.gfinnovation.dealsafe.authentication.company.entity.factory.CompanyFactory;
 import org.gfinnovation.dealsafe.authentication.company.entity.repository.CompanyRepository;
+import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
+import org.gfinnovation.dealsafe.authentication.user.entity.UserEntity;
+import org.gfinnovation.dealsafe.configuration.exception.models.BusinessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,11 +31,17 @@ import java.util.UUID;
 class CompanyBusinessImpl implements CompanyBusiness {
     private final CompanyRepository companyRepository;
     private final CompanyFactory companyFactory;
+    private final UserBusiness userBusiness;
 
     @Transactional
     @Override
     public CompanyEntity create(String name, Set<UUID> users_id) throws BadRequestException {
         CompanyEntity newCompany = companyFactory.createCompany(name, users_id);
+        for(UUID user_id: users_id){
+            UserEntity userEntity = userBusiness.read(user_id).orElseThrow(()-> new RuntimeException("Usuário não encontrado!"));
+            userEntity.setCompanyId(newCompany.getId());
+            userBusiness.update(userEntity);
+        }
         return this.companyRepository.create(newCompany);
     }
 

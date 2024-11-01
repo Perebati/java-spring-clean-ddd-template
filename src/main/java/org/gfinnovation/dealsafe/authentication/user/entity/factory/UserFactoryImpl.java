@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 class UserFactoryImpl implements UserFactory {
-    public UserEntity createUser(String name) {
-        return new UserEntity(name);
+    public UserEntity createUser(String email) {
+        return new UserEntity(email);
     }
 }
