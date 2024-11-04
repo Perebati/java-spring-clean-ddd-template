@@ -4,8 +4,8 @@ import jakarta.persistence.EntityManager;
 import org.gfinnovation.dealsafe._shared.infrastructure.GenericRepositoryImpl;
 import org.gfinnovation.dealsafe.domains.operation.entity.ComparisonOperationEntity;
 import org.gfinnovation.dealsafe.domains.operation.entity.repository.components.ComparisonOperationRepository;
-import org.gfinnovation.dealsafe.domains.operation.infrastructure.persistence.OperationComparisonSchema;
-import org.gfinnovation.dealsafe.domains.operation.infrastructure.persistence.mapper.OperationComparisonMapper;
+import org.gfinnovation.dealsafe.domains.operation.infrastructure.persistence.ComparisonOperationSchema;
+import org.gfinnovation.dealsafe.domains.operation.infrastructure.persistence.mapper.ComparisonOperationMapper;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Component;
 
@@ -17,13 +17,13 @@ import org.springframework.stereotype.Component;
  */
 @Component
 class ComparisonOperationRepositoryImpl
-        extends GenericRepositoryImpl<ComparisonOperationEntity, OperationComparisonSchema>
+        extends GenericRepositoryImpl<ComparisonOperationEntity, ComparisonOperationSchema>
         implements ComparisonOperationRepository {
 
     ComparisonOperationRepositoryImpl(
-            OperationComparisonMapper mapper,
+            ComparisonOperationMapper mapper,
             EntityManager entityManager) {
-        super(mapper, new SimpleJpaRepository<>(OperationComparisonSchema.class, entityManager));
+        super(mapper, new SimpleJpaRepository<>(ComparisonOperationSchema.class, entityManager));
     }
 }
 

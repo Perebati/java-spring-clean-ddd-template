@@ -1,6 +1,5 @@
 package org.gfinnovation.dealsafe.domains.tree.infrastructure.inbound.dto.request;
 
-import lombok.Data;
 import org.gfinnovation.dealsafe.domains.input.entity.predefined.PredefinedTypeEnum;
 
 /**
@@ -10,8 +9,5 @@ import org.gfinnovation.dealsafe.domains.input.entity.predefined.PredefinedTypeE
  * @since 01/11/2024
  */
 
-@Data
-public class RootCreationDTO {
-    private String name;
-    private PredefinedTypeEnum type;
+public record RootCreationPredefinedInputDTO(String name, PredefinedTypeEnum type) {
 }

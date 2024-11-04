@@ -4,8 +4,8 @@ import jakarta.persistence.EntityManager;
 import org.gfinnovation.dealsafe._shared.infrastructure.GenericRepositoryImpl;
 import org.gfinnovation.dealsafe.domains.operation.entity.ActionOperationEntity;
 import org.gfinnovation.dealsafe.domains.operation.entity.repository.components.ActionOperationRepository;
-import org.gfinnovation.dealsafe.domains.operation.infrastructure.persistence.OperationActionSchema;
-import org.gfinnovation.dealsafe.domains.operation.infrastructure.persistence.mapper.OperationActionMapper;
+import org.gfinnovation.dealsafe.domains.operation.infrastructure.persistence.ActionOperationSchema;
+import org.gfinnovation.dealsafe.domains.operation.infrastructure.persistence.mapper.ActionOperationMapper;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Component;
 
@@ -17,12 +17,12 @@ import org.springframework.stereotype.Component;
  */
 @Component
 class ActionOperationRepositoryImpl
-        extends GenericRepositoryImpl<ActionOperationEntity, OperationActionSchema>
+        extends GenericRepositoryImpl<ActionOperationEntity, ActionOperationSchema>
         implements ActionOperationRepository {
 
     ActionOperationRepositoryImpl(
-            OperationActionMapper mapper,
+            ActionOperationMapper mapper,
             EntityManager entityManager) {
-        super(mapper, new SimpleJpaRepository<>(OperationActionSchema.class, entityManager));
+        super(mapper, new SimpleJpaRepository<>(ActionOperationSchema.class, entityManager));
     }
 }

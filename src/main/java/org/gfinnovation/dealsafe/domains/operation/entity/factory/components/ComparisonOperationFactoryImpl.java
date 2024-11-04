@@ -56,7 +56,7 @@ public class ComparisonOperationFactoryImpl extends GenericBusinessFactory imple
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
-    public ComparisonOperationEntity produce(UUID user_id, UUID company_id, ComparisonTypeEnum type, String jsonPath, Object variable, UUID node_id) throws BadRequestException {
+    public ComparisonOperationEntity produce(UUID user_id, UUID company_id, ComparisonTypeEnum type, String jsonPath, String variable, UUID node_id) throws BadRequestException {
         this.validadeBusiness(user_id, company_id);
         Object rootTreeEntity = this.treeBusiness
                 .getRootTreeBusiness()

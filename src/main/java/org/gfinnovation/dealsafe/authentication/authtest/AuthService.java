@@ -34,7 +34,7 @@ public class AuthService {
     }
 
     @Transactional
-    public String registerOrLogin(String email){
+    public String registerOrLogin(String email) {
         UserEntity user = userBusiness.findUserByEmail(email)
                 .orElseGet(() -> {
                     try {
@@ -43,7 +43,7 @@ public class AuthService {
                         userEntity.setCompanyId(company.getId());
                         userBusiness.update(userEntity);
                         return userEntity;
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         throw new RuntimeException("Erro!");
                     }
                 });
@@ -63,8 +63,8 @@ public class AuthService {
 
         return Jwts.builder()
                 .setSubject(user.getEmail())
-                .claim("userId", user.getId())
-                .claim("companyId", user.getCompanyId())
+                .claim("user_id", user.getId())
+                .claim("company_id", user.getCompanyId())
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)

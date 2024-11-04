@@ -7,7 +7,7 @@ import org.gfinnovation.dealsafe.domains.authentication.company.application.busi
 import org.gfinnovation.dealsafe.domains.authentication.user.application.business.UserCRUD;
 import org.gfinnovation.dealsafe.domains.operation.entity.ComparisonOperationEntity;
 import org.gfinnovation.dealsafe.domains.operation.entity.comparison.ComparisonTypeEnum;
-import org.gfinnovation.dealsafe.domains.operation.infrastructure.persistence.OperationComparisonSchema;
+import org.gfinnovation.dealsafe.domains.operation.infrastructure.persistence.ComparisonOperationSchema;
 import org.gfinnovation.dealsafe.domains.tree.entity.NodeTreeEntity;
 import org.gfinnovation.dealsafe.domains.tree.entity.RootTreeEntity;
 import org.gfinnovation.dealsafe.domains.tree.nodes.application.business.RootTreeCRUD;
@@ -21,7 +21,7 @@ import java.util.Set;
 
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
-public class OperationServiceTest extends GenericCRUDTest<ComparisonOperationEntity, OperationComparisonSchema, OperationCRUD> {
+public class OperationServiceTest extends GenericCRUDTest<ComparisonOperationEntity, ComparisonOperationSchema, OperationCRUD> {
     @Autowired
     private OperationCRUD operationService;
 

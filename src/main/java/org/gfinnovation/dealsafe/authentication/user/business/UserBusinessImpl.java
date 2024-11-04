@@ -53,7 +53,7 @@ class UserBusinessImpl implements UserBusiness {
     }
 
     @Override
-    public Optional<UserEntity> findUserByEmail(String email){
+    public Optional<UserEntity> findUserByEmail(String email) {
         return userRepository.findUserByEmail(email);
     }
 

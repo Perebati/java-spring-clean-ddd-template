@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.gfinnovation.dealsafe._shared.infrastructure.GenericBusinessSchema;
-import org.gfinnovation.dealsafe.domains.operation.infrastructure.persistence.OperationComparisonSchema;
+import org.gfinnovation.dealsafe.domains.operation.infrastructure.persistence.ComparisonOperationSchema;
 
 import java.util.Set;
 import java.util.UUID;
@@ -47,5 +47,5 @@ public class NodeTreeSchema extends GenericBusinessSchema {
             joinColumns = @JoinColumn(name = "node_id"),
             inverseJoinColumns = @JoinColumn(name = "operation_id")
     )
-    private Set<OperationComparisonSchema> operations;
+    private Set<ComparisonOperationSchema> operations;
 }

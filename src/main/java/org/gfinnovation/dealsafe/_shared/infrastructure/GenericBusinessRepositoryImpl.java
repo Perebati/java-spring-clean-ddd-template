@@ -242,6 +242,6 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
      */
     @Transactional
     public void checkAll(UUID user_id, UUID company_id, Set<UUID> ids) {
-        for(UUID id: ids)this.check(user_id, company_id, id);
+        for (UUID id : ids) this.check(user_id, company_id, id);
     }
 }

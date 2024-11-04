@@ -13,6 +13,6 @@ import java.util.UUID;
  * @since 30/10/2024
  */
 public interface ComparisonOperationFactory {
-    ComparisonOperationEntity produce(UUID user_id, UUID company_id, ComparisonTypeEnum type, String jsonPath, Object variable, UUID node_id) throws RuntimeException, BadRequestException;
+    ComparisonOperationEntity produce(UUID user_id, UUID company_id, ComparisonTypeEnum type, String jsonPath, String variable, UUID node_id) throws RuntimeException, BadRequestException;
 
 }

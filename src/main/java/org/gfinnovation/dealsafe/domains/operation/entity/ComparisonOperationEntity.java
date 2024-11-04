@@ -27,11 +27,11 @@ import java.util.UUID;
 public class ComparisonOperationEntity extends GenericBusinessEntity {
     private ComparisonTypeEnum comparisonTypeEnum;
     private String jsonVariablePath;
-    private Set<Object> expectedVars = new HashSet<>();
+    private Set<String> expectedVars = new HashSet<>();
     private Set<ActionOperationEntity> actions = new HashSet<>();
 
     @Default
-    public ComparisonOperationEntity(UUID user_id, UUID company_id, ComparisonTypeEnum comparisonTypeEnum, String jsonPath, Set<Object> variables, Set<ActionOperationEntity> actions) {
+    public ComparisonOperationEntity(UUID user_id, UUID company_id, ComparisonTypeEnum comparisonTypeEnum, String jsonPath, Set<String> variables, Set<ActionOperationEntity> actions) {
         super(user_id, company_id);
         this.comparisonTypeEnum = comparisonTypeEnum;
         this.jsonVariablePath = jsonPath;
@@ -39,7 +39,7 @@ public class ComparisonOperationEntity extends GenericBusinessEntity {
         this.actions = actions;
     }
 
-    public ComparisonOperationEntity(UUID user_id, UUID company_id, ComparisonTypeEnum comparisonTypeEnum, String jsonPath, Set<Object> variables) {
+    public ComparisonOperationEntity(UUID user_id, UUID company_id, ComparisonTypeEnum comparisonTypeEnum, String jsonPath, Set<String> variables) {
         super(user_id, company_id);
         this.comparisonTypeEnum = comparisonTypeEnum;
         this.jsonVariablePath = jsonPath;

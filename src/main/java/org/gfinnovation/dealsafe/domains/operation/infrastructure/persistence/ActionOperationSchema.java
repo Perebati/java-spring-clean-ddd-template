@@ -19,7 +19,7 @@ import org.gfinnovation.dealsafe._shared.infrastructure.GenericBusinessSchema;
 @Entity
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "tree_root_node_operation_action")
-public class OperationActionSchema extends GenericBusinessSchema {
+public class ActionOperationSchema extends GenericBusinessSchema {
 
     @Column(nullable = false)
     private String url;

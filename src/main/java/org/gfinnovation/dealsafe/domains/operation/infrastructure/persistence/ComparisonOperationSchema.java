@@ -19,7 +19,7 @@ import java.util.Set;
 @Entity
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "tree_root_node_operation_comparison")
-public class OperationComparisonSchema extends GenericBusinessSchema {
+public class ComparisonOperationSchema extends GenericBusinessSchema {
 
     @Column(name = "type", nullable = false)
     private ComparisonTypeEnum comparisonTypeEnum;
@@ -33,7 +33,7 @@ public class OperationComparisonSchema extends GenericBusinessSchema {
             joinColumns = @JoinColumn(name = "operation_id")
     )
     @Column(name = "variable", columnDefinition = "TEXT", nullable = false)
-    private Set<Object> expectedVars = new HashSet<>();
+    private Set<String> expectedVars = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
@@ -41,5 +41,5 @@ public class OperationComparisonSchema extends GenericBusinessSchema {
             joinColumns = @JoinColumn(name = "operation_id"),
             inverseJoinColumns = @JoinColumn(name = "action_id")
     )
-    private Set<OperationActionSchema> actions = new HashSet<>();
+    private Set<ActionOperationSchema> actions = new HashSet<>();
 }
