@@ -9,7 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.gfinnovation.dealsafe._shared.entity.GenericBusinessEntity;
-import org.gfinnovation.dealsafe.configuration.exception.models.BusinessException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
 import org.gfinnovation.dealsafe.utils.annotations.Default;
 import org.springframework.validation.annotation.Validated;
 

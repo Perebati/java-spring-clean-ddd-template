@@ -1,5 +1,6 @@
 package org.gfinnovation.dealsafe._shared.entity;
 
+import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
 import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
 import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
@@ -21,8 +22,12 @@ public class GenericBusinessFactory {
     private final UserBusiness userBusiness;
     private final CompanyBusiness companyBusiness;
 
-    public void validadeBusiness(UUID user_id, UUID company_id) {
-        this.userBusiness.check(user_id);
-        this.companyBusiness.check(company_id);
+    public void validadeBusiness(UUID user_id, UUID company_id) throws ValidationException {
+        try {
+            this.userBusiness.check(user_id);
+            this.companyBusiness.check(company_id);
+        } catch (Exception e) {
+            throw new ValidationException("Something went wrong checking for business info.", e);
+        }
     }
 }

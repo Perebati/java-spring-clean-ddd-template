@@ -1,8 +1,12 @@
 package org.gfinnovation.dealsafe.domains.operation.application.business.components;
 
+import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.BadRequestException;
 import org.gfinnovation.dealsafe.configuration.exception.models.EntityNotFoundException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.domains.operation.application.business.components.interfaces.ComparisonOperationBusiness;
 import org.gfinnovation.dealsafe.domains.operation.entity.ComparisonOperationEntity;
 import org.gfinnovation.dealsafe.domains.operation.entity.comparison.ComparisonTypeEnum;
@@ -33,7 +37,6 @@ public class ComparisonOperationBusinessImpl implements ComparisonOperationBusin
     private final OperationRepository operationRepository;
     private final OperationFactory operationFactory;
 
-
     /**
      * Creates a comparison operation.
      *
@@ -44,16 +47,24 @@ public class ComparisonOperationBusinessImpl implements ComparisonOperationBusin
      * @param variable   Variable to compare.
      * @param node_id    Parent node.
      * @return ComparisonOperationEntity
-     * @throws BadRequestException When wrong input from user.
+     * @throws BusinessException   Thrown when an error occurred on business level.
+     * @throws FactoryException    Thrown when an error occurred on factory level.
+     * @throws ValidationException Thrown when an error occurred on factory level.
+     * @throws RepositoryException Thrown when an error occurred on repository level.
+     * @throws BadRequestException Thrown when user input is not correct.
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
     @Override
-    public ComparisonOperationEntity create(UUID user_id, UUID company_id, ComparisonTypeEnum type, String jsonPath, String variable, UUID node_id) throws BadRequestException {
-        NodeTreeEntity parent = this.treeBusiness.getNodeTreeBusiness().read(node_id).orElseThrow(() -> new EntityNotFoundException("Parent not found!"));
-        ComparisonOperationEntity newOperation = this.operationRepository.getComparisonOperationRepository().create(this.operationFactory.getComparisonOperationFactory().produce(user_id, company_id, type, jsonPath, variable, node_id));
-        this.treeBusiness.getNodeTreeBusiness().update(parent.addOperation(newOperation));
-        return newOperation;
+    public ComparisonOperationEntity create(UUID user_id, UUID company_id, ComparisonTypeEnum type, String jsonPath, String variable, UUID node_id) throws BusinessException, FactoryException, ValidationException, RepositoryException, BadRequestException {
+        try {
+            NodeTreeEntity parent = this.treeBusiness.getNodeTreeBusiness().read(node_id).orElseThrow(() -> new EntityNotFoundException("Parent not found!"));
+            ComparisonOperationEntity newOperation = this.operationRepository.getComparisonOperationRepository().create(this.operationFactory.getComparisonOperationFactory().produce(user_id, company_id, type, jsonPath, variable, node_id));
+            this.treeBusiness.getNodeTreeBusiness().update(parent.addOperation(newOperation));
+            return newOperation;
+        } catch (Exception e) {
+            throw new BusinessException("Something went wrong creating a comparison operation!", e);
+        }
     }
 
     @Override

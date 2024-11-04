@@ -1,5 +1,7 @@
 package org.gfinnovation.dealsafe.domains.operation.entity.factory.components.interfaces;
 
+import jakarta.validation.ValidationException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
 import org.gfinnovation.dealsafe.domains.operation.entity.ActionOperationEntity;
 
 import java.util.UUID;
@@ -12,5 +14,5 @@ import java.util.UUID;
  */
 
 public interface ActionOperationFactory {
-    ActionOperationEntity produce(UUID user_id, UUID company_id, String url, String message);
+    ActionOperationEntity produce(UUID user_id, UUID company_id, String url, String message) throws FactoryException, ValidationException;
 }

@@ -1,5 +1,9 @@
 package org.gfinnovation.dealsafe.domains.input.infrastructure.inbound;
 
+import jakarta.validation.ValidationException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.domains.input.application.business.interfaces.InputBusiness;
 import org.gfinnovation.dealsafe.domains.input.entity.InputEntity;
 import org.gfinnovation.dealsafe.domains.input.infrastructure.inbound.interfaces.InputController;
@@ -28,7 +32,7 @@ public class InputControllerImpl implements InputController {
     }
 
     @Override
-    public ResponseEntity<InputEntity> createInput(@RequestParam String name, @RequestBody String json) {
+    public ResponseEntity<InputEntity> createInput(@RequestParam String name, @RequestBody String json) throws FactoryException, ValidationException, RepositoryException, BusinessException {
         try {
             return ResponseEntity.ok(
                     this.inputBusiness.create(

@@ -1,9 +1,11 @@
 package org.gfinnovation.dealsafe.domains.operation.application.business.components;
 
+import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
-import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
-import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
 import org.gfinnovation.dealsafe.configuration.exception.models.EntityNotFoundException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.domains.operation.application.business.components.interfaces.ActionOperationBusiness;
 import org.gfinnovation.dealsafe.domains.operation.application.business.components.interfaces.ComparisonOperationBusiness;
 import org.gfinnovation.dealsafe.domains.operation.entity.ActionOperationEntity;
@@ -28,8 +30,6 @@ import java.util.UUID;
 @Component
 @RequiredArgsConstructor
 public class ActionOperationBusinessImpl implements ActionOperationBusiness {
-    private final UserBusiness userBusiness;
-    private final CompanyBusiness companyBusiness;
     private final OperationFactory operationFactory;
     private final ComparisonOperationBusiness comparisonOperationBusiness;
     private final OperationRepository operationRepository;
@@ -43,17 +43,23 @@ public class ActionOperationBusinessImpl implements ActionOperationBusiness {
      * @param message      Message given.
      * @param operation_id Parent operation.
      * @return ActionOperationEntity
+     * @throws BusinessException   When an error occurs on business level.
+     * @throws FactoryException    When an error occurs on factory level.
+     * @throws ValidationException When an error occurs on factory level.
+     * @throws RepositoryException When an error occurs on repository level.
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
-    public ActionOperationEntity create(UUID user_id, UUID company_id, String url, String message, UUID operation_id) {
-        this.userBusiness.check(user_id);
-        this.companyBusiness.check(company_id);
-        ComparisonOperationEntity operation = this.comparisonOperationBusiness.read(operation_id).orElseThrow(() -> new EntityNotFoundException("Operation not found!"));
-        ActionOperationEntity newOperationAction = this.operationFactory.getActionOperationFactory().produce(user_id, company_id, url, message);
-        operation.addAction(newOperationAction);
-        this.comparisonOperationBusiness.update(operation);
-        return newOperationAction;
+    public ActionOperationEntity create(UUID user_id, UUID company_id, String url, String message, UUID operation_id) throws BusinessException, FactoryException, ValidationException, RepositoryException {
+        try {
+            ComparisonOperationEntity operation = this.comparisonOperationBusiness.read(operation_id).orElseThrow(() -> new EntityNotFoundException("Operation not found!"));
+            ActionOperationEntity newOperationAction = this.operationFactory.getActionOperationFactory().produce(user_id, company_id, url, message);
+            operation.addAction(newOperationAction);
+            this.comparisonOperationBusiness.update(operation);
+            return newOperationAction;
+        } catch (Exception e) {
+            throw new BusinessException("Something went wrong creating an action operation", e);
+        }
     }
 
     @Override

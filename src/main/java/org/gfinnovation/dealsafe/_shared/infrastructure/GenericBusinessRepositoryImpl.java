@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.gfinnovation.dealsafe._shared.entity.GenericBusinessEntity;
 import org.gfinnovation.dealsafe._shared.entity.GenericBusinessRepository;
 import org.gfinnovation.dealsafe.configuration.exception.models.EntityNotFoundException;
-import org.gfinnovation.dealsafe.configuration.exception.models.RepositoryException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;

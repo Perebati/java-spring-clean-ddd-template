@@ -1,5 +1,7 @@
 package org.gfinnovation.dealsafe.domains.tree.entity.factory.components.interfaces;
 
+import jakarta.validation.ValidationException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
 import org.gfinnovation.dealsafe.domains.tree.entity.NodeTreeEntity;
 
 import java.util.UUID;
@@ -12,5 +14,5 @@ import java.util.UUID;
  */
 
 public interface NodeTreeFactory {
-    NodeTreeEntity produce(UUID user_id, UUID company_id, String name, Integer sequence);
+    NodeTreeEntity produce(UUID user_id, UUID company_id, String name, Integer sequence) throws FactoryException, ValidationException;
 }

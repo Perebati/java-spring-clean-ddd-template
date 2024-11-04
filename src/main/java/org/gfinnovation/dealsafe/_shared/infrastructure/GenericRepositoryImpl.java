@@ -5,10 +5,9 @@ import lombok.RequiredArgsConstructor;
 import org.gfinnovation.dealsafe._shared.entity.GenericEntity;
 import org.gfinnovation.dealsafe._shared.entity.GenericRepository;
 import org.gfinnovation.dealsafe.configuration.exception.models.EntityNotFoundException;
-import org.gfinnovation.dealsafe.configuration.exception.models.RepositoryException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.dao.DataAccessException;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 
 import java.time.LocalDateTime;
@@ -48,7 +47,7 @@ public class GenericRepositoryImpl<E extends GenericEntity, S extends GenericSch
      */
 
     @Transactional
-    public E create(E entity) {
+    public E create(E entity) throws RepositoryException {
         try {
             S schema = mapper.toSchema(entity);
             schema.setCreatedAt(LocalDateTime.now());
@@ -56,11 +55,8 @@ public class GenericRepositoryImpl<E extends GenericEntity, S extends GenericSch
             S savedSchema = jpaRepository.save(schema);
             logger.info("A new " + entity.getClass().getName() + " were created in the system!");
             return mapper.toEntity(savedSchema);
-        } catch (DataAccessException e) {
-            logger.error("Failed to save entity: {}", entity, e);
-            throw new RepositoryException("Failed to save entity", e);
         } catch (Exception e) {
-            logger.error("Crucial error on saving entity: {}", entity, e);
+            logger.error("Failed to save entity: {}", entity, e);
             throw new RepositoryException("Failed to save entity", e);
         }
     }
@@ -76,12 +72,12 @@ public class GenericRepositoryImpl<E extends GenericEntity, S extends GenericSch
      */
 
     @Transactional
-    public Optional<E> read(UUID id) {
+    public Optional<E> read(UUID id) throws RepositoryException {
         try {
             return jpaRepository.findById(id)
                     .filter(schema -> !schema.getDeleted())
                     .map(mapper::toEntity);
-        } catch (DataAccessException e) {
+        } catch (Exception e) {
             logger.error("Failed to retrieve entity with id: {}", id, e);
             throw new RepositoryException("Failed to retrieve data", e);
         }
@@ -99,7 +95,7 @@ public class GenericRepositoryImpl<E extends GenericEntity, S extends GenericSch
      */
 
     @Transactional
-    public E update(E entity) {
+    public E update(E entity) throws RepositoryException, EntityNotFoundException {
         try {
             logger.info("An existing entity of class " + entity.getClass().getName() + " is being updated in the system!");
             return jpaRepository.findById(entity.getId())
@@ -114,7 +110,7 @@ public class GenericRepositoryImpl<E extends GenericEntity, S extends GenericSch
                     })
                     .map(mapper::toEntity)
                     .orElseThrow(() -> new EntityNotFoundException("Entity not found or deleted"));
-        } catch (DataAccessException e) {
+        } catch (Exception e) {
             logger.error("Failed to update entity: {}", entity, e);
             throw new RepositoryException("Failed to update entity", e);
         }
@@ -124,14 +120,13 @@ public class GenericRepositoryImpl<E extends GenericEntity, S extends GenericSch
      * Handles entity deletion via id.
      *
      * @param id Generic entityId.
-     * @throws EntityNotFoundException Thrown when an entity doesn't existis in db.
-     * @throws RepositoryException     Thrown when that an error on the database level occurs.
+     * @throws RepositoryException Thrown when that an error on the database level occurs.
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
 
     @Transactional
-    public void delete(UUID id) {
+    public void delete(UUID id) throws RepositoryException, EntityNotFoundException {
         try {
             S schema = jpaRepository.findById(id)
                     .filter(entity -> !entity.getDeleted())
@@ -139,7 +134,7 @@ public class GenericRepositoryImpl<E extends GenericEntity, S extends GenericSch
             schema.setDeleted(true);
             schema.setDeletedAt(LocalDateTime.now());
             jpaRepository.save(schema);
-        } catch (DataAccessException e) {
+        } catch (Exception e) {
             logger.error("Failed to delete entity with id: {}", id, e);
             throw new RepositoryException("Failed to delete entity", e);
         }
@@ -155,14 +150,14 @@ public class GenericRepositoryImpl<E extends GenericEntity, S extends GenericSch
      */
 
     @Transactional
-    public Optional<List<E>> findAll() {
+    public Optional<List<E>> findAll() throws RepositoryException {
         try {
             List<E> entities = jpaRepository.findAll().stream()
                     .filter(schema -> !schema.getDeleted())
                     .map(mapper::toEntity)
                     .toList();
             return entities.isEmpty() ? Optional.empty() : Optional.of(entities);
-        } catch (DataAccessException e) {
+        } catch (Exception e) {
             logger.error("Failed to find all entities", e);
             throw new RepositoryException("Failed to find all entities", e);
         }
@@ -178,14 +173,14 @@ public class GenericRepositoryImpl<E extends GenericEntity, S extends GenericSch
      */
 
     @Transactional
-    public Optional<List<E>> findAllByIds(List<UUID> ids) {
+    public Optional<List<E>> findAllByIds(List<UUID> ids) throws RepositoryException {
         try {
             List<E> entities = jpaRepository.findAllById(ids).stream()
                     .filter(schema -> !schema.getDeleted())
                     .map(mapper::toEntity)
                     .toList();
             return entities.isEmpty() ? Optional.empty() : Optional.of(entities);
-        } catch (DataAccessException e) {
+        } catch (Exception e) {
             logger.error("Failed to find entities by IDs: {}", ids, e);
             throw new RepositoryException("Failed to find entities by IDs", e);
         }
@@ -200,10 +195,15 @@ public class GenericRepositoryImpl<E extends GenericEntity, S extends GenericSch
      */
 
     @Transactional
-    public void check(UUID id) {
-        if (read(id).isEmpty()) {
-            throw new EntityNotFoundException("Entity not found or deleted");
+    public void check(UUID id) throws RepositoryException, EntityNotFoundException {
+        try {
+            if (read(id).isEmpty()) {
+                throw new EntityNotFoundException("Entity not found or deleted");
+            }
+        } catch (Exception e) {
+            throw new RepositoryException("Failed to check entity", e);
         }
+        ;
     }
 
     /**
@@ -215,7 +215,7 @@ public class GenericRepositoryImpl<E extends GenericEntity, S extends GenericSch
      */
 
     @Transactional
-    public void checkAll(Set<UUID> ids) {
+    public void checkAll(Set<UUID> ids) throws RepositoryException {
         ids.forEach(this::check);
     }
 }

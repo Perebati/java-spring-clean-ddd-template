@@ -1,5 +1,7 @@
 package org.gfinnovation.dealsafe._shared.entity;
 
+import org.gfinnovation.dealsafe.configuration.exception.models.EntityNotFoundException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -21,19 +23,19 @@ import java.util.UUID;
 @Repository
 public interface GenericRepository<E extends GenericEntity> {
 
-    E create(E entity) throws RuntimeException;
+    E create(E entity) throws RepositoryException;
 
-    Optional<E> read(UUID id) throws RuntimeException;
+    Optional<E> read(UUID id) throws RepositoryException;
 
-    E update(E entity) throws RuntimeException;
+    E update(E entity) throws RepositoryException, EntityNotFoundException;
 
-    void delete(UUID id) throws RuntimeException;
+    void delete(UUID id) throws RepositoryException, EntityNotFoundException;
 
-    Optional<List<E>> findAll() throws RuntimeException;
+    Optional<List<E>> findAll() throws RepositoryException;
 
-    Optional<List<E>> findAllByIds(List<UUID> ids) throws RuntimeException;
+    Optional<List<E>> findAllByIds(List<UUID> ids) throws RepositoryException;
 
-    void check(UUID id) throws RuntimeException;
+    void check(UUID id) throws RepositoryException, EntityNotFoundException;
 
-    void checkAll(Set<UUID> ids) throws RuntimeException;
+    void checkAll(Set<UUID> ids) throws RepositoryException, EntityNotFoundException;
 }

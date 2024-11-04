@@ -4,6 +4,10 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.validation.ValidationException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.domains.input.entity.InputEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +30,7 @@ public interface InputController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PostMapping()
-    ResponseEntity<InputEntity> createInput(@RequestParam String name, @RequestBody String json);
+    ResponseEntity<InputEntity> createInput(@RequestParam String name, @RequestBody String json) throws FactoryException, ValidationException, RepositoryException, BusinessException;
 }
 
 

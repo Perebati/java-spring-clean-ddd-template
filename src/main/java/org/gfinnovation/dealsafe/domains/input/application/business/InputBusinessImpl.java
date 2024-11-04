@@ -1,6 +1,10 @@
 package org.gfinnovation.dealsafe.domains.input.application.business;
 
+import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.domains.input.application.business.interfaces.InputBusiness;
 import org.gfinnovation.dealsafe.domains.input.entity.InputEntity;
 import org.gfinnovation.dealsafe.domains.input.entity.factory.interfaces.InputFactory;
@@ -32,8 +36,12 @@ class InputBusinessImpl implements InputBusiness {
     private final InputFactory inputFactory;
 
     @Override
-    public InputEntity create(UUID user_id, UUID company_id, String name, String json) {
-        return this.inputRepository.create(this.inputFactory.produce(user_id, company_id, name, json));
+    public InputEntity create(UUID user_id, UUID company_id, String name, String json) throws FactoryException, ValidationException, RepositoryException, BusinessException {
+        try {
+            return this.inputRepository.create(this.inputFactory.produce(user_id, company_id, name, json));
+        } catch (Exception e) {
+            throw new BusinessException("Something went wrong creating a input.", e);
+        }
     }
 
     @Override

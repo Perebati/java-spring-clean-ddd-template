@@ -1,7 +1,10 @@
-package org.gfinnovation.dealsafe.configuration.exception.models;
+package org.gfinnovation.dealsafe.configuration.exception.models.layered;
+
+import org.gfinnovation.dealsafe.configuration.exception.models.InfrastructureException;
 
 /**
- * Thrown when an exception on the repository happens.
+ * RepositoryException is for general use, throw it when you not sure
+ * what caused the error on repository level.
  *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1

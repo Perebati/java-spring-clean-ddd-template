@@ -15,13 +15,13 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
-public class GlobalException extends Exception {
+public class ExceptionRegister extends Exception {
     private String methodId;
     private String userId;
     private String companyId;
     private String requestId;
 
-    public GlobalException(String methodId, String userId, String companyId, String requestId, Exception cause) {
+    public ExceptionRegister(String methodId, String userId, String companyId, String requestId, Exception cause) {
         super(cause.getMessage(), cause);
         this.methodId = methodId;
         this.userId = userId;

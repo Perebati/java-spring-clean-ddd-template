@@ -1,10 +1,14 @@
 package org.gfinnovation.dealsafe.configuration.exception;
 
+import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.BadRequestException;
-import org.gfinnovation.dealsafe.configuration.exception.models.BusinessException;
 import org.gfinnovation.dealsafe.configuration.exception.models.EntityNotFoundException;
-import org.gfinnovation.dealsafe.configuration.exception.models.RepositoryException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
+import org.gfinnovation.dealsafe.configuration.logging.LogService;
+import org.gfinnovation.dealsafe.configuration.logging.infrastrutcture.ErrorLogSchema;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -27,16 +31,17 @@ import java.util.stream.Collectors;
  * @class GlobalExceptionHandler
  * @since 30/10/2024
  */
+
 @RequiredArgsConstructor
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
-    private final org.gfinnovation.dealsafe.configuration.logging.LogService logService;
+    private final LogService logService;
 
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<Object> handleEntityNotFoundException(EntityNotFoundException ex, WebRequest request) {
-        org.gfinnovation.dealsafe.configuration.logging.infrastrutcture.ErrorLogSchema errorLog = buildErrorLog(ex);
+        ErrorLogSchema errorLog = buildErrorLog(ex);
         logService.saveErrorLogAsync(errorLog);
 
         logger.error("An entity was not found in the system!", ex);
@@ -44,29 +49,49 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
     }
 
+    @ExceptionHandler(ValidationException.class)
+    public ResponseEntity<Object> handleValidationException(RepositoryException ex, WebRequest request) {
+        ErrorLogSchema errorLog = buildErrorLog(ex);
+        logService.saveErrorLogAsync(errorLog);
+
+        logger.error("Something went wrong validating business information!", ex);
+        ErrorResponse response = new ErrorResponse("Business validation error!", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+    }
+
+    @ExceptionHandler(FactoryException.class)
+    public ResponseEntity<Object> handleFactoryException(RepositoryException ex, WebRequest request) {
+        ErrorLogSchema errorLog = buildErrorLog(ex);
+        logService.saveErrorLogAsync(errorLog);
+
+        logger.error("Something went wrong on a factory!", ex);
+        ErrorResponse response = new ErrorResponse("Entity creation error!", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+    }
+
     @ExceptionHandler(RepositoryException.class)
     public ResponseEntity<Object> handleRepositoryException(RepositoryException ex, WebRequest request) {
-        org.gfinnovation.dealsafe.configuration.logging.infrastrutcture.ErrorLogSchema errorLog = buildErrorLog(ex);
+        ErrorLogSchema errorLog = buildErrorLog(ex);
         logService.saveErrorLogAsync(errorLog);
 
         logger.error("Something went wrong in the database!", ex);
-        ErrorResponse response = new ErrorResponse("Data access error!", "An error occurred while accessing the data.");
+        ErrorResponse response = new ErrorResponse("Data access error!", ex.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
     }
 
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<Object> handleBusinessException(BusinessException ex, WebRequest request) {
-        org.gfinnovation.dealsafe.configuration.logging.infrastrutcture.ErrorLogSchema errorLog = buildErrorLog(ex);
+        ErrorLogSchema errorLog = buildErrorLog(ex);
         logService.saveErrorLogAsync(errorLog);
 
         logger.error("Must likely a logic mistake!", ex);
-        ErrorResponse response = new ErrorResponse("Business error", ex.getCause().getMessage());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        ErrorResponse response = new ErrorResponse("Business error!", ex.getCause().getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
     }
 
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<Object> handleBadRequestException(BusinessException ex, WebRequest request) {
-        org.gfinnovation.dealsafe.configuration.logging.infrastrutcture.ErrorLogSchema errorLog = buildErrorLog(ex);
+        ErrorLogSchema errorLog = buildErrorLog(ex);
         logService.saveErrorLogAsync(errorLog);
 
         logger.error("A request was badly made!", ex);
@@ -76,7 +101,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleGenericException(Exception ex, WebRequest request) {
-        org.gfinnovation.dealsafe.configuration.logging.infrastrutcture.ErrorLogSchema errorLog = buildErrorLog(ex);
+        ErrorLogSchema errorLog = buildErrorLog(ex);
         logService.saveErrorLogAsync(errorLog);
 
         logger.error("Something terrible happened!", ex);
@@ -106,8 +131,8 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
     }
 
-    private org.gfinnovation.dealsafe.configuration.logging.infrastrutcture.ErrorLogSchema buildErrorLog(Exception ex) {
-        org.gfinnovation.dealsafe.configuration.logging.infrastrutcture.ErrorLogSchema errorLog = new org.gfinnovation.dealsafe.configuration.logging.infrastrutcture.ErrorLogSchema();
+    private ErrorLogSchema buildErrorLog(Exception ex) {
+        ErrorLogSchema errorLog = new ErrorLogSchema();
         errorLog.setErrorMessage(ex.getMessage());
         errorLog.setErrorStackTrace(formatStackTrace(ex.getStackTrace()));
         errorLog.setTimestamp(new Date());

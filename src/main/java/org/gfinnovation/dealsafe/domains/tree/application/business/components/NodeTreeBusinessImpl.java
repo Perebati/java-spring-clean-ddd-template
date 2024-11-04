@@ -1,10 +1,12 @@
 package org.gfinnovation.dealsafe.domains.tree.application.business.components;
 
 import jakarta.transaction.Transactional;
+import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
-import org.gfinnovation.dealsafe.configuration.exception.models.BusinessException;
 import org.gfinnovation.dealsafe.configuration.exception.models.EntityNotFoundException;
-import org.gfinnovation.dealsafe.configuration.exception.models.RepositoryException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.domains.tree.application.business.components.interfaces.NodeTreeBusiness;
 import org.gfinnovation.dealsafe.domains.tree.application.business.components.interfaces.RootTreeBusiness;
 import org.gfinnovation.dealsafe.domains.tree.entity.NodeTreeEntity;
@@ -48,14 +50,17 @@ class NodeTreeBusinessImpl implements NodeTreeBusiness {
      * @param sequence   Position/Priority of node execution.
      * @param parent_id  ParentId, tha can be either an id from a RootNode or another Node.
      * @return NodeTreeEntity
-     * @throws RuntimeException Generic error, TODO: need refactor
+     * @throws BusinessException       Thrown when an error occurs on business level.
+     * @throws FactoryException        Thrown when an error occurs on factory level.
+     * @throws RepositoryException     Thrown when an error occurs on repository level.
+     * @throws ValidationException     Thrown when an error occurs on factory level.
+     * @throws EntityNotFoundException Thrown when an entity is not found by id.
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
-
     @Override
     @Transactional
-    public NodeTreeEntity create(UUID user_id, UUID company_id, String name, Integer sequence, UUID parent_id) throws RuntimeException {
+    public NodeTreeEntity create(UUID user_id, UUID company_id, String name, Integer sequence, UUID parent_id) throws BusinessException, FactoryException, RepositoryException, ValidationException, EntityNotFoundException {
         try {
             Object parent = this.rootTreeBusiness.readGenericRoot(parent_id);
             if (parent instanceof RootTreeStaticEntity) {
@@ -80,8 +85,6 @@ class NodeTreeBusinessImpl implements NodeTreeBusiness {
 
                 return createdNodeEntity;
             }
-        } catch (RepositoryException e) {
-            throw e;
         } catch (Exception e) {
             throw new BusinessException(e.getMessage());
         }

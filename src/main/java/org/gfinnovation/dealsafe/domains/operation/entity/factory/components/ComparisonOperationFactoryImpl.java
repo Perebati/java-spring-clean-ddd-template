@@ -1,11 +1,13 @@
 package org.gfinnovation.dealsafe.domains.operation.entity.factory.components;
 
+import jakarta.validation.ValidationException;
 import org.apache.coyote.BadRequestException;
 import org.gfinnovation.dealsafe._shared.entity.GenericBusinessFactory;
 import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
 import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
-import org.gfinnovation.dealsafe.configuration.exception.models.BusinessException;
 import org.gfinnovation.dealsafe.configuration.exception.models.EntityNotFoundException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
 import org.gfinnovation.dealsafe.domains.input.application.business.interfaces.InputBusiness;
 import org.gfinnovation.dealsafe.domains.input.entity.InputEntity;
 import org.gfinnovation.dealsafe.domains.input.entity.predefined.PredefinedTypeEnum;
@@ -53,30 +55,38 @@ public class ComparisonOperationFactoryImpl extends GenericBusinessFactory imple
      * @param variable   Variable value.
      * @param node_id    Node parentId.
      * @return ComparisonOperationEntity
-     * @throws BadRequestException User input error.
+     * @throws FactoryException        Thrown when something wrong happened on factory layer
+     * @throws BadRequestException     Thrown when there's something wrong in user input
+     * @throws EntityNotFoundException Thrown when something wrong happened on reading entities
+     * @throws ValidationException     Thrown when something wrong happened on factory layer
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
-    public ComparisonOperationEntity produce(UUID user_id, UUID company_id, ComparisonTypeEnum type, String jsonPath, String variable, UUID node_id) throws BadRequestException {
-        this.validadeBusiness(user_id, company_id);
-        Object rootTreeEntity = this.treeBusiness
-                .getRootTreeBusiness()
-                .readGenericRoot(this.treeBusiness
-                        .getRootTreeBusiness()
-                        .findRootIdByNodeId(node_id)
-                        .orElseThrow(() -> new EntityNotFoundException("Root parent not found!")));
-        if (rootTreeEntity instanceof RootTreeStaticEntity) {
-            PredefinedTypeEnum predefinedTypeEnum = ((RootTreeStaticEntity) rootTreeEntity).getType();
-            try {
-                predefinedTypeEnum.validateJsonPath(predefinedTypeEnum, jsonPath);
-            } catch (NoSuchFieldException e) {
-                throw new BadRequestException("Campo não encontrado: " + e.getMessage());
-            }
-        } else if (rootTreeEntity instanceof RootTreeDynamicEntity) {
-            InputEntity inputEntity = this.inputBusiness.read(((RootTreeDynamicEntity) rootTreeEntity).getDynamicReference()).orElseThrow(() -> new BusinessException("Something went wrong get the dynamic input class!"));
-            inputEntity.validateJsonPathAndType(jsonPath, variable);
-        }
 
-        return new ComparisonOperationEntity(user_id, company_id, type, jsonPath, Set.of(variable), null);
+    public ComparisonOperationEntity produce(UUID user_id, UUID company_id, ComparisonTypeEnum type, String jsonPath, String variable, UUID node_id) throws FactoryException, BadRequestException, EntityNotFoundException, ValidationException {
+        try {
+            this.validadeBusiness(user_id, company_id);
+            Object rootTreeEntity = this.treeBusiness
+                    .getRootTreeBusiness()
+                    .readGenericRoot(this.treeBusiness
+                            .getRootTreeBusiness()
+                            .findRootIdByNodeId(node_id)
+                            .orElseThrow(() -> new EntityNotFoundException("Root parent not found!")));
+            if (rootTreeEntity instanceof RootTreeStaticEntity) {
+                PredefinedTypeEnum predefinedTypeEnum = ((RootTreeStaticEntity) rootTreeEntity).getType();
+                try {
+                    predefinedTypeEnum.validateJsonPath(predefinedTypeEnum, jsonPath);
+                } catch (NoSuchFieldException e) {
+                    throw new BadRequestException("Campo não encontrado: " + e.getMessage());
+                }
+            } else if (rootTreeEntity instanceof RootTreeDynamicEntity) {
+                InputEntity inputEntity = this.inputBusiness.read(((RootTreeDynamicEntity) rootTreeEntity).getDynamicReference()).orElseThrow(() -> new BusinessException("Something went wrong get the dynamic input class!"));
+                inputEntity.validateJsonPathAndType(jsonPath, variable);
+            }
+
+            return new ComparisonOperationEntity(user_id, company_id, type, jsonPath, Set.of(variable), null);
+        } catch (Exception e) {
+            throw new FactoryException("Something went wrong creating a comparison operation.", e);
+        }
     }
 }

@@ -1,8 +1,10 @@
 package org.gfinnovation.dealsafe.domains.tree.entity.factory.components;
 
+import jakarta.validation.ValidationException;
 import org.gfinnovation.dealsafe._shared.entity.GenericBusinessFactory;
 import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
 import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
 import org.gfinnovation.dealsafe.domains.input.application.business.interfaces.InputBusiness;
 import org.gfinnovation.dealsafe.domains.input.entity.predefined.PredefinedTypeEnum;
 import org.gfinnovation.dealsafe.domains.tree.entity.RootTreeDynamicEntity;
@@ -30,14 +32,44 @@ class RootTreeFactoryImpl extends GenericBusinessFactory implements RootTreeFact
         this.inputBusiness = inputBusiness;
     }
 
-    public RootTreeDynamicEntity produce(UUID user_id, UUID company_id, String name, UUID dynamic_input) {
-        this.validadeBusiness(user_id, company_id);
-        this.inputBusiness.check(dynamic_input);
-        return new RootTreeDynamicEntity(user_id, company_id, name, dynamic_input);
+    /**
+     * Handles the creation of a root that has a reference to a dynamic input entity id.
+     *
+     * @param user_id       UserId
+     * @param company_id    CompanyId
+     * @param name          Name of the given root.
+     * @param dynamic_input id of the dynamic input entity.
+     * @return RootTreeDynamicEntity
+     * @throws FactoryException    Thrown when an error on factory level occurs.
+     * @throws ValidationException Thrown when an error on factory level occurs.
+     */
+    public RootTreeDynamicEntity produce(UUID user_id, UUID company_id, String name, UUID dynamic_input) throws FactoryException, ValidationException {
+        try {
+            this.validadeBusiness(user_id, company_id);
+            this.inputBusiness.check(dynamic_input);
+            return new RootTreeDynamicEntity(user_id, company_id, name, dynamic_input);
+        } catch (Exception e) {
+            throw new FactoryException("Something went wrong creating a dynamic root node.", e);
+        }
     }
 
-    public RootTreeStaticEntity produce(UUID user_id, UUID company_id, String name, PredefinedTypeEnum static_input) {
-        this.validadeBusiness(user_id, company_id);
-        return new RootTreeStaticEntity(user_id, company_id, name, static_input);
+    /**
+     * Handles the creation of a root that has a reference to a predefined input entity.
+     *
+     * @param user_id      UserId
+     * @param company_id   CompanyId
+     * @param name         Name of the given root.
+     * @param static_input Type of the predefined input entity.
+     * @return RootTreeStaticEntity
+     * @throws FactoryException    Thrown when an error on factory level occurs.
+     * @throws ValidationException Thrown when an error on factory level occurs.
+     */
+    public RootTreeStaticEntity produce(UUID user_id, UUID company_id, String name, PredefinedTypeEnum static_input) throws FactoryException, ValidationException {
+        try {
+            this.validadeBusiness(user_id, company_id);
+            return new RootTreeStaticEntity(user_id, company_id, name, static_input);
+        } catch (Exception e) {
+            throw new FactoryException("Something went wrong creating a predefined root node.", e);
+        }
     }
 }

@@ -1,6 +1,10 @@
 package org.gfinnovation.dealsafe.domains.input.application.business.interfaces;
 
+import jakarta.validation.ValidationException;
 import org.gfinnovation.dealsafe._shared.application.GenericBusiness;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.domains.input.entity.InputEntity;
 
 import java.util.UUID;
@@ -13,5 +17,5 @@ import java.util.UUID;
  */
 
 public interface InputBusiness extends GenericBusiness<InputEntity> {
-    InputEntity create(UUID user_id, UUID company_id, String name, String json) throws RuntimeException;
+    InputEntity create(UUID user_id, UUID company_id, String name, String json) throws FactoryException, ValidationException, RepositoryException, BusinessException;
 }

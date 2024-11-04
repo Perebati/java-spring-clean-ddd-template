@@ -1,8 +1,8 @@
-package org.gfinnovation.dealsafe.configuration.exception.models;
+package org.gfinnovation.dealsafe.configuration.exception.models.layered;
 
 /**
- * Business Exception is for general use, throw it when you not sure
- * what caused the error.
+ * BusinessException is for general use, throw it when you not sure
+ * what caused the error on business level.
  *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
