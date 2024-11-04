@@ -59,7 +59,7 @@ public class GenericRepositoryImpl<E extends GenericEntity, S extends GenericSch
         } catch (DataAccessException e) {
             logger.error("Failed to save entity: {}", entity, e);
             throw new RepositoryException("Failed to save entity", e);
-        } catch (Exception e){
+        } catch (Exception e) {
             logger.error("Crucial error on saving entity: {}", entity, e);
             throw new RepositoryException("Failed to save entity", e);
         }
