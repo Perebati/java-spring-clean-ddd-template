@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
  * @class NodeTreeRepositoryImpl
  * @since 30/10/2024
  */
+
 @Component
 class NodeTreeRepositoryImpl
         extends GenericRepositoryImpl<NodeTreeEntity, NodeTreeSchema>

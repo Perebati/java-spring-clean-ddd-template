@@ -24,6 +24,7 @@ import java.util.UUID;
  * @class InputBusinessImpl
  * @since 30/10/2024
  */
+
 @Service
 @RequiredArgsConstructor
 class InputBusinessImpl implements InputBusiness {

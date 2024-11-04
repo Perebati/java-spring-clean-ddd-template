@@ -9,5 +9,6 @@ import org.gfinnovation.dealsafe.domains.input.entity.InputEntity;
  * @interface InputRepository
  * @since 30/10/2024
  */
+
 public interface InputRepository extends GenericRepository<InputEntity> {
 }

@@ -9,5 +9,6 @@ import org.gfinnovation.dealsafe.domains.tree.entity.NodeTreeEntity;
  * @interface NodeTreeRepository
  * @since 30/10/2024
  */
+
 public interface NodeTreeRepository extends GenericRepository<NodeTreeEntity> {
 }

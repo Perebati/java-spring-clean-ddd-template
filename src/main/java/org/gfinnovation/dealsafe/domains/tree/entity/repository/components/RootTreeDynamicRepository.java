@@ -9,5 +9,6 @@ import org.gfinnovation.dealsafe.domains.tree.entity.RootTreeDynamicEntity;
  * @interface RootTreeDynamicRepository
  * @since 30/10/2024
  */
+
 public interface RootTreeDynamicRepository extends GenericRepository<RootTreeDynamicEntity> {
 }

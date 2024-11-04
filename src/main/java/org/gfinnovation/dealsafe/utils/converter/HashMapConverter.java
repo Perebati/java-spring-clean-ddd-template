@@ -15,6 +15,7 @@ import java.util.HashMap;
  * @class HashMapConverter
  * @since 30/10/2024
  */
+
 @Converter
 public class HashMapConverter implements AttributeConverter<HashMap<String, Object>, String> {
 

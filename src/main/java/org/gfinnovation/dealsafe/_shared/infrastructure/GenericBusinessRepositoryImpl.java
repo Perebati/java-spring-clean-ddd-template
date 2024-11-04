@@ -32,6 +32,7 @@ import java.util.UUID;
  * @class GenericBusinessRepositoryImpl
  * @since 01/11/2024
  */
+
 @RequiredArgsConstructor
 public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S extends GenericBusinessSchema>
         implements GenericBusinessRepository<E> {
@@ -77,6 +78,7 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
      * @author Lucas Batista Pereira
      * @since 01/11/2024
      */
+
     @Transactional
     public Optional<E> read(UUID user_id, UUID company_id, UUID id) {
         try {
@@ -100,6 +102,7 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
      * @author Lucas Batista Pereira
      * @since 01/11/2024
      */
+
     @Transactional()
     protected Optional<S> readInternal(UUID user_id, UUID company_id, UUID id) {
         try {
@@ -123,6 +126,7 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
      * @author Lucas Batista Pereira
      * @since 01/11/2024
      */
+
     @Transactional
     public E update(UUID user_id, UUID company_id, E entity) {
         try {
@@ -156,6 +160,7 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
      * @author Lucas Batista Pereira
      * @since 01/11/2024
      */
+
     @Transactional
     public void delete(UUID user_id, UUID company_id, UUID id) {
         try {
@@ -179,6 +184,7 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
      * @author Lucas Batista Pereira
      * @since 01/11/2024
      */
+
     @Transactional
     public Optional<List<E>> findAll(UUID user_id, UUID company_id) {
         try {
@@ -203,6 +209,7 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
      * @author Lucas Batista Pereira
      * @since 01/11/2024
      */
+
     @Transactional
     public Optional<List<E>> findAllByIds(UUID user_id, UUID company_id, List<UUID> ids) {
         try {
@@ -226,6 +233,7 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
      * @author Lucas Batista Pereira
      * @since 01/11/2024
      */
+
     @Transactional
     public void check(UUID user_id, UUID company_id, UUID id) {
         if (readInternal(user_id, company_id, id).isEmpty()) {
@@ -240,6 +248,7 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
      * @author Lucas Batista Pereira
      * @since 01/11/2024
      */
+
     @Transactional
     public void checkAll(UUID user_id, UUID company_id, Set<UUID> ids) {
         for (UUID id : ids) this.check(user_id, company_id, id);

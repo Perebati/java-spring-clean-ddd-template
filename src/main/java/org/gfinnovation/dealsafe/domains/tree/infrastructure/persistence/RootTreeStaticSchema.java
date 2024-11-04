@@ -11,6 +11,7 @@ import org.gfinnovation.dealsafe.domains.input.entity.predefined.PredefinedTypeE
  * @class RootTreeStaticSchema
  * @since 30/10/2024
  */
+
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)

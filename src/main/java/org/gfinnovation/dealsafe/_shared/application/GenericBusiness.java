@@ -16,6 +16,7 @@ import java.util.UUID;
  * @interface GenericBusinessInterface
  * @since 30/10/2024
  */
+
 public interface GenericBusiness<E extends GenericEntity> {
     Optional<E> read(UUID id) throws RuntimeException;
 

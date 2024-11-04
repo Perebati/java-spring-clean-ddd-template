@@ -11,6 +11,7 @@ import java.util.UUID;
  * @class InputBusiness
  * @since 30/10/2024
  */
+
 public interface InputBusiness extends GenericBusiness<InputEntity> {
     InputEntity create(UUID user_id, UUID company_id, String name, String json) throws RuntimeException;
 }

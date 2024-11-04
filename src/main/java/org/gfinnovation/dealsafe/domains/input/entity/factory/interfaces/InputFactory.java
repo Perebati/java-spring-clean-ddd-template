@@ -10,6 +10,7 @@ import java.util.UUID;
  * @interface InputFactory
  * @since 30/10/2024
  */
+
 public interface InputFactory {
     InputEntity produce(UUID user_id, UUID company_id, String name, String json) throws RuntimeException;
 }

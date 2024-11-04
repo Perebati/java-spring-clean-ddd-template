@@ -8,6 +8,7 @@ import org.gfinnovation.dealsafe.domains.operation.entity.comparison.logic.Compa
  * @class IsLessThanOperation
  * @since 30/10/2024
  */
+
 public class IsLessThanOperation extends ComparisonOperation {
     @Override
     public Boolean doOperation(String a, String b) {

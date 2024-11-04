@@ -13,6 +13,7 @@ import org.mapstruct.ReportingPolicy;
  * @interface NodeTreeMapper
  * @since 30/10/2024
  */
+
 @Mapper(
         componentModel = MappingConstants.ComponentModel.SPRING,
         unmappedTargetPolicy = ReportingPolicy.IGNORE

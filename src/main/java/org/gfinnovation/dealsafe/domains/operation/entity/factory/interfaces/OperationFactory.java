@@ -9,6 +9,7 @@ import org.gfinnovation.dealsafe.domains.operation.entity.factory.components.int
  * @interface OperationFactory
  * @since 30/10/2024
  */
+
 public interface OperationFactory {
     ComparisonOperationFactory getComparisonOperationFactory();
 

@@ -12,6 +12,7 @@ import java.util.UUID;
  * @class RootTreeDynamicSchema
  * @since 30/10/2024
  */
+
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
  * @interface InputController
  * @since 04/11/2024
  */
+
 @RestController
 @RequestMapping("input")
 @SecurityRequirement(name = "BearerAuth")

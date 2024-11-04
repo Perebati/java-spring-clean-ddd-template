@@ -10,6 +10,7 @@ import java.util.UUID;
  * @interface ActionOperationFactory
  * @since 30/10/2024
  */
+
 public interface ActionOperationFactory {
     ActionOperationEntity produce(UUID user_id, UUID company_id, String url, String message);
 }

@@ -28,6 +28,7 @@ import java.util.UUID;
  * @class InputEntity
  * @since 30/10/2024
  */
+
 @EqualsAndHashCode(callSuper = true)
 @Getter
 @Setter

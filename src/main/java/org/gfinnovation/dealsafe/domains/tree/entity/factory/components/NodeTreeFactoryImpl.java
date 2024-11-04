@@ -17,6 +17,7 @@ import java.util.UUID;
  * @class NodeFactoryImpl
  * @since 30/10/2024
  */
+
 @Component
 class NodeTreeFactoryImpl extends GenericBusinessFactory implements NodeTreeFactory {
     public NodeTreeFactoryImpl(UserBusiness userBusiness, CompanyBusiness companyBusiness) {

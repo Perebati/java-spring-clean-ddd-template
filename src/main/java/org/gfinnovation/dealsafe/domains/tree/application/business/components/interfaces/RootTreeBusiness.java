@@ -15,6 +15,7 @@ import java.util.UUID;
  * @interface RootTreeBusiness
  * @since 30/10/2024
  */
+
 public interface RootTreeBusiness extends GenericBusiness<RootTreeEntity> {
     RootTreeStaticEntity create(UUID user_id, UUID company_id, String name, PredefinedTypeEnum static_input) throws RuntimeException;
 

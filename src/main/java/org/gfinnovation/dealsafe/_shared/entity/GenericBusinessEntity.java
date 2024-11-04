@@ -16,6 +16,7 @@ import java.util.UUID;
  * @class GenericBusinessEntity
  * @since 30/10/2024
  */
+
 @EqualsAndHashCode(callSuper = true)
 @Data
 public abstract class GenericBusinessEntity extends org.gfinnovation.dealsafe._shared.entity.GenericEntity {

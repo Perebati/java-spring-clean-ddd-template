@@ -11,6 +11,7 @@ import java.util.UUID;
  * @class NodeTreeBusiness
  * @since 30/10/2024
  */
+
 public interface NodeTreeBusiness extends GenericBusiness<NodeTreeEntity> {
     NodeTreeEntity create(UUID user_id, UUID company_id, String name, Integer sequence, UUID parent_id) throws RuntimeException;
 }

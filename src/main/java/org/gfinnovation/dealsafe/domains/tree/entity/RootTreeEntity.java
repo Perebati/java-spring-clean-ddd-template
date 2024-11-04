@@ -19,6 +19,7 @@ import java.util.UUID;
  * @class RootTreeEntity
  * @since 30/10/2024
  */
+
 @Getter
 @Setter
 @ToString(callSuper = true)

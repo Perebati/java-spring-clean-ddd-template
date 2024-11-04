@@ -15,6 +15,7 @@ import java.util.UUID;
  * @class GenericEntity
  * @since 30/10/2024
  */
+
 @Data
 public abstract class GenericEntity {
     private UUID id;

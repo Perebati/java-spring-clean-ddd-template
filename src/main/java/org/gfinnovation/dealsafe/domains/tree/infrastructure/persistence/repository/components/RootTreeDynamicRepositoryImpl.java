@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
  * @class RootTreeDynamicRepositoryImpl
  * @since 30/10/2024
  */
+
 @Component
 class RootTreeDynamicRepositoryImpl
         extends GenericRepositoryImpl<RootTreeDynamicEntity, RootTreeDynamicSchema>

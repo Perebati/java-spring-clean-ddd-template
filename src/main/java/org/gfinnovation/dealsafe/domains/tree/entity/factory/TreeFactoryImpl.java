@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
  * @class TreeFactoryImpl
  * @since 30/10/2024
  */
+
 @Getter
 @Component
 class TreeFactoryImpl extends GenericBusinessFactory implements TreeFactory {

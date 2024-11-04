@@ -14,6 +14,7 @@ import org.mapstruct.ReportingPolicy;
  * @interface RootTreeMapper
  * @since 30/10/2024
  */
+
 @Mapper(
         componentModel = MappingConstants.ComponentModel.SPRING,
         unmappedTargetPolicy = ReportingPolicy.IGNORE

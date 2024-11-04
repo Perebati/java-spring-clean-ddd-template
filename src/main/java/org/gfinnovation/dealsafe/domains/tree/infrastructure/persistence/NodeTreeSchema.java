@@ -15,6 +15,7 @@ import java.util.UUID;
  * @class NodeTreeSchema
  * @since 30/10/2024
  */
+
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)

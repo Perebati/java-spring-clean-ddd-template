@@ -26,6 +26,7 @@ import java.util.Set;
  * @class Engine
  * @since 30/10/2024
  */
+
 @Component
 public class Engine {
 
@@ -43,6 +44,7 @@ public class Engine {
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
+
     public static boolean bfsValidation(JsonNode root, JsonNode objectToValidate) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException {
         Queue<JsonNode> queue = new LinkedList<>();
 
