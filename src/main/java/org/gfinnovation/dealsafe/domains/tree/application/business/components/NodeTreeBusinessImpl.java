@@ -58,6 +58,7 @@ class NodeTreeBusinessImpl implements NodeTreeBusiness {
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
+
     @Override
     @Transactional
     public NodeTreeEntity create(UUID user_id, UUID company_id, String name, Integer sequence, UUID parent_id) throws BusinessException, FactoryException, RepositoryException, ValidationException, EntityNotFoundException {

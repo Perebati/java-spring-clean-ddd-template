@@ -50,7 +50,10 @@ class RootTreeBusinessImpl implements RootTreeBusiness {
      * @throws FactoryException    Thrown when an error occurs on factory level.
      * @throws ValidationException Thrown when an error occurs on factory level.
      * @throws RepositoryException Thrown when an error occurs on repository level.
+     * @author Lucas Batista Pereira
+     * @since 30/10/2024
      */
+
     @Override
     @Transactional
     public RootTreeStaticEntity create(UUID user_id, UUID company_id, String name, PredefinedTypeEnum static_input) throws BusinessException, FactoryException, ValidationException, RepositoryException {

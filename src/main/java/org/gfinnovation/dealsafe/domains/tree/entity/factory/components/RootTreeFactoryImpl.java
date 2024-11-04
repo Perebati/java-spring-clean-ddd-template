@@ -42,6 +42,8 @@ class RootTreeFactoryImpl extends GenericBusinessFactory implements RootTreeFact
      * @return RootTreeDynamicEntity
      * @throws FactoryException    Thrown when an error on factory level occurs.
      * @throws ValidationException Thrown when an error on factory level occurs.
+     * @author Lucas Batista Pereira
+     * @since 30/10/2024
      */
     public RootTreeDynamicEntity produce(UUID user_id, UUID company_id, String name, UUID dynamic_input) throws FactoryException, ValidationException {
         try {
@@ -63,7 +65,10 @@ class RootTreeFactoryImpl extends GenericBusinessFactory implements RootTreeFact
      * @return RootTreeStaticEntity
      * @throws FactoryException    Thrown when an error on factory level occurs.
      * @throws ValidationException Thrown when an error on factory level occurs.
+     * @author Lucas Batista Pereira
+     * @since 30/10/2024
      */
+
     public RootTreeStaticEntity produce(UUID user_id, UUID company_id, String name, PredefinedTypeEnum static_input) throws FactoryException, ValidationException {
         try {
             this.validadeBusiness(user_id, company_id);

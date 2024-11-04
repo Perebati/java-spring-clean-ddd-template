@@ -29,14 +29,17 @@ public class ActionOperationFactoryImpl extends GenericBusinessFactory implement
     /**
      * Experimental method for action, will change in the future.
      *
-     * @param user_id    UserId
-     * @param company_id CompanyID
-     * @param url        Message webhook
-     * @param message    Message itself
+     * @param user_id    UserId.
+     * @param company_id CompanyID.
+     * @param url        Message webhook.
+     * @param message    Message itself.
      * @return ActionOperationEntity
-     * @throws FactoryException    Thrown when something wrong happened on factory layer
-     * @throws ValidationException Thrown when something wrong happened on factory layer
+     * @throws FactoryException    Thrown when something wrong happened on factory layer.
+     * @throws ValidationException Thrown when something wrong happened on factory layer.
+     * @author Lucas Batista Pereira
+     * @since 30/10/2024
      */
+
     public ActionOperationEntity produce(UUID user_id, UUID company_id, String url, String message) throws FactoryException, ValidationException {
         try {
             this.validadeBusiness(user_id, company_id);

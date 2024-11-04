@@ -36,6 +36,8 @@ class NodeTreeFactoryImpl extends GenericBusinessFactory implements NodeTreeFact
      * @return NodeTreeEntity
      * @throws FactoryException    Thrown when an error occurs on factory level.
      * @throws ValidationException Thrown when an error occurs on factory level.
+     * @author Lucas Batista Pereira
+     * @since 30/10/2024
      */
     public NodeTreeEntity produce(UUID user_id, UUID company_id, String name, Integer sequence) throws FactoryException, ValidationException {
         try {

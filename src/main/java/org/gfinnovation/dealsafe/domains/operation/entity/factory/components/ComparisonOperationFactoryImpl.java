@@ -55,10 +55,10 @@ public class ComparisonOperationFactoryImpl extends GenericBusinessFactory imple
      * @param variable   Variable value.
      * @param node_id    Node parentId.
      * @return ComparisonOperationEntity
-     * @throws FactoryException        Thrown when something wrong happened on factory layer
-     * @throws BadRequestException     Thrown when there's something wrong in user input
-     * @throws EntityNotFoundException Thrown when something wrong happened on reading entities
-     * @throws ValidationException     Thrown when something wrong happened on factory layer
+     * @throws FactoryException        Thrown when something wrong happened on factory layer.
+     * @throws BadRequestException     Thrown when there's something wrong in user input.
+     * @throws EntityNotFoundException Thrown when something wrong happened on reading entities.
+     * @throws ValidationException     Thrown when something wrong happened on factory layer.
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
