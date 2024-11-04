@@ -36,6 +36,7 @@ class InputBusinessImpl implements InputBusiness {
     private final InputFactory inputFactory;
 
     /**
+     * Handles the creation of dynamic input structures.
      *
      * @param user_id UserId.
      * @param company_id CompanyID.
