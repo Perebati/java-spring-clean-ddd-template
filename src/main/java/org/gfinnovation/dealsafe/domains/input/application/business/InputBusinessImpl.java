@@ -35,12 +35,26 @@ class InputBusinessImpl implements InputBusiness {
     private final InputRepository inputRepository;
     private final InputFactory inputFactory;
 
+    /**
+     *
+     * @param user_id UserId.
+     * @param company_id CompanyID.
+     * @param name Name of given input.
+     * @param json Example of json to map.
+     * @return InputEntity
+     * @throws FactoryException Thrown when ac error occurred on factory level.
+     * @throws ValidationException Thrown when ac error occurred on factory level.
+     * @throws RepositoryException Thrown when ac error occurred on repository level.
+     * @throws BusinessException Thrown when ac error occurred on business level.
+     * @author Lucas Batista Pereira
+     * @since 30/10/2024
+     */
     @Override
     public InputEntity create(UUID user_id, UUID company_id, String name, String json) throws FactoryException, ValidationException, RepositoryException, BusinessException {
         try {
             return this.inputRepository.create(this.inputFactory.produce(user_id, company_id, name, json));
         } catch (Exception e) {
-            throw new BusinessException("Something went wrong creating a input.", e);
+            throw new BusinessException("Something went wrong creating an input.", e);
         }
     }
 
