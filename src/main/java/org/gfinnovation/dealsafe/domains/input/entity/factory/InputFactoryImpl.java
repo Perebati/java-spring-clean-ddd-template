@@ -17,6 +17,7 @@ import java.util.UUID;
  * @class InputFactoryImpl
  * @since 30/10/2024
  */
+
 @Component
 class InputFactoryImpl extends GenericBusinessFactory implements InputFactory {
     InputFactoryImpl(UserBusiness userBusiness, CompanyBusiness companyBusiness) {

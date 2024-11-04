@@ -11,6 +11,7 @@ import org.gfinnovation.dealsafe.domains.tree.application.business.components.in
  * @interface TreeBusiness
  * @since 30/10/2024
  */
+
 public interface TreeBusiness {
     NodeTreeBusiness getNodeTreeBusiness();
 

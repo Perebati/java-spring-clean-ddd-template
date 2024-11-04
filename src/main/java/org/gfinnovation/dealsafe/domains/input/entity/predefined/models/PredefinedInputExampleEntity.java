@@ -10,6 +10,7 @@ import lombok.Data;
  * @class PredefinedInputExampleEntity
  * @since 30/10/2024
  */
+
 @Data
 public class PredefinedInputExampleEntity {
     private String CPF;

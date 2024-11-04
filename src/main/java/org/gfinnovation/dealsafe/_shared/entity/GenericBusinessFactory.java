@@ -15,6 +15,7 @@ import java.util.UUID;
  * @class GenericBusinessFactory
  * @since 30/10/2024
  */
+
 @RequiredArgsConstructor
 public class GenericBusinessFactory {
     private final UserBusiness userBusiness;

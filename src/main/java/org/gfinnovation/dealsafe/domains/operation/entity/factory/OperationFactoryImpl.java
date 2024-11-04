@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
  * Handles the creation of operations.
  * @since 30/10/2024
  */
+
 @Component
 @Getter
 class OperationFactoryImpl extends GenericBusinessFactory implements OperationFactory {

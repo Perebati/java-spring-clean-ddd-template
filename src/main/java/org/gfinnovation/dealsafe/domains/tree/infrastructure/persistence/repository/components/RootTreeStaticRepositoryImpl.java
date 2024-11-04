@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
  * @class RootTreeStaticRepositoryImpl
  * @since 30/10/2024
  */
+
 @Component
 class RootTreeStaticRepositoryImpl
         extends GenericRepositoryImpl<RootTreeStaticEntity, RootTreeStaticSchema>

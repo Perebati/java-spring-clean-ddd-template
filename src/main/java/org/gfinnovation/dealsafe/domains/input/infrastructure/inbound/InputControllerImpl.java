@@ -18,6 +18,7 @@ import java.util.UUID;
  * @class InputController
  * @since 30/10/2024
  */
+
 @Controller
 public class InputControllerImpl implements InputController {
     private final InputBusiness inputBusiness;

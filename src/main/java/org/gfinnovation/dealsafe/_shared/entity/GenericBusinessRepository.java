@@ -17,6 +17,7 @@ import java.util.UUID;
  * @interface GenericRepository
  * @since 30/10/2024
  */
+
 @Repository
 public interface GenericBusinessRepository<E extends GenericEntity> {
 

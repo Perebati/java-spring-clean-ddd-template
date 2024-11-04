@@ -24,6 +24,7 @@ import java.util.UUID;
  * @class TreeRepositoryImpl
  * @since 30/10/2024
  */
+
 @Getter
 @Repository
 class TreeRepositoryImpl implements TreeRepository {
@@ -52,6 +53,7 @@ class TreeRepositoryImpl implements TreeRepository {
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
+
     @Override
     public Optional<UUID> findRootIdByNodeId(UUID node_id) {
         String sql = """

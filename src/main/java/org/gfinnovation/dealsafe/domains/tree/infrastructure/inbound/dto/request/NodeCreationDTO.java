@@ -8,5 +8,6 @@ import java.util.UUID;
  * @record NodeCreationDTO
  * @since 04/11/2024
  */
+
 public record NodeCreationDTO(String name, Integer sequence, UUID parent_id) {
 }

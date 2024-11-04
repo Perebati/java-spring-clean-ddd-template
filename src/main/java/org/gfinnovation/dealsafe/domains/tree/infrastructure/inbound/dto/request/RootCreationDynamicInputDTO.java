@@ -8,5 +8,6 @@ import java.util.UUID;
  * @record RootCreationDynamicInputDTO
  * @since 04/11/2024
  */
+
 public record RootCreationDynamicInputDTO(String name, UUID dynamicInput_id) {
 }

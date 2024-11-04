@@ -15,6 +15,7 @@ import java.lang.reflect.Field;
  * @class PredefinedTypeEnum
  * @since 30/10/2024
  */
+
 @Getter
 public enum PredefinedTypeEnum {
     TESTE(PredefinedInputExampleEntity.class);
@@ -42,6 +43,7 @@ public enum PredefinedTypeEnum {
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
+
     public void validateJsonPath(PredefinedTypeEnum predefinedTypeEnum, String jsonPath) throws NoSuchFieldException {
         // Remove o prefixo '/' ou '.' para facilitar a manipulação e divide o jsonPath em partes para percorrer cada campo.
         jsonPath = jsonPath.replaceFirst("^[/.]", "");

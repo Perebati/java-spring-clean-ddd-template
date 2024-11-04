@@ -17,6 +17,7 @@ import java.util.HashMap;
  * @class InputSchema
  * @since 30/10/2024
  */
+
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)

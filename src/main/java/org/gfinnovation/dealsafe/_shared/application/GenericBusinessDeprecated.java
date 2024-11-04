@@ -10,6 +10,7 @@ import org.gfinnovation.dealsafe._shared.infrastructure.GenericSchema;
  * Deprecated. It still exists only because the idea behind this is ingenious.
  * @since 30/10/2024
  */
+
 @Deprecated
 public class GenericBusinessDeprecated<E extends GenericEntity, S extends GenericSchema> {
 //    private final GenericMapper<E, S> mapper;

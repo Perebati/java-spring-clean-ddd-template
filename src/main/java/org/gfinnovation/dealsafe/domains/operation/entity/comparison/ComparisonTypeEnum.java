@@ -13,6 +13,7 @@ import org.gfinnovation.dealsafe.domains.operation.entity.comparison.types.*;
  * @enum ComparisonTypeEnum
  * @since 30/10/2024
  */
+
 public enum ComparisonTypeEnum {
     DIFFERENT(IsDifferentOperation.class),
     EQUAL(IsEqualsOperation.class),

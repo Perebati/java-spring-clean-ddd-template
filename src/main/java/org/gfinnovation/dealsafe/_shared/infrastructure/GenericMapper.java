@@ -15,6 +15,7 @@ import java.util.List;
  * @interface GenericMapper
  * @since 30/10/2024
  */
+
 public interface GenericMapper<E extends GenericEntity, S extends GenericSchema> {
     E toEntity(S schema);
 

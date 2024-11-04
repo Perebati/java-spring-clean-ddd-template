@@ -15,6 +15,8 @@ import org.springframework.stereotype.Repository;
  * @class InputRepositoryImpl
  * @since 30/10/2024
  */
+
+
 @Repository
 class InputRepositoryImpl
         extends GenericRepositoryImpl<InputEntity, InputSchema>

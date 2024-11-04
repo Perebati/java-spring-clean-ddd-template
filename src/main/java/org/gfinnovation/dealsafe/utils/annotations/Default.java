@@ -16,6 +16,7 @@ import java.lang.annotation.Target;
  * @annotation @Default
  * @since 30/10/2024
  */
+
 @Target(ElementType.CONSTRUCTOR)
 @Retention(RetentionPolicy.CLASS)
 public @interface Default {

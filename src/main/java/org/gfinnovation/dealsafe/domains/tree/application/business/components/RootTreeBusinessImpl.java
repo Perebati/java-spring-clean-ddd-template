@@ -27,6 +27,7 @@ import java.util.UUID;
  * @class RootTreeBusinessImpl
  * @since 30/10/2024
  */
+
 @Component
 @RequiredArgsConstructor
 class RootTreeBusinessImpl implements RootTreeBusiness {

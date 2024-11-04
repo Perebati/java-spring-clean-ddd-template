@@ -16,6 +16,7 @@ import java.util.UUID;
  * @class RootTreeDynamicEntity
  * @since 30/10/2024
  */
+
 @Getter
 @Setter
 @ToString(callSuper = true)

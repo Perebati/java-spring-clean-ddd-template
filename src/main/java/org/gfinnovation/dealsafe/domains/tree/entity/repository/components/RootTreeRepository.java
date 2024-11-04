@@ -9,5 +9,6 @@ import org.gfinnovation.dealsafe.domains.tree.entity.RootTreeEntity;
  * @interface RootTreeRepository
  * @since 30/10/2024
  */
+
 public interface RootTreeRepository extends GenericRepository<RootTreeEntity> {
 }

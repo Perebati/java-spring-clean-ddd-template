@@ -12,6 +12,7 @@ import org.gfinnovation.dealsafe.domains.tree.entity.factory.components.interfac
  * @interface TreeFactory
  * @since 30/10/2024
  */
+
 public interface TreeFactory {
     NodeTreeFactory getNodeTreeFactory();
 

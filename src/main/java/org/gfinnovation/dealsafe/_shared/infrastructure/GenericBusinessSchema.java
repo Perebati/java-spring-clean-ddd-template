@@ -14,6 +14,7 @@ import java.util.UUID;
  * @class GenericBusinessSchema
  * @since 30/10/2024
  */
+
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @Data

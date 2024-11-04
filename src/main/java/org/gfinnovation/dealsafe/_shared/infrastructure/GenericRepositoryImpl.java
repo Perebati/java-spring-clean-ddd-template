@@ -27,6 +27,7 @@ import java.util.UUID;
  * @class GenericRepositoryImpl
  * @since 30/10/2024
  */
+
 @RequiredArgsConstructor
 public class GenericRepositoryImpl<E extends GenericEntity, S extends GenericSchema>
         implements GenericRepository<E> {
@@ -73,6 +74,7 @@ public class GenericRepositoryImpl<E extends GenericEntity, S extends GenericSch
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
+
     @Transactional
     public Optional<E> read(UUID id) {
         try {
@@ -95,6 +97,7 @@ public class GenericRepositoryImpl<E extends GenericEntity, S extends GenericSch
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
+
     @Transactional
     public E update(E entity) {
         try {
@@ -126,6 +129,7 @@ public class GenericRepositoryImpl<E extends GenericEntity, S extends GenericSch
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
+
     @Transactional
     public void delete(UUID id) {
         try {
@@ -149,6 +153,7 @@ public class GenericRepositoryImpl<E extends GenericEntity, S extends GenericSch
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
+
     @Transactional
     public Optional<List<E>> findAll() {
         try {
@@ -171,6 +176,7 @@ public class GenericRepositoryImpl<E extends GenericEntity, S extends GenericSch
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
+
     @Transactional
     public Optional<List<E>> findAllByIds(List<UUID> ids) {
         try {
@@ -192,6 +198,7 @@ public class GenericRepositoryImpl<E extends GenericEntity, S extends GenericSch
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
+
     @Transactional
     public void check(UUID id) {
         if (read(id).isEmpty()) {
@@ -206,6 +213,7 @@ public class GenericRepositoryImpl<E extends GenericEntity, S extends GenericSch
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
+
     @Transactional
     public void checkAll(Set<UUID> ids) {
         ids.forEach(this::check);

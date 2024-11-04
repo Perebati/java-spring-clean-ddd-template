@@ -16,6 +16,7 @@ import java.util.UUID;
  * @interface TreeRepository
  * @since 30/10/2024
  */
+
 public interface TreeRepository {
 
     NodeTreeRepository getNodeTreeRepository();

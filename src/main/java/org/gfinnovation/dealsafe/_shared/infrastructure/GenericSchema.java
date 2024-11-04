@@ -17,6 +17,7 @@ import java.util.UUID;
  * @class GenericSchema
  * @since 30/10/2024
  */
+
 @Data
 @MappedSuperclass
 @NoArgsConstructor

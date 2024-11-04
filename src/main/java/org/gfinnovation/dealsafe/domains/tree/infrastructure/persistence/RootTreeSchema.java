@@ -13,6 +13,7 @@ import java.util.Set;
  * @class RootTreeSchema
  * @since 30/10/2024
  */
+
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
