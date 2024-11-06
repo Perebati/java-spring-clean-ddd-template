@@ -6,22 +6,18 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 
 /**
- * Every single business class in this system should extend from this.
- * It sets a pattern for the whole system, witch is easy to follow.
- *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
- * @interface GenericBusinessInterface
- * @since 30/10/2024
+ * @interface GenericBusinessOld
+ * @since 06/11/2024
  */
 
-public interface GenericBusiness<E extends GenericEntity> {
-    E read(UUID id) throws RuntimeException;
+public interface GenericBusinessOld<E extends GenericEntity> {
+    Optional<E> read(UUID id) throws RuntimeException;
 
-    CompletableFuture<E> update(E entity) throws RuntimeException;
+    E update(E entity) throws RuntimeException;
 
     void delete(UUID id) throws RuntimeException;
 

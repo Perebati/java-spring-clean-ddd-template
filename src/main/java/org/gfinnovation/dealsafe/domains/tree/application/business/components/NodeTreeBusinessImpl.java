@@ -2,7 +2,9 @@ package org.gfinnovation.dealsafe.domains.tree.application.business.components;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.ValidationException;
-import lombok.RequiredArgsConstructor;
+import org.gfinnovation.dealsafe._shared.infrastructure.GenericBusinessImpl;
+import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
+import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
 import org.gfinnovation.dealsafe.configuration.exception.models.EntityNotFoundException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
@@ -14,12 +16,14 @@ import org.gfinnovation.dealsafe.domains.tree.entity.RootTreeDynamicEntity;
 import org.gfinnovation.dealsafe.domains.tree.entity.RootTreeStaticEntity;
 import org.gfinnovation.dealsafe.domains.tree.entity.factory.interfaces.TreeFactory;
 import org.gfinnovation.dealsafe.domains.tree.entity.repository.TreeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Handles business operations of Nodes in the validation tree.
@@ -33,22 +37,27 @@ import java.util.UUID;
  */
 
 @Component
-@RequiredArgsConstructor
-class NodeTreeBusinessImpl implements NodeTreeBusiness {
+class NodeTreeBusinessImpl extends GenericBusinessImpl implements NodeTreeBusiness {
     private final TreeRepository treeRepository;
     private final TreeFactory treeFactory;
     private final RootTreeBusiness rootTreeBusiness;
+
+    @Autowired
+    public NodeTreeBusinessImpl(UserBusiness userBusiness, CompanyBusiness companyBusiness, TreeRepository treeRepository, TreeFactory treeFactory, RootTreeBusiness rootTreeBusiness) {
+        super(userBusiness, companyBusiness);
+        this.treeRepository = treeRepository;
+        this.treeFactory = treeFactory;
+        this.rootTreeBusiness = rootTreeBusiness;
+    }
 
     /**
      * Handles the creation of a Node.
      * Every Node needs a parent, in this case the parent can be either an RootNode or a common Node.
      * ParentId can either belong to a Root or a Node, this method supports both.
      *
-     * @param user_id    UserId.
-     * @param company_id CompanyId.
-     * @param name       Name of the new node.
-     * @param sequence   Position/Priority of node execution.
-     * @param parent_id  ParentId, tha can be either an id from a RootNode or another Node.
+     * @param name      Name of the new node.
+     * @param sequence  Position/Priority of node execution.
+     * @param parent_id ParentId, tha can be either an id from a RootNode or another Node.
      * @return NodeTreeEntity
      * @throws BusinessException       Thrown when an error occurs on business level.
      * @throws FactoryException        Thrown when an error occurs on factory level.
@@ -59,30 +68,29 @@ class NodeTreeBusinessImpl implements NodeTreeBusiness {
      * @since 30/10/2024
      */
 
-    @Override
     @Transactional
-    public NodeTreeEntity create(UUID user_id, UUID company_id, String name, Integer sequence, UUID parent_id) throws BusinessException, FactoryException, RepositoryException, ValidationException, EntityNotFoundException {
+    public CompletableFuture<NodeTreeEntity> create(String name, Integer sequence, UUID parent_id) throws BusinessException, FactoryException, RepositoryException, ValidationException, EntityNotFoundException {
         try {
             Object parent = this.rootTreeBusiness.readGenericRoot(parent_id);
             if (parent instanceof RootTreeStaticEntity) {
                 RootTreeStaticEntity parent_root = this.rootTreeBusiness.readRootStatic(parent_id).orElseThrow(() ->
                         new EntityNotFoundException("Parent of node not found!"));
-                NodeTreeEntity createdNodeEntity = this.treeRepository.getNodeTreeRepository().create(treeFactory.getNodeTreeFactory().produce(user_id, company_id, name, sequence));
-                this.rootTreeBusiness.update(parent_root.addNode(createdNodeEntity));
+                CompletableFuture<NodeTreeEntity> createdNodeEntity = this.treeRepository.getNodeTreeRepository().create(getUserId(), getCompanyId(), treeFactory.getNodeTreeFactory().produce(getUserId(), getCompanyId(), name, sequence));
+                this.rootTreeBusiness.update(parent_root.addNode(createdNodeEntity.get()));
 
                 return createdNodeEntity;
             } else if (parent instanceof RootTreeDynamicEntity) {
                 RootTreeDynamicEntity parent_root = this.rootTreeBusiness.readRootDynamic(parent_id).orElseThrow(() ->
                         new EntityNotFoundException("Parent of node not found!"));
 
-                NodeTreeEntity createdNodeEntity = this.treeRepository.getNodeTreeRepository().create(treeFactory.getNodeTreeFactory().produce(user_id, company_id, name, sequence));
-                this.rootTreeBusiness.update(parent_root.addNode(createdNodeEntity));
+                CompletableFuture<NodeTreeEntity> createdNodeEntity = this.treeRepository.getNodeTreeRepository().create(getUserId(), getCompanyId(), treeFactory.getNodeTreeFactory().produce(getUserId(), getCompanyId(), name, sequence));
+                this.rootTreeBusiness.update(parent_root.addNode(createdNodeEntity.get()));
 
                 return createdNodeEntity;
             } else {
-                NodeTreeEntity parent_node = this.read(parent_id).orElseThrow();
-                NodeTreeEntity createdNodeEntity = this.treeRepository.getNodeTreeRepository().create(treeFactory.getNodeTreeFactory().produce(user_id, company_id, name, sequence));
-                this.update(parent_node.addChild(createdNodeEntity));
+                NodeTreeEntity parent_node = this.read(parent_id);
+                CompletableFuture<NodeTreeEntity> createdNodeEntity = this.treeRepository.getNodeTreeRepository().create(getUserId(), getCompanyId(), treeFactory.getNodeTreeFactory().produce(getUserId(), getCompanyId(), name, sequence));
+                this.update(parent_node.addChild(createdNodeEntity.get()));
 
                 return createdNodeEntity;
             }
@@ -92,37 +100,37 @@ class NodeTreeBusinessImpl implements NodeTreeBusiness {
     }
 
     @Override
-    public Optional<NodeTreeEntity> read(UUID id) throws RuntimeException {
-        return this.treeRepository.getNodeTreeRepository().read(id);
+    public NodeTreeEntity read(UUID id) throws RuntimeException {
+        return this.treeRepository.getNodeTreeRepository().read(getUserId(), getCompanyId(), id);
     }
 
     @Override
-    public NodeTreeEntity update(NodeTreeEntity entity) throws RuntimeException {
-        return this.treeRepository.getNodeTreeRepository().update(entity);
+    public CompletableFuture<NodeTreeEntity> update(NodeTreeEntity entity) throws RuntimeException {
+        return this.treeRepository.getNodeTreeRepository().update(getUserId(), getCompanyId(), entity);
     }
 
     @Override
     public void delete(UUID id) throws RuntimeException {
-        this.treeRepository.getNodeTreeRepository().delete(id);
+        this.treeRepository.getNodeTreeRepository().delete(getUserId(), getCompanyId(), id);
     }
 
     @Override
     public Optional<List<NodeTreeEntity>> readAll() throws RuntimeException {
-        return this.treeRepository.getNodeTreeRepository().findAll();
+        return this.treeRepository.getNodeTreeRepository().findAll(getUserId(), getCompanyId());
     }
 
     @Override
     public Optional<List<NodeTreeEntity>> readAllByIds(List<UUID> ids) throws RuntimeException {
-        return this.treeRepository.getNodeTreeRepository().findAllByIds(ids);
+        return this.treeRepository.getNodeTreeRepository().findAllByIds(getUserId(), getCompanyId(), ids);
     }
 
     @Override
     public void check(UUID id) throws RuntimeException {
-        this.treeRepository.getNodeTreeRepository().check(id);
+        this.treeRepository.getNodeTreeRepository().check(getUserId(), getCompanyId(), id);
     }
 
     @Override
     public void checkAll(Set<UUID> ids) throws RuntimeException {
-        this.treeRepository.getNodeTreeRepository().checkAll(ids);
+        this.treeRepository.getNodeTreeRepository().checkAll(getUserId(), getCompanyId(), ids);
     }
 }

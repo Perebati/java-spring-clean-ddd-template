@@ -22,9 +22,11 @@ import java.util.UUID;
 @Controller
 public class EngineControllerImpl implements EngineController {
     private final TreeBusiness treeBusiness;
+    private final Engine engine;
 
-    public EngineControllerImpl(TreeBusiness treeBusiness) {
+    public EngineControllerImpl(TreeBusiness treeBusiness, Engine engine) {
         this.treeBusiness = treeBusiness;
+        this.engine = engine;
     }
 
     @Override
@@ -38,7 +40,7 @@ public class EngineControllerImpl implements EngineController {
 
             JsonNode validationRoot = mapper.readTree(validationTreeJson);
 
-            return ResponseEntity.ok(Engine.bfsValidation(validationRoot, jsonNode));
+            return ResponseEntity.ok(engine.bfsValidation(validationRoot, jsonNode));
         } catch (JsonProcessingException | InvocationTargetException | NoSuchMethodException | IllegalAccessException |
                  InstantiationException e) {
             throw new RuntimeException(e);

@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe.authentication.user.business.interfaces;
 
-import org.gfinnovation.dealsafe._shared.application.GenericBusiness;
+import org.gfinnovation.dealsafe._shared.application.GenericBusinessOld;
 import org.gfinnovation.dealsafe.authentication.user.entity.UserEntity;
 
 import java.util.Optional;
@@ -11,7 +11,7 @@ import java.util.Optional;
  * @interface UserBusiness
  * @since 30/10/2024
  */
-public interface UserBusiness extends GenericBusiness<UserEntity> {
+public interface UserBusiness extends GenericBusinessOld<UserEntity> {
     UserEntity create(String email) throws RuntimeException;
 
     Optional<UserEntity> findUserByEmail(String email);

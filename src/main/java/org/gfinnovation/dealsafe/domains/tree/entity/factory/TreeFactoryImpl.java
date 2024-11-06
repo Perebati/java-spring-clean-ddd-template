@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe.domains.tree.entity.factory;
 
 import lombok.Getter;
-import org.gfinnovation.dealsafe._shared.entity.GenericBusinessFactory;
+import org.gfinnovation.dealsafe._shared.infrastructure.GenericBusinessImpl;
 import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
 import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
 import org.gfinnovation.dealsafe.domains.tree.entity.factory.components.interfaces.NodeTreeFactory;
@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 
 @Getter
 @Component
-class TreeFactoryImpl extends GenericBusinessFactory implements TreeFactory {
+class TreeFactoryImpl extends GenericBusinessImpl implements TreeFactory {
     private final RootTreeFactory rootTreeFactory;
     private final NodeTreeFactory nodeTreeFactory;
 

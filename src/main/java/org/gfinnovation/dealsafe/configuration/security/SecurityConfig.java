@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe.configuration.security;
 
-import org.gfinnovation.dealsafe.configuration.interceptor.RequestLoggingFilter;
+import org.gfinnovation.dealsafe.configuration.interceptor.RequestHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,9 +21,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 public class SecurityConfig {
 
-    private final RequestLoggingFilter jwtAuthenticationFilter;
+    private final RequestHandler jwtAuthenticationFilter;
 
-    public SecurityConfig(RequestLoggingFilter jwtAuthenticationFilter) {
+    public SecurityConfig(RequestHandler jwtAuthenticationFilter) {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     }
 

@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe.domains.tree.entity.repository.components;
 
-import org.gfinnovation.dealsafe._shared.entity.GenericRepository;
+import org.gfinnovation.dealsafe._shared.entity.GenericBusinessRepository;
 import org.gfinnovation.dealsafe.domains.tree.entity.NodeTreeEntity;
 
 /**
@@ -10,5 +10,5 @@ import org.gfinnovation.dealsafe.domains.tree.entity.NodeTreeEntity;
  * @since 30/10/2024
  */
 
-public interface NodeTreeRepository extends GenericRepository<NodeTreeEntity> {
+public interface NodeTreeRepository extends GenericBusinessRepository<NodeTreeEntity> {
 }

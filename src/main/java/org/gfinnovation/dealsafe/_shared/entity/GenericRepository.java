@@ -2,7 +2,6 @@ package org.gfinnovation.dealsafe._shared.entity;
 
 import org.gfinnovation.dealsafe.configuration.exception.models.EntityNotFoundException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,7 +19,6 @@ import java.util.UUID;
  * @since 30/10/2024
  */
 
-@Repository
 public interface GenericRepository<E extends GenericEntity> {
 
     E create(E entity) throws RepositoryException;

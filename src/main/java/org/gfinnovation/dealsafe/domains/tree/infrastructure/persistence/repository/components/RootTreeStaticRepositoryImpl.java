@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe.domains.tree.infrastructure.persistence.repository.components;
 
 import jakarta.persistence.EntityManager;
-import org.gfinnovation.dealsafe._shared.infrastructure.GenericRepositoryImpl;
+import org.gfinnovation.dealsafe._shared.infrastructure.GenericBusinessRepositoryImpl;
 import org.gfinnovation.dealsafe.domains.tree.entity.RootTreeStaticEntity;
 import org.gfinnovation.dealsafe.domains.tree.entity.repository.components.RootTreeStaticRepository;
 import org.gfinnovation.dealsafe.domains.tree.infrastructure.persistence.RootTreeStaticSchema;
@@ -18,12 +18,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 class RootTreeStaticRepositoryImpl
-        extends GenericRepositoryImpl<RootTreeStaticEntity, RootTreeStaticSchema>
+        extends GenericBusinessRepositoryImpl<RootTreeStaticEntity, RootTreeStaticSchema>
         implements RootTreeStaticRepository {
 
     RootTreeStaticRepositoryImpl(
             RootTreeStaticMapper mapper,
             EntityManager entityManager) {
-        super(mapper, new SimpleJpaRepository<>(RootTreeStaticSchema.class, entityManager));
+        super(mapper, new SimpleJpaRepository<>(RootTreeStaticSchema.class, entityManager), RootTreeStaticSchema.class);
     }
 }

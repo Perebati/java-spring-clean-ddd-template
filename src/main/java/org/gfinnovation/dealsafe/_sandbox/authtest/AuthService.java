@@ -1,4 +1,4 @@
-package org.gfinnovation.dealsafe.authentication.authtest;
+package org.gfinnovation.dealsafe._sandbox.authtest;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

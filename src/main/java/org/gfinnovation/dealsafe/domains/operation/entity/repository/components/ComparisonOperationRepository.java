@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe.domains.operation.entity.repository.components;
 
-import org.gfinnovation.dealsafe._shared.entity.GenericRepository;
+import org.gfinnovation.dealsafe._shared.entity.GenericBusinessRepository;
 import org.gfinnovation.dealsafe.domains.operation.entity.ComparisonOperationEntity;
 
 /**
@@ -9,5 +9,5 @@ import org.gfinnovation.dealsafe.domains.operation.entity.ComparisonOperationEnt
  * @interface ComparisonOperationRepository
  * @since 30/10/2024
  */
-public interface ComparisonOperationRepository extends GenericRepository<ComparisonOperationEntity> {
+public interface ComparisonOperationRepository extends GenericBusinessRepository<ComparisonOperationEntity> {
 }

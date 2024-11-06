@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe.domains.operation.entity.factory;
 
 import lombok.Getter;
-import org.gfinnovation.dealsafe._shared.entity.GenericBusinessFactory;
+import org.gfinnovation.dealsafe._shared.infrastructure.GenericBusinessImpl;
 import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
 import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
 import org.gfinnovation.dealsafe.domains.operation.entity.factory.components.interfaces.ActionOperationFactory;
@@ -10,16 +10,17 @@ import org.gfinnovation.dealsafe.domains.operation.entity.factory.interfaces.Ope
 import org.springframework.stereotype.Component;
 
 /**
+ * Handles the creation of operations.
+ *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
  * @class OperationFactoryImpl
- * Handles the creation of operations.
  * @since 30/10/2024
  */
 
 @Component
 @Getter
-class OperationFactoryImpl extends GenericBusinessFactory implements OperationFactory {
+class OperationFactoryImpl extends GenericBusinessImpl implements OperationFactory {
     private final ActionOperationFactory actionOperationFactory;
     private final ComparisonOperationFactory comparisonOperationFactory;
 

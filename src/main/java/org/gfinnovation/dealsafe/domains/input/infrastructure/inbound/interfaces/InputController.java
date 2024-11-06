@@ -12,6 +12,8 @@ import org.gfinnovation.dealsafe.domains.input.entity.InputEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 /**
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
@@ -31,6 +33,15 @@ public interface InputController {
     })
     @PostMapping()
     ResponseEntity<InputEntity> createInput(@RequestParam String name, @RequestBody String json) throws FactoryException, ValidationException, RepositoryException, BusinessException;
+
+    @Operation(summary = "Busca um input dinâmico", description = "Busca um input no sistema.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Input lido com sucesso!"),
+            @ApiResponse(responseCode = "400", description = "Requisição inválida"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    })
+    @GetMapping()
+    InputEntity readInput(@RequestParam UUID read_id) throws FactoryException, ValidationException, RepositoryException, BusinessException;
 }
 
 

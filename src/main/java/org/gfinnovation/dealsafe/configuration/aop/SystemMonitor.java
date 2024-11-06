@@ -8,6 +8,7 @@ import org.gfinnovation.dealsafe.configuration.logging.infrastrutcture.MethodCal
 import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
 
+import javax.naming.AuthenticationException;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -23,26 +24,31 @@ import java.util.Date;
  */
 @Aspect
 @Component
-public class SystemMethodMonitor {
+public class SystemMonitor {
 
     private final LogService logService;
 
-    public SystemMethodMonitor(LogService logService) {
+    public SystemMonitor(LogService logService) {
         this.logService = logService;
     }
 
-    @Around("execution(* org.gfinnovation.dealsafe.domains..*(..))")
-    public Object logMethodCall(ProceedingJoinPoint joinPoint) throws Throwable {
-        String requestId = MDC.get("requestId");
-        String userId = MDC.get("userId");
-        String companyId = MDC.get("companyId");
+    @Around("execution(* org.gfinnovation.dealsafe.domains..application..*(..)) || "
+            + "execution(* org.gfinnovation.dealsafe.domains..entity..*(..))")
+    public Object domainMonitor(ProceedingJoinPoint joinPoint) throws Throwable {
+        String requestId = MDC.get("request_id");
+        String userId = MDC.get("user_id");
+        String companyId = MDC.get("company_id");
+
+        if (companyId == null || userId == null) {
+            throw new AuthenticationException("Erro de autenticação!");
+        }
         try {
             return joinPoint.proceed();
         } catch (Exception ex) {
             MethodCallLogSchema methodCallLog = buildMethodCallLog(joinPoint, requestId, userId, companyId);
             methodCallLog.setError(true);
             logService.saveMethodCallLogSync(methodCallLog);
-            MDC.put("methodId", methodCallLog.getId());
+            MDC.put("method_id", methodCallLog.getId());
             throw ex;
         }
     }

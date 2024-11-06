@@ -1,4 +1,4 @@
-package org.gfinnovation.dealsafe.unsupervised._shared;
+package org.gfinnovation.dealsafe.tests._shared;
 
 import jakarta.transaction.Transactional;
 import org.apache.coyote.BadRequestException;

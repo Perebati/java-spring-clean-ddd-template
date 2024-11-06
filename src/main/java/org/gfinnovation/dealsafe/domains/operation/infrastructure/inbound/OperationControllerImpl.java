@@ -5,12 +5,11 @@ import org.gfinnovation.dealsafe.domains.operation.application.business.interfac
 import org.gfinnovation.dealsafe.domains.operation.entity.ComparisonOperationEntity;
 import org.gfinnovation.dealsafe.domains.operation.infrastructure.inbound.dto.request.OperationCreationDTO;
 import org.gfinnovation.dealsafe.domains.operation.infrastructure.inbound.interfaces.OperationController;
-import org.slf4j.MDC;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
-import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * @author Lucas Batista Pereira
@@ -19,7 +18,7 @@ import java.util.UUID;
  * @since 30/10/2024
  */
 @Controller
-public class OperationControllerImpl implements OperationController {
+class OperationControllerImpl implements OperationController {
     private final OperationBusiness operationBusiness;
 
     public OperationControllerImpl(OperationBusiness operationBusiness) {
@@ -27,12 +26,10 @@ public class OperationControllerImpl implements OperationController {
     }
 
     @Override
-    public ResponseEntity<ComparisonOperationEntity> createOperation(OperationCreationDTO request) {
+    public ResponseEntity<CompletableFuture<ComparisonOperationEntity>> createOperation(OperationCreationDTO request) {
         try {
             return ResponseEntity.ok(
                     this.operationBusiness.getComparisonOperationBusiness().create(
-                            UUID.fromString(MDC.get("user_id")),
-                            UUID.fromString(MDC.get("company_id")),
                             request.type(),
                             request.jsonPath(),
                             request.variable(),

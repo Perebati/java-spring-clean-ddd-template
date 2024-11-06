@@ -1,9 +1,6 @@
 package org.gfinnovation.dealsafe.domains.tree.entity.factory.components;
 
 import jakarta.validation.ValidationException;
-import org.gfinnovation.dealsafe._shared.entity.GenericBusinessFactory;
-import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
-import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
 import org.gfinnovation.dealsafe.domains.input.application.business.interfaces.InputBusiness;
 import org.gfinnovation.dealsafe.domains.input.entity.predefined.PredefinedTypeEnum;
@@ -24,11 +21,10 @@ import java.util.UUID;
  */
 
 @Component
-class RootTreeFactoryImpl extends GenericBusinessFactory implements RootTreeFactory {
+class RootTreeFactoryImpl implements RootTreeFactory {
     private final InputBusiness inputBusiness;
 
-    public RootTreeFactoryImpl(UserBusiness userBusiness, CompanyBusiness companyBusiness, InputBusiness inputBusiness) {
-        super(userBusiness, companyBusiness);
+    RootTreeFactoryImpl(InputBusiness inputBusiness) {
         this.inputBusiness = inputBusiness;
     }
 
@@ -47,7 +43,6 @@ class RootTreeFactoryImpl extends GenericBusinessFactory implements RootTreeFact
      */
     public RootTreeDynamicEntity produce(UUID user_id, UUID company_id, String name, UUID dynamic_input) throws FactoryException, ValidationException {
         try {
-            this.validadeBusiness(user_id, company_id);
             this.inputBusiness.check(dynamic_input);
             return new RootTreeDynamicEntity(user_id, company_id, name, dynamic_input);
         } catch (Exception e) {
@@ -71,7 +66,6 @@ class RootTreeFactoryImpl extends GenericBusinessFactory implements RootTreeFact
 
     public RootTreeStaticEntity produce(UUID user_id, UUID company_id, String name, PredefinedTypeEnum static_input) throws FactoryException, ValidationException {
         try {
-            this.validadeBusiness(user_id, company_id);
             return new RootTreeStaticEntity(user_id, company_id, name, static_input);
         } catch (Exception e) {
             throw new FactoryException("Something went wrong creating a predefined root node.", e);

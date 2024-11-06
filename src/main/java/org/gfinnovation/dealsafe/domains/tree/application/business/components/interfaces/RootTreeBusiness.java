@@ -12,6 +12,7 @@ import org.gfinnovation.dealsafe.domains.tree.entity.RootTreeStaticEntity;
 
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * @author Lucas Batista Pereira
@@ -21,9 +22,9 @@ import java.util.UUID;
  */
 
 public interface RootTreeBusiness extends GenericBusiness<RootTreeEntity> {
-    RootTreeStaticEntity create(UUID user_id, UUID company_id, String name, PredefinedTypeEnum static_input) throws BusinessException, FactoryException, ValidationException, RepositoryException;
+    CompletableFuture<RootTreeStaticEntity> create(String name, PredefinedTypeEnum static_input) throws BusinessException, FactoryException, ValidationException, RepositoryException;
 
-    RootTreeDynamicEntity create(UUID user_id, UUID company_id, String name, UUID dynamic_input) throws BusinessException, FactoryException, ValidationException, RepositoryException;
+    CompletableFuture<RootTreeDynamicEntity> create(String name, UUID dynamic_input) throws BusinessException, FactoryException, ValidationException, RepositoryException;
 
     Optional<RootTreeStaticEntity> readRootStatic(UUID id) throws RepositoryException;
 

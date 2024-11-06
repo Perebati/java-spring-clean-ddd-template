@@ -1,8 +1,10 @@
 package org.gfinnovation.dealsafe._shared.infrastructure;
 
-import lombok.Data;
+import jakarta.persistence.Column;
+import jakarta.persistence.MappedSuperclass;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.UUID;
 
@@ -15,10 +17,15 @@ import java.util.UUID;
  * @since 30/10/2024
  */
 
+@Setter
+@Getter
 @EqualsAndHashCode(callSuper = true)
-@NoArgsConstructor
-@Data
-public class GenericBusinessSchema extends org.gfinnovation.dealsafe._shared.infrastructure.GenericSchema {
-    private UUID userId;
-    private UUID companyId;
+@MappedSuperclass
+public abstract class GenericBusinessSchema extends GenericSchema {
+
+    @Column(name = "user_id", updatable = false, nullable = false)
+    private UUID user_id;
+
+    @Column(name = "company_id", updatable = false, nullable = false)
+    private UUID company_id;
 }

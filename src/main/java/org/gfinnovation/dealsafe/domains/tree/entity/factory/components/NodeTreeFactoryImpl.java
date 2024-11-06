@@ -1,9 +1,6 @@
 package org.gfinnovation.dealsafe.domains.tree.entity.factory.components;
 
 import jakarta.validation.ValidationException;
-import org.gfinnovation.dealsafe._shared.entity.GenericBusinessFactory;
-import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
-import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
 import org.gfinnovation.dealsafe.domains.tree.entity.NodeTreeEntity;
 import org.gfinnovation.dealsafe.domains.tree.entity.factory.components.interfaces.NodeTreeFactory;
@@ -21,10 +18,7 @@ import java.util.UUID;
  */
 
 @Component
-class NodeTreeFactoryImpl extends GenericBusinessFactory implements NodeTreeFactory {
-    public NodeTreeFactoryImpl(UserBusiness userBusiness, CompanyBusiness companyBusiness) {
-        super(userBusiness, companyBusiness);
-    }
+class NodeTreeFactoryImpl implements NodeTreeFactory {
 
     /**
      * Validates business information and creates a NodeTreeEntity.
@@ -41,7 +35,6 @@ class NodeTreeFactoryImpl extends GenericBusinessFactory implements NodeTreeFact
      */
     public NodeTreeEntity produce(UUID user_id, UUID company_id, String name, Integer sequence) throws FactoryException, ValidationException {
         try {
-            this.validadeBusiness(user_id, company_id);
             return new NodeTreeEntity(user_id, company_id, name, sequence);
         } catch (Exception e) {
             throw new FactoryException("Something went wrong creating a node.", e);

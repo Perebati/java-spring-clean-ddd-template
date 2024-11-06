@@ -5,7 +5,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.gfinnovation.dealsafe.domains.tree.entity.NodeTreeEntity;
-import org.gfinnovation.dealsafe.domains.tree.entity.RootTreeEntity;
+import org.gfinnovation.dealsafe.domains.tree.entity.RootTreeDynamicEntity;
+import org.gfinnovation.dealsafe.domains.tree.entity.RootTreeStaticEntity;
 import org.gfinnovation.dealsafe.domains.tree.infrastructure.inbound.dto.request.NodeCreationDTO;
 import org.gfinnovation.dealsafe.domains.tree.infrastructure.inbound.dto.request.RootCreationDynamicInputDTO;
 import org.gfinnovation.dealsafe.domains.tree.infrastructure.inbound.dto.request.RootCreationPredefinedInputDTO;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * @author Lucas Batista Pereira
@@ -35,7 +38,7 @@ public interface TreeController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PostMapping("/root/predefind-input")
-    ResponseEntity<RootTreeEntity> createRootPredefined(@RequestBody RootCreationPredefinedInputDTO request);
+    ResponseEntity<CompletableFuture<RootTreeStaticEntity>> createRootPredefined(@RequestBody RootCreationPredefinedInputDTO request);
 
     @Operation(
             summary = "Cadastro de root de árvore com input dinâmico",
@@ -46,7 +49,7 @@ public interface TreeController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PostMapping("/root/dynamic-input")
-    ResponseEntity<RootTreeEntity> createRootPredefined(@RequestBody RootCreationDynamicInputDTO request);
+    ResponseEntity<CompletableFuture<RootTreeDynamicEntity>> createRootPredefined(@RequestBody RootCreationDynamicInputDTO request);
 
     @Operation(
             summary = "Cadastro de nó de árvore",
@@ -57,5 +60,5 @@ public interface TreeController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PostMapping("/node")
-    ResponseEntity<NodeTreeEntity> createNode(@RequestBody NodeCreationDTO request);
+    ResponseEntity<CompletableFuture<NodeTreeEntity>> createNode(@RequestBody NodeCreationDTO request);
 }

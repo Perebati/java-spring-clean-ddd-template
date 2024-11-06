@@ -1,4 +1,4 @@
-package org.gfinnovation.dealsafe.authentication.authtest;
+package org.gfinnovation.dealsafe._sandbox.authtest;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
@@ -18,7 +18,7 @@ import lombok.Data;
 @Schema(description = "Requisição para registro ou login de usuário")
 public class AuthRequest {
 
-    @Schema(description = "Endereço de e-mail do usuário", example = "usuario@exemplo.com", required = true)
+    @Schema(description = "Endereço de e-mail do usuário", example = "usuario@exemplo.com")
     @NotBlank(message = "O e-mail é obrigatório")
     @Email(message = "O e-mail deve ser válido")
     private String email;

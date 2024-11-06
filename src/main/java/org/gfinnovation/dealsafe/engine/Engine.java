@@ -2,6 +2,7 @@ package org.gfinnovation.dealsafe.engine;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import org.gfinnovation.dealsafe._sandbox.Neo4jTest;
 import org.gfinnovation.dealsafe.domains.operation.entity.comparison.ComparisonTypeEnum;
 import org.springframework.stereotype.Component;
 
@@ -29,6 +30,11 @@ import java.util.Set;
 
 @Component
 public class Engine {
+    private final Neo4jTest neo4jTest;
+
+    public Engine(Neo4jTest neo4jTest) {
+        this.neo4jTest = neo4jTest;
+    }
 
     /**
      * This is an early version of that validates a json based on a tree previously created.
@@ -45,8 +51,10 @@ public class Engine {
      * @since 30/10/2024
      */
 
-    public static boolean bfsValidation(JsonNode root, JsonNode objectToValidate) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException {
+    public boolean bfsValidation(JsonNode root, JsonNode objectToValidate) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException {
         Queue<JsonNode> queue = new LinkedList<>();
+
+        this.neo4jTest.storeUserInput(objectToValidate.toString());
 
         if (root.has("nodes")) {
             for (JsonNode node : root.get("nodes")) {
@@ -111,6 +119,7 @@ public class Engine {
                 }
             }
         }
+
 
         return true;
     }

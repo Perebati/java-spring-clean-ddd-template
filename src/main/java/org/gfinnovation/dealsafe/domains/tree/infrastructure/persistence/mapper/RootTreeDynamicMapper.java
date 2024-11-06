@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe.domains.tree.infrastructure.persistence.mapper;
 
-import org.gfinnovation.dealsafe._shared.infrastructure.GenericMapper;
+import org.gfinnovation.dealsafe._shared.infrastructure.GenericBusinessMapper;
 import org.gfinnovation.dealsafe.domains.tree.entity.RootTreeDynamicEntity;
 import org.gfinnovation.dealsafe.domains.tree.infrastructure.persistence.RootTreeDynamicSchema;
 import org.mapstruct.Mapper;
@@ -18,5 +18,5 @@ import org.mapstruct.ReportingPolicy;
         componentModel = MappingConstants.ComponentModel.SPRING,
         unmappedTargetPolicy = ReportingPolicy.IGNORE
 )
-public interface RootTreeDynamicMapper extends GenericMapper<RootTreeDynamicEntity, RootTreeDynamicSchema> {
+public interface RootTreeDynamicMapper extends GenericBusinessMapper<RootTreeDynamicEntity, RootTreeDynamicSchema> {
 }

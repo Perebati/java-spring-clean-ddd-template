@@ -30,11 +30,11 @@ import java.util.Date;
  * @since 30/10/2024
  */
 @Component
-public class RequestLoggingFilter implements Filter {
+public class RequestHandler implements Filter {
 
     private final LogService logService;
 
-    public RequestLoggingFilter(LogService logService) {
+    public RequestHandler(LogService logService) {
         this.logService = logService;
     }
 
@@ -77,7 +77,7 @@ public class RequestLoggingFilter implements Filter {
                 requestLog.setUri(httpServletRequest.getRequestURI());
 
                 String requestId = logService.saveRequestLog(requestLog).getId();
-                MDC.put("requestId", requestId);
+                MDC.put("request_id", requestId);
             }
 
             chain.doFilter(request, response);

@@ -1,4 +1,4 @@
-package org.gfinnovation.dealsafe.authentication.authtest;
+package org.gfinnovation.dealsafe._sandbox.authtest;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

@@ -9,6 +9,7 @@ import org.gfinnovation.dealsafe.configuration.exception.models.layered.Reposito
 import org.gfinnovation.dealsafe.domains.tree.entity.NodeTreeEntity;
 
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * @author Lucas Batista Pereira
@@ -18,5 +19,5 @@ import java.util.UUID;
  */
 
 public interface NodeTreeBusiness extends GenericBusiness<NodeTreeEntity> {
-    NodeTreeEntity create(UUID user_id, UUID company_id, String name, Integer sequence, UUID parent_id) throws BusinessException, FactoryException, RepositoryException, ValidationException, EntityNotFoundException;
+    CompletableFuture<NodeTreeEntity> create(String name, Integer sequence, UUID parent_id) throws BusinessException, FactoryException, RepositoryException, ValidationException, EntityNotFoundException;
 }

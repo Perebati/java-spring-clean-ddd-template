@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe.domains.input.entity.repository;
 
-import org.gfinnovation.dealsafe._shared.entity.GenericRepository;
+import org.gfinnovation.dealsafe._shared.entity.GenericBusinessRepository;
 import org.gfinnovation.dealsafe.domains.input.entity.InputEntity;
 
 /**
@@ -10,5 +10,5 @@ import org.gfinnovation.dealsafe.domains.input.entity.InputEntity;
  * @since 30/10/2024
  */
 
-public interface InputRepository extends GenericRepository<InputEntity> {
+public interface InputRepository extends GenericBusinessRepository<InputEntity> {
 }

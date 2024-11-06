@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe.domains.operation.entity.repository.components;
 
-import org.gfinnovation.dealsafe._shared.entity.GenericRepository;
+import org.gfinnovation.dealsafe._shared.entity.GenericBusinessRepository;
 import org.gfinnovation.dealsafe.domains.operation.entity.ActionOperationEntity;
 
 /**
@@ -9,5 +9,5 @@ import org.gfinnovation.dealsafe.domains.operation.entity.ActionOperationEntity;
  * @interface ActionOperationRepository
  * @since 30/10/2024
  */
-public interface ActionOperationRepository extends GenericRepository<ActionOperationEntity> {
+public interface ActionOperationRepository extends GenericBusinessRepository<ActionOperationEntity> {
 }

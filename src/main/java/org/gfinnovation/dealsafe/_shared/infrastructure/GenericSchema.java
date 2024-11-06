@@ -21,14 +21,16 @@ import java.util.UUID;
 @Data
 @MappedSuperclass
 @NoArgsConstructor
+@EntityListeners(GenericSchema.EntityListener.class)
 public abstract class GenericSchema {
+
     @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @Setter
-    @Column(name = "created_at")
+    @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
     @Setter
@@ -42,4 +44,29 @@ public abstract class GenericSchema {
     @Setter
     @Column(nullable = false)
     private Boolean deleted = false;
+
+    /**
+     * Entity Listener para automatizar a configuração de campos.
+     */
+    public static class EntityListener {
+
+        @PrePersist
+        public void prePersist(GenericSchema schema) {
+            LocalDateTime now = LocalDateTime.now();
+            schema.setCreatedAt(now);
+            schema.setUpdatedAt(now);
+            schema.setDeleted(false);
+        }
+
+        @PreUpdate
+        public void preUpdate(GenericSchema schema) {
+            schema.setUpdatedAt(LocalDateTime.now());
+        }
+
+        @PreRemove
+        public void preRemove(GenericSchema entity) {
+            entity.setDeleted(true);
+            entity.setDeletedAt(LocalDateTime.now());
+        }
+    }
 }

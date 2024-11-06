@@ -1,11 +1,13 @@
 package org.gfinnovation.dealsafe._shared.entity;
 
-import org.springframework.stereotype.Repository;
+import org.gfinnovation.dealsafe.configuration.exception.models.EntityNotFoundException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Every repository in this system should use this Generic interface
@@ -18,22 +20,21 @@ import java.util.UUID;
  * @since 30/10/2024
  */
 
-@Repository
 public interface GenericBusinessRepository<E extends GenericEntity> {
 
-    E create(UUID user_id, UUID company_id, E entity) throws RuntimeException;
+    CompletableFuture<E> create(UUID user_id, UUID company_id, E entity) throws RepositoryException;
 
-    Optional<E> read(UUID user_id, UUID company_id, UUID id) throws RuntimeException;
+    E read(UUID user_id, UUID company_id, UUID id) throws RepositoryException;
 
-    E update(UUID user_id, UUID company_id, E entity) throws RuntimeException;
+    CompletableFuture<E> update(UUID user_id, UUID company_id, E entity) throws RepositoryException, EntityNotFoundException;
 
-    void delete(UUID user_id, UUID company_id, UUID id) throws RuntimeException;
+    void delete(UUID user_id, UUID company_id, UUID id) throws RepositoryException, EntityNotFoundException;
 
-    Optional<List<E>> findAll(UUID user_id, UUID company_id) throws RuntimeException;
+    Optional<List<E>> findAll(UUID user_id, UUID company_id) throws RepositoryException;
 
-    Optional<List<E>> findAllByIds(UUID user_id, UUID company_id, List<UUID> ids) throws RuntimeException;
+    Optional<List<E>> findAllByIds(UUID user_id, UUID company_id, List<UUID> ids) throws RepositoryException;
 
-    void check(UUID user_id, UUID company_id, UUID id) throws RuntimeException;
+    void check(UUID user_id, UUID company_id, UUID id) throws RepositoryException, EntityNotFoundException;
 
-    void checkAll(UUID user_id, UUID company_id, Set<UUID> ids) throws RuntimeException;
+    void checkAll(UUID user_id, UUID company_id, Set<UUID> ids) throws RepositoryException, EntityNotFoundException;
 }

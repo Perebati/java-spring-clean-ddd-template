@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe.domains.operation.infrastructure.persistence.mapper;
 
-import org.gfinnovation.dealsafe._shared.infrastructure.GenericMapper;
+import org.gfinnovation.dealsafe._shared.infrastructure.GenericBusinessMapper;
 import org.gfinnovation.dealsafe.domains.operation.entity.ActionOperationEntity;
 import org.gfinnovation.dealsafe.domains.operation.infrastructure.persistence.ActionOperationSchema;
 import org.mapstruct.Mapper;
@@ -17,5 +17,5 @@ import org.mapstruct.ReportingPolicy;
         componentModel = MappingConstants.ComponentModel.SPRING,
         unmappedTargetPolicy = ReportingPolicy.IGNORE
 )
-public interface ActionOperationMapper extends GenericMapper<ActionOperationEntity, ActionOperationSchema> {
+public interface ActionOperationMapper extends GenericBusinessMapper<ActionOperationEntity, ActionOperationSchema> {
 }

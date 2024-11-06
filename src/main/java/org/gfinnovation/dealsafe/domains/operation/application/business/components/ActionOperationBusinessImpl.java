@@ -1,8 +1,9 @@
 package org.gfinnovation.dealsafe.domains.operation.application.business.components;
 
 import jakarta.validation.ValidationException;
-import lombok.RequiredArgsConstructor;
-import org.gfinnovation.dealsafe.configuration.exception.models.EntityNotFoundException;
+import org.gfinnovation.dealsafe._shared.infrastructure.GenericBusinessImpl;
+import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
+import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
@@ -12,12 +13,14 @@ import org.gfinnovation.dealsafe.domains.operation.entity.ActionOperationEntity;
 import org.gfinnovation.dealsafe.domains.operation.entity.ComparisonOperationEntity;
 import org.gfinnovation.dealsafe.domains.operation.entity.factory.interfaces.OperationFactory;
 import org.gfinnovation.dealsafe.domains.operation.entity.repository.OperationRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Handles action operations.
@@ -28,11 +31,24 @@ import java.util.UUID;
  * @since 30/10/2024
  */
 @Component
-@RequiredArgsConstructor
-public class ActionOperationBusinessImpl implements ActionOperationBusiness {
+public class ActionOperationBusinessImpl extends GenericBusinessImpl implements ActionOperationBusiness {
     private final OperationFactory operationFactory;
     private final ComparisonOperationBusiness comparisonOperationBusiness;
     private final OperationRepository operationRepository;
+
+    @Autowired
+    public ActionOperationBusinessImpl(
+            UserBusiness userBusiness,
+            CompanyBusiness companyBusiness,
+            OperationFactory operationFactory,
+            ComparisonOperationBusiness comparisonOperationBusiness,
+            OperationRepository operationRepository) {
+        super(userBusiness, companyBusiness);
+        this.operationFactory = operationFactory;
+        this.comparisonOperationBusiness = comparisonOperationBusiness;
+        this.operationRepository = operationRepository;
+    }
+
 
     /**
      * Creates an action linked to a comparison operation.
@@ -52,7 +68,7 @@ public class ActionOperationBusinessImpl implements ActionOperationBusiness {
      */
     public ActionOperationEntity create(UUID user_id, UUID company_id, String url, String message, UUID operation_id) throws BusinessException, FactoryException, ValidationException, RepositoryException {
         try {
-            ComparisonOperationEntity operation = this.comparisonOperationBusiness.read(operation_id).orElseThrow(() -> new EntityNotFoundException("Operation not found!"));
+            ComparisonOperationEntity operation = this.comparisonOperationBusiness.read(operation_id);
             ActionOperationEntity newOperationAction = this.operationFactory.getActionOperationFactory().produce(user_id, company_id, url, message);
             operation.addAction(newOperationAction);
             this.comparisonOperationBusiness.update(operation);
@@ -63,37 +79,37 @@ public class ActionOperationBusinessImpl implements ActionOperationBusiness {
     }
 
     @Override
-    public Optional<ActionOperationEntity> read(UUID id) throws RuntimeException {
-        return this.operationRepository.getActionOperationRepository().read(id);
+    public ActionOperationEntity read(UUID id) throws RuntimeException {
+        return this.operationRepository.getActionOperationRepository().read(getUserId(), getCompanyId(), id);
     }
 
     @Override
-    public ActionOperationEntity update(ActionOperationEntity entity) throws RuntimeException {
-        return this.operationRepository.getActionOperationRepository().update(entity);
+    public CompletableFuture<ActionOperationEntity> update(ActionOperationEntity entity) throws RuntimeException {
+        return this.operationRepository.getActionOperationRepository().update(getUserId(), getCompanyId(), entity);
     }
 
     @Override
     public void delete(UUID id) throws RuntimeException {
-        this.operationRepository.getActionOperationRepository().delete(id);
+        this.operationRepository.getActionOperationRepository().delete(getUserId(), getCompanyId(), id);
     }
 
     @Override
     public Optional<List<ActionOperationEntity>> readAll() throws RuntimeException {
-        return this.operationRepository.getActionOperationRepository().findAll();
+        return this.operationRepository.getActionOperationRepository().findAll(getUserId(), getCompanyId());
     }
 
     @Override
     public Optional<List<ActionOperationEntity>> readAllByIds(List<UUID> ids) throws RuntimeException {
-        return this.operationRepository.getActionOperationRepository().findAllByIds(ids);
+        return this.operationRepository.getActionOperationRepository().findAllByIds(getUserId(), getCompanyId(), ids);
     }
 
     @Override
     public void check(UUID id) throws RuntimeException {
-        this.operationRepository.getActionOperationRepository().check(id);
+        this.operationRepository.getActionOperationRepository().check(getUserId(), getCompanyId(), id);
     }
 
     @Override
     public void checkAll(Set<UUID> ids) throws RuntimeException {
-        this.operationRepository.getActionOperationRepository().checkAll(ids);
+        this.operationRepository.getActionOperationRepository().checkAll(getUserId(), getCompanyId(), ids);
     }
 }

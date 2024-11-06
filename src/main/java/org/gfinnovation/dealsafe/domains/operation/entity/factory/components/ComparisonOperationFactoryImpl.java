@@ -2,11 +2,7 @@ package org.gfinnovation.dealsafe.domains.operation.entity.factory.components;
 
 import jakarta.validation.ValidationException;
 import org.apache.coyote.BadRequestException;
-import org.gfinnovation.dealsafe._shared.entity.GenericBusinessFactory;
-import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
-import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
 import org.gfinnovation.dealsafe.configuration.exception.models.EntityNotFoundException;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
 import org.gfinnovation.dealsafe.domains.input.application.business.interfaces.InputBusiness;
 import org.gfinnovation.dealsafe.domains.input.entity.InputEntity;
@@ -32,12 +28,11 @@ import java.util.UUID;
  */
 
 @Component
-public class ComparisonOperationFactoryImpl extends GenericBusinessFactory implements ComparisonOperationFactory {
+public class ComparisonOperationFactoryImpl implements ComparisonOperationFactory {
     private final TreeBusiness treeBusiness;
     private final InputBusiness inputBusiness;
 
-    public ComparisonOperationFactoryImpl(UserBusiness userBusiness, CompanyBusiness companyBusiness, TreeBusiness treeBusiness, InputBusiness inputBusiness) {
-        super(userBusiness, companyBusiness);
+    public ComparisonOperationFactoryImpl(TreeBusiness treeBusiness, InputBusiness inputBusiness) {
         this.treeBusiness = treeBusiness;
         this.inputBusiness = inputBusiness;
     }
@@ -65,7 +60,6 @@ public class ComparisonOperationFactoryImpl extends GenericBusinessFactory imple
 
     public ComparisonOperationEntity produce(UUID user_id, UUID company_id, ComparisonTypeEnum type, String jsonPath, String variable, UUID node_id) throws FactoryException, BadRequestException, EntityNotFoundException, ValidationException {
         try {
-            this.validadeBusiness(user_id, company_id);
             Object rootTreeEntity = this.treeBusiness
                     .getRootTreeBusiness()
                     .readGenericRoot(this.treeBusiness
@@ -80,7 +74,7 @@ public class ComparisonOperationFactoryImpl extends GenericBusinessFactory imple
                     throw new BadRequestException("Campo não encontrado: " + e.getMessage());
                 }
             } else if (rootTreeEntity instanceof RootTreeDynamicEntity) {
-                InputEntity inputEntity = this.inputBusiness.read(((RootTreeDynamicEntity) rootTreeEntity).getDynamicReference()).orElseThrow(() -> new BusinessException("Something went wrong get the dynamic input class!"));
+                InputEntity inputEntity = this.inputBusiness.read(((RootTreeDynamicEntity) rootTreeEntity).getDynamicReference());
                 inputEntity.validateJsonPathAndType(jsonPath, variable);
             }
 

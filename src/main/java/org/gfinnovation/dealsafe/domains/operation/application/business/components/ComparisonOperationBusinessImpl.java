@@ -1,9 +1,10 @@
 package org.gfinnovation.dealsafe.domains.operation.application.business.components;
 
 import jakarta.validation.ValidationException;
-import lombok.RequiredArgsConstructor;
 import org.apache.coyote.BadRequestException;
-import org.gfinnovation.dealsafe.configuration.exception.models.EntityNotFoundException;
+import org.gfinnovation.dealsafe._shared.infrastructure.GenericBusinessImpl;
+import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
+import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Handles comparisons operations.
@@ -31,21 +33,31 @@ import java.util.UUID;
  */
 
 @Component
-@RequiredArgsConstructor
-public class ComparisonOperationBusinessImpl implements ComparisonOperationBusiness {
+public class ComparisonOperationBusinessImpl extends GenericBusinessImpl implements ComparisonOperationBusiness {
     private final TreeBusiness treeBusiness;
     private final OperationRepository operationRepository;
     private final OperationFactory operationFactory;
 
+    public ComparisonOperationBusinessImpl(
+            UserBusiness userBusiness,
+            CompanyBusiness companyBusiness,
+            TreeBusiness treeBusiness,
+            OperationRepository operationRepository,
+            OperationFactory operationFactory
+    ) {
+        super(userBusiness, companyBusiness);
+        this.treeBusiness = treeBusiness;
+        this.operationRepository = operationRepository;
+        this.operationFactory = operationFactory;
+    }
+
     /**
      * Creates a comparison operation.
      *
-     * @param user_id    UserId.
-     * @param company_id CompanyId.
-     * @param type       Type of comparison.
-     * @param jsonPath   Path to the compared variable.
-     * @param variable   Variable to compare.
-     * @param node_id    Parent node.
+     * @param type     Type of comparison.
+     * @param jsonPath Path to the compared variable.
+     * @param variable Variable to compare.
+     * @param node_id  Parent node.
      * @return ComparisonOperationEntity
      * @throws BusinessException   Thrown when an error occurred on business level.
      * @throws FactoryException    Thrown when an error occurred on factory level.
@@ -56,11 +68,15 @@ public class ComparisonOperationBusinessImpl implements ComparisonOperationBusin
      * @since 30/10/2024
      */
     @Override
-    public ComparisonOperationEntity create(UUID user_id, UUID company_id, ComparisonTypeEnum type, String jsonPath, String variable, UUID node_id) throws BusinessException, FactoryException, ValidationException, RepositoryException, BadRequestException {
+    public CompletableFuture<ComparisonOperationEntity> create(ComparisonTypeEnum type, String jsonPath, String variable, UUID node_id) throws BusinessException, FactoryException, ValidationException, RepositoryException, BadRequestException {
         try {
-            NodeTreeEntity parent = this.treeBusiness.getNodeTreeBusiness().read(node_id).orElseThrow(() -> new EntityNotFoundException("Parent not found!"));
-            ComparisonOperationEntity newOperation = this.operationRepository.getComparisonOperationRepository().create(this.operationFactory.getComparisonOperationFactory().produce(user_id, company_id, type, jsonPath, variable, node_id));
-            this.treeBusiness.getNodeTreeBusiness().update(parent.addOperation(newOperation));
+            NodeTreeEntity parent = this.treeBusiness.getNodeTreeBusiness().read(node_id);
+            CompletableFuture<ComparisonOperationEntity> newOperation = this.operationRepository
+                    .getComparisonOperationRepository()
+                    .create(getUserId(), getCompanyId(), this.operationFactory
+                            .getComparisonOperationFactory()
+                            .produce(getUserId(), getCompanyId(), type, jsonPath, variable, node_id));
+            this.treeBusiness.getNodeTreeBusiness().update(parent.addOperation(newOperation.get()));
             return newOperation;
         } catch (Exception e) {
             throw new BusinessException("Something went wrong creating a comparison operation!", e);
@@ -68,37 +84,37 @@ public class ComparisonOperationBusinessImpl implements ComparisonOperationBusin
     }
 
     @Override
-    public Optional<ComparisonOperationEntity> read(UUID id) throws RuntimeException {
-        return this.operationRepository.getComparisonOperationRepository().read(id);
+    public ComparisonOperationEntity read(UUID id) throws RuntimeException {
+        return this.operationRepository.getComparisonOperationRepository().read(getUserId(), getUserId(), id);
     }
 
     @Override
-    public ComparisonOperationEntity update(ComparisonOperationEntity entity) throws RuntimeException {
-        return this.operationRepository.getComparisonOperationRepository().update(entity);
+    public CompletableFuture<ComparisonOperationEntity> update(ComparisonOperationEntity entity) throws RuntimeException {
+        return this.operationRepository.getComparisonOperationRepository().update(getUserId(), getUserId(), entity);
     }
 
     @Override
     public void delete(UUID id) throws RuntimeException {
-        this.operationRepository.getComparisonOperationRepository().delete(id);
+        this.operationRepository.getComparisonOperationRepository().delete(getUserId(), getUserId(), id);
     }
 
     @Override
     public Optional<List<ComparisonOperationEntity>> readAll() throws RuntimeException {
-        return this.operationRepository.getComparisonOperationRepository().findAll();
+        return this.operationRepository.getComparisonOperationRepository().findAll(getUserId(), getUserId());
     }
 
     @Override
     public Optional<List<ComparisonOperationEntity>> readAllByIds(List<UUID> ids) throws RuntimeException {
-        return this.operationRepository.getComparisonOperationRepository().findAllByIds(ids);
+        return this.operationRepository.getComparisonOperationRepository().findAllByIds(getUserId(), getUserId(), ids);
     }
 
     @Override
     public void check(UUID id) throws RuntimeException {
-        this.operationRepository.getComparisonOperationRepository().check(id);
+        this.operationRepository.getComparisonOperationRepository().check(getUserId(), getUserId(), id);
     }
 
     @Override
     public void checkAll(Set<UUID> ids) throws RuntimeException {
-        this.operationRepository.getComparisonOperationRepository().checkAll(ids);
+        this.operationRepository.getComparisonOperationRepository().checkAll(getUserId(), getUserId(), ids);
     }
 }

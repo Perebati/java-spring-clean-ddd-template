@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
+import javax.naming.AuthenticationException;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.stream.Collectors;
@@ -96,6 +97,16 @@ public class GlobalExceptionHandler {
 
         logger.error("A request was badly made!", ex);
         ErrorResponse response = new ErrorResponse("Request error", ex.getCause().getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<Object> handleAuthenticationException(BusinessException ex, WebRequest request) {
+        ErrorLogSchema errorLog = buildErrorLog(ex);
+        logService.saveErrorLogAsync(errorLog);
+
+        logger.error("Authentication failed!", ex);
+        ErrorResponse response = new ErrorResponse("Authentication failed!", ex.getCause().getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
 

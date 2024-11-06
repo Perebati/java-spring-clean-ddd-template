@@ -1,9 +1,10 @@
-package org.gfinnovation.dealsafe._shared.entity;
+package org.gfinnovation.dealsafe._shared.infrastructure;
 
 import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
 import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
 import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
+import org.slf4j.MDC;
 
 import java.util.UUID;
 
@@ -18,11 +19,31 @@ import java.util.UUID;
  */
 
 @RequiredArgsConstructor
-public class GenericBusinessFactory {
+public class GenericBusinessImpl {
     private final UserBusiness userBusiness;
     private final CompanyBusiness companyBusiness;
 
-    public void validadeBusiness(UUID user_id, UUID company_id) throws ValidationException {
+    public UUID getUserId() {
+        try {
+            UUID user_id = UUID.fromString(MDC.get("user_id"));
+            this.userBusiness.check(user_id);
+            return user_id;
+        } catch (Exception e) {
+            throw new ValidationException("Something went wrong checking for user business info.", e);
+        }
+    }
+
+    public UUID getCompanyId() {
+        try {
+            UUID company_id = UUID.fromString(MDC.get("company_id"));
+            this.companyBusiness.check(company_id);
+            return company_id;
+        } catch (Exception e) {
+            throw new ValidationException("Something went wrong checking for user business info.", e);
+        }
+    }
+
+    protected void validadeBusiness(UUID user_id, UUID company_id) throws ValidationException {
         try {
             this.userBusiness.check(user_id);
             this.companyBusiness.check(company_id);

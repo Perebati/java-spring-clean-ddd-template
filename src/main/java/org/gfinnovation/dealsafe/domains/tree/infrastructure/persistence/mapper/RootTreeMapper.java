@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe.domains.tree.infrastructure.persistence.mapper;
 
-import org.gfinnovation.dealsafe._shared.infrastructure.GenericMapper;
+import org.gfinnovation.dealsafe._shared.infrastructure.GenericBusinessMapper;
 import org.gfinnovation.dealsafe.domains.tree.entity.RootTreeEntity;
 import org.gfinnovation.dealsafe.domains.tree.infrastructure.persistence.RootTreeSchema;
 import org.mapstruct.Mapper;
@@ -19,12 +19,18 @@ import org.mapstruct.ReportingPolicy;
         componentModel = MappingConstants.ComponentModel.SPRING,
         unmappedTargetPolicy = ReportingPolicy.IGNORE
 )
-public interface RootTreeMapper extends GenericMapper<RootTreeEntity, RootTreeSchema> {
+public interface RootTreeMapper extends GenericBusinessMapper<RootTreeEntity, RootTreeSchema> {
     @Override
     @Mapping(target = "nodes", source = "nodes")
     RootTreeEntity toEntity(RootTreeSchema schema);
 
     @Override
     @Mapping(target = "nodes", source = "nodes")
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "deleted", ignore = true)
+    @Mapping(target = "deletedAt", ignore = true)
+    @Mapping(target = "user_id", ignore = true)
+    @Mapping(target = "company_id", ignore = true)
     RootTreeSchema toSchema(RootTreeEntity entity);
 }

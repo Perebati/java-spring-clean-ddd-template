@@ -1,4 +1,4 @@
-package org.gfinnovation.dealsafe.supervised;
+package org.gfinnovation.dealsafe._sandbox;
 
 import org.apache.coyote.BadRequestException;
 import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collections;
-import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * @author Lucas Batista Pereira
@@ -35,7 +35,7 @@ public class InputTest {
     }
 
     @PostMapping
-    public InputEntity create() throws BadRequestException {
+    public CompletableFuture<InputEntity> create() throws BadRequestException {
         UserEntity createdUser = this.userBusiness.create("Lucas Teste");
 
         CompanyEntity createdCompany = this.companyFactory.create("Teste", Collections.singleton(createdUser.getId()));
@@ -59,7 +59,7 @@ public class InputTest {
 
         String name = "jsonTeste";
 
-        InputEntity inputEntity = this.inputBusiness.create(createdUser.getId(), createdCompany.getId(), name, json);
+        CompletableFuture<InputEntity> inputEntity = this.inputBusiness.create(name, json);
 
         System.out.println(inputEntity.toString());
 
@@ -67,7 +67,7 @@ public class InputTest {
     }
 
     @PutMapping()
-    public InputEntity create2(UUID user_id, UUID company_id) throws BadRequestException {
+    public CompletableFuture<InputEntity> create2() throws BadRequestException {
 
         String json = """
                 {
@@ -89,7 +89,7 @@ public class InputTest {
 
         String name = "jsonTeste";
 
-        InputEntity inputEntity = this.inputBusiness.create(user_id, company_id, name, json);
+        CompletableFuture<InputEntity> inputEntity = this.inputBusiness.create(name, json);
 
         System.out.println(inputEntity.toString());
 

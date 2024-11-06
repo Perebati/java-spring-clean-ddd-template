@@ -2,18 +2,18 @@ package org.gfinnovation.dealsafe.domains.tree.infrastructure.inbound;
 
 import org.gfinnovation.dealsafe.domains.tree.application.business.interfaces.TreeBusiness;
 import org.gfinnovation.dealsafe.domains.tree.entity.NodeTreeEntity;
-import org.gfinnovation.dealsafe.domains.tree.entity.RootTreeEntity;
+import org.gfinnovation.dealsafe.domains.tree.entity.RootTreeDynamicEntity;
+import org.gfinnovation.dealsafe.domains.tree.entity.RootTreeStaticEntity;
 import org.gfinnovation.dealsafe.domains.tree.infrastructure.inbound.dto.request.NodeCreationDTO;
 import org.gfinnovation.dealsafe.domains.tree.infrastructure.inbound.dto.request.RootCreationDynamicInputDTO;
 import org.gfinnovation.dealsafe.domains.tree.infrastructure.inbound.dto.request.RootCreationPredefinedInputDTO;
 import org.gfinnovation.dealsafe.domains.tree.infrastructure.inbound.interfaces.TreeController;
-import org.slf4j.MDC;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * @author Lucas Batista Pereira
@@ -23,7 +23,7 @@ import java.util.UUID;
  */
 
 @Controller
-public class TreeControllerImpl implements TreeController {
+class TreeControllerImpl implements TreeController {
     private final TreeBusiness treeBusiness;
 
     public TreeControllerImpl(TreeBusiness treeBusiness) {
@@ -31,12 +31,10 @@ public class TreeControllerImpl implements TreeController {
     }
 
     @Override
-    public ResponseEntity<RootTreeEntity> createRootPredefined(@RequestBody RootCreationPredefinedInputDTO request) {
+    public ResponseEntity<CompletableFuture<RootTreeStaticEntity>> createRootPredefined(@RequestBody RootCreationPredefinedInputDTO request) {
         try {
             return ResponseEntity.ok(
                     this.treeBusiness.getRootTreeBusiness().create(
-                            UUID.fromString(MDC.get("user_id")),
-                            UUID.fromString(MDC.get("company_id")),
                             request.name(),
                             request.type()
                     ));
@@ -46,12 +44,10 @@ public class TreeControllerImpl implements TreeController {
     }
 
     @Override
-    public ResponseEntity<RootTreeEntity> createRootPredefined(RootCreationDynamicInputDTO request) {
+    public ResponseEntity<CompletableFuture<RootTreeDynamicEntity>> createRootPredefined(RootCreationDynamicInputDTO request) {
         try {
             return ResponseEntity.ok(
                     this.treeBusiness.getRootTreeBusiness().create(
-                            UUID.fromString(MDC.get("user_id")),
-                            UUID.fromString(MDC.get("company_id")),
                             request.name(),
                             request.dynamicInput_id()
                     ));
@@ -61,12 +57,10 @@ public class TreeControllerImpl implements TreeController {
     }
 
     @Override
-    public ResponseEntity<NodeTreeEntity> createNode(NodeCreationDTO request) {
+    public ResponseEntity<CompletableFuture<NodeTreeEntity>> createNode(NodeCreationDTO request) {
         try {
             return ResponseEntity.ok(
                     this.treeBusiness.getNodeTreeBusiness().create(
-                            UUID.fromString(MDC.get("user_id")),
-                            UUID.fromString(MDC.get("company_id")),
                             request.name(),
                             request.sequence(),
                             request.parent_id()
