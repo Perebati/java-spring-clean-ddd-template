@@ -60,5 +60,5 @@ public interface TreeController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PostMapping("/node")
-    ResponseEntity<CompletableFuture<NodeTreeEntity>> createNode(@RequestBody NodeCreationDTO request);
+    ResponseEntity<NodeTreeEntity> createNode(NodeCreationDTO request);
 }

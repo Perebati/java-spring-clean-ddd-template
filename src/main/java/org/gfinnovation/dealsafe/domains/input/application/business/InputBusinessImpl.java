@@ -66,7 +66,7 @@ class InputBusinessImpl extends GenericBusinessImpl implements InputBusiness {
     @Override
     public CompletableFuture<InputEntity> create(String name, String json) throws FactoryException, ValidationException, RepositoryException, BusinessException {
         try {
-            return this.inputRepository.create(getUserId(), getCompanyId(), this.inputFactory.produce(getUserId(), getCompanyId(), name, json));
+            return this.inputRepository.createAsync(getUserId(), getCompanyId(), this.inputFactory.produce(getUserId(), getCompanyId(), name, json));
         } catch (Exception e) {
             throw new BusinessException("Something went wrong creating an input.", e);
         }
@@ -78,13 +78,23 @@ class InputBusinessImpl extends GenericBusinessImpl implements InputBusiness {
     }
 
     @Override
-    public CompletableFuture<InputEntity> update(InputEntity entity) {
-        return this.inputRepository.update(getUserId(), getCompanyId(), entity);
+    public CompletableFuture<InputEntity> updateAsync(InputEntity entity) {
+        return this.inputRepository.updateAsync(getUserId(), getCompanyId(), entity);
     }
 
     @Override
-    public void delete(UUID id) {
-        this.inputRepository.delete(getUserId(), getCompanyId(), id);
+    public InputEntity updateSync(InputEntity entity) {
+        return this.inputRepository.updateSync(getUserId(), getCompanyId(), entity);
+    }
+
+    @Override
+    public void deleteAsync(UUID id) {
+        this.inputRepository.deleteAsync(getUserId(), getCompanyId(), id);
+    }
+
+    @Override
+    public void deleteSync(UUID id) {
+        this.inputRepository.deleteSync(getUserId(), getCompanyId(), id);
     }
 
     @Override

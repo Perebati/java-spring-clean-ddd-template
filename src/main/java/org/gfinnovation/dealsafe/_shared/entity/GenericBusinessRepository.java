@@ -22,13 +22,19 @@ import java.util.concurrent.CompletableFuture;
 
 public interface GenericBusinessRepository<E extends GenericEntity> {
 
-    CompletableFuture<E> create(UUID user_id, UUID company_id, E entity) throws RepositoryException;
+    CompletableFuture<E> createAsync(UUID user_id, UUID company_id, E entity) throws RepositoryException;
+
+    E createSync(UUID user_id, UUID company_id, E entity) throws RepositoryException;
 
     E read(UUID user_id, UUID company_id, UUID id) throws RepositoryException;
 
-    CompletableFuture<E> update(UUID user_id, UUID company_id, E entity) throws RepositoryException, EntityNotFoundException;
+    CompletableFuture<E> updateAsync(UUID user_id, UUID company_id, E entity) throws RepositoryException;
 
-    void delete(UUID user_id, UUID company_id, UUID id) throws RepositoryException, EntityNotFoundException;
+    E updateSync(UUID user_id, UUID company_id, E entity) throws RepositoryException;
+
+    void deleteAsync(UUID user_id, UUID company_id, UUID id) throws RepositoryException;
+
+    void deleteSync(UUID user_id, UUID company_id, UUID id) throws RepositoryException;
 
     Optional<List<E>> findAll(UUID user_id, UUID company_id) throws RepositoryException;
 

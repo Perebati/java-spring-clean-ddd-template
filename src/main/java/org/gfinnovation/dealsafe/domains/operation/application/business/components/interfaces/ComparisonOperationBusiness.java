@@ -10,7 +10,6 @@ import org.gfinnovation.dealsafe.domains.operation.entity.ComparisonOperationEnt
 import org.gfinnovation.dealsafe.domains.operation.entity.comparison.ComparisonTypeEnum;
 
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 
 /**
  * @author Lucas Batista Pereira
@@ -19,5 +18,5 @@ import java.util.concurrent.CompletableFuture;
  * @since 30/10/2024
  */
 public interface ComparisonOperationBusiness extends GenericBusiness<ComparisonOperationEntity> {
-    CompletableFuture<ComparisonOperationEntity> create(ComparisonTypeEnum type, String jsonPath, String variable, UUID node_id) throws BusinessException, FactoryException, ValidationException, RepositoryException, BadRequestException;
+    ComparisonOperationEntity create(ComparisonTypeEnum type, String jsonPath, String variable, UUID node_id) throws BusinessException, FactoryException, ValidationException, RepositoryException, BadRequestException;
 }

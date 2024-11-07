@@ -1,5 +1,6 @@
 package org.gfinnovation.dealsafe.domains.tree.infrastructure.inbound;
 
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
 import org.gfinnovation.dealsafe.domains.tree.application.business.interfaces.TreeBusiness;
 import org.gfinnovation.dealsafe.domains.tree.entity.NodeTreeEntity;
 import org.gfinnovation.dealsafe.domains.tree.entity.RootTreeDynamicEntity;
@@ -57,7 +58,7 @@ class TreeControllerImpl implements TreeController {
     }
 
     @Override
-    public ResponseEntity<CompletableFuture<NodeTreeEntity>> createNode(NodeCreationDTO request) {
+    public ResponseEntity<NodeTreeEntity> createNode(NodeCreationDTO request) {
         try {
             return ResponseEntity.ok(
                     this.treeBusiness.getNodeTreeBusiness().create(
@@ -65,7 +66,7 @@ class TreeControllerImpl implements TreeController {
                             request.sequence(),
                             request.parent_id()
                     ));
-        } catch (RuntimeException e) {
+        } catch (BusinessException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }

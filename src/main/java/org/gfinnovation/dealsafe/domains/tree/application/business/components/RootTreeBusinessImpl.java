@@ -67,7 +67,7 @@ class RootTreeBusinessImpl extends GenericBusinessImpl implements RootTreeBusine
     @Transactional
     public CompletableFuture<RootTreeStaticEntity> create(String name, PredefinedTypeEnum static_input) throws BusinessException, FactoryException, ValidationException, RepositoryException {
         try {
-            return this.treeRepository.getRootTreeStaticRepository().create(getUserId(), getCompanyId(), treeFactory.getRootTreeFactory().produce(getUserId(), getCompanyId(), name, static_input));
+            return this.treeRepository.getRootTreeStaticRepository().createAsync(getUserId(), getCompanyId(), treeFactory.getRootTreeFactory().produce(getUserId(), getCompanyId(), name, static_input));
         } catch (Exception e) {
             throw new BusinessException("Something went wrong when creating a root of type static", e);
         }
@@ -88,7 +88,19 @@ class RootTreeBusinessImpl extends GenericBusinessImpl implements RootTreeBusine
     @Transactional
     public CompletableFuture<RootTreeDynamicEntity> create(String name, UUID dynamic_input) throws BusinessException, FactoryException, ValidationException, RepositoryException {
         try {
-            return this.treeRepository.getRootTreeDynamicRepository().create(getUserId(), getCompanyId(), treeFactory.getRootTreeFactory().produce(getUserId(), getCompanyId(), name, dynamic_input));
+            return this.treeRepository.getRootTreeDynamicRepository()
+                    .createAsync(
+                            getUserId(),
+                            getCompanyId(),
+                            treeFactory.getRootTreeFactory()
+                                    .produce(
+                                            getUserId(),
+                                            getCompanyId(),
+                                            name,
+                                            dynamic_input
+                                    ));
+        } catch (FactoryException | RepositoryException | ValidationException e) {
+            throw e;
         } catch (Exception e) {
             throw new BusinessException("Something went wrong when creating a root of type dynamic", e);
         }
@@ -140,25 +152,17 @@ class RootTreeBusinessImpl extends GenericBusinessImpl implements RootTreeBusine
     }
 
     @Override
-    public RootTreeEntity read(UUID id) throws RepositoryException {
-        return this.treeRepository.getRootTreeRepository().read(getUserId(), getCompanyId(), id);
-    }
-
-    @Override
-    @Transactional
-    public CompletableFuture<RootTreeEntity> update(RootTreeEntity entity) throws RepositoryException {
+    public RootTreeEntity updateSync(RootTreeEntity entity) throws RepositoryException {
         try {
             UUID userId = getUserId();
             UUID companyId = getCompanyId();
 
             if (entity instanceof RootTreeDynamicEntity dynamicRoot) {
-                CompletableFuture<RootTreeDynamicEntity> treeFuture = treeRepository.getRootTreeDynamicRepository()
-                        .update(userId, companyId, dynamicRoot);
-                return treeFuture.thenApply(dynamicRootEntity -> dynamicRootEntity);
+                return treeRepository.getRootTreeDynamicRepository()
+                        .updateSync(userId, companyId, dynamicRoot);
             } else if (entity instanceof RootTreeStaticEntity staticRoot) {
-                CompletableFuture<RootTreeStaticEntity> treeFuture = treeRepository.getRootTreeStaticRepository()
-                        .update(userId, companyId, staticRoot);
-                return treeFuture.thenApply(staticRootEntity -> staticRootEntity);
+                return treeRepository.getRootTreeStaticRepository()
+                        .updateSync(userId, companyId, staticRoot);
             } else {
                 throw new IllegalArgumentException("Unexpected RootTreeEntity type: " + entity.getClass().getName());
             }
@@ -168,27 +172,42 @@ class RootTreeBusinessImpl extends GenericBusinessImpl implements RootTreeBusine
     }
 
     @Override
-    public void delete(UUID id) throws RepositoryException {
-        this.treeRepository.getRootTreeRepository().delete(getUserId(), getCompanyId(), id);
+    public RootTreeEntity read(UUID id) throws RuntimeException {
+        return this.treeRepository.getRootTreeRepository().read(getUserId(), getCompanyId(), id);
     }
 
     @Override
-    public Optional<List<RootTreeEntity>> readAll() throws RepositoryException {
+    public CompletableFuture<RootTreeEntity> updateAsync(RootTreeEntity entity) throws RuntimeException {
+        return this.treeRepository.getRootTreeRepository().updateAsync(getUserId(), getCompanyId(), entity);
+    }
+
+    @Override
+    public void deleteSync(UUID id) throws RuntimeException {
+        this.treeRepository.getRootTreeRepository().deleteSync(getUserId(), getCompanyId(), id);
+    }
+
+    @Override
+    public void deleteAsync(UUID id) throws RuntimeException {
+        this.treeRepository.getRootTreeRepository().deleteAsync(getUserId(), getCompanyId(), id);
+    }
+
+    @Override
+    public Optional<List<RootTreeEntity>> readAll() throws RuntimeException {
         return this.treeRepository.getRootTreeRepository().findAll(getUserId(), getCompanyId());
     }
 
     @Override
-    public Optional<List<RootTreeEntity>> readAllByIds(List<UUID> ids) throws RepositoryException {
+    public Optional<List<RootTreeEntity>> readAllByIds(List<UUID> ids) throws RuntimeException {
         return this.treeRepository.getRootTreeRepository().findAllByIds(getUserId(), getCompanyId(), ids);
     }
 
     @Override
-    public void check(UUID id) throws RepositoryException {
+    public void check(UUID id) throws RuntimeException {
         this.treeRepository.getRootTreeRepository().check(getUserId(), getCompanyId(), id);
     }
 
     @Override
-    public void checkAll(Set<UUID> ids) throws RepositoryException {
+    public void checkAll(Set<UUID> ids) throws RuntimeException {
         this.treeRepository.getRootTreeRepository().checkAll(getUserId(), getCompanyId(), ids);
     }
 }

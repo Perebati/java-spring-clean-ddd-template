@@ -1,6 +1,5 @@
 package org.gfinnovation.dealsafe._shared.infrastructure;
 
-import jakarta.transaction.Transactional;
 import org.gfinnovation.dealsafe._shared.entity.GenericBusinessEntity;
 import org.gfinnovation.dealsafe._shared.entity.GenericBusinessRepository;
 import org.gfinnovation.dealsafe.configuration.exception.models.EntityNotFoundException;
@@ -91,14 +90,40 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
 
     @Override
     @Async
-    @Transactional
-    public CompletableFuture<E> create(UUID user_id, UUID company_id, E entity) throws RepositoryException {
+    public CompletableFuture<E> createAsync(UUID user_id, UUID company_id, E entity) throws RepositoryException {
         try {
             S schema = mapper.toSchema(entity);
             setCommonFields(schema, user_id, company_id);
             S savedSchema = jpaRepository.save(schema);
             logger.info("A new {} was created in the system!", entity.getClass().getSimpleName());
             return CompletableFuture.completedFuture(mapper.toEntity(savedSchema));
+        } catch (DataAccessException e) {
+            logger.error("Failed to save entity: {}", entity, e);
+            throw new RepositoryException("Failed to save entity", e);
+        }
+    }
+
+
+    /**
+     * Sync version of create.
+     *
+     * @param user_id    Reference for user that made an infra operation.
+     * @param company_id Reference for company that made an infra operation.
+     * @param entity     Entity that extends GenericBusinessEntity
+     * @return CompletableFuture<E>
+     * @throws RepositoryException Thrown when an unexpected database error occurs.
+     * @author Lucas Batista Pereira
+     * @since 06/11/2024
+     */
+
+    @Override
+    public E createSync(UUID user_id, UUID company_id, E entity) throws RepositoryException {
+        try {
+            S schema = mapper.toSchema(entity);
+            setCommonFields(schema, user_id, company_id);
+            S savedSchema = jpaRepository.save(schema);
+            logger.info("A new {} was created in the system!", entity.getClass().getSimpleName());
+            return mapper.toEntity(savedSchema);
         } catch (DataAccessException e) {
             logger.error("Failed to save entity: {}", entity, e);
             throw new RepositoryException("Failed to save entity", e);
@@ -120,7 +145,6 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
      */
 
     @Override
-    @Transactional
     public E read(UUID user_id, UUID company_id, UUID id) throws RepositoryException, EntityNotFoundException {
         try {
             return this.findByIdCompanyIdUserIdAndNotDeleted(id, company_id, user_id, entityClass)
@@ -146,7 +170,6 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
      * @since 06/11/2024
      */
 
-    @Transactional
     protected S readInternal(UUID user_id, UUID company_id, UUID id) throws RepositoryException, EntityNotFoundException {
         try {
             return this.findByIdCompanyIdUserIdAndNotDeleted(id, company_id, user_id, entityClass)
@@ -172,14 +195,40 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
 
     @Override
     @Async
-    @Transactional
-    public CompletableFuture<E> update(UUID user_id, UUID company_id, E entity) throws RepositoryException {
+    public CompletableFuture<E> updateAsync(UUID user_id, UUID company_id, E entity) throws RepositoryException {
         try {
             this.readInternal(user_id, company_id, entity.getId());
             S existingSchema = mapper.toSchema(entity);
             S savedSchema = jpaRepository.save(existingSchema);
             logger.info("An existing entity of class {} is being updated in the system!", entity.getClass().getSimpleName());
             return CompletableFuture.completedFuture(mapper.toEntity(savedSchema));
+        } catch (DataAccessException e) {
+            logger.error("Failed to update entity: {}", entity, e);
+            throw new RepositoryException("Failed to update entity", e);
+        }
+    }
+
+
+    /**
+     * Sync version of Update method.
+     *
+     * @param user_id    Reference for user that made an infra operation.
+     * @param company_id Reference for company that made an infra operation.
+     * @param entity     Entity to be updated.
+     * @return CompletableFuture<E>
+     * @throws RepositoryException Thrown when an unexpected database error occurs.
+     * @author Lucas Batista Pereira
+     * @since 06/11/2024
+     */
+
+    @Override
+    public E updateSync(UUID user_id, UUID company_id, E entity) throws RepositoryException {
+        try {
+            this.readInternal(user_id, company_id, entity.getId());
+            S existingSchema = mapper.toSchema(entity);
+            S savedSchema = jpaRepository.save(existingSchema);
+            logger.info("An existing entity of class {} is being updated in the system!", entity.getClass().getSimpleName());
+            return mapper.toEntity(savedSchema);
         } catch (DataAccessException e) {
             logger.error("Failed to update entity: {}", entity, e);
             throw new RepositoryException("Failed to update entity", e);
@@ -200,8 +249,28 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
 
     @Override
     @Async
-    @Transactional
-    public void delete(UUID user_id, UUID company_id, UUID id) throws RepositoryException {
+    public void deleteAsync(UUID user_id, UUID company_id, UUID id) throws RepositoryException {
+        delete(user_id, company_id, id);
+    }
+
+
+    /**
+     * Sync version of delete method.
+     *
+     * @param user_id    Reference for user that made an infra operation.
+     * @param company_id Reference for company that made an infra operation.
+     * @param id         Reference for entity to be deleted.
+     * @throws RepositoryException Thrown when an unexpected database error occurs.
+     * @author Lucas Batista Pereira
+     * @since 06/11/2024
+     */
+
+    @Override
+    public void deleteSync(UUID user_id, UUID company_id, UUID id) throws RepositoryException {
+        delete(user_id, company_id, id);
+    }
+
+    private void delete(UUID user_id, UUID company_id, UUID id) {
         try {
             S schema = this.readInternal(user_id, company_id, id);
 
@@ -229,7 +298,6 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
      */
 
     @Override
-    @Transactional
     public Optional<List<E>> findAll(UUID user_id, UUID company_id) throws RepositoryException {
         try {
             List<S> schemas = this.findAllByUserIdAndCompanyIdAndDeletedFalse(user_id, company_id, entityClass);
@@ -257,7 +325,6 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
      */
 
     @Override
-    @Transactional
     public Optional<List<E>> findAllByIds(UUID user_id, UUID company_id, List<UUID> ids) throws RepositoryException {
         try {
             Set<UUID> idSet = new HashSet<>(ids);
@@ -285,7 +352,6 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
      */
 
     @Override
-    @Transactional
     public void check(UUID user_id, UUID company_id, UUID id) throws RepositoryException {
         this.readInternal(user_id, company_id, id);
     }
@@ -303,7 +369,6 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
      */
 
     @Override
-    @Transactional
     public void checkAll(UUID user_id, UUID company_id, Set<UUID> ids) throws RepositoryException {
         List<S> schemas = this.findAllByUserIdAndCompanyIdAndIdInAndDeletedFalse(user_id, company_id, ids, entityClass);
         if (schemas.size() != ids.size()) {

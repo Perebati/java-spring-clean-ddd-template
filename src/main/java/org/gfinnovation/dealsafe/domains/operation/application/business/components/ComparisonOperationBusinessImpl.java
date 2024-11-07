@@ -1,5 +1,6 @@
 package org.gfinnovation.dealsafe.domains.operation.application.business.components;
 
+import jakarta.transaction.Transactional;
 import jakarta.validation.ValidationException;
 import org.apache.coyote.BadRequestException;
 import org.gfinnovation.dealsafe._shared.infrastructure.GenericBusinessImpl;
@@ -68,15 +69,17 @@ public class ComparisonOperationBusinessImpl extends GenericBusinessImpl impleme
      * @since 30/10/2024
      */
     @Override
-    public CompletableFuture<ComparisonOperationEntity> create(ComparisonTypeEnum type, String jsonPath, String variable, UUID node_id) throws BusinessException, FactoryException, ValidationException, RepositoryException, BadRequestException {
+    @Transactional
+    public ComparisonOperationEntity create(ComparisonTypeEnum type, String jsonPath, String variable, UUID node_id) throws BusinessException, FactoryException, ValidationException, RepositoryException, BadRequestException {
         try {
             NodeTreeEntity parent = this.treeBusiness.getNodeTreeBusiness().read(node_id);
-            CompletableFuture<ComparisonOperationEntity> newOperation = this.operationRepository
+            ComparisonOperationEntity newOperation = this.operationFactory
+                    .getComparisonOperationFactory()
+                    .produce(getUserId(), getCompanyId(), type, jsonPath, variable, node_id);
+            newOperation = this.operationRepository
                     .getComparisonOperationRepository()
-                    .create(getUserId(), getCompanyId(), this.operationFactory
-                            .getComparisonOperationFactory()
-                            .produce(getUserId(), getCompanyId(), type, jsonPath, variable, node_id));
-            this.treeBusiness.getNodeTreeBusiness().update(parent.addOperation(newOperation.get()));
+                    .createSync(getUserId(), getCompanyId(), newOperation);
+            this.treeBusiness.getNodeTreeBusiness().updateSync(parent.addOperation(newOperation));
             return newOperation;
         } catch (Exception e) {
             throw new BusinessException("Something went wrong creating a comparison operation!", e);
@@ -89,13 +92,23 @@ public class ComparisonOperationBusinessImpl extends GenericBusinessImpl impleme
     }
 
     @Override
-    public CompletableFuture<ComparisonOperationEntity> update(ComparisonOperationEntity entity) throws RuntimeException {
-        return this.operationRepository.getComparisonOperationRepository().update(getUserId(), getUserId(), entity);
+    public CompletableFuture<ComparisonOperationEntity> updateAsync(ComparisonOperationEntity entity) throws RuntimeException {
+        return this.operationRepository.getComparisonOperationRepository().updateAsync(getUserId(), getUserId(), entity);
     }
 
     @Override
-    public void delete(UUID id) throws RuntimeException {
-        this.operationRepository.getComparisonOperationRepository().delete(getUserId(), getUserId(), id);
+    public ComparisonOperationEntity updateSync(ComparisonOperationEntity entity) throws RuntimeException {
+        return this.operationRepository.getComparisonOperationRepository().updateSync(getUserId(), getUserId(), entity);
+    }
+
+    @Override
+    public void deleteAsync(UUID id) throws RuntimeException {
+        this.operationRepository.getComparisonOperationRepository().deleteAsync(getUserId(), getUserId(), id);
+    }
+
+    @Override
+    public void deleteSync(UUID id) throws RuntimeException {
+        this.operationRepository.getComparisonOperationRepository().deleteSync(getUserId(), getUserId(), id);
     }
 
     @Override

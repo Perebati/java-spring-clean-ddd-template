@@ -66,12 +66,14 @@ public class ActionOperationBusinessImpl extends GenericBusinessImpl implements 
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
+
+    @Override
     public ActionOperationEntity create(UUID user_id, UUID company_id, String url, String message, UUID operation_id) throws BusinessException, FactoryException, ValidationException, RepositoryException {
         try {
             ComparisonOperationEntity operation = this.comparisonOperationBusiness.read(operation_id);
             ActionOperationEntity newOperationAction = this.operationFactory.getActionOperationFactory().produce(user_id, company_id, url, message);
             operation.addAction(newOperationAction);
-            this.comparisonOperationBusiness.update(operation);
+            this.comparisonOperationBusiness.updateSync(operation);
             return newOperationAction;
         } catch (Exception e) {
             throw new BusinessException("Something went wrong creating an action operation", e);
@@ -84,13 +86,23 @@ public class ActionOperationBusinessImpl extends GenericBusinessImpl implements 
     }
 
     @Override
-    public CompletableFuture<ActionOperationEntity> update(ActionOperationEntity entity) throws RuntimeException {
-        return this.operationRepository.getActionOperationRepository().update(getUserId(), getCompanyId(), entity);
+    public CompletableFuture<ActionOperationEntity> updateAsync(ActionOperationEntity entity) throws RuntimeException {
+        return this.operationRepository.getActionOperationRepository().updateAsync(getUserId(), getCompanyId(), entity);
     }
 
     @Override
-    public void delete(UUID id) throws RuntimeException {
-        this.operationRepository.getActionOperationRepository().delete(getUserId(), getCompanyId(), id);
+    public ActionOperationEntity updateSync(ActionOperationEntity entity) throws RuntimeException {
+        return this.operationRepository.getActionOperationRepository().updateSync(getUserId(), getCompanyId(), entity);
+    }
+
+    @Override
+    public void deleteAsync(UUID id) throws RuntimeException {
+        this.operationRepository.getActionOperationRepository().deleteAsync(getUserId(), getCompanyId(), id);
+    }
+
+    @Override
+    public void deleteSync(UUID id) throws RuntimeException {
+        this.operationRepository.getActionOperationRepository().deleteSync(getUserId(), getCompanyId(), id);
     }
 
     @Override

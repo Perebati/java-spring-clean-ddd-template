@@ -33,4 +33,6 @@ public interface RootTreeBusiness extends GenericBusiness<RootTreeEntity> {
     Object readGenericRoot(UUID id) throws RepositoryException;
 
     Optional<UUID> findRootIdByNodeId(UUID node_id) throws RepositoryException;
+
+    RootTreeEntity updateSync(RootTreeEntity entity) throws RepositoryException;
 }

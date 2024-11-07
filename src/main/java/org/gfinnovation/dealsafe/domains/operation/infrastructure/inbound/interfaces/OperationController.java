@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.concurrent.CompletableFuture;
-
 /**
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
@@ -32,5 +30,5 @@ public interface OperationController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PostMapping("comparison")
-    ResponseEntity<CompletableFuture<ComparisonOperationEntity>> createOperation(@RequestBody OperationCreationDTO request);
+    ResponseEntity<ComparisonOperationEntity> createOperation(@RequestBody OperationCreationDTO request);
 }

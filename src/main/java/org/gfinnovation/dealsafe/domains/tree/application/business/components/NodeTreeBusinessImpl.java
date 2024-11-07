@@ -69,29 +69,32 @@ class NodeTreeBusinessImpl extends GenericBusinessImpl implements NodeTreeBusine
      */
 
     @Transactional
-    public CompletableFuture<NodeTreeEntity> create(String name, Integer sequence, UUID parent_id) throws BusinessException, FactoryException, RepositoryException, ValidationException, EntityNotFoundException {
+    public NodeTreeEntity create(String name, Integer sequence, UUID parent_id) throws BusinessException, FactoryException, RepositoryException, ValidationException, EntityNotFoundException {
         try {
             Object parent = this.rootTreeBusiness.readGenericRoot(parent_id);
             if (parent instanceof RootTreeStaticEntity) {
                 RootTreeStaticEntity parent_root = this.rootTreeBusiness.readRootStatic(parent_id).orElseThrow(() ->
                         new EntityNotFoundException("Parent of node not found!"));
-                CompletableFuture<NodeTreeEntity> createdNodeEntity = this.treeRepository.getNodeTreeRepository().create(getUserId(), getCompanyId(), treeFactory.getNodeTreeFactory().produce(getUserId(), getCompanyId(), name, sequence));
-                parent_root.addNode(createdNodeEntity.get());
-                parent = this.rootTreeBusiness.update(parent_root);
+                NodeTreeEntity createdNodeEntity = this.treeRepository.getNodeTreeRepository()
+                        .createSync(getUserId(), getCompanyId(), treeFactory.getNodeTreeFactory()
+                                .produce(getUserId(), getCompanyId(), name, sequence));
+                parent_root.addNode(createdNodeEntity);
+                this.rootTreeBusiness.updateSync(parent_root);
 
                 return createdNodeEntity;
             } else if (parent instanceof RootTreeDynamicEntity) {
                 RootTreeDynamicEntity parent_root = this.rootTreeBusiness.readRootDynamic(parent_id).orElseThrow(() ->
                         new EntityNotFoundException("Parent of node not found!"));
 
-                CompletableFuture<NodeTreeEntity> createdNodeEntity = this.treeRepository.getNodeTreeRepository().create(getUserId(), getCompanyId(), treeFactory.getNodeTreeFactory().produce(getUserId(), getCompanyId(), name, sequence));
-                this.rootTreeBusiness.update(parent_root.addNode(createdNodeEntity.get()));
+                NodeTreeEntity createdNodeEntity = this.treeRepository.getNodeTreeRepository().createSync(getUserId(), getCompanyId(), treeFactory.getNodeTreeFactory().produce(getUserId(), getCompanyId(), name, sequence));
+                parent_root.addNode(createdNodeEntity);
+                this.rootTreeBusiness.updateSync(parent_root);
 
                 return createdNodeEntity;
             } else {
                 NodeTreeEntity parent_node = this.read(parent_id);
-                CompletableFuture<NodeTreeEntity> createdNodeEntity = this.treeRepository.getNodeTreeRepository().create(getUserId(), getCompanyId(), treeFactory.getNodeTreeFactory().produce(getUserId(), getCompanyId(), name, sequence));
-                this.update(parent_node.addChild(createdNodeEntity.get()));
+                NodeTreeEntity createdNodeEntity = this.treeRepository.getNodeTreeRepository().createSync(getUserId(), getCompanyId(), treeFactory.getNodeTreeFactory().produce(getUserId(), getCompanyId(), name, sequence));
+                this.updateSync(parent_node.addChild(createdNodeEntity));
 
                 return createdNodeEntity;
             }
@@ -106,13 +109,22 @@ class NodeTreeBusinessImpl extends GenericBusinessImpl implements NodeTreeBusine
     }
 
     @Override
-    public CompletableFuture<NodeTreeEntity> update(NodeTreeEntity entity) throws RuntimeException {
-        return this.treeRepository.getNodeTreeRepository().update(getUserId(), getCompanyId(), entity);
+    public CompletableFuture<NodeTreeEntity> updateAsync(NodeTreeEntity entity) throws RuntimeException {
+        return this.treeRepository.getNodeTreeRepository().updateAsync(getUserId(), getCompanyId(), entity);
+    }
+
+    public NodeTreeEntity updateSync(NodeTreeEntity entity) throws RuntimeException {
+        return this.treeRepository.getNodeTreeRepository().updateSync(getUserId(), getCompanyId(), entity);
     }
 
     @Override
-    public void delete(UUID id) throws RuntimeException {
-        this.treeRepository.getNodeTreeRepository().delete(getUserId(), getCompanyId(), id);
+    public void deleteAsync(UUID id) throws RuntimeException {
+        this.treeRepository.getNodeTreeRepository().deleteAsync(getUserId(), getCompanyId(), id);
+    }
+
+    @Override
+    public void deleteSync(UUID id) throws RuntimeException {
+        this.treeRepository.getNodeTreeRepository().deleteSync(getUserId(), getCompanyId(), id);
     }
 
     @Override

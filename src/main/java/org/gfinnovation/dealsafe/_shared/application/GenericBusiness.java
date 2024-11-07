@@ -21,9 +21,13 @@ import java.util.concurrent.CompletableFuture;
 public interface GenericBusiness<E extends GenericEntity> {
     E read(UUID id) throws RuntimeException;
 
-    CompletableFuture<E> update(E entity) throws RuntimeException;
+    CompletableFuture<E> updateAsync(E entity) throws RuntimeException;
 
-    void delete(UUID id) throws RuntimeException;
+    E updateSync(E entity) throws RuntimeException;
+
+    void deleteSync(UUID id) throws RuntimeException;
+
+    void deleteAsync(UUID id) throws RuntimeException;
 
     Optional<List<E>> readAll() throws RuntimeException;
 

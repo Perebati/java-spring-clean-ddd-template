@@ -14,10 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 /**
  * @author Lucas Batista Pereira
@@ -35,21 +33,12 @@ class InputControllerImpl implements InputController {
     }
 
     @Override
-    public ResponseEntity<InputEntity> createInput(@RequestParam String name, @RequestBody String json) throws FactoryException, ValidationException, RepositoryException, BusinessException {
+    public ResponseEntity<CompletableFuture<InputEntity>> createInput(@RequestParam String name, @RequestBody String json) throws FactoryException, ValidationException, RepositoryException, BusinessException {
         try {
-            CompletableFuture<InputEntity> input = this.inputBusiness.create(name, json);
-            input.get().setName("teste");
-            input.get().setDeletedAt(LocalDateTime.now());
-            input = this.inputBusiness.update(input.get());
-            this.inputBusiness.delete(input.get().getId());
-            return ResponseEntity.ok(this.inputBusiness.read(input.get().getId()));
+            return ResponseEntity.ok(this.inputBusiness.create(name, json));
 
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        } catch (ExecutionException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
         }
     }
 

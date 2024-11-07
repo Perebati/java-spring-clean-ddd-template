@@ -12,8 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
-import java.util.concurrent.CompletableFuture;
-
 /**
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
@@ -29,7 +27,7 @@ class OperationControllerImpl implements OperationController {
     }
 
     @Override
-    public ResponseEntity<CompletableFuture<ComparisonOperationEntity>> createOperation(OperationCreationDTO request) {
+    public ResponseEntity<ComparisonOperationEntity> createOperation(OperationCreationDTO request) {
         try {
             return ResponseEntity.ok(
                     this.operationBusiness.getComparisonOperationBusiness().create(
