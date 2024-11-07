@@ -1,6 +1,9 @@
 package org.gfinnovation.dealsafe.domains.operation.infrastructure.inbound;
 
 import org.apache.coyote.BadRequestException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.domains.operation.application.business.interfaces.OperationBusiness;
 import org.gfinnovation.dealsafe.domains.operation.entity.ComparisonOperationEntity;
 import org.gfinnovation.dealsafe.domains.operation.infrastructure.inbound.dto.request.OperationCreationDTO;
@@ -35,7 +38,7 @@ class OperationControllerImpl implements OperationController {
                             request.variable(),
                             request.node_id()
                     ));
-        } catch (BadRequestException e) {
+        } catch (BadRequestException | RepositoryException | BusinessException | FactoryException e) {
             throw new RuntimeException(e);
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

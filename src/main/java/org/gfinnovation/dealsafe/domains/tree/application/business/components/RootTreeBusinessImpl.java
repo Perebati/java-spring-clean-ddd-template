@@ -5,6 +5,7 @@ import jakarta.validation.ValidationException;
 import org.gfinnovation.dealsafe._shared.infrastructure.GenericBusinessImpl;
 import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
 import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
+import org.gfinnovation.dealsafe.configuration.exception.models.EntityNotFoundException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
@@ -16,7 +17,6 @@ import org.gfinnovation.dealsafe.domains.tree.entity.RootTreeStaticEntity;
 import org.gfinnovation.dealsafe.domains.tree.entity.factory.interfaces.TreeFactory;
 import org.gfinnovation.dealsafe.domains.tree.entity.repository.TreeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -101,19 +101,27 @@ class RootTreeBusinessImpl extends GenericBusinessImpl implements RootTreeBusine
      * @return Object
      * @throws RepositoryException Thrown when an error occurs on repository level.
      */
+
+    //TODO: Type verification is wrong!: UPDATE: fixed using gambiarra.
     @Override
-    public Object readGenericRoot(UUID id) throws RepositoryException {
-        Optional<RootTreeDynamicEntity> dynamicRoot = Optional.ofNullable(this.treeRepository.getRootTreeDynamicRepository().read(getUserId(), getCompanyId(), id));
-        if (dynamicRoot.isPresent()) {
-            return dynamicRoot.get();
+    public Object readGenericRoot(UUID id) throws RepositoryException, EntityNotFoundException {
+        try {
+            return this.treeRepository
+                    .getRootTreeStaticRepository()
+                    .read(getUserId(), getCompanyId(), id);
+        } catch (EntityNotFoundException e1) {
+            try {
+                return this.treeRepository
+                        .getRootTreeDynamicRepository()
+                        .read(getUserId(), getCompanyId(), id);
+            } catch (EntityNotFoundException e2) {
+                return Optional.empty();
+            }
+        } catch (RepositoryException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Something went wrong reading a root.", e);
         }
-
-        Optional<RootTreeStaticEntity> staticRoot = Optional.ofNullable(this.treeRepository.getRootTreeStaticRepository().read(getUserId(), getCompanyId(), id));
-        if (staticRoot.isPresent()) {
-            return staticRoot.get();
-        }
-
-        return Optional.empty();
     }
 
     @Override
@@ -137,7 +145,6 @@ class RootTreeBusinessImpl extends GenericBusinessImpl implements RootTreeBusine
     }
 
     @Override
-    @Async
     @Transactional
     public CompletableFuture<RootTreeEntity> update(RootTreeEntity entity) throws RepositoryException {
         try {

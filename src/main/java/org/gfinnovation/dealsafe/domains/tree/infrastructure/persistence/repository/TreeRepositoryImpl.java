@@ -37,7 +37,11 @@ class TreeRepositoryImpl implements TreeRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
-    TreeRepositoryImpl(NodeTreeRepository nodeTreeRepository, RootTreeDynamicRepository rootTreeDynamicRepository, RootTreeRepository rootTreeRepository, RootTreeStaticRepository rootTreeStaticRepository) {
+    TreeRepositoryImpl(
+            NodeTreeRepository nodeTreeRepository,
+            RootTreeDynamicRepository rootTreeDynamicRepository,
+            RootTreeRepository rootTreeRepository,
+            RootTreeStaticRepository rootTreeStaticRepository) {
         this.nodeTreeRepository = nodeTreeRepository;
         this.rootTreeDynamicRepository = rootTreeDynamicRepository;
         this.rootTreeRepository = rootTreeRepository;

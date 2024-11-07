@@ -76,7 +76,8 @@ class NodeTreeBusinessImpl extends GenericBusinessImpl implements NodeTreeBusine
                 RootTreeStaticEntity parent_root = this.rootTreeBusiness.readRootStatic(parent_id).orElseThrow(() ->
                         new EntityNotFoundException("Parent of node not found!"));
                 CompletableFuture<NodeTreeEntity> createdNodeEntity = this.treeRepository.getNodeTreeRepository().create(getUserId(), getCompanyId(), treeFactory.getNodeTreeFactory().produce(getUserId(), getCompanyId(), name, sequence));
-                this.rootTreeBusiness.update(parent_root.addNode(createdNodeEntity.get()));
+                parent_root.addNode(createdNodeEntity.get());
+                parent = this.rootTreeBusiness.update(parent_root);
 
                 return createdNodeEntity;
             } else if (parent instanceof RootTreeDynamicEntity) {
