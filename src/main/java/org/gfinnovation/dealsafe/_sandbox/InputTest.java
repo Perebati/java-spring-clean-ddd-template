@@ -1,5 +1,6 @@
 package org.gfinnovation.dealsafe._sandbox;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.coyote.BadRequestException;
 import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
 import org.gfinnovation.dealsafe.authentication.company.entity.CompanyEntity;
@@ -22,6 +23,7 @@ import java.util.Collections;
  */
 @RestController
 @RequestMapping("teste/input")
+@Tag(name = "Teste")
 public class InputTest {
     private final InputBusiness inputBusiness;
     private final UserBusiness userBusiness;

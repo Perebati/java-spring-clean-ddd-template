@@ -3,6 +3,7 @@ package org.gfinnovation.dealsafe._sandbox;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.BadRequestException;
 import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
@@ -38,6 +39,7 @@ import java.util.concurrent.ExecutionException;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("teste")
+@Tag(name = "Teste")
 public class TreeTest {
     private final TreeBusiness treeBusiness;
     private final UserBusiness userBusiness;

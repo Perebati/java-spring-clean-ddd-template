@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +20,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("engine")
+@Tag(name = "Engine")
 @SecurityRequirement(name = "BearerAuth")
 public interface EngineController {
     @Operation(summary = "Valida um json na árvore de validação", description = "Necessita do JSON em sí e a id do nó da árvore de validação.")

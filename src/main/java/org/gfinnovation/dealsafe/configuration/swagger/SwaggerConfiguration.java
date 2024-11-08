@@ -1,10 +1,12 @@
 package org.gfinnovation.dealsafe.configuration.swagger;
 
 
-import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.info.Info;
-import io.swagger.v3.oas.models.security.SecurityScheme;
-import org.springframework.context.annotation.Bean;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
+import io.swagger.v3.oas.annotations.security.SecuritySchemes;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -15,21 +17,24 @@ import org.springframework.context.annotation.Configuration;
  */
 
 @Configuration
+@OpenAPIDefinition(
+        info = @Info(title = "Dealsafe API", version = "v1"),
+        tags = {
+                @Tag(name = "Autenticação", description = "Autenticação básica de usuário, não representa o produto final."),
+                @Tag(name = "Input", description = "Operações relacionadas a criação de inputs para árvores de validação."),
+                @Tag(name = "Árvore", description = "Operações sobre a árvore de validação."),
+                @Tag(name = "Operação", description = "Operação sobre a criação de condicionais na árvore de validação."),
+                @Tag(name = "Engine", description = "Operação de validação do json através da árvore de validação."),
+                @Tag(name = "Teste", description = "Teste")
+        }
+)
+@SecuritySchemes({
+        @SecurityScheme(
+                name = "bearerAuth",
+                type = SecuritySchemeType.HTTP,
+                scheme = "bearer",
+                bearerFormat = "JWT"
+        )
+})
 public class SwaggerConfiguration {
-
-    @Bean
-    public OpenAPI customOpenAPI() {
-        return new OpenAPI()
-                .info(new Info()
-                        .title("API de Árvore")
-                        .version("1.0")
-                        .description("API para manipulação de estruturas de árvore"))
-                .components(new io.swagger.v3.oas.models.Components()
-                        .addSecuritySchemes("BearerAuth", new SecurityScheme()
-                                .type(SecurityScheme.Type.HTTP)
-                                .scheme("bearer")
-                                .bearerFormat("JWT")
-                                .in(SecurityScheme.In.HEADER)
-                                .name("Authorization")));
-    }
 }

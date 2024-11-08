@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.coyote.BadRequestException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.DomainException;
 import org.gfinnovation.dealsafe.domains.tree.entity.NodeTreeEntity;
@@ -29,6 +30,7 @@ import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequestMapping("tree")
+@Tag(name = "Árvore")
 @SecurityRequirement(name = "BearerAuth")
 public interface TreeController {
     @Operation(
