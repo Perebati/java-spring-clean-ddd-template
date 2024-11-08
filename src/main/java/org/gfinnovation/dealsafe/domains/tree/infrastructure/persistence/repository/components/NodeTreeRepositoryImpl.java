@@ -6,6 +6,7 @@ import org.gfinnovation.dealsafe.domains.tree.entity.NodeTreeEntity;
 import org.gfinnovation.dealsafe.domains.tree.entity.repository.components.NodeTreeRepository;
 import org.gfinnovation.dealsafe.domains.tree.infrastructure.persistence.NodeTreeSchema;
 import org.gfinnovation.dealsafe.domains.tree.infrastructure.persistence.mapper.NodeTreeMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +22,7 @@ class NodeTreeRepositoryImpl
         extends GenericBusinessRepositoryImpl<NodeTreeEntity, NodeTreeSchema>
         implements NodeTreeRepository {
 
+    @Autowired
     NodeTreeRepositoryImpl(
             NodeTreeMapper mapper,
             EntityManager entityManager) {

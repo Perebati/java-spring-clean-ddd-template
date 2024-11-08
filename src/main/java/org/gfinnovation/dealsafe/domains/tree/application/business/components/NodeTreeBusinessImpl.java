@@ -1,6 +1,5 @@
 package org.gfinnovation.dealsafe.domains.tree.application.business.components;
 
-import jakarta.transaction.Transactional;
 import jakarta.validation.ValidationException;
 import org.gfinnovation.dealsafe._shared.infrastructure.GenericBusinessImpl;
 import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
@@ -12,8 +11,6 @@ import org.gfinnovation.dealsafe.configuration.exception.models.layered.Reposito
 import org.gfinnovation.dealsafe.domains.tree.application.business.components.interfaces.NodeTreeBusiness;
 import org.gfinnovation.dealsafe.domains.tree.application.business.components.interfaces.RootTreeBusiness;
 import org.gfinnovation.dealsafe.domains.tree.entity.NodeTreeEntity;
-import org.gfinnovation.dealsafe.domains.tree.entity.RootTreeDynamicEntity;
-import org.gfinnovation.dealsafe.domains.tree.entity.RootTreeStaticEntity;
 import org.gfinnovation.dealsafe.domains.tree.entity.factory.interfaces.TreeFactory;
 import org.gfinnovation.dealsafe.domains.tree.entity.repository.TreeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,36 +65,11 @@ class NodeTreeBusinessImpl extends GenericBusinessImpl implements NodeTreeBusine
      * @since 30/10/2024
      */
 
-    @Transactional
     public NodeTreeEntity create(String name, Integer sequence, UUID parent_id) throws BusinessException, FactoryException, RepositoryException, ValidationException, EntityNotFoundException {
         try {
             Object parent = this.rootTreeBusiness.readGenericRoot(parent_id);
-            if (parent instanceof RootTreeStaticEntity) {
-                RootTreeStaticEntity parent_root = this.rootTreeBusiness.readRootStatic(parent_id).orElseThrow(() ->
-                        new EntityNotFoundException("Parent of node not found!"));
-                NodeTreeEntity createdNodeEntity = this.treeRepository.getNodeTreeRepository()
-                        .createSync(getUserId(), getCompanyId(), treeFactory.getNodeTreeFactory()
-                                .produce(getUserId(), getCompanyId(), name, sequence));
-                parent_root.addNode(createdNodeEntity);
-                this.rootTreeBusiness.updateSync(parent_root);
-
-                return createdNodeEntity;
-            } else if (parent instanceof RootTreeDynamicEntity) {
-                RootTreeDynamicEntity parent_root = this.rootTreeBusiness.readRootDynamic(parent_id).orElseThrow(() ->
-                        new EntityNotFoundException("Parent of node not found!"));
-
-                NodeTreeEntity createdNodeEntity = this.treeRepository.getNodeTreeRepository().createSync(getUserId(), getCompanyId(), treeFactory.getNodeTreeFactory().produce(getUserId(), getCompanyId(), name, sequence));
-                parent_root.addNode(createdNodeEntity);
-                this.rootTreeBusiness.updateSync(parent_root);
-
-                return createdNodeEntity;
-            } else {
-                NodeTreeEntity parent_node = this.read(parent_id);
-                NodeTreeEntity createdNodeEntity = this.treeRepository.getNodeTreeRepository().createSync(getUserId(), getCompanyId(), treeFactory.getNodeTreeFactory().produce(getUserId(), getCompanyId(), name, sequence));
-                this.updateSync(parent_node.addChild(createdNodeEntity));
-
-                return createdNodeEntity;
-            }
+            NodeTreeEntity newNode = this.treeFactory.getNodeTreeFactory().produce(getUserId(), getCompanyId(), name, sequence);
+            return this.treeRepository.createNode(getUserId(), getCompanyId(), newNode, parent, parent_id);
         } catch (Exception e) {
             throw new BusinessException(e.getMessage());
         }

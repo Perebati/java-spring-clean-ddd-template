@@ -7,8 +7,6 @@ import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryE
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.domains.input.entity.InputEntity;
 
-import java.util.concurrent.CompletableFuture;
-
 /**
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
@@ -17,5 +15,5 @@ import java.util.concurrent.CompletableFuture;
  */
 
 public interface InputBusiness extends GenericBusiness<InputEntity> {
-    CompletableFuture<InputEntity> create(String name, String json) throws FactoryException, ValidationException, RepositoryException, BusinessException;
+    InputEntity create(String name, String json) throws FactoryException, ValidationException, RepositoryException, BusinessException;
 }

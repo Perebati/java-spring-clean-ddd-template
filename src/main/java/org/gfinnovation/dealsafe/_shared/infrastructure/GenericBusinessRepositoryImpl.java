@@ -1,5 +1,6 @@
 package org.gfinnovation.dealsafe._shared.infrastructure;
 
+import jakarta.transaction.Transactional;
 import org.gfinnovation.dealsafe._shared.entity.GenericBusinessEntity;
 import org.gfinnovation.dealsafe._shared.entity.GenericBusinessRepository;
 import org.gfinnovation.dealsafe.configuration.exception.models.EntityNotFoundException;
@@ -90,6 +91,7 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
 
     @Override
     @Async
+    @Transactional
     public CompletableFuture<E> createAsync(UUID user_id, UUID company_id, E entity) throws RepositoryException {
         try {
             S schema = mapper.toSchema(entity);
@@ -195,6 +197,7 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
 
     @Override
     @Async
+    @Transactional
     public CompletableFuture<E> updateAsync(UUID user_id, UUID company_id, E entity) throws RepositoryException {
         try {
             this.readInternal(user_id, company_id, entity.getId());
@@ -249,6 +252,7 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
 
     @Override
     @Async
+    @Transactional
     public void deleteAsync(UUID user_id, UUID company_id, UUID id) throws RepositoryException {
         delete(user_id, company_id, id);
     }
@@ -267,10 +271,10 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
 
     @Override
     public void deleteSync(UUID user_id, UUID company_id, UUID id) throws RepositoryException {
-        delete(user_id, company_id, id);
+        this.delete(user_id, company_id, id);
     }
 
-    private void delete(UUID user_id, UUID company_id, UUID id) {
+    protected void delete(UUID user_id, UUID company_id, UUID id) {
         try {
             S schema = this.readInternal(user_id, company_id, id);
 

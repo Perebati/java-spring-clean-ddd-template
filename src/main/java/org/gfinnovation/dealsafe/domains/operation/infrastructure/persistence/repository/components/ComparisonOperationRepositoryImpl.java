@@ -1,13 +1,19 @@
 package org.gfinnovation.dealsafe.domains.operation.infrastructure.persistence.repository.components;
 
 import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 import org.gfinnovation.dealsafe._shared.infrastructure.GenericBusinessRepositoryImpl;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.domains.operation.entity.ComparisonOperationEntity;
 import org.gfinnovation.dealsafe.domains.operation.entity.repository.components.ComparisonOperationRepository;
 import org.gfinnovation.dealsafe.domains.operation.infrastructure.persistence.ComparisonOperationSchema;
 import org.gfinnovation.dealsafe.domains.operation.infrastructure.persistence.mapper.ComparisonOperationMapper;
+import org.gfinnovation.dealsafe.domains.tree.entity.NodeTreeEntity;
+import org.gfinnovation.dealsafe.domains.tree.entity.repository.TreeRepository;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 /**
  * @author Lucas Batista Pereira
@@ -20,10 +26,25 @@ class ComparisonOperationRepositoryImpl
         extends GenericBusinessRepositoryImpl<ComparisonOperationEntity, ComparisonOperationSchema>
         implements ComparisonOperationRepository {
 
+    private final TreeRepository treeRepository;
     ComparisonOperationRepositoryImpl(
             ComparisonOperationMapper mapper,
-            EntityManager entityManager) {
+            EntityManager entityManager,
+            TreeRepository treeRepository
+    ) {
         super(mapper, new SimpleJpaRepository<>(ComparisonOperationSchema.class, entityManager), ComparisonOperationSchema.class);
+        this.treeRepository = treeRepository;
+    }
+
+    @Transactional
+    public ComparisonOperationEntity createComparison(UUID user_id, UUID company_id, ComparisonOperationEntity newOperation, NodeTreeEntity parent) throws RepositoryException{
+        try {
+            newOperation = this.createSync(user_id, company_id, newOperation);
+            this.treeRepository.getNodeTreeRepository().updateSync(user_id, company_id, parent.addOperation(newOperation));
+            return this.read(user_id, company_id, newOperation.getId());
+        }catch (Exception e){
+            throw new RepositoryException("Something went wrong on a transaction to save a comparison operation.");
+        }
     }
 }
 

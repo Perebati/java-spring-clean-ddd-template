@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 
 /**
  * @author Lucas Batista Pereira
@@ -33,7 +32,7 @@ public interface InputController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PostMapping()
-    ResponseEntity<CompletableFuture<InputEntity>> createInput(@RequestParam String name, @RequestBody String json) throws FactoryException, ValidationException, RepositoryException, BusinessException;
+    ResponseEntity<InputEntity> createInput(@RequestParam String name, @RequestBody String json) throws FactoryException, ValidationException, RepositoryException, BusinessException;
 
     @Operation(summary = "Busca um input dinâmico", description = "Busca um input no sistema.")
     @ApiResponses(value = {

@@ -55,9 +55,9 @@ public class TreeTest {
 
             CompanyEntity createdCompany = this.companyBusiness.create("Teste", Collections.singleton(createdUser.getId()));
 
-            CompletableFuture<InputEntity> inputEntity = this.inputController.create2();
+            InputEntity inputEntity = this.inputController.create2();
 
-            CompletableFuture<RootTreeDynamicEntity> createdRoot = this.treeBusiness.getRootTreeBusiness().create("ROOT Teste", inputEntity.get().getUser_id());
+            CompletableFuture<RootTreeDynamicEntity> createdRoot = this.treeBusiness.getRootTreeBusiness().create("ROOT Teste", inputEntity.getUser_id());
 
             NodeTreeEntity createdNode1 = this.treeBusiness.getNodeTreeBusiness().create("NODE 1", 0, createdRoot.get().getId());
 

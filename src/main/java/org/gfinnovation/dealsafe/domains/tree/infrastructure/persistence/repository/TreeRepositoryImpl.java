@@ -4,12 +4,21 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
+import jakarta.transaction.Transactional;
 import lombok.Getter;
+import org.gfinnovation.dealsafe.configuration.exception.models.EntityNotFoundException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
+import org.gfinnovation.dealsafe.domains.tree.entity.NodeTreeEntity;
+import org.gfinnovation.dealsafe.domains.tree.entity.RootTreeDynamicEntity;
+import org.gfinnovation.dealsafe.domains.tree.entity.RootTreeEntity;
+import org.gfinnovation.dealsafe.domains.tree.entity.RootTreeStaticEntity;
 import org.gfinnovation.dealsafe.domains.tree.entity.repository.TreeRepository;
 import org.gfinnovation.dealsafe.domains.tree.entity.repository.components.NodeTreeRepository;
 import org.gfinnovation.dealsafe.domains.tree.entity.repository.components.RootTreeDynamicRepository;
 import org.gfinnovation.dealsafe.domains.tree.entity.repository.components.RootTreeRepository;
 import org.gfinnovation.dealsafe.domains.tree.entity.repository.components.RootTreeStaticRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.nio.ByteBuffer;
@@ -37,6 +46,7 @@ class TreeRepositoryImpl implements TreeRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Autowired
     TreeRepositoryImpl(
             NodeTreeRepository nodeTreeRepository,
             RootTreeDynamicRepository rootTreeDynamicRepository,
@@ -46,6 +56,89 @@ class TreeRepositoryImpl implements TreeRepository {
         this.rootTreeDynamicRepository = rootTreeDynamicRepository;
         this.rootTreeRepository = rootTreeRepository;
         this.rootTreeStaticRepository = rootTreeStaticRepository;
+    }
+
+    /**
+     * Transactional operation to save a new node on the database.
+     *
+     * @param user_id UserId.
+     * @param company_id CompanyId.
+     * @param newNode New entity to be saved, mede by factory.
+     * @param parent Parent of given newNode, can be either a root or a node.
+     * @param parent_id ParentId of given newNode
+     * @throws RepositoryException Thrown when an error occur on Repository Level
+     * @return NodeTreeEntity
+     * @author Lucas Batista Pereira
+     * @since 08/11/2024
+     */
+    @Transactional
+    @Override
+    public NodeTreeEntity createNode(UUID user_id, UUID company_id, NodeTreeEntity newNode, Object parent, UUID parent_id) throws RepositoryException{
+        try {
+            if (parent instanceof RootTreeStaticEntity) {
+                RootTreeStaticEntity parent_root = this.rootTreeStaticRepository.read(user_id, company_id, parent_id);
+                NodeTreeEntity createdNodeEntity = this.nodeTreeRepository.createSync(user_id, company_id, newNode);
+                parent_root.addNode(createdNodeEntity);
+                this.updateGenericRootSync(user_id, company_id, parent_root);
+                return this.nodeTreeRepository.read(user_id, company_id, createdNodeEntity.getId());
+            } else if (parent instanceof RootTreeDynamicEntity) {
+                RootTreeDynamicEntity parent_root = this.rootTreeDynamicRepository.read(user_id, company_id, parent_id);
+                NodeTreeEntity createdNodeEntity = this.nodeTreeRepository.createSync(user_id, company_id, newNode);
+                parent_root.addNode(createdNodeEntity);
+                this.updateGenericRootSync(user_id, company_id, parent_root);
+                return this.nodeTreeRepository.read(user_id, company_id, createdNodeEntity.getId());
+            } else {
+                NodeTreeEntity parent_node = this.nodeTreeRepository.read(user_id, company_id, parent_id);
+                NodeTreeEntity createdNodeEntity = this.nodeTreeRepository.createSync(user_id, company_id, newNode);
+                this.nodeTreeRepository.updateSync(user_id, company_id, parent_node.addChild(createdNodeEntity));
+                return this.nodeTreeRepository.read(user_id, company_id, createdNodeEntity.getId());
+            }
+        }catch (Exception e){
+            throw new RepositoryException("Something went wrong creating a new node.", e);
+        }
+    }
+
+    /**
+     *
+     * @param user_id UserId.
+     * @param company_id CompanyId.
+     * @param id Identification of given root.
+     * @return Object
+     * @throws RepositoryException Thrown when an error occur on Repository Level.
+     * @throws EntityNotFoundException Thrown when an error occur on Repository Level.
+     * @author Lucas Batista Pereira
+     * @since 08/11/2024
+     */
+    @Override
+    public Object readGenericRoot(UUID user_id, UUID company_id, UUID id) throws RepositoryException, EntityNotFoundException {
+        try {
+            return this.rootTreeStaticRepository.read(user_id, company_id, id);
+        } catch (EntityNotFoundException e1) {
+            try {
+                return this.rootTreeDynamicRepository.read(user_id, company_id, id);
+            } catch (EntityNotFoundException e2) {
+                return Optional.empty();
+            }
+        } catch (RepositoryException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Something went wrong reading a root.", e);
+        }
+    }
+
+    @Override
+    public RootTreeEntity updateGenericRootSync(UUID user_id, UUID company_id, RootTreeEntity entity) throws RepositoryException {
+        try {
+            if (entity instanceof RootTreeDynamicEntity dynamicRoot) {
+                return this.rootTreeDynamicRepository.updateSync(user_id, company_id, dynamicRoot);
+            } else if (entity instanceof RootTreeStaticEntity staticRoot) {
+                return this.rootTreeStaticRepository.updateSync(user_id, company_id, staticRoot);
+            } else {
+                throw new IllegalArgumentException("Unexpected RootTreeEntity type: " + entity.getClass().getName());
+            }
+        } catch (Exception e) {
+            throw new BusinessException("Unexpected error during update of RootTreeEntity. ERROR_CODE: PATCH-01", e);
+        }
     }
 
     /**

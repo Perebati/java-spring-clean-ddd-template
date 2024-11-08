@@ -64,9 +64,9 @@ class InputBusinessImpl extends GenericBusinessImpl implements InputBusiness {
      */
 
     @Override
-    public CompletableFuture<InputEntity> create(String name, String json) throws FactoryException, ValidationException, RepositoryException, BusinessException {
+    public InputEntity create(String name, String json) throws FactoryException, ValidationException, RepositoryException, BusinessException {
         try {
-            return this.inputRepository.createAsync(getUserId(), getCompanyId(), this.inputFactory.produce(getUserId(), getCompanyId(), name, json));
+            return this.inputRepository.createAsync(getUserId(), getCompanyId(), this.inputFactory.produce(getUserId(), getCompanyId(), name, json)).join();
         } catch (Exception e) {
             throw new BusinessException("Something went wrong creating an input.", e);
         }

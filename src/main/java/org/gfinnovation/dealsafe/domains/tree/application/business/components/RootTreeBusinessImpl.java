@@ -1,11 +1,9 @@
 package org.gfinnovation.dealsafe.domains.tree.application.business.components;
 
-import jakarta.transaction.Transactional;
 import jakarta.validation.ValidationException;
 import org.gfinnovation.dealsafe._shared.infrastructure.GenericBusinessImpl;
 import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
 import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
-import org.gfinnovation.dealsafe.configuration.exception.models.EntityNotFoundException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
@@ -64,10 +62,19 @@ class RootTreeBusinessImpl extends GenericBusinessImpl implements RootTreeBusine
      */
 
     @Override
-    @Transactional
     public CompletableFuture<RootTreeStaticEntity> create(String name, PredefinedTypeEnum static_input) throws BusinessException, FactoryException, ValidationException, RepositoryException {
         try {
-            return this.treeRepository.getRootTreeStaticRepository().createAsync(getUserId(), getCompanyId(), treeFactory.getRootTreeFactory().produce(getUserId(), getCompanyId(), name, static_input));
+            return this.treeRepository.getRootTreeStaticRepository()
+                    .createAsync(
+                            getUserId(),
+                            getCompanyId(),
+                            treeFactory.getRootTreeFactory()
+                                    .produce(
+                                            getUserId(),
+                                            getCompanyId(),
+                                            name,
+                                            static_input
+                                    ));
         } catch (Exception e) {
             throw new BusinessException("Something went wrong when creating a root of type static", e);
         }
@@ -85,7 +92,6 @@ class RootTreeBusinessImpl extends GenericBusinessImpl implements RootTreeBusine
      * @throws RepositoryException Thrown when an error occurs on repository level.
      */
     @Override
-    @Transactional
     public CompletableFuture<RootTreeDynamicEntity> create(String name, UUID dynamic_input) throws BusinessException, FactoryException, ValidationException, RepositoryException {
         try {
             return this.treeRepository.getRootTreeDynamicRepository()
@@ -107,34 +113,53 @@ class RootTreeBusinessImpl extends GenericBusinessImpl implements RootTreeBusine
     }
 
     /**
-     * Gets a root by its id. The response needs handling.
+     * Return an object of RootTree, it can be either a RootTreeStatic or RootTreeDynamic,
+     * response of this method needs handling.
      *
-     * @param id Given rootId.
-     * @return Object
-     * @throws RepositoryException Thrown when an error occurs on repository level.
+     * @param id RootId of given root.
+     * @return Object(RootTreeEntity)
+     * @throws RepositoryException Thrown when an error occur on Repository level.
+     * @author Lucas Batista Pereira
+     * @since 08/11/2024
      */
-
-    //TODO: Type verification is wrong!: UPDATE: fixed using gambiarra.
     @Override
-    public Object readGenericRoot(UUID id) throws RepositoryException, EntityNotFoundException {
+    public Object readGenericRoot(UUID id) throws RepositoryException, BusinessException {
         try {
-            return this.treeRepository
-                    .getRootTreeStaticRepository()
-                    .read(getUserId(), getCompanyId(), id);
-        } catch (EntityNotFoundException e1) {
-            try {
-                return this.treeRepository
-                        .getRootTreeDynamicRepository()
-                        .read(getUserId(), getCompanyId(), id);
-            } catch (EntityNotFoundException e2) {
-                return Optional.empty();
-            }
-        } catch (RepositoryException e) {
+            return this.treeRepository.readGenericRoot(getUserId(), getCompanyId(), id);
+        } catch (RepositoryException e){
             throw e;
-        } catch (Exception e) {
-            throw new BusinessException("Something went wrong reading a root.", e);
+        } catch (Exception e){
+            throw new BusinessException("something went wrong reading a root.", e);
         }
     }
+
+    /**
+     * Returns a root node through a node id.
+     *
+     * @param node_id NodeId of given node.
+     * @return Optional<UUID>
+     * @author Lucas Batista Pereira
+     * @since 08/11/2024
+     */
+    @Override
+    public Optional<UUID> findRootIdByNodeId(UUID node_id) {
+        return this.treeRepository.findRootIdByNodeId(node_id);
+    }
+
+    /**
+     * Update a root, can be either RootTreeStatic or RootTreeDynamic.
+     *
+     * @param entity Entity to be updated.
+     * @return RootTreeEntity
+     * @throws RepositoryException Thrown when an error occur on Repository level.
+     * @author Lucas Batista Pereira
+     * @since 08/11/2024
+     */
+    @Override
+    public RootTreeEntity updateSync(RootTreeEntity entity) throws RepositoryException {
+        return this.treeRepository.updateGenericRootSync(getUserId(), getCompanyId(), entity);
+    }
+
 
     @Override
     public Optional<RootTreeStaticEntity> readRootStatic(UUID id) throws RepositoryException {
@@ -144,31 +169,6 @@ class RootTreeBusinessImpl extends GenericBusinessImpl implements RootTreeBusine
     @Override
     public Optional<RootTreeDynamicEntity> readRootDynamic(UUID id) throws RepositoryException {
         return Optional.ofNullable(this.treeRepository.getRootTreeDynamicRepository().read(getUserId(), getCompanyId(), id));
-    }
-
-    @Override
-    public Optional<UUID> findRootIdByNodeId(UUID node_id) {
-        return this.treeRepository.findRootIdByNodeId(node_id);
-    }
-
-    @Override
-    public RootTreeEntity updateSync(RootTreeEntity entity) throws RepositoryException {
-        try {
-            UUID userId = getUserId();
-            UUID companyId = getCompanyId();
-
-            if (entity instanceof RootTreeDynamicEntity dynamicRoot) {
-                return treeRepository.getRootTreeDynamicRepository()
-                        .updateSync(userId, companyId, dynamicRoot);
-            } else if (entity instanceof RootTreeStaticEntity staticRoot) {
-                return treeRepository.getRootTreeStaticRepository()
-                        .updateSync(userId, companyId, staticRoot);
-            } else {
-                throw new IllegalArgumentException("Unexpected RootTreeEntity type: " + entity.getClass().getName());
-            }
-        } catch (Exception e) {
-            throw new BusinessException("Unexpected error during update of RootTreeEntity. ERROR_CODE: PATCH-01", e);
-        }
     }
 
     @Override

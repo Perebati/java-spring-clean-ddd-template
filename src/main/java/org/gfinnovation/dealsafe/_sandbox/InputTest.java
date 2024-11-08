@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collections;
-import java.util.concurrent.CompletableFuture;
 
 /**
  * @author Lucas Batista Pereira
@@ -35,7 +34,7 @@ public class InputTest {
     }
 
     @PostMapping
-    public CompletableFuture<InputEntity> create() throws BadRequestException {
+    public InputEntity create() throws BadRequestException {
         UserEntity createdUser = this.userBusiness.create("Lucas Teste");
 
         CompanyEntity createdCompany = this.companyFactory.create("Teste", Collections.singleton(createdUser.getId()));
@@ -59,7 +58,7 @@ public class InputTest {
 
         String name = "jsonTeste";
 
-        CompletableFuture<InputEntity> inputEntity = this.inputBusiness.create(name, json);
+        InputEntity inputEntity = this.inputBusiness.create(name, json);
 
         System.out.println(inputEntity.toString());
 
@@ -67,7 +66,7 @@ public class InputTest {
     }
 
     @PutMapping()
-    public CompletableFuture<InputEntity> create2() throws BadRequestException {
+    public InputEntity create2() throws BadRequestException {
 
         String json = """
                 {
@@ -89,7 +88,7 @@ public class InputTest {
 
         String name = "jsonTeste";
 
-        CompletableFuture<InputEntity> inputEntity = this.inputBusiness.create(name, json);
+        InputEntity inputEntity = this.inputBusiness.create(name, json);
 
         System.out.println(inputEntity.toString());
 

@@ -1,6 +1,5 @@
 package org.gfinnovation.dealsafe.domains.operation.application.business.components;
 
-import jakarta.transaction.Transactional;
 import jakarta.validation.ValidationException;
 import org.apache.coyote.BadRequestException;
 import org.gfinnovation.dealsafe._shared.infrastructure.GenericBusinessImpl;
@@ -69,18 +68,13 @@ public class ComparisonOperationBusinessImpl extends GenericBusinessImpl impleme
      * @since 30/10/2024
      */
     @Override
-    @Transactional
     public ComparisonOperationEntity create(ComparisonTypeEnum type, String jsonPath, String variable, UUID node_id) throws BusinessException, FactoryException, ValidationException, RepositoryException, BadRequestException {
         try {
             NodeTreeEntity parent = this.treeBusiness.getNodeTreeBusiness().read(node_id);
-            ComparisonOperationEntity newOperation = this.operationFactory
-                    .getComparisonOperationFactory()
-                    .produce(getUserId(), getCompanyId(), type, jsonPath, variable, node_id);
-            newOperation = this.operationRepository
-                    .getComparisonOperationRepository()
-                    .createSync(getUserId(), getCompanyId(), newOperation);
-            this.treeBusiness.getNodeTreeBusiness().updateSync(parent.addOperation(newOperation));
-            return newOperation;
+            ComparisonOperationEntity newOperation = this.operationFactory.getComparisonOperationFactory().produce(getUserId(), getCompanyId(), type, jsonPath, variable, node_id);
+            return this.operationRepository.getComparisonOperationRepository().createComparison(getUserId(), getCompanyId(), newOperation, parent);
+        }catch (RepositoryException | FactoryException e){
+            throw e;
         } catch (Exception e) {
             throw new BusinessException("Something went wrong creating a comparison operation!", e);
         }

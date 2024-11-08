@@ -6,6 +6,7 @@ import org.gfinnovation.dealsafe.domains.tree.entity.RootTreeEntity;
 import org.gfinnovation.dealsafe.domains.tree.entity.repository.components.RootTreeRepository;
 import org.gfinnovation.dealsafe.domains.tree.infrastructure.persistence.RootTreeSchema;
 import org.gfinnovation.dealsafe.domains.tree.infrastructure.persistence.mapper.RootTreeMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +22,7 @@ class RootTreeRepositoryImpl
         extends GenericBusinessRepositoryImpl<RootTreeEntity, RootTreeSchema>
         implements RootTreeRepository {
 
+    @Autowired
     RootTreeRepositoryImpl(
             RootTreeMapper mapper,
             EntityManager entityManager) {

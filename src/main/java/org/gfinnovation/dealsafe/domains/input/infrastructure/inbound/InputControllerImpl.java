@@ -33,7 +33,7 @@ class InputControllerImpl implements InputController {
     }
 
     @Override
-    public ResponseEntity<CompletableFuture<InputEntity>> createInput(@RequestParam String name, @RequestBody String json) throws FactoryException, ValidationException, RepositoryException, BusinessException {
+    public ResponseEntity<InputEntity> createInput(@RequestParam String name, @RequestBody String json) throws FactoryException, ValidationException, RepositoryException, BusinessException {
         try {
             return ResponseEntity.ok(this.inputBusiness.create(name, json));
 
