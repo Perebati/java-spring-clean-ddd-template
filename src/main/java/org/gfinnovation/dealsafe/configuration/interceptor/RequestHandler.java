@@ -5,15 +5,17 @@ import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
-import jakarta.servlet.*;
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessAuthenticationException;
 import org.gfinnovation.dealsafe.configuration.logging.LogService;
 import org.gfinnovation.dealsafe.configuration.logging.infrastrutcture.RequestLogSchema;
 import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
@@ -47,10 +49,9 @@ public class RequestHandler implements Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) {
         try {
             HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-            HttpServletResponse httpServletResponse = (HttpServletResponse) response;
             String token = getBearerToken(httpServletRequest);
 
             if (token != null) {
@@ -65,8 +66,7 @@ public class RequestHandler implements Filter {
                 String company_id = claims.getBody().get("company_id", String.class);
 
                 if (user_id == null || company_id == null) {
-                    httpServletResponse.sendError(HttpServletResponse.SC_BAD_REQUEST, "Erro de autenticação.");
-                    return;
+                    throw new BusinessAuthenticationException("Authentication error.");
                 }
 
                 RequestLogSchema requestLog = new RequestLogSchema();
@@ -84,7 +84,9 @@ public class RequestHandler implements Filter {
 
             chain.doFilter(request, response);
         } catch (JwtException e) {
-            ((HttpServletResponse) response).sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token inválido ou expirado");
+            throw new BusinessAuthenticationException("Invalid or expired token.");
+        }catch (Exception e){
+            throw new BusinessAuthenticationException("Something went wrong validation business user.");
         } finally {
             MDC.clear();
         }
