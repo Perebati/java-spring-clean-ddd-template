@@ -33,11 +33,11 @@ class NodeTreeFactoryImpl implements NodeTreeFactory {
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
-    public NodeTreeEntity produce(UUID user_id, UUID company_id, String name, Integer sequence) throws FactoryException, ValidationException {
+    public NodeTreeEntity produce(UUID user_id, UUID company_id, String name, Integer sequence) throws FactoryException {
         try {
             return new NodeTreeEntity(user_id, company_id, name, sequence);
         } catch (Exception e) {
-            throw new FactoryException("Something went wrong creating a node.", e);
+            throw new FactoryException("Factory: Something went wrong creating a node.", e);
         }
     }
 }

@@ -3,8 +3,8 @@ package org.gfinnovation.dealsafe.domains.operation.infrastructure.persistence.r
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.gfinnovation.dealsafe._shared.infrastructure.persistence.repository.GenericBusinessRepositoryImpl;
-import org.gfinnovation.dealsafe.authentication.RepositoryAuth;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
+import org.gfinnovation.dealsafe.configuration.security.RepositoryAuth;
 import org.gfinnovation.dealsafe.domains.operation.entity.ComparisonOperationEntity;
 import org.gfinnovation.dealsafe.domains.operation.entity.repository.components.ComparisonOperationRepository;
 import org.gfinnovation.dealsafe.domains.operation.infrastructure.persistence.ComparisonOperationSchema;
@@ -26,6 +26,7 @@ class ComparisonOperationRepositoryImpl
         implements ComparisonOperationRepository {
 
     private final TreeRepository treeRepository;
+
     ComparisonOperationRepositoryImpl(
             ComparisonOperationMapper mapper,
             EntityManager entityManager,
@@ -36,12 +37,12 @@ class ComparisonOperationRepositoryImpl
     }
 
     @Transactional
-    public ComparisonOperationEntity createComparison(ComparisonOperationEntity newOperation, NodeTreeEntity parent, RepositoryAuth auth) throws RepositoryException{
+    public ComparisonOperationEntity createComparison(ComparisonOperationEntity newOperation, NodeTreeEntity parent, RepositoryAuth auth) throws RepositoryException {
         try {
             newOperation = this.createSync(newOperation, auth);
             this.treeRepository.getNodeTreeRepository().updateSync(parent.addOperation(newOperation), auth);
             return this.read(newOperation.getId(), auth);
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new RepositoryException("Something went wrong on a transaction to save a comparison operation.");
         }
     }

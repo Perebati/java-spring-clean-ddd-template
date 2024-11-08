@@ -1,6 +1,5 @@
 package org.gfinnovation.dealsafe.domains.input.entity.factory;
 
-import jakarta.validation.ValidationException;
 import jakarta.validation.constraints.NotNull;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
 import org.gfinnovation.dealsafe.domains.input.entity.InputEntity;
@@ -20,11 +19,11 @@ import java.util.UUID;
 
 @Component
 class InputFactoryImpl implements InputFactory {
-    public InputEntity produce(@NotNull UUID user_id, @NotNull UUID company_id, @NotNull String name, @NotNull String json) throws FactoryException, ValidationException {
+    public InputEntity produce(@NotNull UUID user_id, @NotNull UUID company_id, @NotNull String name, @NotNull String json) throws FactoryException {
         try {
             return new InputEntity(user_id, company_id, name, json);
         } catch (Exception e) {
-            throw new FactoryException("Something went wrong creating an input.", e);
+            throw new FactoryException("Factory: Something went wrong creating an input.", e);
         }
     }
 }

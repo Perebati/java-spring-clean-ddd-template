@@ -41,12 +41,12 @@ class RootTreeFactoryImpl implements RootTreeFactory {
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
-    public RootTreeDynamicEntity produce(UUID user_id, UUID company_id, String name, UUID dynamic_input) throws FactoryException, ValidationException {
+    public RootTreeDynamicEntity produce(UUID user_id, UUID company_id, String name, UUID dynamic_input) throws FactoryException {
         try {
             this.inputBusiness.check(dynamic_input);
             return new RootTreeDynamicEntity(user_id, company_id, name, dynamic_input);
         } catch (Exception e) {
-            throw new FactoryException("Something went wrong creating a dynamic root node.", e);
+            throw new FactoryException("Factory: Something went wrong creating a dynamic root node.", e);
         }
     }
 
@@ -64,11 +64,11 @@ class RootTreeFactoryImpl implements RootTreeFactory {
      * @since 30/10/2024
      */
 
-    public RootTreeStaticEntity produce(UUID user_id, UUID company_id, String name, PredefinedTypeEnum static_input) throws FactoryException, ValidationException {
+    public RootTreeStaticEntity produce(UUID user_id, UUID company_id, String name, PredefinedTypeEnum static_input) throws FactoryException {
         try {
             return new RootTreeStaticEntity(user_id, company_id, name, static_input);
         } catch (Exception e) {
-            throw new FactoryException("Something went wrong creating a predefined root node.", e);
+            throw new FactoryException("Factory: Something went wrong creating a predefined root node.", e);
         }
     }
 }

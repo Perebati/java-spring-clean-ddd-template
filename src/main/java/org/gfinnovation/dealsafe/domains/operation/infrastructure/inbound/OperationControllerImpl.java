@@ -1,9 +1,7 @@
 package org.gfinnovation.dealsafe.domains.operation.infrastructure.inbound;
 
 import org.apache.coyote.BadRequestException;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.DomainException;
 import org.gfinnovation.dealsafe.domains.operation.application.business.interfaces.OperationBusiness;
 import org.gfinnovation.dealsafe.domains.operation.entity.ComparisonOperationEntity;
 import org.gfinnovation.dealsafe.domains.operation.infrastructure.inbound.dto.request.OperationCreationDTO;
@@ -27,19 +25,19 @@ class OperationControllerImpl implements OperationController {
     }
 
     @Override
-    public ResponseEntity<ComparisonOperationEntity> createOperation(OperationCreationDTO request) {
+    public ResponseEntity<ComparisonOperationEntity> createOperation(OperationCreationDTO request) throws DomainException, BadRequestException {
         try {
-            return ResponseEntity.ok(
+            return ResponseEntity.status(HttpStatus.CREATED).body(
                     this.operationBusiness.getComparisonOperationBusiness().create(
                             request.type(),
                             request.jsonPath(),
                             request.variable(),
                             request.node_id()
                     ));
-        } catch (BadRequestException | RepositoryException | BusinessException | FactoryException e) {
-            throw new RuntimeException(e);
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        } catch (DomainException | BadRequestException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new DomainException("Controller: Unexpected error in operation creation.");
         }
     }
 }

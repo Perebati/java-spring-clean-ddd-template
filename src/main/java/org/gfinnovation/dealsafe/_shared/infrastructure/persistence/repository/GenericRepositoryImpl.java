@@ -6,7 +6,7 @@ import org.gfinnovation.dealsafe._shared.entity.GenericEntity;
 import org.gfinnovation.dealsafe._shared.entity.repository.GenericRepository;
 import org.gfinnovation.dealsafe._shared.infrastructure.persistence.GenericSchema;
 import org.gfinnovation.dealsafe._shared.infrastructure.persistence.mapper.GenericMapper;
-import org.gfinnovation.dealsafe.configuration.exception.models.EntityNotFoundException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryEntityNotFoundException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -90,14 +90,14 @@ public class GenericRepositoryImpl<E extends GenericEntity, S extends GenericSch
      *
      * @param entity Generic entity.
      * @return Entity.
-     * @throws EntityNotFoundException Thrown when an entity doesn't existis in db.
-     * @throws RepositoryException     Thrown when that an error on the database level occurs.
+     * @throws RepositoryEntityNotFoundException Thrown when an entity doesn't existis in db.
+     * @throws RepositoryException               Thrown when that an error on the database level occurs.
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
 
     @Transactional
-    public E update(E entity) throws RepositoryException, EntityNotFoundException {
+    public E update(E entity) throws RepositoryException, RepositoryEntityNotFoundException {
         try {
             logger.info("An existing entity of class " + entity.getClass().getName() + " is being updated in the system!");
             return jpaRepository.findById(entity.getId())
@@ -111,7 +111,7 @@ public class GenericRepositoryImpl<E extends GenericEntity, S extends GenericSch
                         return jpaRepository.save(updatedSchema);
                     })
                     .map(mapper::toEntity)
-                    .orElseThrow(() -> new EntityNotFoundException("Entity not found or deleted"));
+                    .orElseThrow(() -> new RepositoryEntityNotFoundException("Entity not found or deleted"));
         } catch (Exception e) {
             logger.error("Failed to update entity: {}", entity, e);
             throw new RepositoryException("Failed to update entity", e);
@@ -128,11 +128,11 @@ public class GenericRepositoryImpl<E extends GenericEntity, S extends GenericSch
      */
 
     @Transactional
-    public void delete(UUID id) throws RepositoryException, EntityNotFoundException {
+    public void delete(UUID id) throws RepositoryException, RepositoryEntityNotFoundException {
         try {
             S schema = jpaRepository.findById(id)
                     .filter(entity -> !entity.getDeleted())
-                    .orElseThrow(() -> new EntityNotFoundException("Entity not found or already deleted"));
+                    .orElseThrow(() -> new RepositoryEntityNotFoundException("Entity not found or already deleted"));
             schema.setDeleted(true);
             schema.setDeletedAt(LocalDateTime.now());
             jpaRepository.save(schema);
@@ -191,16 +191,16 @@ public class GenericRepositoryImpl<E extends GenericEntity, S extends GenericSch
     /**
      * Handles entity checking via id.
      *
-     * @throws EntityNotFoundException Thrown when an entity doesn't existis in db.
+     * @throws RepositoryEntityNotFoundException Thrown when an entity doesn't existis in db.
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
 
     @Transactional
-    public void check(UUID id) throws RepositoryException, EntityNotFoundException {
+    public void check(UUID id) throws RepositoryException, RepositoryEntityNotFoundException {
         try {
             if (read(id).isEmpty()) {
-                throw new EntityNotFoundException("Entity not found or deleted");
+                throw new RepositoryEntityNotFoundException("Entity not found or deleted");
             }
         } catch (Exception e) {
             throw new RepositoryException("Failed to check entity", e);
@@ -211,7 +211,7 @@ public class GenericRepositoryImpl<E extends GenericEntity, S extends GenericSch
     /**
      * Handles entity checking via a set of ids.
      *
-     * @throws EntityNotFoundException Thrown when an entity doesn't existis in db.
+     * @throws RepositoryEntityNotFoundException Thrown when an entity doesn't existis in db.
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */

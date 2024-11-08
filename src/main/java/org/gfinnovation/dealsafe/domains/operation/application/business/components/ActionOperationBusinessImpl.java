@@ -1,12 +1,9 @@
 package org.gfinnovation.dealsafe.domains.operation.application.business.components;
 
-import jakarta.validation.ValidationException;
 import org.gfinnovation.dealsafe._shared.application.GenericBusinessImpl;
 import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
 import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.domains.operation.application.business.components.interfaces.ActionOperationBusiness;
 import org.gfinnovation.dealsafe.domains.operation.application.business.components.interfaces.ComparisonOperationBusiness;
 import org.gfinnovation.dealsafe.domains.operation.entity.ActionOperationEntity;
@@ -59,69 +56,122 @@ public class ActionOperationBusinessImpl extends GenericBusinessImpl implements 
      * @param message      Message given.
      * @param operation_id Parent operation.
      * @return ActionOperationEntity
-     * @throws BusinessException   When an error occurs on business level.
-     * @throws FactoryException    When an error occurs on factory level.
-     * @throws ValidationException When an error occurs on factory level.
-     * @throws RepositoryException When an error occurs on repository level.
+     * @throws BusinessException When an error occurs on business level.
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
 
     @Override
-    public ActionOperationEntity create(UUID user_id, UUID company_id, String url, String message, UUID operation_id) throws BusinessException, FactoryException, ValidationException, RepositoryException {
+    public ActionOperationEntity create(UUID user_id, UUID company_id, String url, String message, UUID operation_id) throws BusinessException {
         try {
             ComparisonOperationEntity operation = this.comparisonOperationBusiness.read(operation_id);
             ActionOperationEntity newOperationAction = this.operationFactory.getActionOperationFactory().produce(user_id, company_id, url, message);
             operation.addAction(newOperationAction);
             this.comparisonOperationBusiness.updateSync(operation);
             return newOperationAction;
+        } catch (BusinessException e) {
+            throw e;
         } catch (Exception e) {
-            throw new BusinessException("Something went wrong creating an action operation", e);
+            throw new BusinessException("Business: Something went wrong checking an action operation.", e);
         }
     }
 
     @Override
-    public ActionOperationEntity read(UUID id) throws RuntimeException {
-        return this.operationRepository.getActionOperationRepository().read(id, getRepositoryAuth());
+    public ActionOperationEntity read(UUID id) throws BusinessException {
+        try {
+            return this.operationRepository.getActionOperationRepository().read(id, getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong reading an action operation.", e);
+        }
     }
 
     @Override
-    public CompletableFuture<ActionOperationEntity> updateAsync(ActionOperationEntity entity) throws RuntimeException {
-        return this.operationRepository.getActionOperationRepository().updateAsync(entity, getRepositoryAuth());
+    public CompletableFuture<ActionOperationEntity> updateAsync(ActionOperationEntity entity) throws BusinessException {
+        try {
+            return this.operationRepository.getActionOperationRepository().updateAsync(entity, getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong async updating an action operation.", e);
+        }
     }
 
     @Override
-    public ActionOperationEntity updateSync(ActionOperationEntity entity) throws RuntimeException {
-        return this.operationRepository.getActionOperationRepository().updateSync(entity, getRepositoryAuth());
+    public ActionOperationEntity updateSync(ActionOperationEntity entity) throws BusinessException {
+        try {
+            return this.operationRepository.getActionOperationRepository().updateSync(entity, getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong updating an action operation.", e);
+        }
     }
 
     @Override
-    public void deleteAsync(UUID id) throws RuntimeException {
-        this.operationRepository.getActionOperationRepository().deleteAsync(id, getRepositoryAuth());
+    public void deleteAsync(UUID id) throws BusinessException {
+        try {
+            this.operationRepository.getActionOperationRepository().deleteAsync(id, getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong async deleting an action operation.", e);
+        }
     }
 
     @Override
-    public void deleteSync(UUID id) throws RuntimeException {
-        this.operationRepository.getActionOperationRepository().deleteSync(id, getRepositoryAuth());
+    public void deleteSync(UUID id) throws BusinessException {
+        try {
+            this.operationRepository.getActionOperationRepository().deleteSync(id, getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong deleting an action operation.", e);
+        }
     }
 
     @Override
-    public Optional<List<ActionOperationEntity>> readAll() throws RuntimeException {
-        return this.operationRepository.getActionOperationRepository().findAll(getRepositoryAuth());
+    public Optional<List<ActionOperationEntity>> readAll() throws BusinessException {
+        try {
+            return this.operationRepository.getActionOperationRepository().findAll(getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong reading all action operations.", e);
+        }
     }
 
     @Override
-    public Optional<List<ActionOperationEntity>> readAllByIds(List<UUID> ids) throws RuntimeException {
-        return this.operationRepository.getActionOperationRepository().findAllByIds(ids, getRepositoryAuth());
+    public Optional<List<ActionOperationEntity>> readAllByIds(List<UUID> ids) throws BusinessException {
+        try {
+            return this.operationRepository.getActionOperationRepository().findAllByIds(ids, getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong reading all action operations by ids.", e);
+        }
     }
 
     @Override
-    public void check(UUID id) throws RuntimeException {
-        this.operationRepository.getActionOperationRepository().check(id, getRepositoryAuth());
+    public void check(UUID id) throws BusinessException {
+        try {
+            this.operationRepository.getActionOperationRepository().check(id, getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong checking an action operation.", e);
+        }
     }
 
     @Override
-    public void checkAll(Set<UUID> ids) throws RuntimeException {
-        this.operationRepository.getActionOperationRepository().checkAll(ids, getRepositoryAuth());
+    public void checkAll(Set<UUID> ids) throws BusinessException {
+        try {
+            this.operationRepository.getActionOperationRepository().checkAll(ids, getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong checking all action operations.", e);
+        }
     }
 }

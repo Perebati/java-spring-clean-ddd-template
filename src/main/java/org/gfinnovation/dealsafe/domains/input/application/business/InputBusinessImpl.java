@@ -1,12 +1,9 @@
 package org.gfinnovation.dealsafe.domains.input.application.business;
 
-import jakarta.validation.ValidationException;
 import org.gfinnovation.dealsafe._shared.application.GenericBusinessImpl;
 import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
 import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.domains.input.application.business.interfaces.InputBusiness;
 import org.gfinnovation.dealsafe.domains.input.entity.InputEntity;
 import org.gfinnovation.dealsafe.domains.input.entity.factory.interfaces.InputFactory;
@@ -55,65 +52,118 @@ class InputBusinessImpl extends GenericBusinessImpl implements InputBusiness {
      * @param name Name of given input.
      * @param json Example of json to map.
      * @return InputEntity
-     * @throws FactoryException    Thrown when ac error occurred on factory level.
-     * @throws ValidationException Thrown when ac error occurred on factory level.
-     * @throws RepositoryException Thrown when ac error occurred on repository level.
-     * @throws BusinessException   Thrown when ac error occurred on business level.
+     * @throws BusinessException Thrown when ac error occurred on business level.
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
 
     @Override
-    public InputEntity create(String name, String json) throws FactoryException, ValidationException, RepositoryException, BusinessException {
+    public InputEntity create(String name, String json) throws BusinessException {
         try {
             return this.inputRepository.createAsync(this.inputFactory.produce(getUserId(), getCompanyId(), name, json), getRepositoryAuth()).join();
+        } catch (BusinessException e) {
+            throw e;
         } catch (Exception e) {
-            throw new BusinessException("Something went wrong creating an input.", e);
+            throw new BusinessException("Business: Something went wrong creating an input.", e);
         }
     }
 
     @Override
-    public InputEntity read(UUID id) {
-        return this.inputRepository.read(id, getRepositoryAuth());
+    public InputEntity read(UUID id) throws BusinessException {
+        try {
+            return this.inputRepository.read(id, getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong reading an input.", e);
+        }
     }
 
     @Override
-    public CompletableFuture<InputEntity> updateAsync(InputEntity entity) {
-        return this.inputRepository.updateAsync(entity, getRepositoryAuth());
+    public CompletableFuture<InputEntity> updateAsync(InputEntity entity) throws BusinessException {
+        try {
+            return this.inputRepository.updateAsync(entity, getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong async updating an input.", e);
+        }
     }
 
     @Override
-    public InputEntity updateSync(InputEntity entity) {
-        return this.inputRepository.updateSync(entity, getRepositoryAuth());
+    public InputEntity updateSync(InputEntity entity) throws BusinessException {
+        try {
+            return this.inputRepository.updateSync(entity, getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong updating an input.", e);
+        }
     }
 
     @Override
-    public void deleteAsync(UUID id) {
-        this.inputRepository.deleteAsync(id, getRepositoryAuth());
+    public void deleteAsync(UUID id) throws BusinessException {
+        try {
+            this.inputRepository.deleteAsync(id, getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong async deleting an input.", e);
+        }
     }
 
     @Override
-    public void deleteSync(UUID id) {
-        this.inputRepository.deleteSync(id, getRepositoryAuth());
+    public void deleteSync(UUID id) throws BusinessException {
+        try {
+            this.inputRepository.deleteSync(id, getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong deleting an input.", e);
+        }
     }
 
     @Override
-    public Optional<List<InputEntity>> readAll() {
-        return this.inputRepository.findAll(getRepositoryAuth());
+    public Optional<List<InputEntity>> readAll() throws BusinessException {
+        try {
+            return this.inputRepository.findAll(getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong reading all inputs.", e);
+        }
     }
 
     @Override
-    public Optional<List<InputEntity>> readAllByIds(List<UUID> ids) {
-        return this.inputRepository.findAllByIds(ids, getRepositoryAuth());
+    public Optional<List<InputEntity>> readAllByIds(List<UUID> ids) throws BusinessException {
+        try {
+            return this.inputRepository.findAllByIds(ids, getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong reading all inputs by id.", e);
+        }
     }
 
     @Override
-    public void check(UUID id) {
-        this.inputRepository.check(id, getRepositoryAuth());
+    public void check(UUID id) throws BusinessException {
+        try {
+            this.inputRepository.check(id, getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong checking an input.", e);
+        }
     }
 
     @Override
-    public void checkAll(Set<UUID> ids) {
-        this.inputRepository.checkAll(ids, getRepositoryAuth());
+    public void checkAll(Set<UUID> ids) throws BusinessException {
+        try {
+            this.inputRepository.checkAll(ids, getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong checking all inputs by ids.", e);
+        }
     }
 }

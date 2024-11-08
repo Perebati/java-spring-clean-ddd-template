@@ -53,16 +53,13 @@ class RootTreeBusinessImpl extends GenericBusinessImpl implements RootTreeBusine
      * @param name         Name of given root node.
      * @param static_input Identification of referenced predefined input.
      * @return RootTreeStaticEntity
-     * @throws BusinessException   Thrown when an error occurs on business level.
-     * @throws FactoryException    Thrown when an error occurs on factory level.
-     * @throws ValidationException Thrown when an error occurs on factory level.
-     * @throws RepositoryException Thrown when an error occurs on repository level.
+     * @throws BusinessException Thrown when an error occurs on business level.
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
 
     @Override
-    public CompletableFuture<RootTreeStaticEntity> create(String name, PredefinedTypeEnum static_input) throws BusinessException, FactoryException, ValidationException, RepositoryException {
+    public CompletableFuture<RootTreeStaticEntity> create(String name, PredefinedTypeEnum static_input) throws BusinessException {
         try {
             return this.treeRepository.getRootTreeStaticRepository()
                     .createAsync(
@@ -73,8 +70,10 @@ class RootTreeBusinessImpl extends GenericBusinessImpl implements RootTreeBusine
                                             name,
                                             static_input
                                     ), getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
         } catch (Exception e) {
-            throw new BusinessException("Something went wrong when creating a root of type static", e);
+            throw new BusinessException("Business: Something went wrong creating a static root.", e);
         }
     }
 
@@ -90,20 +89,20 @@ class RootTreeBusinessImpl extends GenericBusinessImpl implements RootTreeBusine
      * @throws RepositoryException Thrown when an error occurs on repository level.
      */
     @Override
-    public CompletableFuture<RootTreeDynamicEntity> create(String name, UUID dynamic_input) throws BusinessException, FactoryException, ValidationException, RepositoryException {
+    public CompletableFuture<RootTreeDynamicEntity> create(String name, UUID dynamic_input) throws BusinessException {
         try {
             return this.treeRepository.getRootTreeDynamicRepository()
                     .createAsync(treeFactory.getRootTreeFactory()
-                                    .produce(
-                                            getUserId(),
-                                            getCompanyId(),
-                                            name,
-                                            dynamic_input
-                                    ), getRepositoryAuth());
-        } catch (FactoryException | RepositoryException | ValidationException e) {
+                            .produce(
+                                    getUserId(),
+                                    getCompanyId(),
+                                    name,
+                                    dynamic_input
+                            ), getRepositoryAuth());
+        } catch (BusinessException e) {
             throw e;
         } catch (Exception e) {
-            throw new BusinessException("Something went wrong when creating a root of type dynamic", e);
+            throw new BusinessException("Business: Something went wrong creating a dynamic root.", e);
         }
     }
 
@@ -118,13 +117,13 @@ class RootTreeBusinessImpl extends GenericBusinessImpl implements RootTreeBusine
      * @since 08/11/2024
      */
     @Override
-    public Object readGenericRoot(UUID id) throws RepositoryException, BusinessException {
+    public Object readGenericRoot(UUID id) throws BusinessException {
         try {
             return this.treeRepository.readGenericRoot(id, getRepositoryAuth());
-        } catch (RepositoryException e){
+        } catch (BusinessException e) {
             throw e;
-        } catch (Exception e){
-            throw new BusinessException("something went wrong reading a root.", e);
+        } catch (Exception e) {
+            throw new BusinessException("Business: something went wrong reading a generic root.", e);
         }
     }
 
@@ -137,8 +136,14 @@ class RootTreeBusinessImpl extends GenericBusinessImpl implements RootTreeBusine
      * @since 08/11/2024
      */
     @Override
-    public Optional<UUID> findRootIdByNodeId(UUID node_id) {
-        return this.treeRepository.findRootIdByNodeId(node_id);
+    public Optional<UUID> findRootIdByNodeId(UUID node_id) throws BusinessException {
+        try {
+            return this.treeRepository.findRootIdByNodeId(node_id);
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong find a root by node id.", e);
+        }
     }
 
     /**
@@ -151,58 +156,124 @@ class RootTreeBusinessImpl extends GenericBusinessImpl implements RootTreeBusine
      * @since 08/11/2024
      */
     @Override
-    public RootTreeEntity updateSync(RootTreeEntity entity) throws RepositoryException {
-        return this.treeRepository.updateGenericRootSync(entity, getRepositoryAuth());
+    public RootTreeEntity updateSync(RootTreeEntity entity) throws BusinessException {
+        try {
+            return this.treeRepository.updateGenericRootSync(entity, getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong updating a root.", e);
+        }
     }
 
 
     @Override
-    public Optional<RootTreeStaticEntity> readRootStatic(UUID id) throws RepositoryException {
-        return Optional.ofNullable(this.treeRepository.getRootTreeStaticRepository().read(id, getRepositoryAuth()));
+    public Optional<RootTreeStaticEntity> readRootStatic(UUID id) throws BusinessException {
+        try {
+            return Optional.ofNullable(this.treeRepository.getRootTreeStaticRepository().read(id, getRepositoryAuth()));
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong reading a static root.", e);
+        }
     }
 
     @Override
-    public Optional<RootTreeDynamicEntity> readRootDynamic(UUID id) throws RepositoryException {
-        return Optional.ofNullable(this.treeRepository.getRootTreeDynamicRepository().read(id, getRepositoryAuth()));
+    public Optional<RootTreeDynamicEntity> readRootDynamic(UUID id) throws BusinessException {
+        try {
+            return Optional.ofNullable(this.treeRepository.getRootTreeDynamicRepository().read(id, getRepositoryAuth()));
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong reading a dynamic root.", e);
+        }
     }
 
     @Override
-    public RootTreeEntity read(UUID id) throws RuntimeException {
-        return this.treeRepository.getRootTreeRepository().read(id, getRepositoryAuth());
+    public RootTreeEntity read(UUID id) throws BusinessException {
+        try {
+            return this.treeRepository.getRootTreeRepository().read(id, getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong reading a root.", e);
+        }
     }
 
     @Override
-    public CompletableFuture<RootTreeEntity> updateAsync(RootTreeEntity entity) throws RuntimeException {
-        return this.treeRepository.getRootTreeRepository().updateAsync(entity, getRepositoryAuth());
+    public CompletableFuture<RootTreeEntity> updateAsync(RootTreeEntity entity) throws BusinessException {
+        try {
+            return this.treeRepository.getRootTreeRepository().updateAsync(entity, getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong async updating a root.", e);
+        }
     }
 
     @Override
-    public void deleteSync(UUID id) throws RuntimeException {
-        this.treeRepository.getRootTreeRepository().deleteSync(id, getRepositoryAuth());
+    public void deleteSync(UUID id) throws BusinessException {
+        try {
+            this.treeRepository.getRootTreeRepository().deleteSync(id, getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong deleting a root.", e);
+        }
     }
 
     @Override
-    public void deleteAsync(UUID id) throws RuntimeException {
-        this.treeRepository.getRootTreeRepository().deleteAsync(id, getRepositoryAuth());
+    public void deleteAsync(UUID id) throws BusinessException {
+        try {
+            this.treeRepository.getRootTreeRepository().deleteAsync(id, getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong async deleting a root.", e);
+        }
     }
 
     @Override
-    public Optional<List<RootTreeEntity>> readAll() throws RuntimeException {
-        return this.treeRepository.getRootTreeRepository().findAll(getRepositoryAuth());
+    public Optional<List<RootTreeEntity>> readAll() throws BusinessException {
+        try {
+            return this.treeRepository.getRootTreeRepository().findAll(getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong reading all roots.", e);
+        }
     }
 
     @Override
-    public Optional<List<RootTreeEntity>> readAllByIds(List<UUID> ids) throws RuntimeException {
-        return this.treeRepository.getRootTreeRepository().findAllByIds(ids, getRepositoryAuth());
+    public Optional<List<RootTreeEntity>> readAllByIds(List<UUID> ids) throws BusinessException {
+        try {
+            return this.treeRepository.getRootTreeRepository().findAllByIds(ids, getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong reading all roots by ids.", e);
+        }
     }
 
     @Override
-    public void check(UUID id) throws RuntimeException {
-        this.treeRepository.getRootTreeRepository().check(id, getRepositoryAuth());
+    public void check(UUID id) throws BusinessException {
+        try {
+            this.treeRepository.getRootTreeRepository().check(id, getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong checking a root.", e);
+        }
     }
 
     @Override
-    public void checkAll(Set<UUID> ids) throws RuntimeException {
-        this.treeRepository.getRootTreeRepository().checkAll(ids, getRepositoryAuth());
+    public void checkAll(Set<UUID> ids) throws BusinessException {
+        try {
+            this.treeRepository.getRootTreeRepository().checkAll(ids, getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong checking all roots by ids.", e);
+        }
     }
 }

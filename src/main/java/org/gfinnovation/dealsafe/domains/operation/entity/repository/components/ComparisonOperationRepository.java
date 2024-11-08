@@ -1,8 +1,8 @@
 package org.gfinnovation.dealsafe.domains.operation.entity.repository.components;
 
 import org.gfinnovation.dealsafe._shared.entity.repository.GenericBusinessRepository;
-import org.gfinnovation.dealsafe.authentication.RepositoryAuth;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
+import org.gfinnovation.dealsafe.configuration.security.RepositoryAuth;
 import org.gfinnovation.dealsafe.domains.operation.entity.ComparisonOperationEntity;
 import org.gfinnovation.dealsafe.domains.tree.entity.NodeTreeEntity;
 

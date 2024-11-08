@@ -4,6 +4,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import org.apache.coyote.BadRequestException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.DomainException;
 import org.gfinnovation.dealsafe.domains.operation.entity.ComparisonOperationEntity;
 import org.gfinnovation.dealsafe.domains.operation.infrastructure.inbound.dto.request.OperationCreationDTO;
 import org.springframework.http.ResponseEntity;
@@ -30,5 +32,5 @@ public interface OperationController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PostMapping("comparison")
-    ResponseEntity<ComparisonOperationEntity> createOperation(@RequestBody OperationCreationDTO request);
+    ResponseEntity<ComparisonOperationEntity> createOperation(@RequestBody OperationCreationDTO request) throws DomainException, BadRequestException;
 }

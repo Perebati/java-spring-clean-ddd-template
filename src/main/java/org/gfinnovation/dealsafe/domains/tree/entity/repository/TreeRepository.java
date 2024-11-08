@@ -1,9 +1,8 @@
 package org.gfinnovation.dealsafe.domains.tree.entity.repository;
 
 import jakarta.validation.constraints.NotNull;
-import org.gfinnovation.dealsafe.authentication.RepositoryAuth;
-import org.gfinnovation.dealsafe.configuration.exception.models.EntityNotFoundException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
+import org.gfinnovation.dealsafe.configuration.security.RepositoryAuth;
 import org.gfinnovation.dealsafe.domains.tree.entity.NodeTreeEntity;
 import org.gfinnovation.dealsafe.domains.tree.entity.RootTreeEntity;
 import org.gfinnovation.dealsafe.domains.tree.entity.repository.components.NodeTreeRepository;
@@ -35,9 +34,9 @@ public interface TreeRepository {
 
     NodeTreeEntity createNode(@NotNull NodeTreeEntity newNode, @NotNull Object parent, @NotNull UUID parent_id, @NotNull RepositoryAuth auth) throws RepositoryException;
 
-    Object readGenericRoot(@NotNull UUID id, @NotNull RepositoryAuth auth) throws RepositoryException, EntityNotFoundException;
+    Object readGenericRoot(@NotNull UUID id, @NotNull RepositoryAuth auth) throws RepositoryException;
 
-    RootTreeEntity updateGenericRootSync(@NotNull RootTreeEntity entity, @NotNull RepositoryAuth auth) throws RepositoryException;
+    RootTreeEntity updateGenericRootSync(@NotNull RootTreeEntity entity, @NotNull RepositoryAuth auth) throws RepositoryException, IllegalArgumentException;
 
     Optional<UUID> findRootIdByNodeId(UUID nodeId);
 }

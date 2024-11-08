@@ -1,10 +1,7 @@
 package org.gfinnovation.dealsafe.domains.input.infrastructure.inbound;
 
-import jakarta.validation.ValidationException;
-import org.gfinnovation.dealsafe.configuration.exception.models.EntityNotFoundException;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
+import org.apache.coyote.BadRequestException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.DomainException;
 import org.gfinnovation.dealsafe.domains.input.application.business.interfaces.InputBusiness;
 import org.gfinnovation.dealsafe.domains.input.entity.InputEntity;
 import org.gfinnovation.dealsafe.domains.input.infrastructure.inbound.interfaces.InputController;
@@ -15,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 
 /**
  * @author Lucas Batista Pereira
@@ -33,34 +29,31 @@ class InputControllerImpl implements InputController {
     }
 
     @Override
-    public ResponseEntity<InputEntity> createInput(@RequestParam String name, @RequestBody String json) throws FactoryException, ValidationException, RepositoryException, BusinessException {
+    public ResponseEntity<InputEntity> createInput(@RequestParam String name, @RequestBody String json) throws DomainException, BadRequestException {
         try {
-            return ResponseEntity.ok(this.inputBusiness.create(name, json));
+            if (name == null || name.isEmpty() || json == null || json.isEmpty()) {
+                throw new BadRequestException("'name' and/or 'json' fields can't be null!");
+            }
+            return ResponseEntity.status(HttpStatus.CREATED).body(this.inputBusiness.create(name, json));
 
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        } catch (DomainException | BadRequestException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new DomainException("Controller: Unexpected error in input creation.");
         }
     }
 
-    /**
-     * @param read_id
-     * @return
-     * @throws FactoryException
-     * @throws ValidationException
-     * @throws RepositoryException
-     * @throws BusinessException
-     * @author Lucas Batista Pereira
-     * @since 06/11/2024
-     */
     @Override
-    public InputEntity readInput(UUID read_id) throws FactoryException, ValidationException, RepositoryException, BusinessException {
+    public ResponseEntity<InputEntity> readInput(UUID id) throws DomainException, BadRequestException {
         try {
-            return this.inputBusiness.read(read_id);
-        } catch (FactoryException | ValidationException | RepositoryException | BusinessException |
-                 EntityNotFoundException e) {
+            if (id == null) {
+                throw new BadRequestException("input id can't be null!");
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(this.inputBusiness.read(id));
+        } catch (DomainException | BadRequestException e) {
             throw e;
         } catch (Exception e) {
-            throw new BusinessException("Error", e);
+            throw new DomainException("Controller: Unexpected error in input reading.");
         }
     }
 }

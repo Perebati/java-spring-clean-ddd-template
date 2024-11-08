@@ -9,7 +9,7 @@ package org.gfinnovation.dealsafe.configuration.exception.models.layered;
  * @class BusinessException
  * @since 30/10/2024
  */
-public class BusinessException extends RuntimeException {
+public class BusinessException extends DomainException {
     public BusinessException(String message) {
         super(message);
     }

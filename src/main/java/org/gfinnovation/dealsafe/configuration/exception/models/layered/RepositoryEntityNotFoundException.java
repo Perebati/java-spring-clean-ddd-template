@@ -1,4 +1,4 @@
-package org.gfinnovation.dealsafe.configuration.exception.models;
+package org.gfinnovation.dealsafe.configuration.exception.models.layered;
 
 /**
  * Thrown when a method didn't find what it was looking for.
@@ -8,8 +8,8 @@ package org.gfinnovation.dealsafe.configuration.exception.models;
  * @class EntityNotFoundException
  * @since 30/10/2024
  */
-public class EntityNotFoundException extends RuntimeException {
-    public EntityNotFoundException(String message) {
+public class RepositoryEntityNotFoundException extends RepositoryException {
+    public RepositoryEntityNotFoundException(String message) {
         super(message);
     }
 }

@@ -4,10 +4,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import jakarta.validation.ValidationException;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
+import org.apache.coyote.BadRequestException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.DomainException;
 import org.gfinnovation.dealsafe.domains.input.entity.InputEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +30,7 @@ public interface InputController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PostMapping()
-    ResponseEntity<InputEntity> createInput(@RequestParam String name, @RequestBody String json) throws FactoryException, ValidationException, RepositoryException, BusinessException;
+    ResponseEntity<InputEntity> createInput(@RequestParam String name, @RequestBody String json) throws DomainException, BadRequestException;
 
     @Operation(summary = "Busca um input dinâmico", description = "Busca um input no sistema.")
     @ApiResponses(value = {
@@ -41,7 +39,7 @@ public interface InputController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @GetMapping()
-    InputEntity readInput(@RequestParam UUID read_id) throws FactoryException, ValidationException, RepositoryException, BusinessException;
+    ResponseEntity<InputEntity> readInput(UUID id) throws DomainException, BadRequestException;
 }
 
 

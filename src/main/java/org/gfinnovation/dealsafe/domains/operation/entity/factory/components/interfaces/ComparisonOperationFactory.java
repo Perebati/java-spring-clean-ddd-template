@@ -1,8 +1,6 @@
 package org.gfinnovation.dealsafe.domains.operation.entity.factory.components.interfaces;
 
-import jakarta.validation.ValidationException;
 import org.apache.coyote.BadRequestException;
-import org.gfinnovation.dealsafe.configuration.exception.models.EntityNotFoundException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
 import org.gfinnovation.dealsafe.domains.operation.entity.ComparisonOperationEntity;
 import org.gfinnovation.dealsafe.domains.operation.entity.comparison.ComparisonTypeEnum;
@@ -17,5 +15,5 @@ import java.util.UUID;
  */
 
 public interface ComparisonOperationFactory {
-    ComparisonOperationEntity produce(UUID user_id, UUID company_id, ComparisonTypeEnum type, String jsonPath, String variable, UUID node_id) throws FactoryException, BadRequestException, EntityNotFoundException, ValidationException;
+    ComparisonOperationEntity produce(UUID user_id, UUID company_id, ComparisonTypeEnum type, String jsonPath, String variable, UUID node_id) throws FactoryException, BadRequestException;
 }

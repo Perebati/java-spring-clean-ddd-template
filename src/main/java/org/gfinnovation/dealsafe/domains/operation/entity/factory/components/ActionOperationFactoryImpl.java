@@ -35,11 +35,11 @@ public class ActionOperationFactoryImpl implements ActionOperationFactory {
      * @since 30/10/2024
      */
 
-    public ActionOperationEntity produce(UUID user_id, UUID company_id, String url, String message) throws FactoryException, ValidationException {
+    public ActionOperationEntity produce(UUID user_id, UUID company_id, String url, String message) throws FactoryException {
         try {
             return new ActionOperationEntity(user_id, company_id, url, message);
         } catch (Exception e) {
-            throw new FactoryException("Something went wrong creating an action operation.", e);
+            throw new FactoryException("Factory: Something went wrong creating an action operation.", e);
         }
     }
 }

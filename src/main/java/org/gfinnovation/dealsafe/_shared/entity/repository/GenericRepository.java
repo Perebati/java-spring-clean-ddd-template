@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe._shared.entity.repository;
 
 import org.gfinnovation.dealsafe._shared.entity.GenericEntity;
-import org.gfinnovation.dealsafe.configuration.exception.models.EntityNotFoundException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryEntityNotFoundException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
 
 import java.util.List;
@@ -26,15 +26,15 @@ public interface GenericRepository<E extends GenericEntity> {
 
     Optional<E> read(UUID id) throws RepositoryException;
 
-    E update(E entity) throws RepositoryException, EntityNotFoundException;
+    E update(E entity) throws RepositoryException, RepositoryEntityNotFoundException;
 
-    void delete(UUID id) throws RepositoryException, EntityNotFoundException;
+    void delete(UUID id) throws RepositoryException, RepositoryEntityNotFoundException;
 
     Optional<List<E>> findAll() throws RepositoryException;
 
     Optional<List<E>> findAllByIds(List<UUID> ids) throws RepositoryException;
 
-    void check(UUID id) throws RepositoryException, EntityNotFoundException;
+    void check(UUID id) throws RepositoryException, RepositoryEntityNotFoundException;
 
-    void checkAll(Set<UUID> ids) throws RepositoryException, EntityNotFoundException;
+    void checkAll(Set<UUID> ids) throws RepositoryException, RepositoryEntityNotFoundException;
 }

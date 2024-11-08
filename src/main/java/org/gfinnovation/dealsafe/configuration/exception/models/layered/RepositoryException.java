@@ -1,7 +1,5 @@
 package org.gfinnovation.dealsafe.configuration.exception.models.layered;
 
-import org.gfinnovation.dealsafe.configuration.exception.models.InfrastructureException;
-
 /**
  * RepositoryException is for general use, throw it when you not sure
  * what caused the error on repository level.
@@ -11,7 +9,7 @@ import org.gfinnovation.dealsafe.configuration.exception.models.InfrastructureEx
  * @class RepositoryException
  * @since 30/10/2024
  */
-public class RepositoryException extends InfrastructureException {
+public class RepositoryException extends BusinessException {
     public RepositoryException(String message) {
         super(message);
     }

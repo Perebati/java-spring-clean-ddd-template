@@ -7,10 +7,10 @@ import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
-import org.gfinnovation.dealsafe.authentication.RepositoryAuth;
-import org.gfinnovation.dealsafe.configuration.exception.models.EntityNotFoundException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryEntityNotFoundException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
+import org.gfinnovation.dealsafe.configuration.security.RepositoryAuth;
 import org.gfinnovation.dealsafe.domains.tree.entity.NodeTreeEntity;
 import org.gfinnovation.dealsafe.domains.tree.entity.RootTreeDynamicEntity;
 import org.gfinnovation.dealsafe.domains.tree.entity.RootTreeEntity;
@@ -63,17 +63,17 @@ class TreeRepositoryImpl implements TreeRepository {
     /**
      * Transactional operation to save a new node on the database.
      *
-     * @param newNode New entity to be saved, mede by factory.
-     * @param parent Parent of given newNode, can be either a root or a node.
+     * @param newNode   New entity to be saved, mede by factory.
+     * @param parent    Parent of given newNode, can be either a root or a node.
      * @param parent_id ParentId of given newNode
-     * @throws RepositoryException Thrown when an error occur on Repository Level
      * @return NodeTreeEntity
+     * @throws RepositoryException Thrown when an error occur on Repository Level
      * @author Lucas Batista Pereira
      * @since 08/11/2024
      */
     @Transactional
     @Override
-    public NodeTreeEntity createNode(@NotNull NodeTreeEntity newNode, @NotNull Object parent, @NotNull UUID parent_id, @NotNull RepositoryAuth auth) throws RepositoryException{
+    public NodeTreeEntity createNode(@NotNull NodeTreeEntity newNode, @NotNull Object parent, @NotNull UUID parent_id, @NotNull RepositoryAuth auth) throws RepositoryException {
         try {
             if (parent instanceof RootTreeStaticEntity) {
                 RootTreeStaticEntity parent_root = this.rootTreeStaticRepository.read(parent_id, auth);
@@ -93,39 +93,36 @@ class TreeRepositoryImpl implements TreeRepository {
                 this.nodeTreeRepository.updateSync(parent_node.addChild(createdNodeEntity), auth);
                 return this.nodeTreeRepository.read(createdNodeEntity.getId(), auth);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new RepositoryException("Something went wrong creating a new node.", e);
         }
     }
 
     /**
-     *
      * @param id Identification of given root.
      * @return Object
-     * @throws RepositoryException Thrown when an error occur on Repository Level.
-     * @throws EntityNotFoundException Thrown when an error occur on Repository Level.
+     * @throws RepositoryException               Thrown when an error occur on Repository Level.
+     * @throws RepositoryEntityNotFoundException Thrown when an error occur on Repository Level.
      * @author Lucas Batista Pereira
      * @since 08/11/2024
      */
     @Override
-    public Object readGenericRoot(@NotNull UUID id, @NotNull RepositoryAuth auth) throws RepositoryException, EntityNotFoundException {
+    public Object readGenericRoot(@NotNull UUID id, @NotNull RepositoryAuth auth) throws RepositoryException {
         try {
             return this.rootTreeStaticRepository.read(id, auth);
-        } catch (EntityNotFoundException e1) {
+        } catch (RepositoryEntityNotFoundException e1) {
             try {
                 return this.rootTreeDynamicRepository.read(id, auth);
-            } catch (EntityNotFoundException e2) {
+            } catch (RepositoryEntityNotFoundException e2) {
                 return Optional.empty();
             }
-        } catch (RepositoryException e) {
-            throw e;
         } catch (Exception e) {
-            throw new BusinessException("Something went wrong reading a root.", e);
+            throw new RepositoryException("Something went wrong reading a root.", e);
         }
     }
 
     @Override
-    public RootTreeEntity updateGenericRootSync(@NotNull RootTreeEntity entity, @NotNull RepositoryAuth auth) throws RepositoryException {
+    public RootTreeEntity updateGenericRootSync(@NotNull RootTreeEntity entity, @NotNull RepositoryAuth auth) throws RepositoryException, IllegalArgumentException {
         try {
             if (entity instanceof RootTreeDynamicEntity dynamicRoot) {
                 return this.rootTreeDynamicRepository.updateSync(dynamicRoot, auth);

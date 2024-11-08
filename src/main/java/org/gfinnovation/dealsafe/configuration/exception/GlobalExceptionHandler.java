@@ -1,12 +1,9 @@
 package org.gfinnovation.dealsafe.configuration.exception;
 
-import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.BadRequestException;
-import org.gfinnovation.dealsafe.configuration.exception.models.EntityNotFoundException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.DomainException;
 import org.gfinnovation.dealsafe.configuration.logging.LogService;
 import org.gfinnovation.dealsafe.configuration.logging.infrastrutcture.ErrorLogSchema;
 import org.slf4j.Logger;
@@ -40,53 +37,13 @@ public class GlobalExceptionHandler {
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
     private final LogService logService;
 
-    @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<Object> handleEntityNotFoundException(EntityNotFoundException ex, WebRequest request) {
-        ErrorLogSchema errorLog = buildErrorLog(ex);
-        logService.saveErrorLogAsync(errorLog);
-
-        logger.error("An entity was not found in the system!", ex);
-        ErrorResponse response = new ErrorResponse("Entity not found!", ex.getMessage());
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
-    }
-
-    @ExceptionHandler(ValidationException.class)
-    public ResponseEntity<Object> handleValidationException(RepositoryException ex, WebRequest request) {
-        ErrorLogSchema errorLog = buildErrorLog(ex);
-        logService.saveErrorLogAsync(errorLog);
-
-        logger.error("Something went wrong validating business information!", ex);
-        ErrorResponse response = new ErrorResponse("Business validation error!", ex.getMessage());
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
-    }
-
-    @ExceptionHandler(FactoryException.class)
-    public ResponseEntity<Object> handleFactoryException(RepositoryException ex, WebRequest request) {
-        ErrorLogSchema errorLog = buildErrorLog(ex);
-        logService.saveErrorLogAsync(errorLog);
-
-        logger.error("Something went wrong on a factory!", ex);
-        ErrorResponse response = new ErrorResponse("Entity creation error!", ex.getMessage());
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
-    }
-
-    @ExceptionHandler(RepositoryException.class)
-    public ResponseEntity<Object> handleRepositoryException(RepositoryException ex, WebRequest request) {
-        ErrorLogSchema errorLog = buildErrorLog(ex);
-        logService.saveErrorLogAsync(errorLog);
-
-        logger.error("Something went wrong in the database!", ex);
-        ErrorResponse response = new ErrorResponse("Data access error!", ex.getMessage());
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
-    }
-
-    @ExceptionHandler(BusinessException.class)
+    @ExceptionHandler(DomainException.class)
     public ResponseEntity<Object> handleBusinessException(BusinessException ex, WebRequest request) {
         ErrorLogSchema errorLog = buildErrorLog(ex);
         logService.saveErrorLogAsync(errorLog);
 
         logger.error("Must likely a logic mistake!", ex);
-        ErrorResponse response = new ErrorResponse("Business error!", ex.getCause().getMessage());
+        ErrorResponse response = new ErrorResponse("An error occurred:", ex.getCause().getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
     }
 
@@ -107,7 +64,7 @@ public class GlobalExceptionHandler {
 
         logger.error("Authentication failed!", ex);
         ErrorResponse response = new ErrorResponse("Authentication failed!", ex.getCause().getMessage());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
     }
 
     @ExceptionHandler(Exception.class)
@@ -117,28 +74,8 @@ public class GlobalExceptionHandler {
 
         logger.error("Something terrible happened!", ex);
         logger.error(ex.getCause().getMessage());
-        String asciiArt = String.join("\n",
-                "⠀⠀⠀⠀⠀⠀⠀⠀⣤⡀⠀⣶⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
-                "⠀⠀⠀⠀⠀⠀⠀⠙⣿⣆⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
-                "⠀⠀⠀⠀⠀⠀⠀⠸⣷⣮⣿⣿⣄⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀",
-                "⠀⠀⠀⠀⠀⢀⡠⠒⠉⠀⠀⠀⠀⠀⠀⠈⠁⠲⢖⠒⡀⠀⠀",
-                "⠀⠀⠀⡠⠴⣏⠀⢀⡀⠀⢀⡀⠀⠀⠀⡀⠀⠀⡀⠱⡈⢄⠀",
-                "⠀⠀⢠⠁⠀⢸⠐⠁⠀⠄⠀⢸⠀⠀⢎⠀⠂⠀⠈⡄⢡⠀⢣",
-                "⠀⢀⠂⠀⠀⢸⠈⠢⠤⠤⠐⢁⠄⠒⠢⢁⣂⡐⠊⠀⠸",
-                "⠀⡘⠀⠀⠀⢸⠀⢠⠐⠒⠈⠀⠀⠀⠀⠀⠀ ⠈⢆⠀ ⢸",
-                "⠀⡇⠀⠀⠀⠀⡗⢺⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀  ⠑⢀⠎",
-                "⠀⢃⠀⠀⠀⢀⠃⢠⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠷⡃⠀",
-                "⠀⠈⠢⣤⠀⠈⠀⠀⠑⠠⠤⣀⣀⣀⣀⣀⡀⠤⢡⠀",
-                "⡀⣀⠀⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢘⠀",
-                "⠑⢄⠉⢳⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡸⠀",
-                "⠀⠀⠑⠢⢱⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠁⠀",
-                "⠀⠀⠀⠀⢀⠠⠓⠢⠤⣀⣀⡀⠀⠀⣀⣀⡀⠤⠒⠑⢄⠀⠀",
-                "⠀⠀⠀⠰⠥⠤⢄⢀⡠⠄⡈⡀⠀⠀⣇⣀⠠⢄⠀⠒⠤⠣⠀",
-                "⠀⠀⠀⠀⠀⠀⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⠀"
-        );
 
-        System.out.println(asciiArt);
-        ErrorResponse response = new ErrorResponse("An unexpected or an unmapped error occurred!", ex.getCause().getMessage());
+        ErrorResponse response = new ErrorResponse("An unexpected error occurred!", ":(");
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
     }
 

@@ -1,9 +1,8 @@
 package org.gfinnovation.dealsafe._shared.entity.repository;
 
 import org.gfinnovation.dealsafe._shared.entity.GenericEntity;
-import org.gfinnovation.dealsafe.authentication.RepositoryAuth;
-import org.gfinnovation.dealsafe.configuration.exception.models.EntityNotFoundException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
+import org.gfinnovation.dealsafe.configuration.security.RepositoryAuth;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,7 +23,7 @@ import java.util.concurrent.CompletableFuture;
 
 public interface GenericBusinessRepository<E extends GenericEntity> {
 
-    CompletableFuture<E> createAsync(E entity, RepositoryAuth auth);
+    CompletableFuture<E> createAsync(E entity, RepositoryAuth auth) throws RepositoryException;
 
     E createSync(E entity, RepositoryAuth auth) throws RepositoryException;
 
@@ -42,7 +41,7 @@ public interface GenericBusinessRepository<E extends GenericEntity> {
 
     Optional<List<E>> findAllByIds(List<UUID> ids, RepositoryAuth auth) throws RepositoryException;
 
-    void check(UUID id, RepositoryAuth auth) throws RepositoryException, EntityNotFoundException;
+    void check(UUID id, RepositoryAuth auth) throws RepositoryException;
 
-    void checkAll(Set<UUID> ids, RepositoryAuth auth) throws RepositoryException, EntityNotFoundException;
+    void checkAll(Set<UUID> ids, RepositoryAuth auth) throws RepositoryException;
 }

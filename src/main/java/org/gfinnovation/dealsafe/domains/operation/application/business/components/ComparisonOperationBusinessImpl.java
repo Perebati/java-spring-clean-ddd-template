@@ -68,60 +68,115 @@ public class ComparisonOperationBusinessImpl extends GenericBusinessImpl impleme
      * @since 30/10/2024
      */
     @Override
-    public ComparisonOperationEntity create(ComparisonTypeEnum type, String jsonPath, String variable, UUID node_id) throws BusinessException, FactoryException, ValidationException, RepositoryException, BadRequestException {
+    public ComparisonOperationEntity create(ComparisonTypeEnum type, String jsonPath, String variable, UUID node_id) throws BusinessException, BadRequestException {
         try {
             NodeTreeEntity parent = this.treeBusiness.getNodeTreeBusiness().read(node_id);
             ComparisonOperationEntity newOperation = this.operationFactory.getComparisonOperationFactory().produce(getUserId(), getCompanyId(), type, jsonPath, variable, node_id);
             return this.operationRepository.getComparisonOperationRepository().createComparison(newOperation, parent, getRepositoryAuth());
-        }catch (RepositoryException | FactoryException e){
+        } catch (BadRequestException | BusinessException e) {
             throw e;
         } catch (Exception e) {
-            throw new BusinessException("Something went wrong creating a comparison operation!", e);
+            throw new BusinessException("Business: Something went wrong creating a comparison operation.", e);
         }
     }
 
     @Override
-    public ComparisonOperationEntity read(UUID id) throws RuntimeException {
-        return this.operationRepository.getComparisonOperationRepository().read(id, getRepositoryAuth());
+    public ComparisonOperationEntity read(UUID id) throws BusinessException {
+        try {
+            return this.operationRepository.getComparisonOperationRepository().read(id, getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong reading a comparison operation.", e);
+        }
     }
 
     @Override
-    public CompletableFuture<ComparisonOperationEntity> updateAsync(ComparisonOperationEntity entity) throws RuntimeException {
-        return this.operationRepository.getComparisonOperationRepository().updateAsync(entity, getRepositoryAuth());
+    public CompletableFuture<ComparisonOperationEntity> updateAsync(ComparisonOperationEntity entity) throws BusinessException {
+        try {
+            return this.operationRepository.getComparisonOperationRepository().updateAsync(entity, getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong async updating a comparison operation.", e);
+        }
+
     }
 
     @Override
-    public ComparisonOperationEntity updateSync(ComparisonOperationEntity entity) throws RuntimeException {
-        return this.operationRepository.getComparisonOperationRepository().updateSync(entity, getRepositoryAuth());
+    public ComparisonOperationEntity updateSync(ComparisonOperationEntity entity) throws BusinessException {
+        try {
+            return this.operationRepository.getComparisonOperationRepository().updateSync(entity, getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong updating a comparison operation.", e);
+        }
     }
 
     @Override
-    public void deleteAsync(UUID id) throws RuntimeException {
-        this.operationRepository.getComparisonOperationRepository().deleteAsync(id, getRepositoryAuth());
+    public void deleteAsync(UUID id) throws BusinessException {
+        try {
+            this.operationRepository.getComparisonOperationRepository().deleteAsync(id, getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong async deleting a comparison operation.", e);
+        }
     }
 
     @Override
-    public void deleteSync(UUID id) throws RuntimeException {
-        this.operationRepository.getComparisonOperationRepository().deleteSync(id, getRepositoryAuth());
+    public void deleteSync(UUID id) throws BusinessException {
+        try {
+            this.operationRepository.getComparisonOperationRepository().deleteSync(id, getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong deleting a comparison operation.", e);
+        }
     }
 
     @Override
-    public Optional<List<ComparisonOperationEntity>> readAll() throws RuntimeException {
-        return this.operationRepository.getComparisonOperationRepository().findAll(getRepositoryAuth());
+    public Optional<List<ComparisonOperationEntity>> readAll() throws BusinessException {
+        try {
+            return this.operationRepository.getComparisonOperationRepository().findAll(getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong reading all comparison operations.", e);
+        }
     }
 
     @Override
-    public Optional<List<ComparisonOperationEntity>> readAllByIds(List<UUID> ids) throws RuntimeException {
-        return this.operationRepository.getComparisonOperationRepository().findAllByIds(ids, getRepositoryAuth());
+    public Optional<List<ComparisonOperationEntity>> readAllByIds(List<UUID> ids) throws BusinessException {
+        try {
+            return this.operationRepository.getComparisonOperationRepository().findAllByIds(ids, getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong reading all comparison operations by ids.", e);
+        }
     }
 
     @Override
-    public void check(UUID id) throws RuntimeException {
-        this.operationRepository.getComparisonOperationRepository().check(id, getRepositoryAuth());
+    public void check(UUID id) throws BusinessException {
+        try {
+            this.operationRepository.getComparisonOperationRepository().check(id, getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong checking a comparison operation.", e);
+        }
     }
 
     @Override
-    public void checkAll(Set<UUID> ids) throws RuntimeException {
-        this.operationRepository.getComparisonOperationRepository().checkAll(ids, getRepositoryAuth());
+    public void checkAll(Set<UUID> ids) throws BusinessException {
+        try {
+            this.operationRepository.getComparisonOperationRepository().checkAll(ids, getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong checking all comparison operations.", e);
+        }
     }
 }

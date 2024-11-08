@@ -1,13 +1,9 @@
 package org.gfinnovation.dealsafe.domains.tree.application.business.components;
 
-import jakarta.validation.ValidationException;
 import org.gfinnovation.dealsafe._shared.application.GenericBusinessImpl;
 import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
 import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
-import org.gfinnovation.dealsafe.configuration.exception.models.EntityNotFoundException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.domains.tree.application.business.components.interfaces.NodeTreeBusiness;
 import org.gfinnovation.dealsafe.domains.tree.application.business.components.interfaces.RootTreeBusiness;
 import org.gfinnovation.dealsafe.domains.tree.entity.NodeTreeEntity;
@@ -56,66 +52,119 @@ class NodeTreeBusinessImpl extends GenericBusinessImpl implements NodeTreeBusine
      * @param sequence  Position/Priority of node execution.
      * @param parent_id ParentId, tha can be either an id from a RootNode or another Node.
      * @return NodeTreeEntity
-     * @throws BusinessException       Thrown when an error occurs on business level.
-     * @throws FactoryException        Thrown when an error occurs on factory level.
-     * @throws RepositoryException     Thrown when an error occurs on repository level.
-     * @throws ValidationException     Thrown when an error occurs on factory level.
-     * @throws EntityNotFoundException Thrown when an entity is not found by id.
+     * @throws BusinessException Thrown when an error occurs on business level.
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
 
-    public NodeTreeEntity create(String name, Integer sequence, UUID parent_id) throws BusinessException, FactoryException, RepositoryException, ValidationException, EntityNotFoundException {
+    public NodeTreeEntity create(String name, Integer sequence, UUID parent_id) throws BusinessException {
         try {
             Object parent = this.rootTreeBusiness.readGenericRoot(parent_id);
             NodeTreeEntity newNode = this.treeFactory.getNodeTreeFactory().produce(getUserId(), getCompanyId(), name, sequence);
             return this.treeRepository.createNode(newNode, parent, parent_id, getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
         } catch (Exception e) {
-            throw new BusinessException(e.getMessage());
+            throw new BusinessException("Business: Something went wrong checking a node.", e);
         }
     }
 
     @Override
-    public NodeTreeEntity read(UUID id) throws RuntimeException {
-        return this.treeRepository.getNodeTreeRepository().read(id, getRepositoryAuth());
+    public NodeTreeEntity read(UUID id) throws BusinessException {
+        try {
+            return this.treeRepository.getNodeTreeRepository().read(id, getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong reading a node.", e);
+        }
     }
 
     @Override
-    public CompletableFuture<NodeTreeEntity> updateAsync(NodeTreeEntity entity) throws RuntimeException {
-        return this.treeRepository.getNodeTreeRepository().updateAsync(entity, getRepositoryAuth());
-    }
-
-    public NodeTreeEntity updateSync(NodeTreeEntity entity) throws RuntimeException {
-        return this.treeRepository.getNodeTreeRepository().updateSync(entity, getRepositoryAuth());
-    }
-
-    @Override
-    public void deleteAsync(UUID id) throws RuntimeException {
-        this.treeRepository.getNodeTreeRepository().deleteAsync(id, getRepositoryAuth());
+    public CompletableFuture<NodeTreeEntity> updateAsync(NodeTreeEntity entity) throws BusinessException {
+        try {
+            return this.treeRepository.getNodeTreeRepository().updateAsync(entity, getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong async updating a node.", e);
+        }
     }
 
     @Override
-    public void deleteSync(UUID id) throws RuntimeException {
-        this.treeRepository.getNodeTreeRepository().deleteSync(id, getRepositoryAuth());
+    public NodeTreeEntity updateSync(NodeTreeEntity entity) throws BusinessException {
+        try {
+            return this.treeRepository.getNodeTreeRepository().updateSync(entity, getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong updating a node.", e);
+        }
     }
 
     @Override
-    public Optional<List<NodeTreeEntity>> readAll() throws RuntimeException {
-        return this.treeRepository.getNodeTreeRepository().findAll(getRepositoryAuth());
+    public void deleteAsync(UUID id) throws BusinessException {
+        try {
+            this.treeRepository.getNodeTreeRepository().deleteAsync(id, getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong async deleting a node.", e);
+        }
     }
 
     @Override
-    public Optional<List<NodeTreeEntity>> readAllByIds(List<UUID> ids) throws RuntimeException {
-        return this.treeRepository.getNodeTreeRepository().findAllByIds(ids, getRepositoryAuth());
+    public void deleteSync(UUID id) throws BusinessException {
+        try {
+            this.treeRepository.getNodeTreeRepository().deleteSync(id, getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong deleting a node.", e);
+        }
     }
 
     @Override
-    public void check(UUID id) throws RuntimeException {
-        this.treeRepository.getNodeTreeRepository().check(id, getRepositoryAuth());
+    public Optional<List<NodeTreeEntity>> readAll() throws BusinessException {
+        try {
+            return this.treeRepository.getNodeTreeRepository().findAll(getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong reading all nodes.", e);
+        }
     }
 
     @Override
-    public void checkAll(Set<UUID> ids) throws RuntimeException {
-        this.treeRepository.getNodeTreeRepository().checkAll(ids, getRepositoryAuth());
+    public Optional<List<NodeTreeEntity>> readAllByIds(List<UUID> ids) throws BusinessException {
+        try {
+            return this.treeRepository.getNodeTreeRepository().findAllByIds(ids, getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong reading all nodes by ids.", e);
+        }
+    }
+
+    @Override
+    public void check(UUID id) throws BusinessException {
+        try {
+            this.treeRepository.getNodeTreeRepository().check(id, getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong checking a node.", e);
+        }
+    }
+
+    @Override
+    public void checkAll(Set<UUID> ids) throws BusinessException {
+        try {
+            this.treeRepository.getNodeTreeRepository().checkAll(ids, getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong checking all nodes by ids.", e);
+        }
     }
 }

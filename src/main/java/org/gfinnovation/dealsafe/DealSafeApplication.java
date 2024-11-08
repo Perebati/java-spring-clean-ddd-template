@@ -6,7 +6,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 
 /*
 TODO: Encapsulate UserID and CompanyID on o single authentication object to pass to repository layer: UPDATE: DONE!
-TODO: Create proper error objects that inherits one another.
+TODO: Create proper error objects that inherits one another. UPDATE: DONE!
  */
 
 @SpringBootApplication

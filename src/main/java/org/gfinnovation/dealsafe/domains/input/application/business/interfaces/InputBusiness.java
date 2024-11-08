@@ -1,10 +1,8 @@
 package org.gfinnovation.dealsafe.domains.input.application.business.interfaces;
 
-import jakarta.validation.ValidationException;
+import org.apache.coyote.BadRequestException;
 import org.gfinnovation.dealsafe._shared.application.interfaces.GenericBusiness;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.domains.input.entity.InputEntity;
 
 /**
@@ -15,5 +13,5 @@ import org.gfinnovation.dealsafe.domains.input.entity.InputEntity;
  */
 
 public interface InputBusiness extends GenericBusiness<InputEntity> {
-    InputEntity create(String name, String json) throws FactoryException, ValidationException, RepositoryException, BusinessException;
+    InputEntity create(String name, String json) throws BusinessException, BadRequestException;
 }

@@ -1,6 +1,7 @@
 package org.gfinnovation.dealsafe._shared.application.interfaces;
 
 import org.gfinnovation.dealsafe._shared.entity.GenericEntity;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,21 +20,21 @@ import java.util.concurrent.CompletableFuture;
  */
 
 public interface GenericBusiness<E extends GenericEntity> {
-    E read(UUID id) throws RuntimeException;
+    E read(UUID id) throws BusinessException;
 
-    CompletableFuture<E> updateAsync(E entity) throws RuntimeException;
+    CompletableFuture<E> updateAsync(E entity) throws BusinessException;
 
-    E updateSync(E entity) throws RuntimeException;
+    E updateSync(E entity) throws BusinessException;
 
-    void deleteSync(UUID id) throws RuntimeException;
+    void deleteSync(UUID id) throws BusinessException;
 
-    void deleteAsync(UUID id) throws RuntimeException;
+    void deleteAsync(UUID id) throws BusinessException;
 
-    Optional<List<E>> readAll() throws RuntimeException;
+    Optional<List<E>> readAll() throws BusinessException;
 
-    Optional<List<E>> readAllByIds(List<UUID> ids) throws RuntimeException;
+    Optional<List<E>> readAllByIds(List<UUID> ids) throws BusinessException;
 
-    void check(UUID id) throws RuntimeException;
+    void check(UUID id) throws BusinessException;
 
-    void checkAll(Set<UUID> ids) throws RuntimeException;
+    void checkAll(Set<UUID> ids) throws BusinessException;
 }

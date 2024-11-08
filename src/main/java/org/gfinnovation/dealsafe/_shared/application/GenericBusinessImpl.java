@@ -2,9 +2,10 @@ package org.gfinnovation.dealsafe._shared.application;
 
 import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
-import org.gfinnovation.dealsafe.authentication.RepositoryAuth;
 import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
 import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessAuthenticationException;
+import org.gfinnovation.dealsafe.configuration.security.RepositoryAuth;
 import org.slf4j.MDC;
 
 import java.util.UUID;
@@ -30,7 +31,7 @@ public class GenericBusinessImpl {
             this.userBusiness.check(user_id);
             return user_id;
         } catch (Exception e) {
-            throw new ValidationException("Something went wrong checking for user business info.", e);
+            throw new BusinessAuthenticationException("Something went wrong checking for user business info.", e);
         }
     }
 
@@ -40,7 +41,22 @@ public class GenericBusinessImpl {
             this.companyBusiness.check(company_id);
             return company_id;
         } catch (Exception e) {
-            throw new ValidationException("Something went wrong checking for user business info.", e);
+            throw new BusinessAuthenticationException("Something went wrong checking for user business info.", e);
+        }
+    }
+
+    protected UUID getRequestId() {
+        try {
+            String requestIdStr = MDC.get("request_id");
+            if (requestIdStr != null) {
+                return UUID.fromString(requestIdStr);
+            } else {
+                throw new BusinessAuthenticationException("Request ID is null.");
+            }
+        } catch (IllegalArgumentException e) {
+            throw new BusinessAuthenticationException("Invalid request ID format.", e);
+        } catch (Exception e) {
+            throw new BusinessAuthenticationException("Something went wrong checking for web request info.", e);
         }
     }
 
@@ -49,12 +65,12 @@ public class GenericBusinessImpl {
             this.userBusiness.check(user_id);
             this.companyBusiness.check(company_id);
         } catch (Exception e) {
-            throw new ValidationException("Something went wrong checking for business info.", e);
+            throw new BusinessAuthenticationException("Something went wrong checking for business info.", e);
         }
     }
 
-    protected RepositoryAuth getRepositoryAuth(){
+    protected RepositoryAuth getRepositoryAuth() {
         this.validadeBusiness(getUserId(), getCompanyId());
-        return new RepositoryAuth(getUserId(), getCompanyId(), UUID.fromString(MDC.get("request_id")));
+        return new RepositoryAuth(getUserId(), getCompanyId(), getRequestId());
     }
 }

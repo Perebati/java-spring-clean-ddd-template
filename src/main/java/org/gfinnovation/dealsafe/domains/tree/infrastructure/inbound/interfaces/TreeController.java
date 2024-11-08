@@ -4,6 +4,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import org.apache.coyote.BadRequestException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.DomainException;
 import org.gfinnovation.dealsafe.domains.tree.entity.NodeTreeEntity;
 import org.gfinnovation.dealsafe.domains.tree.entity.RootTreeDynamicEntity;
 import org.gfinnovation.dealsafe.domains.tree.entity.RootTreeStaticEntity;
@@ -38,7 +40,7 @@ public interface TreeController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PostMapping("/root/predefind-input")
-    ResponseEntity<CompletableFuture<RootTreeStaticEntity>> createRootPredefined(@RequestBody RootCreationPredefinedInputDTO request);
+    ResponseEntity<CompletableFuture<RootTreeStaticEntity>> createRootPredefined(@RequestBody RootCreationPredefinedInputDTO request) throws DomainException, BadRequestException;
 
     @Operation(
             summary = "Cadastro de root de árvore com input dinâmico",
@@ -49,7 +51,7 @@ public interface TreeController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PostMapping("/root/dynamic-input")
-    ResponseEntity<CompletableFuture<RootTreeDynamicEntity>> createRootPredefined(@RequestBody RootCreationDynamicInputDTO request);
+    ResponseEntity<CompletableFuture<RootTreeDynamicEntity>> createRootPredefined(@RequestBody RootCreationDynamicInputDTO request) throws DomainException, BadRequestException;
 
     @Operation(
             summary = "Cadastro de nó de árvore",
@@ -60,5 +62,5 @@ public interface TreeController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PostMapping("/node")
-    ResponseEntity<NodeTreeEntity> createNode(NodeCreationDTO request);
+    ResponseEntity<NodeTreeEntity> createNode(NodeCreationDTO request) throws DomainException, BadRequestException;
 }

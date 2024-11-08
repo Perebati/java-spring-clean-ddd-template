@@ -2,8 +2,8 @@ package org.gfinnovation.dealsafe.domains.operation.entity.factory.components;
 
 import jakarta.validation.ValidationException;
 import org.apache.coyote.BadRequestException;
-import org.gfinnovation.dealsafe.configuration.exception.models.EntityNotFoundException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryEntityNotFoundException;
 import org.gfinnovation.dealsafe.domains.input.application.business.interfaces.InputBusiness;
 import org.gfinnovation.dealsafe.domains.input.entity.InputEntity;
 import org.gfinnovation.dealsafe.domains.input.entity.predefined.PredefinedTypeEnum;
@@ -50,28 +50,28 @@ public class ComparisonOperationFactoryImpl implements ComparisonOperationFactor
      * @param variable   Variable value.
      * @param node_id    Node parentId.
      * @return ComparisonOperationEntity
-     * @throws FactoryException        Thrown when something wrong happened on factory layer.
-     * @throws BadRequestException     Thrown when there's something wrong in user input.
-     * @throws EntityNotFoundException Thrown when something wrong happened on reading entities.
-     * @throws ValidationException     Thrown when something wrong happened on factory layer.
+     * @throws FactoryException                  Thrown when something wrong happened on factory layer.
+     * @throws BadRequestException               Thrown when there's something wrong in user input.
+     * @throws RepositoryEntityNotFoundException Thrown when something wrong happened on reading entities.
+     * @throws ValidationException               Thrown when something wrong happened on factory layer.
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
 
-    public ComparisonOperationEntity produce(UUID user_id, UUID company_id, ComparisonTypeEnum type, String jsonPath, String variable, UUID node_id) throws FactoryException, BadRequestException, EntityNotFoundException, ValidationException {
+    public ComparisonOperationEntity produce(UUID user_id, UUID company_id, ComparisonTypeEnum type, String jsonPath, String variable, UUID node_id) throws FactoryException, BadRequestException {
         try {
             Object rootTreeEntity = this.treeBusiness
                     .getRootTreeBusiness()
                     .readGenericRoot(this.treeBusiness
                             .getRootTreeBusiness()
                             .findRootIdByNodeId(node_id)
-                            .orElseThrow(() -> new EntityNotFoundException("Root parent not found!")));
+                            .orElseThrow(() -> new RepositoryEntityNotFoundException("Factory: Root parent not found!")));
             if (rootTreeEntity instanceof RootTreeStaticEntity) {
                 PredefinedTypeEnum predefinedTypeEnum = ((RootTreeStaticEntity) rootTreeEntity).getType();
                 try {
                     predefinedTypeEnum.validateJsonPath(predefinedTypeEnum, jsonPath);
                 } catch (NoSuchFieldException e) {
-                    throw new BadRequestException("Campo não encontrado: " + e.getMessage());
+                    throw new BadRequestException("Factory: field not found: " + e.getMessage());
                 }
             } else if (rootTreeEntity instanceof RootTreeDynamicEntity) {
                 InputEntity inputEntity = this.inputBusiness.read(((RootTreeDynamicEntity) rootTreeEntity).getDynamicReference());
@@ -79,8 +79,10 @@ public class ComparisonOperationFactoryImpl implements ComparisonOperationFactor
             }
 
             return new ComparisonOperationEntity(user_id, company_id, type, jsonPath, Set.of(variable), null);
+        } catch (BadRequestException | RepositoryEntityNotFoundException e) {
+            throw new FactoryException(e.getMessage());
         } catch (Exception e) {
-            throw new FactoryException("Something went wrong creating a comparison operation.", e);
+            throw new FactoryException("Factory: Something went wrong creating a comparison operation.", e);
         }
     }
 }

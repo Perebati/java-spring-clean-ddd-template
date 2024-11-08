@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe.domains.tree.infrastructure.inbound;
 
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.DomainException;
 import org.gfinnovation.dealsafe.domains.tree.application.business.interfaces.TreeBusiness;
 import org.gfinnovation.dealsafe.domains.tree.entity.NodeTreeEntity;
 import org.gfinnovation.dealsafe.domains.tree.entity.RootTreeDynamicEntity;
@@ -32,42 +32,48 @@ class TreeControllerImpl implements TreeController {
     }
 
     @Override
-    public ResponseEntity<CompletableFuture<RootTreeStaticEntity>> createRootPredefined(@RequestBody RootCreationPredefinedInputDTO request) {
+    public ResponseEntity<CompletableFuture<RootTreeStaticEntity>> createRootPredefined(@RequestBody RootCreationPredefinedInputDTO request) throws DomainException {
         try {
-            return ResponseEntity.ok(
+            return ResponseEntity.status(HttpStatus.CREATED).body(
                     this.treeBusiness.getRootTreeBusiness().create(
                             request.name(),
                             request.type()
                     ));
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        } catch (DomainException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new DomainException("Controller: Unexpected error in static root creation.");
         }
     }
 
     @Override
-    public ResponseEntity<CompletableFuture<RootTreeDynamicEntity>> createRootPredefined(RootCreationDynamicInputDTO request) {
+    public ResponseEntity<CompletableFuture<RootTreeDynamicEntity>> createRootPredefined(RootCreationDynamicInputDTO request) throws DomainException {
         try {
-            return ResponseEntity.ok(
+            return ResponseEntity.status(HttpStatus.CREATED).body(
                     this.treeBusiness.getRootTreeBusiness().create(
                             request.name(),
                             request.dynamicInput_id()
                     ));
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        } catch (DomainException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new DomainException("Controller: Unexpected error in dynamic root creation.");
         }
     }
 
     @Override
-    public ResponseEntity<NodeTreeEntity> createNode(NodeCreationDTO request) {
+    public ResponseEntity<NodeTreeEntity> createNode(NodeCreationDTO request) throws DomainException {
         try {
-            return ResponseEntity.ok(
+            return ResponseEntity.status(HttpStatus.CREATED).body(
                     this.treeBusiness.getNodeTreeBusiness().create(
                             request.name(),
                             request.sequence(),
                             request.parent_id()
                     ));
-        } catch (BusinessException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        } catch (DomainException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new DomainException("Controller: Unexpected error in node creation.");
         }
     }
 }
