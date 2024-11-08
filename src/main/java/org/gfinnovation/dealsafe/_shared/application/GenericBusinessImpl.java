@@ -1,7 +1,8 @@
-package org.gfinnovation.dealsafe._shared.infrastructure;
+package org.gfinnovation.dealsafe._shared.application;
 
 import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
+import org.gfinnovation.dealsafe.authentication.RepositoryAuth;
 import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
 import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
 import org.slf4j.MDC;
@@ -23,7 +24,7 @@ public class GenericBusinessImpl {
     private final UserBusiness userBusiness;
     private final CompanyBusiness companyBusiness;
 
-    public UUID getUserId() {
+    protected UUID getUserId() {
         try {
             UUID user_id = UUID.fromString(MDC.get("user_id"));
             this.userBusiness.check(user_id);
@@ -33,7 +34,7 @@ public class GenericBusinessImpl {
         }
     }
 
-    public UUID getCompanyId() {
+    protected UUID getCompanyId() {
         try {
             UUID company_id = UUID.fromString(MDC.get("company_id"));
             this.companyBusiness.check(company_id);
@@ -50,5 +51,10 @@ public class GenericBusinessImpl {
         } catch (Exception e) {
             throw new ValidationException("Something went wrong checking for business info.", e);
         }
+    }
+
+    protected RepositoryAuth getRepositoryAuth(){
+        this.validadeBusiness(getUserId(), getCompanyId());
+        return new RepositoryAuth(getUserId(), getCompanyId(), UUID.fromString(MDC.get("request_id")));
     }
 }

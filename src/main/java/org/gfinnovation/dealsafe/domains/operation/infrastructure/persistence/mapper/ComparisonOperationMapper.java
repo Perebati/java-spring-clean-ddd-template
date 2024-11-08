@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe.domains.operation.infrastructure.persistence.mapper;
 
-import org.gfinnovation.dealsafe._shared.infrastructure.GenericBusinessMapper;
+import org.gfinnovation.dealsafe._shared.infrastructure.persistence.mapper.GenericBusinessMapper;
 import org.gfinnovation.dealsafe.domains.operation.entity.ComparisonOperationEntity;
 import org.gfinnovation.dealsafe.domains.operation.infrastructure.persistence.ComparisonOperationSchema;
 import org.mapstruct.Mapper;

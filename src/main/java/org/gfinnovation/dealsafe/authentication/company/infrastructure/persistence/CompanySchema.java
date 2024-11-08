@@ -3,7 +3,7 @@ package org.gfinnovation.dealsafe.authentication.company.infrastructure.persiste
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.gfinnovation.dealsafe._shared.infrastructure.GenericSchema;
+import org.gfinnovation.dealsafe._shared.infrastructure.persistence.GenericSchema;
 import org.gfinnovation.dealsafe.authentication.user.infrastructure.persistence.UserSchema;
 
 import java.util.Set;

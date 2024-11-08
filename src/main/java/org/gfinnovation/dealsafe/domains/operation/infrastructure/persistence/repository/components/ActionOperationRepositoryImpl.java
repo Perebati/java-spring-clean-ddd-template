@@ -1,11 +1,12 @@
 package org.gfinnovation.dealsafe.domains.operation.infrastructure.persistence.repository.components;
 
 import jakarta.persistence.EntityManager;
-import org.gfinnovation.dealsafe._shared.infrastructure.GenericBusinessRepositoryImpl;
+import org.gfinnovation.dealsafe._shared.infrastructure.persistence.repository.GenericBusinessRepositoryImpl;
 import org.gfinnovation.dealsafe.domains.operation.entity.ActionOperationEntity;
 import org.gfinnovation.dealsafe.domains.operation.entity.repository.components.ActionOperationRepository;
 import org.gfinnovation.dealsafe.domains.operation.infrastructure.persistence.ActionOperationSchema;
 import org.gfinnovation.dealsafe.domains.operation.infrastructure.persistence.mapper.ActionOperationMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Component;
 
@@ -20,6 +21,7 @@ class ActionOperationRepositoryImpl
         extends GenericBusinessRepositoryImpl<ActionOperationEntity, ActionOperationSchema>
         implements ActionOperationRepository {
 
+    @Autowired
     ActionOperationRepositoryImpl(
             ActionOperationMapper mapper,
             EntityManager entityManager) {

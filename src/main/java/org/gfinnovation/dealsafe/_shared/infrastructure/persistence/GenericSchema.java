@@ -1,4 +1,4 @@
-package org.gfinnovation.dealsafe._shared.infrastructure;
+package org.gfinnovation.dealsafe._shared.infrastructure.persistence;
 
 import jakarta.persistence.*;
 import lombok.Data;

@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * Every single requisition in this system is registered, this class does that.
@@ -53,6 +54,8 @@ public class RequestHandler implements Filter {
             String token = getBearerToken(httpServletRequest);
 
             if (token != null) {
+                String requestId = generateUniqueRequestId();
+
                 Jws<Claims> claims = Jwts.parserBuilder()
                         .setSigningKey(getSigningKey())
                         .build()
@@ -62,12 +65,9 @@ public class RequestHandler implements Filter {
                 String company_id = claims.getBody().get("company_id", String.class);
 
                 if (user_id == null || company_id == null) {
-                    httpServletResponse.sendError(HttpServletResponse.SC_BAD_REQUEST, "Claims user_id ou company_id ausentes ou inválidos");
+                    httpServletResponse.sendError(HttpServletResponse.SC_BAD_REQUEST, "Erro de autenticação.");
                     return;
                 }
-
-                MDC.put("user_id", user_id);
-                MDC.put("company_id", company_id);
 
                 RequestLogSchema requestLog = new RequestLogSchema();
                 requestLog.setUserId(user_id);
@@ -75,8 +75,10 @@ public class RequestHandler implements Filter {
                 requestLog.setRequestType("REST");
                 requestLog.setTimestamp(new Date());
                 requestLog.setUri(httpServletRequest.getRequestURI());
+                logService.saveRequestLogAsync(requestLog);
 
-                String requestId = logService.saveRequestLog(requestLog).getId();
+                MDC.put("user_id", user_id);
+                MDC.put("company_id", company_id);
                 MDC.put("request_id", requestId);
             }
 
@@ -86,6 +88,14 @@ public class RequestHandler implements Filter {
         } finally {
             MDC.clear();
         }
+    }
+
+    private String generateUniqueRequestId() {
+        String requestId;
+        do {
+            requestId = UUID.randomUUID().toString();
+        } while (logService.requestIdExists(requestId));
+        return requestId;
     }
 
     private String getBearerToken(HttpServletRequest request) {

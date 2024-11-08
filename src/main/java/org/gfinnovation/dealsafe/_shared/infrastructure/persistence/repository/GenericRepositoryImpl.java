@@ -1,9 +1,11 @@
-package org.gfinnovation.dealsafe._shared.infrastructure;
+package org.gfinnovation.dealsafe._shared.infrastructure.persistence.repository;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.gfinnovation.dealsafe._shared.entity.GenericEntity;
-import org.gfinnovation.dealsafe._shared.entity.GenericRepository;
+import org.gfinnovation.dealsafe._shared.entity.repository.GenericRepository;
+import org.gfinnovation.dealsafe._shared.infrastructure.persistence.GenericSchema;
+import org.gfinnovation.dealsafe._shared.infrastructure.persistence.mapper.GenericMapper;
 import org.gfinnovation.dealsafe.configuration.exception.models.EntityNotFoundException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
 import org.slf4j.Logger;

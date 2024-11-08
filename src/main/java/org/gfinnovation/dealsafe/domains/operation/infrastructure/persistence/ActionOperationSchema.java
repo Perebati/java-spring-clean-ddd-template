@@ -5,7 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.gfinnovation.dealsafe._shared.infrastructure.GenericBusinessSchema;
+import org.gfinnovation.dealsafe._shared.infrastructure.persistence.GenericBusinessSchema;
 
 /**
  * This class will soon be replaced in later versions of dealsafe.

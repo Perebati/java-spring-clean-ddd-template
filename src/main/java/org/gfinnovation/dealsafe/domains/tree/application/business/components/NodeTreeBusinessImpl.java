@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe.domains.tree.application.business.components;
 
 import jakarta.validation.ValidationException;
-import org.gfinnovation.dealsafe._shared.infrastructure.GenericBusinessImpl;
+import org.gfinnovation.dealsafe._shared.application.GenericBusinessImpl;
 import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
 import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
 import org.gfinnovation.dealsafe.configuration.exception.models.EntityNotFoundException;
@@ -69,7 +69,7 @@ class NodeTreeBusinessImpl extends GenericBusinessImpl implements NodeTreeBusine
         try {
             Object parent = this.rootTreeBusiness.readGenericRoot(parent_id);
             NodeTreeEntity newNode = this.treeFactory.getNodeTreeFactory().produce(getUserId(), getCompanyId(), name, sequence);
-            return this.treeRepository.createNode(getUserId(), getCompanyId(), newNode, parent, parent_id);
+            return this.treeRepository.createNode(newNode, parent, parent_id, getRepositoryAuth());
         } catch (Exception e) {
             throw new BusinessException(e.getMessage());
         }
@@ -77,45 +77,45 @@ class NodeTreeBusinessImpl extends GenericBusinessImpl implements NodeTreeBusine
 
     @Override
     public NodeTreeEntity read(UUID id) throws RuntimeException {
-        return this.treeRepository.getNodeTreeRepository().read(getUserId(), getCompanyId(), id);
+        return this.treeRepository.getNodeTreeRepository().read(id, getRepositoryAuth());
     }
 
     @Override
     public CompletableFuture<NodeTreeEntity> updateAsync(NodeTreeEntity entity) throws RuntimeException {
-        return this.treeRepository.getNodeTreeRepository().updateAsync(getUserId(), getCompanyId(), entity);
+        return this.treeRepository.getNodeTreeRepository().updateAsync(entity, getRepositoryAuth());
     }
 
     public NodeTreeEntity updateSync(NodeTreeEntity entity) throws RuntimeException {
-        return this.treeRepository.getNodeTreeRepository().updateSync(getUserId(), getCompanyId(), entity);
+        return this.treeRepository.getNodeTreeRepository().updateSync(entity, getRepositoryAuth());
     }
 
     @Override
     public void deleteAsync(UUID id) throws RuntimeException {
-        this.treeRepository.getNodeTreeRepository().deleteAsync(getUserId(), getCompanyId(), id);
+        this.treeRepository.getNodeTreeRepository().deleteAsync(id, getRepositoryAuth());
     }
 
     @Override
     public void deleteSync(UUID id) throws RuntimeException {
-        this.treeRepository.getNodeTreeRepository().deleteSync(getUserId(), getCompanyId(), id);
+        this.treeRepository.getNodeTreeRepository().deleteSync(id, getRepositoryAuth());
     }
 
     @Override
     public Optional<List<NodeTreeEntity>> readAll() throws RuntimeException {
-        return this.treeRepository.getNodeTreeRepository().findAll(getUserId(), getCompanyId());
+        return this.treeRepository.getNodeTreeRepository().findAll(getRepositoryAuth());
     }
 
     @Override
     public Optional<List<NodeTreeEntity>> readAllByIds(List<UUID> ids) throws RuntimeException {
-        return this.treeRepository.getNodeTreeRepository().findAllByIds(getUserId(), getCompanyId(), ids);
+        return this.treeRepository.getNodeTreeRepository().findAllByIds(ids, getRepositoryAuth());
     }
 
     @Override
     public void check(UUID id) throws RuntimeException {
-        this.treeRepository.getNodeTreeRepository().check(getUserId(), getCompanyId(), id);
+        this.treeRepository.getNodeTreeRepository().check(id, getRepositoryAuth());
     }
 
     @Override
     public void checkAll(Set<UUID> ids) throws RuntimeException {
-        this.treeRepository.getNodeTreeRepository().checkAll(getUserId(), getCompanyId(), ids);
+        this.treeRepository.getNodeTreeRepository().checkAll(ids, getRepositoryAuth());
     }
 }

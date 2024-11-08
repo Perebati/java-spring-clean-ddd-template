@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe.domains.operation.application.business.components.interfaces;
 
 import jakarta.validation.ValidationException;
-import org.gfinnovation.dealsafe._shared.application.GenericBusiness;
+import org.gfinnovation.dealsafe._shared.application.interfaces.GenericBusiness;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;

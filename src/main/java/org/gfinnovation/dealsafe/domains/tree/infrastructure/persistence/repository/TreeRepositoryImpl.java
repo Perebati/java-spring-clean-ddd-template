@@ -5,7 +5,9 @@ import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
+import org.gfinnovation.dealsafe.authentication.RepositoryAuth;
 import org.gfinnovation.dealsafe.configuration.exception.models.EntityNotFoundException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
@@ -61,8 +63,6 @@ class TreeRepositoryImpl implements TreeRepository {
     /**
      * Transactional operation to save a new node on the database.
      *
-     * @param user_id UserId.
-     * @param company_id CompanyId.
      * @param newNode New entity to be saved, mede by factory.
      * @param parent Parent of given newNode, can be either a root or a node.
      * @param parent_id ParentId of given newNode
@@ -73,25 +73,25 @@ class TreeRepositoryImpl implements TreeRepository {
      */
     @Transactional
     @Override
-    public NodeTreeEntity createNode(UUID user_id, UUID company_id, NodeTreeEntity newNode, Object parent, UUID parent_id) throws RepositoryException{
+    public NodeTreeEntity createNode(@NotNull NodeTreeEntity newNode, @NotNull Object parent, @NotNull UUID parent_id, @NotNull RepositoryAuth auth) throws RepositoryException{
         try {
             if (parent instanceof RootTreeStaticEntity) {
-                RootTreeStaticEntity parent_root = this.rootTreeStaticRepository.read(user_id, company_id, parent_id);
-                NodeTreeEntity createdNodeEntity = this.nodeTreeRepository.createSync(user_id, company_id, newNode);
+                RootTreeStaticEntity parent_root = this.rootTreeStaticRepository.read(parent_id, auth);
+                NodeTreeEntity createdNodeEntity = this.nodeTreeRepository.createSync(newNode, auth);
                 parent_root.addNode(createdNodeEntity);
-                this.updateGenericRootSync(user_id, company_id, parent_root);
-                return this.nodeTreeRepository.read(user_id, company_id, createdNodeEntity.getId());
+                this.updateGenericRootSync(parent_root, auth);
+                return this.nodeTreeRepository.read(createdNodeEntity.getId(), auth);
             } else if (parent instanceof RootTreeDynamicEntity) {
-                RootTreeDynamicEntity parent_root = this.rootTreeDynamicRepository.read(user_id, company_id, parent_id);
-                NodeTreeEntity createdNodeEntity = this.nodeTreeRepository.createSync(user_id, company_id, newNode);
+                RootTreeDynamicEntity parent_root = this.rootTreeDynamicRepository.read(parent_id, auth);
+                NodeTreeEntity createdNodeEntity = this.nodeTreeRepository.createSync(newNode, auth);
                 parent_root.addNode(createdNodeEntity);
-                this.updateGenericRootSync(user_id, company_id, parent_root);
-                return this.nodeTreeRepository.read(user_id, company_id, createdNodeEntity.getId());
+                this.updateGenericRootSync(parent_root, auth);
+                return this.nodeTreeRepository.read(createdNodeEntity.getId(), auth);
             } else {
-                NodeTreeEntity parent_node = this.nodeTreeRepository.read(user_id, company_id, parent_id);
-                NodeTreeEntity createdNodeEntity = this.nodeTreeRepository.createSync(user_id, company_id, newNode);
-                this.nodeTreeRepository.updateSync(user_id, company_id, parent_node.addChild(createdNodeEntity));
-                return this.nodeTreeRepository.read(user_id, company_id, createdNodeEntity.getId());
+                NodeTreeEntity parent_node = this.nodeTreeRepository.read(parent_id, auth);
+                NodeTreeEntity createdNodeEntity = this.nodeTreeRepository.createSync(newNode, auth);
+                this.nodeTreeRepository.updateSync(parent_node.addChild(createdNodeEntity), auth);
+                return this.nodeTreeRepository.read(createdNodeEntity.getId(), auth);
             }
         }catch (Exception e){
             throw new RepositoryException("Something went wrong creating a new node.", e);
@@ -100,8 +100,6 @@ class TreeRepositoryImpl implements TreeRepository {
 
     /**
      *
-     * @param user_id UserId.
-     * @param company_id CompanyId.
      * @param id Identification of given root.
      * @return Object
      * @throws RepositoryException Thrown when an error occur on Repository Level.
@@ -110,12 +108,12 @@ class TreeRepositoryImpl implements TreeRepository {
      * @since 08/11/2024
      */
     @Override
-    public Object readGenericRoot(UUID user_id, UUID company_id, UUID id) throws RepositoryException, EntityNotFoundException {
+    public Object readGenericRoot(@NotNull UUID id, @NotNull RepositoryAuth auth) throws RepositoryException, EntityNotFoundException {
         try {
-            return this.rootTreeStaticRepository.read(user_id, company_id, id);
+            return this.rootTreeStaticRepository.read(id, auth);
         } catch (EntityNotFoundException e1) {
             try {
-                return this.rootTreeDynamicRepository.read(user_id, company_id, id);
+                return this.rootTreeDynamicRepository.read(id, auth);
             } catch (EntityNotFoundException e2) {
                 return Optional.empty();
             }
@@ -127,12 +125,12 @@ class TreeRepositoryImpl implements TreeRepository {
     }
 
     @Override
-    public RootTreeEntity updateGenericRootSync(UUID user_id, UUID company_id, RootTreeEntity entity) throws RepositoryException {
+    public RootTreeEntity updateGenericRootSync(@NotNull RootTreeEntity entity, @NotNull RepositoryAuth auth) throws RepositoryException {
         try {
             if (entity instanceof RootTreeDynamicEntity dynamicRoot) {
-                return this.rootTreeDynamicRepository.updateSync(user_id, company_id, dynamicRoot);
+                return this.rootTreeDynamicRepository.updateSync(dynamicRoot, auth);
             } else if (entity instanceof RootTreeStaticEntity staticRoot) {
-                return this.rootTreeStaticRepository.updateSync(user_id, company_id, staticRoot);
+                return this.rootTreeStaticRepository.updateSync(staticRoot, auth);
             } else {
                 throw new IllegalArgumentException("Unexpected RootTreeEntity type: " + entity.getClass().getName());
             }

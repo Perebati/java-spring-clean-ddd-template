@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe.authentication.company.infrastructure.persistence.mapper;
 
-import org.gfinnovation.dealsafe._shared.infrastructure.GenericMapper;
+import org.gfinnovation.dealsafe._shared.infrastructure.persistence.mapper.GenericMapper;
 import org.gfinnovation.dealsafe.authentication.company.entity.CompanyEntity;
 import org.gfinnovation.dealsafe.authentication.company.infrastructure.persistence.CompanySchema;
 import org.mapstruct.Mapper;

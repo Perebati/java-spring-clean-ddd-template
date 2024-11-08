@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe.domains.tree.application.business.components;
 
 import jakarta.validation.ValidationException;
-import org.gfinnovation.dealsafe._shared.infrastructure.GenericBusinessImpl;
+import org.gfinnovation.dealsafe._shared.application.GenericBusinessImpl;
 import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
 import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
@@ -66,15 +66,13 @@ class RootTreeBusinessImpl extends GenericBusinessImpl implements RootTreeBusine
         try {
             return this.treeRepository.getRootTreeStaticRepository()
                     .createAsync(
-                            getUserId(),
-                            getCompanyId(),
                             treeFactory.getRootTreeFactory()
                                     .produce(
                                             getUserId(),
                                             getCompanyId(),
                                             name,
                                             static_input
-                                    ));
+                                    ), getRepositoryAuth());
         } catch (Exception e) {
             throw new BusinessException("Something went wrong when creating a root of type static", e);
         }
@@ -95,16 +93,13 @@ class RootTreeBusinessImpl extends GenericBusinessImpl implements RootTreeBusine
     public CompletableFuture<RootTreeDynamicEntity> create(String name, UUID dynamic_input) throws BusinessException, FactoryException, ValidationException, RepositoryException {
         try {
             return this.treeRepository.getRootTreeDynamicRepository()
-                    .createAsync(
-                            getUserId(),
-                            getCompanyId(),
-                            treeFactory.getRootTreeFactory()
+                    .createAsync(treeFactory.getRootTreeFactory()
                                     .produce(
                                             getUserId(),
                                             getCompanyId(),
                                             name,
                                             dynamic_input
-                                    ));
+                                    ), getRepositoryAuth());
         } catch (FactoryException | RepositoryException | ValidationException e) {
             throw e;
         } catch (Exception e) {
@@ -125,7 +120,7 @@ class RootTreeBusinessImpl extends GenericBusinessImpl implements RootTreeBusine
     @Override
     public Object readGenericRoot(UUID id) throws RepositoryException, BusinessException {
         try {
-            return this.treeRepository.readGenericRoot(getUserId(), getCompanyId(), id);
+            return this.treeRepository.readGenericRoot(id, getRepositoryAuth());
         } catch (RepositoryException e){
             throw e;
         } catch (Exception e){
@@ -157,57 +152,57 @@ class RootTreeBusinessImpl extends GenericBusinessImpl implements RootTreeBusine
      */
     @Override
     public RootTreeEntity updateSync(RootTreeEntity entity) throws RepositoryException {
-        return this.treeRepository.updateGenericRootSync(getUserId(), getCompanyId(), entity);
+        return this.treeRepository.updateGenericRootSync(entity, getRepositoryAuth());
     }
 
 
     @Override
     public Optional<RootTreeStaticEntity> readRootStatic(UUID id) throws RepositoryException {
-        return Optional.ofNullable(this.treeRepository.getRootTreeStaticRepository().read(getUserId(), getCompanyId(), id));
+        return Optional.ofNullable(this.treeRepository.getRootTreeStaticRepository().read(id, getRepositoryAuth()));
     }
 
     @Override
     public Optional<RootTreeDynamicEntity> readRootDynamic(UUID id) throws RepositoryException {
-        return Optional.ofNullable(this.treeRepository.getRootTreeDynamicRepository().read(getUserId(), getCompanyId(), id));
+        return Optional.ofNullable(this.treeRepository.getRootTreeDynamicRepository().read(id, getRepositoryAuth()));
     }
 
     @Override
     public RootTreeEntity read(UUID id) throws RuntimeException {
-        return this.treeRepository.getRootTreeRepository().read(getUserId(), getCompanyId(), id);
+        return this.treeRepository.getRootTreeRepository().read(id, getRepositoryAuth());
     }
 
     @Override
     public CompletableFuture<RootTreeEntity> updateAsync(RootTreeEntity entity) throws RuntimeException {
-        return this.treeRepository.getRootTreeRepository().updateAsync(getUserId(), getCompanyId(), entity);
+        return this.treeRepository.getRootTreeRepository().updateAsync(entity, getRepositoryAuth());
     }
 
     @Override
     public void deleteSync(UUID id) throws RuntimeException {
-        this.treeRepository.getRootTreeRepository().deleteSync(getUserId(), getCompanyId(), id);
+        this.treeRepository.getRootTreeRepository().deleteSync(id, getRepositoryAuth());
     }
 
     @Override
     public void deleteAsync(UUID id) throws RuntimeException {
-        this.treeRepository.getRootTreeRepository().deleteAsync(getUserId(), getCompanyId(), id);
+        this.treeRepository.getRootTreeRepository().deleteAsync(id, getRepositoryAuth());
     }
 
     @Override
     public Optional<List<RootTreeEntity>> readAll() throws RuntimeException {
-        return this.treeRepository.getRootTreeRepository().findAll(getUserId(), getCompanyId());
+        return this.treeRepository.getRootTreeRepository().findAll(getRepositoryAuth());
     }
 
     @Override
     public Optional<List<RootTreeEntity>> readAllByIds(List<UUID> ids) throws RuntimeException {
-        return this.treeRepository.getRootTreeRepository().findAllByIds(getUserId(), getCompanyId(), ids);
+        return this.treeRepository.getRootTreeRepository().findAllByIds(ids, getRepositoryAuth());
     }
 
     @Override
     public void check(UUID id) throws RuntimeException {
-        this.treeRepository.getRootTreeRepository().check(getUserId(), getCompanyId(), id);
+        this.treeRepository.getRootTreeRepository().check(id, getRepositoryAuth());
     }
 
     @Override
     public void checkAll(Set<UUID> ids) throws RuntimeException {
-        this.treeRepository.getRootTreeRepository().checkAll(getUserId(), getCompanyId(), ids);
+        this.treeRepository.getRootTreeRepository().checkAll(ids, getRepositoryAuth());
     }
 }

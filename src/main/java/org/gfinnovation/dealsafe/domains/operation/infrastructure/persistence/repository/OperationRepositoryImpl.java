@@ -22,4 +22,5 @@ import org.springframework.stereotype.Repository;
 public class OperationRepositoryImpl implements OperationRepository {
     private final ActionOperationRepository actionOperationRepository;
     private final ComparisonOperationRepository comparisonOperationRepository;
+
 }

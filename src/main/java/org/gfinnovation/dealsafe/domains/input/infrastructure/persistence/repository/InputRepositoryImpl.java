@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe.domains.input.infrastructure.persistence.repository;
 
 import jakarta.persistence.EntityManager;
-import org.gfinnovation.dealsafe._shared.infrastructure.GenericBusinessRepositoryImpl;
+import org.gfinnovation.dealsafe._shared.infrastructure.persistence.repository.GenericBusinessRepositoryImpl;
 import org.gfinnovation.dealsafe.domains.input.entity.InputEntity;
 import org.gfinnovation.dealsafe.domains.input.entity.repository.InputRepository;
 import org.gfinnovation.dealsafe.domains.input.infrastructure.persistence.InputSchema;

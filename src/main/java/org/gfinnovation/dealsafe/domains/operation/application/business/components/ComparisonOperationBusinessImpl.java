@@ -2,7 +2,7 @@ package org.gfinnovation.dealsafe.domains.operation.application.business.compone
 
 import jakarta.validation.ValidationException;
 import org.apache.coyote.BadRequestException;
-import org.gfinnovation.dealsafe._shared.infrastructure.GenericBusinessImpl;
+import org.gfinnovation.dealsafe._shared.application.GenericBusinessImpl;
 import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
 import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
@@ -72,7 +72,7 @@ public class ComparisonOperationBusinessImpl extends GenericBusinessImpl impleme
         try {
             NodeTreeEntity parent = this.treeBusiness.getNodeTreeBusiness().read(node_id);
             ComparisonOperationEntity newOperation = this.operationFactory.getComparisonOperationFactory().produce(getUserId(), getCompanyId(), type, jsonPath, variable, node_id);
-            return this.operationRepository.getComparisonOperationRepository().createComparison(getUserId(), getCompanyId(), newOperation, parent);
+            return this.operationRepository.getComparisonOperationRepository().createComparison(newOperation, parent, getRepositoryAuth());
         }catch (RepositoryException | FactoryException e){
             throw e;
         } catch (Exception e) {
@@ -82,46 +82,46 @@ public class ComparisonOperationBusinessImpl extends GenericBusinessImpl impleme
 
     @Override
     public ComparisonOperationEntity read(UUID id) throws RuntimeException {
-        return this.operationRepository.getComparisonOperationRepository().read(getUserId(), getUserId(), id);
+        return this.operationRepository.getComparisonOperationRepository().read(id, getRepositoryAuth());
     }
 
     @Override
     public CompletableFuture<ComparisonOperationEntity> updateAsync(ComparisonOperationEntity entity) throws RuntimeException {
-        return this.operationRepository.getComparisonOperationRepository().updateAsync(getUserId(), getUserId(), entity);
+        return this.operationRepository.getComparisonOperationRepository().updateAsync(entity, getRepositoryAuth());
     }
 
     @Override
     public ComparisonOperationEntity updateSync(ComparisonOperationEntity entity) throws RuntimeException {
-        return this.operationRepository.getComparisonOperationRepository().updateSync(getUserId(), getUserId(), entity);
+        return this.operationRepository.getComparisonOperationRepository().updateSync(entity, getRepositoryAuth());
     }
 
     @Override
     public void deleteAsync(UUID id) throws RuntimeException {
-        this.operationRepository.getComparisonOperationRepository().deleteAsync(getUserId(), getUserId(), id);
+        this.operationRepository.getComparisonOperationRepository().deleteAsync(id, getRepositoryAuth());
     }
 
     @Override
     public void deleteSync(UUID id) throws RuntimeException {
-        this.operationRepository.getComparisonOperationRepository().deleteSync(getUserId(), getUserId(), id);
+        this.operationRepository.getComparisonOperationRepository().deleteSync(id, getRepositoryAuth());
     }
 
     @Override
     public Optional<List<ComparisonOperationEntity>> readAll() throws RuntimeException {
-        return this.operationRepository.getComparisonOperationRepository().findAll(getUserId(), getUserId());
+        return this.operationRepository.getComparisonOperationRepository().findAll(getRepositoryAuth());
     }
 
     @Override
     public Optional<List<ComparisonOperationEntity>> readAllByIds(List<UUID> ids) throws RuntimeException {
-        return this.operationRepository.getComparisonOperationRepository().findAllByIds(getUserId(), getUserId(), ids);
+        return this.operationRepository.getComparisonOperationRepository().findAllByIds(ids, getRepositoryAuth());
     }
 
     @Override
     public void check(UUID id) throws RuntimeException {
-        this.operationRepository.getComparisonOperationRepository().check(getUserId(), getUserId(), id);
+        this.operationRepository.getComparisonOperationRepository().check(id, getRepositoryAuth());
     }
 
     @Override
     public void checkAll(Set<UUID> ids) throws RuntimeException {
-        this.operationRepository.getComparisonOperationRepository().checkAll(getUserId(), getUserId(), ids);
+        this.operationRepository.getComparisonOperationRepository().checkAll(ids, getRepositoryAuth());
     }
 }

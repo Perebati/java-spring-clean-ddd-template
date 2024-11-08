@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe.domains.input.application.business;
 
 import jakarta.validation.ValidationException;
-import org.gfinnovation.dealsafe._shared.infrastructure.GenericBusinessImpl;
+import org.gfinnovation.dealsafe._shared.application.GenericBusinessImpl;
 import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
 import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
@@ -66,7 +66,7 @@ class InputBusinessImpl extends GenericBusinessImpl implements InputBusiness {
     @Override
     public InputEntity create(String name, String json) throws FactoryException, ValidationException, RepositoryException, BusinessException {
         try {
-            return this.inputRepository.createAsync(getUserId(), getCompanyId(), this.inputFactory.produce(getUserId(), getCompanyId(), name, json)).join();
+            return this.inputRepository.createAsync(this.inputFactory.produce(getUserId(), getCompanyId(), name, json), getRepositoryAuth()).join();
         } catch (Exception e) {
             throw new BusinessException("Something went wrong creating an input.", e);
         }
@@ -74,46 +74,46 @@ class InputBusinessImpl extends GenericBusinessImpl implements InputBusiness {
 
     @Override
     public InputEntity read(UUID id) {
-        return this.inputRepository.read(getUserId(), getCompanyId(), id);
+        return this.inputRepository.read(id, getRepositoryAuth());
     }
 
     @Override
     public CompletableFuture<InputEntity> updateAsync(InputEntity entity) {
-        return this.inputRepository.updateAsync(getUserId(), getCompanyId(), entity);
+        return this.inputRepository.updateAsync(entity, getRepositoryAuth());
     }
 
     @Override
     public InputEntity updateSync(InputEntity entity) {
-        return this.inputRepository.updateSync(getUserId(), getCompanyId(), entity);
+        return this.inputRepository.updateSync(entity, getRepositoryAuth());
     }
 
     @Override
     public void deleteAsync(UUID id) {
-        this.inputRepository.deleteAsync(getUserId(), getCompanyId(), id);
+        this.inputRepository.deleteAsync(id, getRepositoryAuth());
     }
 
     @Override
     public void deleteSync(UUID id) {
-        this.inputRepository.deleteSync(getUserId(), getCompanyId(), id);
+        this.inputRepository.deleteSync(id, getRepositoryAuth());
     }
 
     @Override
     public Optional<List<InputEntity>> readAll() {
-        return this.inputRepository.findAll(getUserId(), getCompanyId());
+        return this.inputRepository.findAll(getRepositoryAuth());
     }
 
     @Override
     public Optional<List<InputEntity>> readAllByIds(List<UUID> ids) {
-        return this.inputRepository.findAllByIds(getUserId(), getCompanyId(), ids);
+        return this.inputRepository.findAllByIds(ids, getRepositoryAuth());
     }
 
     @Override
     public void check(UUID id) {
-        this.inputRepository.check(getUserId(), getCompanyId(), id);
+        this.inputRepository.check(id, getRepositoryAuth());
     }
 
     @Override
     public void checkAll(Set<UUID> ids) {
-        this.inputRepository.checkAll(getUserId(), getCompanyId(), ids);
+        this.inputRepository.checkAll(ids, getRepositoryAuth());
     }
 }

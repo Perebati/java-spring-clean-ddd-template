@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe.domains.operation.entity.factory;
 
 import lombok.Getter;
-import org.gfinnovation.dealsafe._shared.infrastructure.GenericBusinessImpl;
+import org.gfinnovation.dealsafe._shared.application.GenericBusinessImpl;
 import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
 import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
 import org.gfinnovation.dealsafe.domains.operation.entity.factory.components.interfaces.ActionOperationFactory;

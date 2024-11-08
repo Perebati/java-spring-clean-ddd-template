@@ -1,8 +1,13 @@
-package org.gfinnovation.dealsafe._shared.infrastructure;
+package org.gfinnovation.dealsafe._shared.infrastructure.persistence.repository;
 
 import jakarta.transaction.Transactional;
+import jakarta.validation.constraints.NotNull;
 import org.gfinnovation.dealsafe._shared.entity.GenericBusinessEntity;
-import org.gfinnovation.dealsafe._shared.entity.GenericBusinessRepository;
+import org.gfinnovation.dealsafe._shared.entity.repository.GenericBusinessRepository;
+import org.gfinnovation.dealsafe._shared.infrastructure.persistence.GenericBusinessSchema;
+import org.gfinnovation.dealsafe._shared.infrastructure.persistence.mapper.GenericBusinessMapper;
+import org.gfinnovation.dealsafe._shared.infrastructure.persistence.repository.components.GenericBusinessJpaRepositoryImpl;
+import org.gfinnovation.dealsafe.authentication.RepositoryAuth;
 import org.gfinnovation.dealsafe.configuration.exception.models.EntityNotFoundException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
 import org.slf4j.Logger;
@@ -35,7 +40,7 @@ import java.util.stream.Collectors;
  */
 
 public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S extends GenericBusinessSchema>
-        extends GenericBusinessJpaRepository<S> implements GenericBusinessRepository<E> {
+        extends GenericBusinessJpaRepositoryImpl<S> implements GenericBusinessRepository<E> {
 
     private static final Logger logger = LoggerFactory.getLogger(GenericRepositoryImpl.class);
     private final GenericBusinessMapper<E, S> mapper;
@@ -64,15 +69,13 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
      * a big risk. That's why it's necessary to provide user and company id in every method.
      *
      * @param schema     Reference schema.
-     * @param user_id    Reference for user that made an infra operation.
-     * @param company_id Reference for company that made an infra operation.
      * @author Lucas Batista Pereira
      * @since 06/11/2024
      */
 
-    private void setCommonFields(S schema, UUID user_id, UUID company_id) {
-        schema.setUser_id(user_id);
-        schema.setCompany_id(company_id);
+    private void setCommonFields(S schema, RepositoryAuth auth) {
+        schema.setUser_id(auth.user_id());
+        schema.setCompany_id(auth.company_id());
     }
 
 
@@ -80,8 +83,6 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
      * In the future, creation will be done on a remote database using
      * kafka queues, that's why it needs to be async.
      *
-     * @param user_id    Reference for user that made an infra operation.
-     * @param company_id Reference for company that made an infra operation.
      * @param entity     Entity that extends GenericBusinessEntity
      * @return CompletableFuture<E>
      * @throws RepositoryException Thrown when an unexpected database error occurs.
@@ -92,10 +93,10 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
     @Override
     @Async
     @Transactional
-    public CompletableFuture<E> createAsync(UUID user_id, UUID company_id, E entity) throws RepositoryException {
+    public CompletableFuture<E> createAsync(@NotNull E entity, @NotNull RepositoryAuth auth) throws RepositoryException {
         try {
             S schema = mapper.toSchema(entity);
-            setCommonFields(schema, user_id, company_id);
+            setCommonFields(schema, auth);
             S savedSchema = jpaRepository.save(schema);
             logger.info("A new {} was created in the system!", entity.getClass().getSimpleName());
             return CompletableFuture.completedFuture(mapper.toEntity(savedSchema));
@@ -109,8 +110,6 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
     /**
      * Sync version of create.
      *
-     * @param user_id    Reference for user that made an infra operation.
-     * @param company_id Reference for company that made an infra operation.
      * @param entity     Entity that extends GenericBusinessEntity
      * @return CompletableFuture<E>
      * @throws RepositoryException Thrown when an unexpected database error occurs.
@@ -119,10 +118,10 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
      */
 
     @Override
-    public E createSync(UUID user_id, UUID company_id, E entity) throws RepositoryException {
+    public E createSync(@NotNull E entity, @NotNull RepositoryAuth auth) throws RepositoryException {
         try {
             S schema = mapper.toSchema(entity);
-            setCommonFields(schema, user_id, company_id);
+            setCommonFields(schema, auth);
             S savedSchema = jpaRepository.save(schema);
             logger.info("A new {} was created in the system!", entity.getClass().getSimpleName());
             return mapper.toEntity(savedSchema);
@@ -136,8 +135,6 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
     /**
      * Standard reading method.
      *
-     * @param user_id    Reference for user that made an infra operation.
-     * @param company_id Reference for company that made an infra operation.
      * @param id         Reference entity id.
      * @return Entity
      * @throws RepositoryException     Thrown when an unexpected database error occurs.
@@ -147,9 +144,9 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
      */
 
     @Override
-    public E read(UUID user_id, UUID company_id, UUID id) throws RepositoryException, EntityNotFoundException {
+    public E read(@NotNull UUID id, @NotNull RepositoryAuth auth) throws RepositoryException, EntityNotFoundException {
         try {
-            return this.findByIdCompanyIdUserIdAndNotDeleted(id, company_id, user_id, entityClass)
+            return this.findByIdCompanyIdUserIdAndNotDeleted(id, auth.company_id(), auth.user_id(), entityClass)
                     .map(mapper::toEntity)
                     .orElseThrow(() -> new EntityNotFoundException("Entity not found or already deleted with id: " + id));
         } catch (DataAccessException e) {
@@ -162,8 +159,6 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
     /**
      * Protected class, for internal use only.
      *
-     * @param user_id    Reference for user that made an infra operation.
-     * @param company_id Reference for company that made an infra operation.
      * @param id         Reference entity id.
      * @return Schema
      * @throws RepositoryException     Thrown when an unexpected database error occurs.
@@ -172,9 +167,9 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
      * @since 06/11/2024
      */
 
-    protected S readInternal(UUID user_id, UUID company_id, UUID id) throws RepositoryException, EntityNotFoundException {
+    protected S readInternal(@NotNull UUID id, @NotNull RepositoryAuth auth) throws RepositoryException, EntityNotFoundException {
         try {
-            return this.findByIdCompanyIdUserIdAndNotDeleted(id, company_id, user_id, entityClass)
+            return this.findByIdCompanyIdUserIdAndNotDeleted(id, auth.company_id(), auth.user_id(), entityClass)
                     .orElseThrow(() -> new EntityNotFoundException("Entity not found or already deleted with id: " + id));
         } catch (DataAccessException e) {
             logger.error("Failed to retrieve entity with id: {}", id, e);
@@ -186,8 +181,6 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
     /**
      * Update a schema based on an entity.
      *
-     * @param user_id    Reference for user that made an infra operation.
-     * @param company_id Reference for company that made an infra operation.
      * @param entity     Entity to be updated.
      * @return CompletableFuture<E>
      * @throws RepositoryException Thrown when an unexpected database error occurs.
@@ -198,9 +191,9 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
     @Override
     @Async
     @Transactional
-    public CompletableFuture<E> updateAsync(UUID user_id, UUID company_id, E entity) throws RepositoryException {
+    public CompletableFuture<E> updateAsync(@NotNull E entity, @NotNull RepositoryAuth auth) throws RepositoryException {
         try {
-            this.readInternal(user_id, company_id, entity.getId());
+            this.readInternal(entity.getId(), auth);
             S existingSchema = mapper.toSchema(entity);
             S savedSchema = jpaRepository.save(existingSchema);
             logger.info("An existing entity of class {} is being updated in the system!", entity.getClass().getSimpleName());
@@ -215,8 +208,6 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
     /**
      * Sync version of Update method.
      *
-     * @param user_id    Reference for user that made an infra operation.
-     * @param company_id Reference for company that made an infra operation.
      * @param entity     Entity to be updated.
      * @return CompletableFuture<E>
      * @throws RepositoryException Thrown when an unexpected database error occurs.
@@ -225,9 +216,9 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
      */
 
     @Override
-    public E updateSync(UUID user_id, UUID company_id, E entity) throws RepositoryException {
+    public E updateSync(@NotNull E entity, @NotNull RepositoryAuth auth) throws RepositoryException {
         try {
-            this.readInternal(user_id, company_id, entity.getId());
+            this.readInternal(entity.getId(), auth);
             S existingSchema = mapper.toSchema(entity);
             S savedSchema = jpaRepository.save(existingSchema);
             logger.info("An existing entity of class {} is being updated in the system!", entity.getClass().getSimpleName());
@@ -242,8 +233,6 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
     /**
      * Soft delete an entity.
      *
-     * @param user_id    Reference for user that made an infra operation.
-     * @param company_id Reference for company that made an infra operation.
      * @param id         Reference for entity to be deleted.
      * @throws RepositoryException Thrown when an unexpected database error occurs.
      * @author Lucas Batista Pereira
@@ -253,16 +242,14 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
     @Override
     @Async
     @Transactional
-    public void deleteAsync(UUID user_id, UUID company_id, UUID id) throws RepositoryException {
-        delete(user_id, company_id, id);
+    public void deleteAsync(@NotNull UUID id, @NotNull RepositoryAuth auth) throws RepositoryException {
+        delete(id, auth);
     }
 
 
     /**
      * Sync version of delete method.
      *
-     * @param user_id    Reference for user that made an infra operation.
-     * @param company_id Reference for company that made an infra operation.
      * @param id         Reference for entity to be deleted.
      * @throws RepositoryException Thrown when an unexpected database error occurs.
      * @author Lucas Batista Pereira
@@ -270,13 +257,13 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
      */
 
     @Override
-    public void deleteSync(UUID user_id, UUID company_id, UUID id) throws RepositoryException {
-        this.delete(user_id, company_id, id);
+    public void deleteSync(@NotNull UUID id, @NotNull RepositoryAuth auth) throws RepositoryException {
+        this.delete(id, auth);
     }
 
-    protected void delete(UUID user_id, UUID company_id, UUID id) {
+    protected void delete(@NotNull UUID id, @NotNull RepositoryAuth auth) {
         try {
-            S schema = this.readInternal(user_id, company_id, id);
+            S schema = this.readInternal(id, auth);
 
             schema.setDeleted(true);
             schema.setDeletedAt(LocalDateTime.now());
@@ -293,8 +280,6 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
     /**
      * Find all entities of given entity class.
      *
-     * @param user_id    Reference for user that made an infra operation.
-     * @param company_id Reference for company that made an infra operation.
      * @return Optional<List < E>>
      * @throws RepositoryException Thrown when an unexpected database error occurs.
      * @author Lucas Batista Pereira
@@ -302,15 +287,15 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
      */
 
     @Override
-    public Optional<List<E>> findAll(UUID user_id, UUID company_id) throws RepositoryException {
+    public Optional<List<E>> findAll(@NotNull RepositoryAuth auth) throws RepositoryException {
         try {
-            List<S> schemas = this.findAllByUserIdAndCompanyIdAndDeletedFalse(user_id, company_id, entityClass);
+            List<S> schemas = this.findAllByUserIdAndCompanyIdAndDeletedFalse(auth.user_id(), auth.company_id(), entityClass);
             List<E> entities = schemas.stream()
                     .map(mapper::toEntity)
                     .collect(Collectors.toList());
             return entities.isEmpty() ? Optional.empty() : Optional.of(entities);
         } catch (DataAccessException e) {
-            logger.error("Failed to find all entities for user_id: {} and company_id: {}", user_id, company_id, e);
+            logger.error("Failed to find all entities for user_id: {} and company_id: {}", auth.user_id(), auth.company_id(), e);
             throw new RepositoryException("Failed to find all entities", e);
         }
     }
@@ -319,8 +304,6 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
     /**
      * Find all entities by given ids.
      *
-     * @param user_id    Reference for user that made an infra operation.
-     * @param company_id Reference for company that made an infra operation.
      * @param ids        Reference ids for reading.
      * @return Optional<List < E>>
      * @throws RepositoryException Thrown when an unexpected database error occurs.
@@ -329,10 +312,10 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
      */
 
     @Override
-    public Optional<List<E>> findAllByIds(UUID user_id, UUID company_id, List<UUID> ids) throws RepositoryException {
+    public Optional<List<E>> findAllByIds(@NotNull List<UUID> ids, @NotNull RepositoryAuth auth) throws RepositoryException {
         try {
             Set<UUID> idSet = new HashSet<>(ids);
-            List<S> schemas = this.findAllByUserIdAndCompanyIdAndIdInAndDeletedFalse(user_id, company_id, idSet, entityClass);
+            List<S> schemas = this.findAllByUserIdAndCompanyIdAndIdInAndDeletedFalse(auth.user_id(), auth.company_id(), idSet, entityClass);
             List<E> entities = schemas.stream()
                     .map(mapper::toEntity)
                     .collect(Collectors.toList());
@@ -347,8 +330,6 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
     /**
      * Check the existence of an entity given its id.
      *
-     * @param user_id    Reference for user that made an infra operation.
-     * @param company_id Reference for company that made an infra operation.
      * @param id         Reference id for checking.
      * @throws RepositoryException Thrown when an unexpected database error occurs.
      * @author Lucas Batista Pereira
@@ -356,16 +337,14 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
      */
 
     @Override
-    public void check(UUID user_id, UUID company_id, UUID id) throws RepositoryException {
-        this.readInternal(user_id, company_id, id);
+    public void check(@NotNull UUID id, @NotNull RepositoryAuth auth) throws RepositoryException {
+        this.readInternal(id, auth);
     }
 
 
     /**
      * Check the existence of all entities given its ids.
      *
-     * @param user_id    Reference for user that made an infra operation.
-     * @param company_id Reference for company that made an infra operation.
      * @param ids        Reference ids for checking.
      * @throws RepositoryException Thrown when an unexpected database error occurs.
      * @author Lucas Batista Pereira
@@ -373,8 +352,8 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
      */
 
     @Override
-    public void checkAll(UUID user_id, UUID company_id, Set<UUID> ids) throws RepositoryException {
-        List<S> schemas = this.findAllByUserIdAndCompanyIdAndIdInAndDeletedFalse(user_id, company_id, ids, entityClass);
+    public void checkAll(@NotNull Set<UUID> ids, @NotNull RepositoryAuth auth) throws RepositoryException {
+        List<S> schemas = this.findAllByUserIdAndCompanyIdAndIdInAndDeletedFalse(auth.user_id(), auth.company_id(), ids, entityClass);
         if (schemas.size() != ids.size()) {
             Set<UUID> foundIds = schemas.stream().map(S::getId).collect(Collectors.toSet());
             Set<UUID> missingIds = ids.stream().filter(id -> !foundIds.contains(id)).collect(Collectors.toSet());

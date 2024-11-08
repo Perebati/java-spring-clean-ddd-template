@@ -1,4 +1,4 @@
-package org.gfinnovation.dealsafe._shared.infrastructure;
+package org.gfinnovation.dealsafe._shared.infrastructure.persistence.repository.components;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -6,6 +6,7 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
+import org.gfinnovation.dealsafe._shared.infrastructure.persistence.GenericBusinessSchema;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,7 +20,7 @@ import java.util.UUID;
  * @since 06/11/2024
  */
 
-public class GenericBusinessJpaRepository<S extends GenericBusinessSchema> {
+public class GenericBusinessJpaRepositoryImpl<S extends GenericBusinessSchema> {
 
     @PersistenceContext
     private EntityManager entityManager;

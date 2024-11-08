@@ -1,4 +1,4 @@
-package org.gfinnovation.dealsafe._shared.application;
+package org.gfinnovation.dealsafe._shared.application.interfaces;
 
 import org.gfinnovation.dealsafe._shared.entity.GenericEntity;
 

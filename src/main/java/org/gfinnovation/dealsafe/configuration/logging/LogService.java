@@ -48,7 +48,12 @@ public class LogService {
         CompletableFuture.completedFuture(null);
     }
 
-    public RequestLogSchema saveRequestLog(RequestLogSchema requestLog) {
-        return requestLogRepository.save(requestLog);
+    @Async
+    public CompletableFuture<RequestLogSchema> saveRequestLogAsync(RequestLogSchema requestLog) {
+        return CompletableFuture.completedFuture(requestLogRepository.save(requestLog));
+    }
+
+    public boolean requestIdExists(String requestId) {
+        return requestLogRepository.findById(requestId).isPresent();
     }
 }

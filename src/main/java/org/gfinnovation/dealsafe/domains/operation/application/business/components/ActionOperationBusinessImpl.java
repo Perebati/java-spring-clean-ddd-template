@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe.domains.operation.application.business.components;
 
 import jakarta.validation.ValidationException;
-import org.gfinnovation.dealsafe._shared.infrastructure.GenericBusinessImpl;
+import org.gfinnovation.dealsafe._shared.application.GenericBusinessImpl;
 import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
 import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
@@ -82,46 +82,46 @@ public class ActionOperationBusinessImpl extends GenericBusinessImpl implements 
 
     @Override
     public ActionOperationEntity read(UUID id) throws RuntimeException {
-        return this.operationRepository.getActionOperationRepository().read(getUserId(), getCompanyId(), id);
+        return this.operationRepository.getActionOperationRepository().read(id, getRepositoryAuth());
     }
 
     @Override
     public CompletableFuture<ActionOperationEntity> updateAsync(ActionOperationEntity entity) throws RuntimeException {
-        return this.operationRepository.getActionOperationRepository().updateAsync(getUserId(), getCompanyId(), entity);
+        return this.operationRepository.getActionOperationRepository().updateAsync(entity, getRepositoryAuth());
     }
 
     @Override
     public ActionOperationEntity updateSync(ActionOperationEntity entity) throws RuntimeException {
-        return this.operationRepository.getActionOperationRepository().updateSync(getUserId(), getCompanyId(), entity);
+        return this.operationRepository.getActionOperationRepository().updateSync(entity, getRepositoryAuth());
     }
 
     @Override
     public void deleteAsync(UUID id) throws RuntimeException {
-        this.operationRepository.getActionOperationRepository().deleteAsync(getUserId(), getCompanyId(), id);
+        this.operationRepository.getActionOperationRepository().deleteAsync(id, getRepositoryAuth());
     }
 
     @Override
     public void deleteSync(UUID id) throws RuntimeException {
-        this.operationRepository.getActionOperationRepository().deleteSync(getUserId(), getCompanyId(), id);
+        this.operationRepository.getActionOperationRepository().deleteSync(id, getRepositoryAuth());
     }
 
     @Override
     public Optional<List<ActionOperationEntity>> readAll() throws RuntimeException {
-        return this.operationRepository.getActionOperationRepository().findAll(getUserId(), getCompanyId());
+        return this.operationRepository.getActionOperationRepository().findAll(getRepositoryAuth());
     }
 
     @Override
     public Optional<List<ActionOperationEntity>> readAllByIds(List<UUID> ids) throws RuntimeException {
-        return this.operationRepository.getActionOperationRepository().findAllByIds(getUserId(), getCompanyId(), ids);
+        return this.operationRepository.getActionOperationRepository().findAllByIds(ids, getRepositoryAuth());
     }
 
     @Override
     public void check(UUID id) throws RuntimeException {
-        this.operationRepository.getActionOperationRepository().check(getUserId(), getCompanyId(), id);
+        this.operationRepository.getActionOperationRepository().check(id, getRepositoryAuth());
     }
 
     @Override
     public void checkAll(Set<UUID> ids) throws RuntimeException {
-        this.operationRepository.getActionOperationRepository().checkAll(getUserId(), getCompanyId(), ids);
+        this.operationRepository.getActionOperationRepository().checkAll(ids, getRepositoryAuth());
     }
 }

@@ -1,5 +1,7 @@
 package org.gfinnovation.dealsafe.domains.tree.entity.repository;
 
+import jakarta.validation.constraints.NotNull;
+import org.gfinnovation.dealsafe.authentication.RepositoryAuth;
 import org.gfinnovation.dealsafe.configuration.exception.models.EntityNotFoundException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.domains.tree.entity.NodeTreeEntity;
@@ -31,11 +33,11 @@ public interface TreeRepository {
 
     RootTreeStaticRepository getRootTreeStaticRepository();
 
-    NodeTreeEntity createNode(UUID user_id, UUID company_id, NodeTreeEntity newNode, Object parent, UUID parent_id) throws RepositoryException;
+    NodeTreeEntity createNode(@NotNull NodeTreeEntity newNode, @NotNull Object parent, @NotNull UUID parent_id, @NotNull RepositoryAuth auth) throws RepositoryException;
 
-    Object readGenericRoot(UUID user_id, UUID company_id, UUID id) throws RepositoryException, EntityNotFoundException;
+    Object readGenericRoot(@NotNull UUID id, @NotNull RepositoryAuth auth) throws RepositoryException, EntityNotFoundException;
 
-    RootTreeEntity updateGenericRootSync(UUID user_id, UUID company_id, RootTreeEntity entity) throws RepositoryException;
+    RootTreeEntity updateGenericRootSync(@NotNull RootTreeEntity entity, @NotNull RepositoryAuth auth) throws RepositoryException;
 
     Optional<UUID> findRootIdByNodeId(UUID nodeId);
 }

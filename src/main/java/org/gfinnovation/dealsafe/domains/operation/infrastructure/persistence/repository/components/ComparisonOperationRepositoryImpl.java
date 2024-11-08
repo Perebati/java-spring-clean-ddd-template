@@ -2,7 +2,8 @@ package org.gfinnovation.dealsafe.domains.operation.infrastructure.persistence.r
 
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
-import org.gfinnovation.dealsafe._shared.infrastructure.GenericBusinessRepositoryImpl;
+import org.gfinnovation.dealsafe._shared.infrastructure.persistence.repository.GenericBusinessRepositoryImpl;
+import org.gfinnovation.dealsafe.authentication.RepositoryAuth;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.domains.operation.entity.ComparisonOperationEntity;
 import org.gfinnovation.dealsafe.domains.operation.entity.repository.components.ComparisonOperationRepository;
@@ -12,8 +13,6 @@ import org.gfinnovation.dealsafe.domains.tree.entity.NodeTreeEntity;
 import org.gfinnovation.dealsafe.domains.tree.entity.repository.TreeRepository;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Component;
-
-import java.util.UUID;
 
 /**
  * @author Lucas Batista Pereira
@@ -37,11 +36,11 @@ class ComparisonOperationRepositoryImpl
     }
 
     @Transactional
-    public ComparisonOperationEntity createComparison(UUID user_id, UUID company_id, ComparisonOperationEntity newOperation, NodeTreeEntity parent) throws RepositoryException{
+    public ComparisonOperationEntity createComparison(ComparisonOperationEntity newOperation, NodeTreeEntity parent, RepositoryAuth auth) throws RepositoryException{
         try {
-            newOperation = this.createSync(user_id, company_id, newOperation);
-            this.treeRepository.getNodeTreeRepository().updateSync(user_id, company_id, parent.addOperation(newOperation));
-            return this.read(user_id, company_id, newOperation.getId());
+            newOperation = this.createSync(newOperation, auth);
+            this.treeRepository.getNodeTreeRepository().updateSync(parent.addOperation(newOperation), auth);
+            return this.read(newOperation.getId(), auth);
         }catch (Exception e){
             throw new RepositoryException("Something went wrong on a transaction to save a comparison operation.");
         }
