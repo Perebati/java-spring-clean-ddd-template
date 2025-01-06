@@ -4,7 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.gfinnovation.dealsafe._shared.entity.GenericBusinessEntity;
+import org.gfinnovation.dealsafe._shared.domains.entity.GenericBusinessEntity;
 import org.gfinnovation.dealsafe.utils.annotations.Default;
 
 import java.util.HashSet;

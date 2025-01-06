@@ -1,7 +1,7 @@
-package org.gfinnovation.dealsafe._shared.infrastructure.persistence.mapper;
+package org.gfinnovation.dealsafe._shared.domains.infrastructure.persistence.mapper;
 
-import org.gfinnovation.dealsafe._shared.entity.GenericEntity;
-import org.gfinnovation.dealsafe._shared.infrastructure.persistence.GenericSchema;
+import org.gfinnovation.dealsafe._shared.domains.infrastructure.persistence.GenericSchema;
+import org.gfinnovation.dealsafe._shared.domains.entity.GenericEntity;
 import org.mapstruct.Mapping;
 
 import java.util.List;

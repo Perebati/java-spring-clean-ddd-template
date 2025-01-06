@@ -1,4 +1,4 @@
-package org.gfinnovation.dealsafe._shared.application;
+package org.gfinnovation.dealsafe._shared.domains.application;
 
 import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;

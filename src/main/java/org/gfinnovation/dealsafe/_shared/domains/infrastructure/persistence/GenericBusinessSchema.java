@@ -1,4 +1,4 @@
-package org.gfinnovation.dealsafe._shared.infrastructure.persistence;
+package org.gfinnovation.dealsafe._shared.domains.infrastructure.persistence;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;

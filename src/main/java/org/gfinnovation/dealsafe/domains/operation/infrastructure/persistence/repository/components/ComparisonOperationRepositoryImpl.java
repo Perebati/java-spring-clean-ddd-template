@@ -2,7 +2,7 @@ package org.gfinnovation.dealsafe.domains.operation.infrastructure.persistence.r
 
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
-import org.gfinnovation.dealsafe._shared.infrastructure.persistence.repository.GenericBusinessRepositoryImpl;
+import org.gfinnovation.dealsafe._shared.domains.infrastructure.persistence.repository.GenericBusinessRepositoryImpl;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.configuration.security.RepositoryAuth;
 import org.gfinnovation.dealsafe.domains.operation.entity.ComparisonOperationEntity;

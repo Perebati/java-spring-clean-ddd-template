@@ -1,7 +1,7 @@
-package org.gfinnovation.dealsafe._shared.application;
+package org.gfinnovation.dealsafe._shared.domains.application;
 
-import org.gfinnovation.dealsafe._shared.entity.GenericEntity;
-import org.gfinnovation.dealsafe._shared.infrastructure.persistence.GenericSchema;
+import org.gfinnovation.dealsafe._shared.domains.infrastructure.persistence.GenericSchema;
+import org.gfinnovation.dealsafe._shared.domains.entity.GenericEntity;
 
 /**
  * @author Lucas Batista Pereira

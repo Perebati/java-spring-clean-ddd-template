@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe.domains.tree.entity.repository.components;
 
-import org.gfinnovation.dealsafe._shared.entity.repository.GenericBusinessRepository;
+import org.gfinnovation.dealsafe._shared.domains.entity.repository.GenericBusinessRepository;
 import org.gfinnovation.dealsafe.domains.tree.entity.NodeTreeEntity;
 
 /**

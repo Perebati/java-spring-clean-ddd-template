@@ -2,7 +2,7 @@ package org.gfinnovation.dealsafe.authentication.user.infrastructure.persistence
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
-import org.gfinnovation.dealsafe._shared.infrastructure.persistence.repository.GenericRepositoryImpl;
+import org.gfinnovation.dealsafe._shared.domains.infrastructure.persistence.repository.GenericRepositoryImpl;
 import org.gfinnovation.dealsafe.authentication.user.entity.UserEntity;
 import org.gfinnovation.dealsafe.authentication.user.entity.repository.UserRepository;
 import org.gfinnovation.dealsafe.authentication.user.infrastructure.persistence.UserSchema;

@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe.authentication.user.entity.repository;
 
-import org.gfinnovation.dealsafe._shared.entity.repository.GenericRepository;
+import org.gfinnovation.dealsafe._shared.domains.entity.repository.GenericRepository;
 import org.gfinnovation.dealsafe.authentication.user.entity.UserEntity;
 
 import java.util.Optional;

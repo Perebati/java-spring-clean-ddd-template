@@ -1,4 +1,4 @@
-package org.gfinnovation.dealsafe._shared.infrastructure.persistence.repository.components;
+package org.gfinnovation.dealsafe._shared.domains.infrastructure.persistence.repository.components;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -6,7 +6,7 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
-import org.gfinnovation.dealsafe._shared.infrastructure.persistence.GenericBusinessSchema;
+import org.gfinnovation.dealsafe._shared.domains.infrastructure.persistence.GenericBusinessSchema;
 
 import java.util.List;
 import java.util.Optional;

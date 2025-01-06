@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe.domains.tree.infrastructure.persistence.mapper;
 
-import org.gfinnovation.dealsafe._shared.infrastructure.persistence.mapper.GenericBusinessMapper;
+import org.gfinnovation.dealsafe._shared.domains.infrastructure.persistence.mapper.GenericBusinessMapper;
 import org.gfinnovation.dealsafe.domains.tree.entity.NodeTreeEntity;
 import org.gfinnovation.dealsafe.domains.tree.infrastructure.persistence.NodeTreeSchema;
 import org.mapstruct.Mapper;

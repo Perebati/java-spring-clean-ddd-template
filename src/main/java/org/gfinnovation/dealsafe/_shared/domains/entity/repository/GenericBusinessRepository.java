@@ -1,6 +1,6 @@
-package org.gfinnovation.dealsafe._shared.entity.repository;
+package org.gfinnovation.dealsafe._shared.domains.entity.repository;
 
-import org.gfinnovation.dealsafe._shared.entity.GenericEntity;
+import org.gfinnovation.dealsafe._shared.domains.entity.GenericEntity;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.configuration.security.RepositoryAuth;
 

@@ -1,12 +1,12 @@
-package org.gfinnovation.dealsafe._shared.infrastructure.persistence.repository;
+package org.gfinnovation.dealsafe._shared.domains.infrastructure.persistence.repository;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.NotNull;
-import org.gfinnovation.dealsafe._shared.entity.GenericBusinessEntity;
-import org.gfinnovation.dealsafe._shared.entity.repository.GenericBusinessRepository;
-import org.gfinnovation.dealsafe._shared.infrastructure.persistence.GenericBusinessSchema;
-import org.gfinnovation.dealsafe._shared.infrastructure.persistence.mapper.GenericBusinessMapper;
-import org.gfinnovation.dealsafe._shared.infrastructure.persistence.repository.components.GenericBusinessJpaRepositoryImpl;
+import org.gfinnovation.dealsafe._shared.domains.infrastructure.persistence.GenericBusinessSchema;
+import org.gfinnovation.dealsafe._shared.domains.infrastructure.persistence.mapper.GenericBusinessMapper;
+import org.gfinnovation.dealsafe._shared.domains.infrastructure.persistence.repository.components.GenericBusinessJpaRepositoryImpl;
+import org.gfinnovation.dealsafe._shared.domains.entity.GenericBusinessEntity;
+import org.gfinnovation.dealsafe._shared.domains.entity.repository.GenericBusinessRepository;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryEntityNotFoundException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.configuration.security.RepositoryAuth;

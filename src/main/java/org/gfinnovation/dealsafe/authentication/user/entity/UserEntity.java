@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.gfinnovation.dealsafe._shared.entity.GenericEntity;
+import org.gfinnovation.dealsafe._shared.domains.entity.GenericEntity;
 import org.gfinnovation.dealsafe.utils.annotations.Default;
 import org.springframework.validation.annotation.Validated;
 

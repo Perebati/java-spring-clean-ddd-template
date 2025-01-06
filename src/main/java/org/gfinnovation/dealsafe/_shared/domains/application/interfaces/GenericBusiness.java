@@ -1,6 +1,6 @@
-package org.gfinnovation.dealsafe._shared.application.interfaces;
+package org.gfinnovation.dealsafe._shared.domains.application.interfaces;
 
-import org.gfinnovation.dealsafe._shared.entity.GenericEntity;
+import org.gfinnovation.dealsafe._shared.domains.entity.GenericEntity;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
 
 import java.util.List;

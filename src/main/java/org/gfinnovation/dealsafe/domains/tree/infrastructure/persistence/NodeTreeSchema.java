@@ -3,7 +3,7 @@ package org.gfinnovation.dealsafe.domains.tree.infrastructure.persistence;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.gfinnovation.dealsafe._shared.infrastructure.persistence.GenericBusinessSchema;
+import org.gfinnovation.dealsafe._shared.domains.infrastructure.persistence.GenericBusinessSchema;
 import org.gfinnovation.dealsafe.domains.operation.infrastructure.persistence.ComparisonOperationSchema;
 
 import java.util.Set;

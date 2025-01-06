@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe.domains.input.application.business.interfaces;
 
 import org.apache.coyote.BadRequestException;
-import org.gfinnovation.dealsafe._shared.application.interfaces.GenericBusiness;
+import org.gfinnovation.dealsafe._shared.domains.application.interfaces.GenericBusiness;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
 import org.gfinnovation.dealsafe.domains.input.entity.InputEntity;
 

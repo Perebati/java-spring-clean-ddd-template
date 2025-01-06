@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe.tests.repository;
 
 import org.apache.coyote.BadRequestException;
-import org.gfinnovation.dealsafe._shared.entity.repository.GenericRepository;
+import org.gfinnovation.dealsafe._shared.domains.entity.repository.GenericRepository;
 import org.gfinnovation.dealsafe.domains.tree.entity.RootTreeDynamicEntity;
 import org.gfinnovation.dealsafe.tests._shared.GenericRepositoryTest;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;

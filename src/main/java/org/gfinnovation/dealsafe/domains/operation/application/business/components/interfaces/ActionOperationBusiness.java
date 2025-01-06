@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe.domains.operation.application.business.components.interfaces;
 
-import org.gfinnovation.dealsafe._shared.application.interfaces.GenericBusiness;
+import org.gfinnovation.dealsafe._shared.domains.application.interfaces.GenericBusiness;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
 import org.gfinnovation.dealsafe.domains.operation.entity.ActionOperationEntity;
 

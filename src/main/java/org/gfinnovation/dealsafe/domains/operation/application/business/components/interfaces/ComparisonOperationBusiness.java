@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe.domains.operation.application.business.components.interfaces;
 
 import org.apache.coyote.BadRequestException;
-import org.gfinnovation.dealsafe._shared.application.interfaces.GenericBusiness;
+import org.gfinnovation.dealsafe._shared.domains.application.interfaces.GenericBusiness;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
 import org.gfinnovation.dealsafe.domains.operation.entity.ComparisonOperationEntity;
 import org.gfinnovation.dealsafe.domains.operation.entity.comparison.ComparisonTypeEnum;

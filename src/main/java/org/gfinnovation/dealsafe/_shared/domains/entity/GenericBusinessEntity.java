@@ -1,4 +1,4 @@
-package org.gfinnovation.dealsafe._shared.entity;
+package org.gfinnovation.dealsafe._shared.domains.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

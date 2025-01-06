@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe.authentication.company.business.interfaces;
 
 import org.apache.coyote.BadRequestException;
-import org.gfinnovation.dealsafe._shared.application.interfaces.GenericBusinessOld;
+import org.gfinnovation.dealsafe._shared.domains.application.interfaces.GenericBusinessOld;
 import org.gfinnovation.dealsafe.authentication.company.entity.CompanyEntity;
 
 import java.util.Set;

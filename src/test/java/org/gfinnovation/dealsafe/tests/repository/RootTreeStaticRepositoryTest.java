@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe.tests.repository;
 
 import org.apache.coyote.BadRequestException;
-import org.gfinnovation.dealsafe._shared.entity.repository.GenericRepository;
+import org.gfinnovation.dealsafe._shared.domains.entity.repository.GenericRepository;
 import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
 import org.gfinnovation.dealsafe.authentication.company.entity.CompanyEntity;
 import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
