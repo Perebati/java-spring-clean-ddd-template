@@ -43,6 +43,10 @@ public class NodeTreeEntity extends GenericBusinessEntity {
     @Setter
     private Set<ComparisonOperationEntity> operations = new HashSet<>();
 
+    public enum SortField{
+        NAME
+    }
+
     public NodeTreeEntity(UUID userId, UUID companyId, String name, Integer sequence) {
         super(userId, companyId);
         this.name = name;

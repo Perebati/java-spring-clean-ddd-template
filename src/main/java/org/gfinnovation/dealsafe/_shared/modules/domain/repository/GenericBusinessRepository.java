@@ -1,8 +1,11 @@
 package org.gfinnovation.dealsafe._shared.modules.domain.repository;
 
+import jakarta.validation.constraints.NotNull;
 import org.gfinnovation.dealsafe._shared.modules.domain.GenericEntity;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.configuration.security.RepositoryAuth;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 import java.util.Optional;
@@ -38,6 +41,8 @@ public interface GenericBusinessRepository<E extends GenericEntity> {
     void deleteSync(UUID id, RepositoryAuth auth) throws RepositoryException;
 
     Optional<List<E>> findAll(RepositoryAuth auth) throws RepositoryException;
+
+    Page<E> findAllPaginated(PageRequest pageRequest, @NotNull RepositoryAuth auth) throws RepositoryException;
 
     Optional<List<E>> findAllByIds(List<UUID> ids, RepositoryAuth auth) throws RepositoryException;
 

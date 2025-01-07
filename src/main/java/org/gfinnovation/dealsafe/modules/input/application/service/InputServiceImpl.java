@@ -1,6 +1,7 @@
 package org.gfinnovation.dealsafe.modules.input.application.service;
 
 import org.gfinnovation.dealsafe._shared.modules.application.GenericServiceImpl;
+import org.gfinnovation.dealsafe._shared.utils.pagination.PageRequestDTO;
 import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
 import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
@@ -8,7 +9,9 @@ import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.In
 import org.gfinnovation.dealsafe.modules.input.domain.InputEntity;
 import org.gfinnovation.dealsafe.modules.input.domain.factory.interfaces.InputFactory;
 import org.gfinnovation.dealsafe.modules.input.domain.repository.InputRepository;
+import org.gfinnovation.dealsafe.modules.tree.domain.NodeTreeEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -164,6 +167,16 @@ class InputServiceImpl extends GenericServiceImpl implements InputService {
             throw e;
         } catch (Exception e) {
             throw new BusinessException("Business: Something went wrong checking all inputs by ids.", e);
+        }
+    }
+
+    public Page<InputEntity> readAllPaginated(PageRequestDTO<NodeTreeEntity.SortField> pageRequestDTO) throws BusinessException {
+        try {
+            return this.inputRepository.findAllPaginated(pageRequestDTO, getRepositoryAuth());
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Business: Something went wrong reading all inputs paginated.", e);
         }
     }
 }

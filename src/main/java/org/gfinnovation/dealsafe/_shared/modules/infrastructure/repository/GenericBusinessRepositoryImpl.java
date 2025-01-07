@@ -13,7 +13,8 @@ import org.gfinnovation.dealsafe.configuration.security.RepositoryAuth;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.scheduling.annotation.Async;
 
@@ -92,7 +93,6 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
      * @author Lucas Batista Pereira
      * @since 06/11/2024
      */
-
     @Override
     @Async
     @Transactional
@@ -103,7 +103,7 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
             S savedSchema = jpaRepository.save(schema);
             logger.info("A new {} was created in the system!", entity.getClass().getSimpleName());
             return CompletableFuture.completedFuture(mapper.toEntity(savedSchema));
-        } catch (DataAccessException e) {
+        } catch (Exception e) {
             logger.error("Failed to save entity: {}", entity, e);
             throw new RepositoryException("Repository: Failed to async save entity", e);
         }
@@ -118,7 +118,6 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
      * @author Lucas Batista Pereira
      * @since 06/11/2024
      */
-
     @Override
     @Async
     @Transactional
@@ -129,12 +128,11 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
             S savedSchema = jpaRepository.save(existingSchema);
             logger.info("An existing entity of class {} is being updated in the system!", entity.getClass().getSimpleName());
             return CompletableFuture.completedFuture(mapper.toEntity(savedSchema));
-        } catch (DataAccessException e) {
+        } catch (Exception e) {
             logger.error("Failed to update entity: {}", entity, e);
             throw new RepositoryException("Repository: Failed to async update entity", e);
         }
     }
-
 
     /**
      * Soft delete an entity.
@@ -144,14 +142,13 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
      * @author Lucas Batista Pereira
      * @since 06/11/2024
      */
-
     @Override
     @Async
     @Transactional
     public void deleteAsync(@NotNull UUID id, @NotNull RepositoryAuth auth) throws RepositoryException {
         try {
             delete(id, auth);
-        } catch (DataAccessException e) {
+        } catch (Exception e) {
             logger.error("Failed to delete entity with id: {}", id, e);
             throw new RepositoryException("Repository: Failed to async delete entity", e);
         }
@@ -170,7 +167,6 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
      * @author Lucas Batista Pereira
      * @since 06/11/2024
      */
-
     @Override
     public E createSync(@NotNull E entity, @NotNull RepositoryAuth auth) throws RepositoryException {
         try {
@@ -179,12 +175,11 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
             S savedSchema = jpaRepository.save(schema);
             logger.info("A new {} was created in the system!", entity.getClass().getSimpleName());
             return mapper.toEntity(savedSchema);
-        } catch (DataAccessException e) {
+        } catch (Exception e) {
             logger.error("Failed to save entity: {}", entity, e);
             throw new RepositoryException("Repository: Failed to save entity", e);
         }
     }
-
 
     /**
      * Standard reading method.
@@ -196,14 +191,13 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
      * @author Lucas Batista Pereira
      * @since 06/11/2024
      */
-
     @Override
     public E read(@NotNull UUID id, @NotNull RepositoryAuth auth) throws RepositoryException {
         try {
-            return this.findByIdCompanyIdUserIdAndNotDeleted(id, auth.company_id(), auth.user_id(), entityClass)
+            return this.findById(id, auth.company_id(), auth.user_id(), entityClass)
                     .map(mapper::toEntity)
                     .orElseThrow(() -> new RepositoryEntityNotFoundException("Repository: Entity not found or already deleted with id: " + id));
-        } catch (DataAccessException e) {
+        } catch (Exception e) {
             logger.error("Failed to retrieve entity with id: {}", id, e);
             throw new RepositoryException("Repository: Failed to retrieve data", e);
         }
@@ -220,17 +214,15 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
      * @author Lucas Batista Pereira
      * @since 06/11/2024
      */
-
     protected S readInternal(@NotNull UUID id, @NotNull RepositoryAuth auth) throws RepositoryException {
         try {
-            return this.findByIdCompanyIdUserIdAndNotDeleted(id, auth.company_id(), auth.user_id(), entityClass)
+            return this.findById(id, auth.company_id(), auth.user_id(), entityClass)
                     .orElseThrow(() -> new RepositoryEntityNotFoundException("Repository: Entity not found or already deleted with id: " + id));
-        } catch (DataAccessException e) {
+        } catch (Exception e) {
             logger.error("Failed to retrieve entity with id: {}", id, e);
             throw new RepositoryException("Repository: Failed to retrieve data", e);
         }
     }
-
 
     /**
      * Sync version of Update method.
@@ -241,7 +233,6 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
      * @author Lucas Batista Pereira
      * @since 06/11/2024
      */
-
     @Override
     public E updateSync(@NotNull E entity, @NotNull RepositoryAuth auth) throws RepositoryException {
         try {
@@ -250,12 +241,11 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
             S savedSchema = jpaRepository.save(existingSchema);
             logger.info("An existing entity of class {} is being updated in the system!", entity.getClass().getSimpleName());
             return mapper.toEntity(savedSchema);
-        } catch (DataAccessException e) {
+        } catch (Exception e) {
             logger.error("Failed to update entity: {}", entity, e);
             throw new RepositoryException("Repository: Failed to update entity", e);
         }
     }
-
 
     /**
      * Sync version of delete method.
@@ -265,12 +255,11 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
      * @author Lucas Batista Pereira
      * @since 06/11/2024
      */
-
     @Override
     public void deleteSync(@NotNull UUID id, @NotNull RepositoryAuth auth) throws RepositoryException {
         try {
             this.delete(id, auth);
-        } catch (DataAccessException e) {
+        } catch (Exception e) {
             logger.error("Failed to delete entity with id: {}", id, e);
             throw new RepositoryException("Repository: Failed to delete entity", e);
         }
@@ -286,7 +275,6 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
         logger.info("Entity with id: {} was marked as deleted.", id);
     }
 
-
     /**
      * Find all entities of given entity class.
      *
@@ -295,21 +283,19 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
      * @author Lucas Batista Pereira
      * @since 06/11/2024
      */
-
     @Override
     public Optional<List<E>> findAll(@NotNull RepositoryAuth auth) throws RepositoryException {
         try {
-            List<S> schemas = this.findAllByUserIdAndCompanyIdAndDeletedFalse(auth.user_id(), auth.company_id(), entityClass);
+            List<S> schemas = this.findAll(auth.user_id(), auth.company_id(), entityClass);
             List<E> entities = schemas.stream()
                     .map(mapper::toEntity)
                     .collect(Collectors.toList());
             return entities.isEmpty() ? Optional.empty() : Optional.of(entities);
-        } catch (DataAccessException e) {
+        } catch (Exception e) {
             logger.error("Failed to find all entities for user_id: {} and company_id: {}", auth.user_id(), auth.company_id(), e);
             throw new RepositoryException("Repository: Failed to find all entities", e);
         }
     }
-
 
     /**
      * Find all entities by given ids.
@@ -320,22 +306,20 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
      * @author Lucas Batista Pereira
      * @since 06/11/2024
      */
-
     @Override
     public Optional<List<E>> findAllByIds(@NotNull List<UUID> ids, @NotNull RepositoryAuth auth) throws RepositoryException {
         try {
             Set<UUID> idSet = new HashSet<>(ids);
-            List<S> schemas = this.findAllByUserIdAndCompanyIdAndIdInAndDeletedFalse(auth.user_id(), auth.company_id(), idSet, entityClass);
+            List<S> schemas = this.findAllByIds(auth.user_id(), auth.company_id(), idSet, entityClass);
             List<E> entities = schemas.stream()
                     .map(mapper::toEntity)
                     .collect(Collectors.toList());
             return entities.isEmpty() ? Optional.empty() : Optional.of(entities);
-        } catch (DataAccessException e) {
+        } catch (Exception e) {
             logger.error("Failed to find entities by IDs: {}", ids, e);
             throw new RepositoryException("Repository: Failed to find entities by IDs", e);
         }
     }
-
 
     /**
      * Check the existence of an entity given its id.
@@ -345,12 +329,10 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
      * @author Lucas Batista Pereira
      * @since 06/11/2024
      */
-
     @Override
     public void check(@NotNull UUID id, @NotNull RepositoryAuth auth) throws RepositoryException {
         this.readInternal(id, auth);
     }
-
 
     /**
      * Check the existence of all entities given its ids.
@@ -360,14 +342,31 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
      * @author Lucas Batista Pereira
      * @since 06/11/2024
      */
-
     @Override
     public void checkAll(@NotNull Set<UUID> ids, @NotNull RepositoryAuth auth) throws RepositoryException {
-        List<S> schemas = this.findAllByUserIdAndCompanyIdAndIdInAndDeletedFalse(auth.user_id(), auth.company_id(), ids, entityClass);
+        List<S> schemas = this.findAllByIds(auth.user_id(), auth.company_id(), ids, entityClass);
         if (schemas.size() != ids.size()) {
             Set<UUID> foundIds = schemas.stream().map(S::getId).collect(Collectors.toSet());
             Set<UUID> missingIds = ids.stream().filter(id -> !foundIds.contains(id)).collect(Collectors.toSet());
             throw new RepositoryEntityNotFoundException("Repository: Entities not found or already deleted for IDs: " + missingIds);
+        }
+    }
+
+    /**
+     * Find all entities paginated.
+     *
+     * @param pageRequest PageRequest object.
+     * @return Page<E>
+     * @throws RepositoryException Thrown when an unexpected database error occurs.
+     * @since 06/11/2024
+     */
+    public Page<E> findAllPaginated(PageRequest pageRequest, @NotNull RepositoryAuth auth) throws RepositoryException {
+        try{
+            return this.findAllPaginated(auth.user_id(), auth.company_id(), pageRequest, entityClass)
+                    .map(mapper::toEntity);
+        } catch (Exception e) {
+            logger.error("Failed to find entities paginated");
+            throw new RepositoryException("Repository: Failed to find entities by IDs", e);
         }
     }
 }
