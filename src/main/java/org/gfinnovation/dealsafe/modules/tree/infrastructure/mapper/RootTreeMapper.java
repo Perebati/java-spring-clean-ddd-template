@@ -1,8 +1,8 @@
-package org.gfinnovation.dealsafe.modules.tree.infrastructure.persistence.mapper;
+package org.gfinnovation.dealsafe.modules.tree.infrastructure.mapper;
 
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.mapper.GenericBusinessMapper;
 import org.gfinnovation.dealsafe.modules.tree.domain.RootTreeEntity;
-import org.gfinnovation.dealsafe.modules.tree.infrastructure.persistence.RootTreeSchema;
+import org.gfinnovation.dealsafe.modules.tree.infrastructure.RootTreeSchema;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;

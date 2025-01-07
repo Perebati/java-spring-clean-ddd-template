@@ -17,6 +17,7 @@ public class PageRequestDTO<T extends Enum<T>> extends PageRequest {
     private int pageSize;
     private T sortField;
     private SortOrder sortOrder;
+
     private PageRequestDTO(int pageNumber, int pageSize, Sort sort) {
         super(pageNumber, pageSize, sort);
         this.pageNumber = pageNumber;

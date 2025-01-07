@@ -1,11 +1,11 @@
-package org.gfinnovation.dealsafe.modules.tree.infrastructure.persistence.repository.components;
+package org.gfinnovation.dealsafe.modules.tree.infrastructure.repository.components;
 
 import jakarta.persistence.EntityManager;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.GenericBusinessRepositoryImpl;
 import org.gfinnovation.dealsafe.modules.tree.domain.repository.components.RootTreeDynamicRepository;
 import org.gfinnovation.dealsafe.modules.tree.domain.valueobjects.RootTreeDynamicEntity;
-import org.gfinnovation.dealsafe.modules.tree.infrastructure.persistence.RootTreeDynamicSchema;
-import org.gfinnovation.dealsafe.modules.tree.infrastructure.persistence.mapper.RootTreeDynamicMapper;
+import org.gfinnovation.dealsafe.modules.tree.infrastructure.RootTreeDynamicSchema;
+import org.gfinnovation.dealsafe.modules.tree.infrastructure.mapper.RootTreeDynamicMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Component;

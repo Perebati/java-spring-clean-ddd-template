@@ -7,7 +7,7 @@ spring:
   application:
     name: dealsafe
   datasource:
-    url: jdbc:postgresql://localhost:5432/motorRegra
+    url: jdbc:postgresql://localhost:5432/motorRegra?createDatabaseIfNotExist=true&useSSL=false
     username: postgres
     password: postgres
     driverClassName: org.postgresql.Driver
@@ -17,7 +17,7 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         default_schema: public
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
 
   data:
     mongodb:
