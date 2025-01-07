@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe.authentication.company.infrastructure.persistence.repository;
 
 import jakarta.persistence.EntityManager;
-import org.gfinnovation.dealsafe._shared.domains.infrastructure.persistence.repository.GenericRepositoryImpl;
+import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.GenericRepositoryImpl;
 import org.gfinnovation.dealsafe.authentication.company.entity.CompanyEntity;
 import org.gfinnovation.dealsafe.authentication.company.entity.repository.CompanyRepository;
 import org.gfinnovation.dealsafe.authentication.company.infrastructure.persistence.CompanySchema;

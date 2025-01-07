@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe.authentication.company.entity.repository;
 
-import org.gfinnovation.dealsafe._shared.domains.entity.repository.GenericRepository;
+import org.gfinnovation.dealsafe._shared.modules.domain.repository.GenericRepository;
 import org.gfinnovation.dealsafe.authentication.company.entity.CompanyEntity;
 
 /**

@@ -1,15 +1,15 @@
 package org.gfinnovation.dealsafe.tests.repository;
 
 import org.apache.coyote.BadRequestException;
-import org.gfinnovation.dealsafe._shared.domains.entity.repository.GenericRepository;
+import org.gfinnovation.dealsafe._shared.modules.domain.repository.GenericRepository;
 import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
 import org.gfinnovation.dealsafe.authentication.company.entity.CompanyEntity;
 import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
 import org.gfinnovation.dealsafe.authentication.user.entity.UserEntity;
-import org.gfinnovation.dealsafe.domains.input.entity.predefined.PredefinedTypeEnum;
-import org.gfinnovation.dealsafe.domains.tree.entity.RootTreeStaticEntity;
-import org.gfinnovation.dealsafe.domains.tree.entity.factory.interfaces.TreeFactory;
-import org.gfinnovation.dealsafe.domains.tree.entity.repository.TreeRepository;
+import org.gfinnovation.dealsafe.modules.input.domain.valueobjects.predefined.enums.PredefinedTypeEnum;
+import org.gfinnovation.dealsafe.modules.tree.domain.valueobjects.RootTreeStaticEntity;
+import org.gfinnovation.dealsafe.modules.tree.domain.factory.interfaces.TreeFactory;
+import org.gfinnovation.dealsafe.modules.tree.domain.repository.TreeRepository;
 import org.gfinnovation.dealsafe.tests._shared.GenericRepositoryTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;

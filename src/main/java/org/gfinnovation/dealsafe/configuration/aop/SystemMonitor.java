@@ -32,8 +32,8 @@ public class SystemMonitor {
         this.logService = logService;
     }
 
-    @Around("execution(* org.gfinnovation.dealsafe.domains..application..*(..)) || "
-            + "execution(* org.gfinnovation.dealsafe.domains..entity..*(..))")
+    @Around("execution(* org.gfinnovation.dealsafe.modules..application..*(..)) || "
+            + "execution(* org.gfinnovation.dealsafe.modules..entity..*(..))")
     public Object domainMonitor(ProceedingJoinPoint joinPoint) throws Throwable {
         String requestId = MDC.get("request_id");
         String userId = MDC.get("user_id");

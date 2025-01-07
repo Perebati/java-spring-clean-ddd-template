@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe.authentication.user.infrastructure.persistence.mapper;
 
-import org.gfinnovation.dealsafe._shared.domains.infrastructure.persistence.mapper.GenericMapper;
+import org.gfinnovation.dealsafe._shared.modules.infrastructure.mapper.GenericMapper;
 import org.gfinnovation.dealsafe.authentication.user.entity.UserEntity;
 import org.gfinnovation.dealsafe.authentication.user.infrastructure.persistence.UserSchema;
 import org.mapstruct.Mapper;

@@ -6,7 +6,7 @@ import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.gfinnovation.dealsafe._shared.domains.infrastructure.persistence.GenericSchema;
+import org.gfinnovation.dealsafe._shared.modules.infrastructure.GenericSchema;
 
 import java.util.UUID;
 

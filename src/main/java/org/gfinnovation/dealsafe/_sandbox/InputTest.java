@@ -6,8 +6,8 @@ import org.gfinnovation.dealsafe.authentication.company.business.interfaces.Comp
 import org.gfinnovation.dealsafe.authentication.company.entity.CompanyEntity;
 import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
 import org.gfinnovation.dealsafe.authentication.user.entity.UserEntity;
-import org.gfinnovation.dealsafe.domains.input.application.business.interfaces.InputBusiness;
-import org.gfinnovation.dealsafe.domains.input.entity.InputEntity;
+import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.InputService;
+import org.gfinnovation.dealsafe.modules.input.domain.InputEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,12 +25,12 @@ import java.util.Collections;
 @RequestMapping("teste/input")
 @Tag(name = "Teste")
 public class InputTest {
-    private final InputBusiness inputBusiness;
+    private final InputService inputService;
     private final UserBusiness userBusiness;
     private final CompanyBusiness companyFactory;
 
-    public InputTest(InputBusiness inputBusiness, UserBusiness userBusiness, CompanyBusiness companyFactory) {
-        this.inputBusiness = inputBusiness;
+    public InputTest(InputService inputService, UserBusiness userBusiness, CompanyBusiness companyFactory) {
+        this.inputService = inputService;
         this.userBusiness = userBusiness;
         this.companyFactory = companyFactory;
     }
@@ -60,7 +60,7 @@ public class InputTest {
 
         String name = "jsonTeste";
 
-        InputEntity inputEntity = this.inputBusiness.create(name, json);
+        InputEntity inputEntity = this.inputService.create(name, json);
 
         System.out.println(inputEntity.toString());
 
@@ -90,7 +90,7 @@ public class InputTest {
 
         String name = "jsonTeste";
 
-        InputEntity inputEntity = this.inputBusiness.create(name, json);
+        InputEntity inputEntity = this.inputService.create(name, json);
 
         System.out.println(inputEntity.toString());
 

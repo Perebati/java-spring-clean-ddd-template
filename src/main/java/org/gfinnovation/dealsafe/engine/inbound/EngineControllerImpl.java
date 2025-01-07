@@ -3,9 +3,9 @@ package org.gfinnovation.dealsafe.engine.inbound;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.gfinnovation.dealsafe.domains.tree.application.business.interfaces.TreeBusiness;
 import org.gfinnovation.dealsafe.engine.Engine;
 import org.gfinnovation.dealsafe.engine.inbound.interfaces.EngineController;
+import org.gfinnovation.dealsafe.modules.tree.application.service.interfaces.TreeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
@@ -21,11 +21,11 @@ import java.util.UUID;
 
 @Controller
 public class EngineControllerImpl implements EngineController {
-    private final TreeBusiness treeBusiness;
+    private final TreeService treeService;
     private final Engine engine;
 
-    public EngineControllerImpl(TreeBusiness treeBusiness, Engine engine) {
-        this.treeBusiness = treeBusiness;
+    public EngineControllerImpl(TreeService treeService, Engine engine) {
+        this.treeService = treeService;
         this.engine = engine;
     }
 
@@ -36,7 +36,7 @@ public class EngineControllerImpl implements EngineController {
 
             mapper.findAndRegisterModules();
 
-            String validationTreeJson = mapper.writeValueAsString(this.treeBusiness.getRootTreeBusiness().readGenericRoot(root_id));
+            String validationTreeJson = mapper.writeValueAsString(this.treeService.getRootTreeBusiness().readGenericRoot(root_id));
 
             JsonNode validationRoot = mapper.readTree(validationTreeJson);
 

@@ -10,14 +10,14 @@ import org.gfinnovation.dealsafe.authentication.company.business.interfaces.Comp
 import org.gfinnovation.dealsafe.authentication.company.entity.CompanyEntity;
 import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
 import org.gfinnovation.dealsafe.authentication.user.entity.UserEntity;
-import org.gfinnovation.dealsafe.domains.input.entity.InputEntity;
-import org.gfinnovation.dealsafe.domains.operation.application.business.interfaces.OperationBusiness;
-import org.gfinnovation.dealsafe.domains.operation.entity.ComparisonOperationEntity;
-import org.gfinnovation.dealsafe.domains.operation.entity.comparison.ComparisonTypeEnum;
-import org.gfinnovation.dealsafe.domains.tree.application.business.interfaces.TreeBusiness;
-import org.gfinnovation.dealsafe.domains.tree.entity.NodeTreeEntity;
-import org.gfinnovation.dealsafe.domains.tree.entity.RootTreeDynamicEntity;
 import org.gfinnovation.dealsafe.engine.Engine;
+import org.gfinnovation.dealsafe.modules.input.domain.InputEntity;
+import org.gfinnovation.dealsafe.modules.operation.application.service.interfaces.OperationService;
+import org.gfinnovation.dealsafe.modules.operation.domain.ComparisonOperationEntity;
+import org.gfinnovation.dealsafe.modules.operation.domain.comparison.ComparisonTypeEnum;
+import org.gfinnovation.dealsafe.modules.tree.application.service.interfaces.TreeService;
+import org.gfinnovation.dealsafe.modules.tree.domain.NodeTreeEntity;
+import org.gfinnovation.dealsafe.modules.tree.domain.valueobjects.RootTreeDynamicEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,10 +41,10 @@ import java.util.concurrent.ExecutionException;
 @RequestMapping("teste")
 @Tag(name = "Teste")
 public class TreeTest {
-    private final TreeBusiness treeBusiness;
+    private final TreeService treeService;
     private final UserBusiness userBusiness;
     private final CompanyBusiness companyBusiness;
-    private final OperationBusiness operationBusiness;
+    private final OperationService operationService;
     private final InputTest inputController;
     private final Neo4jTest neo4jTest;
     private final Engine engine;
@@ -59,29 +59,29 @@ public class TreeTest {
 
             InputEntity inputEntity = this.inputController.create2();
 
-            CompletableFuture<RootTreeDynamicEntity> createdRoot = this.treeBusiness.getRootTreeBusiness().create("ROOT Teste", inputEntity.getUser_id());
+            CompletableFuture<RootTreeDynamicEntity> createdRoot = this.treeService.getRootTreeBusiness().create("ROOT Teste", inputEntity.getUser_id());
 
-            NodeTreeEntity createdNode1 = this.treeBusiness.getNodeTreeBusiness().create("NODE 1", 0, createdRoot.get().getId());
+            NodeTreeEntity createdNode1 = this.treeService.getNodeTreeBusiness().create("NODE 1", 0, createdRoot.get().getId());
 
-            NodeTreeEntity createdNode2 = this.treeBusiness.getNodeTreeBusiness().create("NODE 2", 0, createdNode1.getId());
+            NodeTreeEntity createdNode2 = this.treeService.getNodeTreeBusiness().create("NODE 2", 0, createdNode1.getId());
 
-            ComparisonOperationEntity comparisonOperationEntity = this.operationBusiness.getComparisonOperationBusiness().create(ComparisonTypeEnum.GREATERTHANOREQUAL, "/idade", "18", createdNode2.getId());
+            ComparisonOperationEntity comparisonOperationEntity = this.operationService.getComparisonOperationBusiness().create(ComparisonTypeEnum.GREATERTHANOREQUAL, "/idade", "18", createdNode2.getId());
 
-            ComparisonOperationEntity comparisonOperationEntity2 = this.operationBusiness.getComparisonOperationBusiness().create(ComparisonTypeEnum.LESSTHANOREQUAL, "/idade", "65", createdNode2.getId());
+            ComparisonOperationEntity comparisonOperationEntity2 = this.operationService.getComparisonOperationBusiness().create(ComparisonTypeEnum.LESSTHANOREQUAL, "/idade", "65", createdNode2.getId());
 
             //OperationActionEntity operationActionEntity = this.operationActionFactory.createOperationAction("http://localhost:8081/teste", "Olá mundo", operationEntity.getId());
 
             //OperationActionEntity operationActionEntity2 = this.operationActionFactory.createOperationAction("http://localhost:8081/teste", "Olá mundo", operationEntity2.getId());
 
-            NodeTreeEntity createdNode3 = this.treeBusiness.getNodeTreeBusiness().create("NODE 3", 0, createdNode1.getId());
+            NodeTreeEntity createdNode3 = this.treeService.getNodeTreeBusiness().create("NODE 3", 0, createdNode1.getId());
 
-            ComparisonOperationEntity comparisonOperationEntity3 = this.operationBusiness.getComparisonOperationBusiness().create(ComparisonTypeEnum.DIFFERENT, "/CPF", "11330176650", createdNode3.getId());
+            ComparisonOperationEntity comparisonOperationEntity3 = this.operationService.getComparisonOperationBusiness().create(ComparisonTypeEnum.DIFFERENT, "/CPF", "11330176650", createdNode3.getId());
 
-            NodeTreeEntity createdNode4 = this.treeBusiness.getNodeTreeBusiness().create("Node4", 0, createdNode3.getId());
+            NodeTreeEntity createdNode4 = this.treeService.getNodeTreeBusiness().create("Node4", 0, createdNode3.getId());
 
-            ComparisonOperationEntity comparisonOperationEntity1 = this.operationBusiness.getComparisonOperationBusiness().create(ComparisonTypeEnum.EQUAL, "/endereco/rua", "Rua do Limão", createdNode4.getId());
+            ComparisonOperationEntity comparisonOperationEntity1 = this.operationService.getComparisonOperationBusiness().create(ComparisonTypeEnum.EQUAL, "/endereco/rua", "Rua do Limão", createdNode4.getId());
 
-            ComparisonOperationEntity comparisonOperationEntity4 = this.operationBusiness.getComparisonOperationBusiness().create(ComparisonTypeEnum.EQUAL, "/endereco/bairro", "Bairro do Limão", createdNode4.getId());
+            ComparisonOperationEntity comparisonOperationEntity4 = this.operationService.getComparisonOperationBusiness().create(ComparisonTypeEnum.EQUAL, "/endereco/bairro", "Bairro do Limão", createdNode4.getId());
 
             //OperationActionEntity operationActionEntity3 = this.operationActionFactory.createOperationAction("http://localhost:8081/teste", "Olá mundo", operationEntity4.getId());
 
@@ -89,13 +89,13 @@ public class TreeTest {
 
             mapper.findAndRegisterModules();
 
-            createdRoot = (CompletableFuture<RootTreeDynamicEntity>) this.treeBusiness.getRootTreeBusiness().readGenericRoot(createdRoot.get().getId());
+            createdRoot = (CompletableFuture<RootTreeDynamicEntity>) this.treeService.getRootTreeBusiness().readGenericRoot(createdRoot.get().getId());
 
-            String validationTreeJson = mapper.writeValueAsString(this.treeBusiness.getRootTreeBusiness().readGenericRoot(createdRoot.get().getId()));
+            String validationTreeJson = mapper.writeValueAsString(this.treeService.getRootTreeBusiness().readGenericRoot(createdRoot.get().getId()));
 
             JsonNode validationRoot = mapper.readTree(validationTreeJson);
 
-            Optional<UUID> rootId = this.treeBusiness.getRootTreeBusiness().findRootIdByNodeId(createdNode2.getId());
+            Optional<UUID> rootId = this.treeService.getRootTreeBusiness().findRootIdByNodeId(createdNode2.getId());
 
             return engine.bfsValidation(validationRoot, jsonNode);
 

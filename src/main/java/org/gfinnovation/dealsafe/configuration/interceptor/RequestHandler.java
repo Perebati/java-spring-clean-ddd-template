@@ -85,7 +85,7 @@ public class RequestHandler implements Filter {
             chain.doFilter(request, response);
         } catch (JwtException e) {
             throw new BusinessAuthenticationException("Invalid or expired token.");
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new BusinessAuthenticationException("Something went wrong validation business user.");
         } finally {
             MDC.clear();

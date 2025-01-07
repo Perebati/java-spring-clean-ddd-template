@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe.authentication.user.business.interfaces;
 
-import org.gfinnovation.dealsafe._shared.domains.application.interfaces.GenericBusinessOld;
+import org.gfinnovation.dealsafe._shared.modules.application.interfaces.GenericBusinessOld;
 import org.gfinnovation.dealsafe.authentication.user.entity.UserEntity;
 
 import java.util.Optional;
