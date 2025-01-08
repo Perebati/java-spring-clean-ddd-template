@@ -128,6 +128,4 @@ public abstract class GenericBusinessRepositoryTest<
         assertTrue(allEntities.isPresent(), "A busca por todas as entidades não deveria retornar nulo.");
         assertFalse(allEntities.get().isEmpty(), "A lista de entidades não deve estar vazia.");
     }
-
-
 }

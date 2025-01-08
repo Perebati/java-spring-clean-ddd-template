@@ -36,7 +36,7 @@ import java.util.concurrent.CompletableFuture;
  */
 
 @Component
-class RootTreeServiceImpl extends GenericServiceImpl implements RootTreeService {
+final class RootTreeServiceImpl extends GenericServiceImpl implements RootTreeService {
     private final TreeFactory treeFactory;
     private final TreeRepository treeRepository;
 
