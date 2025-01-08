@@ -3,7 +3,9 @@ package org.gfinnovation.dealsafe.tests._shared;
 import jakarta.transaction.Transactional;
 import org.apache.coyote.BadRequestException;
 import org.gfinnovation.dealsafe._shared.modules.domain.GenericEntity;
-import org.gfinnovation.dealsafe._shared.modules.domain.repository.GenericRepository;
+import org.gfinnovation.dealsafe._shared.modules.domain.repository.GenericBusinessRepository;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
+import org.gfinnovation.dealsafe.configuration.security.RepositoryAuth;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,25 +23,29 @@ import static org.junit.jupiter.api.Assertions.*;
  * @class GenericRepositoryTest
  * @since 30/10/2024
  */
-public abstract class GenericRepositoryTest<
+public abstract class GenericBusinessRepositoryTest<
         E extends GenericEntity> {
 
-    protected GenericRepository<E> repository;
+    protected GenericBusinessRepository<E> repository;
+    protected RepositoryAuth repositoryAuth;
 
     protected abstract E createEntity() throws BadRequestException;
 
-    protected abstract GenericRepository<E> createRepository();
+    protected abstract GenericBusinessRepository<E> createRepository();
+
+    protected abstract RepositoryAuth createRepositoryAuth() throws BadRequestException;
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws BadRequestException {
         repository = createRepository();
+        repositoryAuth = createRepositoryAuth();
     }
 
     @Test
     @Transactional
     public void testCreate() throws Exception {
         E entity = createEntity();
-        E createdEntity = repository.create(entity);
+        E createdEntity = repository.createSync(entity, repositoryAuth);
 
         assertNotNull(createdEntity.getId(), "A entidade criada deveria ter um ID gerado.");
         assertNotNull(createdEntity.getCreatedAt(), "A entidade criada deveria ter a data de criação definida.");
@@ -49,33 +55,30 @@ public abstract class GenericRepositoryTest<
     @Transactional
     public void testRead() throws Exception {
         E entity = createEntity();
-        E createdEntity = repository.create(entity);
-        Optional<E> readEntity = repository.read(createdEntity.getId());
+        E createdEntity = repository.createSync(entity, repositoryAuth);
+        E readEntity = repository.read(createdEntity.getId(), repositoryAuth);
 
-        assertTrue(readEntity.isPresent(), "A entidade deveria ser encontrada pelo ID.");
-        assertEquals(createdEntity.getId(), readEntity.get().getId(), "O ID da entidade lida deveria corresponder ao ID da entidade criada.");
+        assertEquals(createdEntity.getId(), readEntity.getId(), "O ID da entidade lida deveria corresponder ao ID da entidade criada.");
     }
 
     @Test
     @Transactional
     public void testReadDeleted() throws Exception {
         E entity = createEntity();
-        E createdEntity = repository.create(entity);
-        repository.delete(createdEntity.getId());
+        E createdEntity = repository.createSync(entity, repositoryAuth);
+        repository.deleteSync(createdEntity.getId(), repositoryAuth);
 
-        Optional<E> readEntity = repository.read(createdEntity.getId());
-
-        assertTrue(readEntity.isEmpty(), "A entidade deletada logicamente não deveria ser encontrada.");
+        assertThrows(RepositoryException.class, () -> repository.read(createdEntity.getId(), repositoryAuth));
     }
 
     @Test
     @Transactional
     public void testUpdate() throws Exception {
         E entity = createEntity();
-        E createdEntity = repository.create(entity);
+        E createdEntity = repository.createSync(entity, repositoryAuth);
 
         createdEntity.setDeleted(false);
-        E updatedEntity = repository.update(createdEntity);
+        E updatedEntity = repository.updateSync(createdEntity, repositoryAuth);
 
         assertNotNull(updatedEntity.getId(), "O ID da entidade atualizada não deve ser nulo.");
         assertNotEquals(createdEntity.getUpdatedAt(), updatedEntity.getUpdatedAt(), "A data de atualização deveria ser alterada.");
@@ -85,10 +88,10 @@ public abstract class GenericRepositoryTest<
     @Transactional
     public void testUpdateDeleted() throws Exception {
         E entity = createEntity();
-        E createdEntity = repository.create(entity);
-        repository.delete(createdEntity.getId());
+        E createdEntity = repository.createSync(entity, repositoryAuth);
+        repository.deleteSync(createdEntity.getId(), repositoryAuth);
 
-        Exception exception = assertThrows(RuntimeException.class, () -> repository.update(createdEntity));
+        Exception exception = assertThrows(RuntimeException.class, () -> repository.updateSync(createdEntity, repositoryAuth));
         assertNotNull(exception, "Deveria ser lançada uma exceção ao tentar atualizar uma entidade deletada.");
     }
 
@@ -96,21 +99,20 @@ public abstract class GenericRepositoryTest<
     @Transactional
     public void testDelete() throws Exception {
         E entity = createEntity();
-        E createdEntity = repository.create(entity);
-        repository.delete(createdEntity.getId());
+        E createdEntity = repository.createSync(entity, repositoryAuth);
+        repository.deleteSync(createdEntity.getId(), repositoryAuth);
 
-        Optional<E> readEntity = repository.read(createdEntity.getId());
-        assertTrue(readEntity.isEmpty(), "A entidade deletada não deve ser retornada ao ser lida.");
+        assertThrows(RepositoryException.class, () -> repository.read(createdEntity.getId(), repositoryAuth));
     }
 
     @Test
     @Transactional
     public void testFindAllAfterDelete() throws Exception {
         E entity = createEntity();
-        E createdEntity = repository.create(entity);
+        E createdEntity = repository.createSync(entity, repositoryAuth);
 
-        repository.delete(createdEntity.getId());
-        Optional<List<E>> allEntities = repository.findAll();
+        repository.deleteSync(createdEntity.getId(), repositoryAuth);
+        Optional<List<E>> allEntities = repository.findAll(repositoryAuth);
 
         assertTrue(allEntities.isEmpty(), "Deveria retornar uma lista de vazia.");
     }
@@ -119,11 +121,13 @@ public abstract class GenericRepositoryTest<
     @Transactional
     public void testFindAll() throws Exception {
         E entity = createEntity();
-        repository.create(entity);
+        repository.createSync(entity, repositoryAuth);
 
-        Optional<List<E>> allEntities = repository.findAll();
+        Optional<List<E>> allEntities = repository.findAll(repositoryAuth);
 
         assertTrue(allEntities.isPresent(), "A busca por todas as entidades não deveria retornar nulo.");
         assertFalse(allEntities.get().isEmpty(), "A lista de entidades não deve estar vazia.");
     }
+
+
 }

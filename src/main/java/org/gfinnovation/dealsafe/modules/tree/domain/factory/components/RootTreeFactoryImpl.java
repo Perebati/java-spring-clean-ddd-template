@@ -31,8 +31,6 @@ class RootTreeFactoryImpl implements RootTreeFactory {
     /**
      * Handles the creation of a root that has a reference to a dynamic input entity id.
      *
-     * @param user_id       UserId
-     * @param company_id    CompanyId
      * @param name          Name of the given root.
      * @param dynamic_input id of the dynamic input entity.
      * @return RootTreeDynamicEntity
@@ -41,10 +39,10 @@ class RootTreeFactoryImpl implements RootTreeFactory {
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
-    public RootTreeDynamicEntity produce(UUID user_id, UUID company_id, String name, UUID dynamic_input) throws FactoryException {
+    public RootTreeDynamicEntity produce(String name, UUID dynamic_input) throws FactoryException {
         try {
             this.inputService.check(dynamic_input);
-            return new RootTreeDynamicEntity(user_id, company_id, name, dynamic_input);
+            return new RootTreeDynamicEntity(name, dynamic_input);
         } catch (Exception e) {
             throw new FactoryException("Factory: Something went wrong creating a dynamic root node.", e);
         }
@@ -53,8 +51,6 @@ class RootTreeFactoryImpl implements RootTreeFactory {
     /**
      * Handles the creation of a root that has a reference to a predefined input entity.
      *
-     * @param user_id      UserId
-     * @param company_id   CompanyId
      * @param name         Name of the given root.
      * @param static_input Type of the predefined input entity.
      * @return RootTreeStaticEntity
@@ -64,9 +60,9 @@ class RootTreeFactoryImpl implements RootTreeFactory {
      * @since 30/10/2024
      */
 
-    public RootTreeStaticEntity produce(UUID user_id, UUID company_id, String name, PredefinedTypeEnum static_input) throws FactoryException {
+    public RootTreeStaticEntity produce(String name, PredefinedTypeEnum static_input) throws FactoryException {
         try {
-            return new RootTreeStaticEntity(user_id, company_id, name, static_input);
+            return new RootTreeStaticEntity(name, static_input);
         } catch (Exception e) {
             throw new FactoryException("Factory: Something went wrong creating a predefined root node.", e);
         }

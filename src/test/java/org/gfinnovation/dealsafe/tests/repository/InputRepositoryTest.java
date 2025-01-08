@@ -1,11 +1,23 @@
 package org.gfinnovation.dealsafe.tests.repository;
 
+import jakarta.annotation.PostConstruct;
 import org.apache.coyote.BadRequestException;
-import org.gfinnovation.dealsafe._shared.modules.domain.repository.GenericRepository;
+import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
+import org.gfinnovation.dealsafe.authentication.company.entity.CompanyEntity;
+import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
+import org.gfinnovation.dealsafe.authentication.user.entity.UserEntity;
+import org.gfinnovation.dealsafe.configuration.security.RepositoryAuth;
 import org.gfinnovation.dealsafe.modules.input.domain.InputEntity;
-import org.gfinnovation.dealsafe.tests._shared.GenericRepositoryTest;
+import org.gfinnovation.dealsafe.modules.input.domain.factory.interfaces.InputFactory;
+import org.gfinnovation.dealsafe.modules.input.domain.repository.InputRepository;
+import org.gfinnovation.dealsafe.tests._shared.GenericBusinessRepositoryTest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
 
 /**
  * @author Lucas Batista Pereira
@@ -15,61 +27,57 @@ import org.springframework.boot.test.context.SpringBootTest;
  */
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
-public class InputRepositoryTest extends GenericRepositoryTest<InputEntity> {
-    /**
-     * @return
-     * @throws BadRequestException
-     * @author Lucas Batista Pereira
-     * @since 06/11/2024
-     */
-    @Override
-    protected InputEntity createEntity() throws BadRequestException {
-        return null;
+public class InputRepositoryTest extends GenericBusinessRepositoryTest<InputEntity> {
+    String json = """
+            {
+              "nome": "João",
+              "idade": 30,
+              "endereco": {
+                "rua": "Rua A",
+                "bairro": "Centro"
+              },
+              "telefone": ["123456789", "987654321"],
+              "teste": {
+                  "teste":{
+                      "teste": "teste"
+                  }
+               }
+            }
+            """;
+
+    @Autowired
+    private UserBusiness userBusiness;
+
+    @Autowired
+    private CompanyBusiness companyBusiness;
+
+    @Autowired
+    private InputRepository inputRepository;
+
+    @Autowired
+    private InputFactory inputFactory;
+
+    private Map.Entry<UserEntity, CompanyEntity> auth;
+
+    @PostConstruct
+    public void init() throws BadRequestException {
+        UserEntity userTest = this.userBusiness.create("Taba Júnior");
+        CompanyEntity companyTest = this.companyBusiness.create("Taba Júnior", Set.of(userTest.getId()));
+        this.auth = Map.entry(userTest, companyTest);
     }
 
-    /**
-     * @return
-     * @author Lucas Batista Pereira
-     * @since 06/11/2024
-     */
     @Override
-    protected GenericRepository<InputEntity> createRepository() {
-        return null;
+    protected RepositoryAuth createRepositoryAuth() {
+        return new RepositoryAuth(auth.getKey().getId(), auth.getValue().getId(), UUID.randomUUID());
     }
-//    String json = """
-//            {
-//              "nome": "João",
-//              "idade": 30,
-//              "endereco": {
-//                "rua": "Rua A",
-//                "bairro": "Centro"
-//              },
-//              "telefone": ["123456789", "987654321"],
-//              "teste": {
-//                  "teste":{
-//                      "teste": "teste"
-//                  }
-//               }
-//            }
-//            """;
-//    @Autowired
-//    private UserBusiness userBusiness;
-//    @Autowired
-//    private CompanyBusiness companyBusiness;
-//    @Autowired
-//    private InputRepository inputRepository;
-//    @Autowired
-//    private InputFactory inputFactory;
-//
-//    @Override
-//    protected InputEntity createEntity() throws BadRequestException {
-//        UserEntity userTest = this.userBusiness.create("Taba júnior");
-//        CompanyEntity companyTest = this.companyBusiness.create("Taba júnior", Set.of(userTest.getId()));
-//        return this.inputFactory.produce(userTest.getId(), companyTest.getId(), "Input Teste", json);
-//    }
-//
-//    @Override
-//    protected GenericRepository<InputEntity> createRepository() {
-//        return this.inputRepository;
-//    }
+
+    @Override
+    protected InputEntity createEntity() {
+        return this.inputFactory.produce("Input Teste", json);
+    }
+
+    @Override
+    protected InputRepository createRepository() {
+        return this.inputRepository;
+    }
 }

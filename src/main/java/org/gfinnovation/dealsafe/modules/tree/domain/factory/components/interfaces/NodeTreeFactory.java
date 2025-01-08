@@ -3,8 +3,6 @@ package org.gfinnovation.dealsafe.modules.tree.domain.factory.components.interfa
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
 import org.gfinnovation.dealsafe.modules.tree.domain.NodeTreeEntity;
 
-import java.util.UUID;
-
 /**
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
@@ -13,5 +11,5 @@ import java.util.UUID;
  */
 
 public interface NodeTreeFactory {
-    NodeTreeEntity produce(UUID user_id, UUID company_id, String name, Integer sequence) throws FactoryException;
+    NodeTreeEntity produce(String name, Integer sequence) throws FactoryException;
 }

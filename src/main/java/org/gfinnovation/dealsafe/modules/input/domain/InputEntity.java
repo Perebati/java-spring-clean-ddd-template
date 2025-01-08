@@ -16,7 +16,6 @@ import org.springframework.validation.annotation.Validated;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * This class stores the structure of a dynamic input.
@@ -43,23 +42,17 @@ public class InputEntity extends GenericBusinessEntity {
 
     @Default
     public InputEntity(
-            @NotNull UUID user_id,
-            @NotNull UUID company_id,
             @NotNull @Size(min = 1) String name,
             @NotNull @Size(min = 1) HashMap<String, Object> fields
     ) {
-        super(user_id, company_id);
         this.name = name;
         this.fields = fields;
     }
 
     public InputEntity(
-            @NotNull UUID user_id,
-            @NotNull UUID company_id,
             @NotNull @Size(min = 4) String name,
             @NotNull @Size(min = 4) String json
     ) {
-        super(user_id, company_id);
         this.name = name;
         this.parseJson(json);
         validate();
@@ -122,7 +115,7 @@ public class InputEntity extends GenericBusinessEntity {
     /**
      * Retorna um boolean significativo se o path existe em fields.
      */
-    public boolean validateJsonPathAndType(String jsonPath, Object variable) {
+    public void validateJsonPathAndType(String jsonPath, Object variable) {
         if (jsonPath.startsWith("/")) jsonPath = jsonPath.replaceFirst("^[/.]", "");
 
         jsonPath = jsonPath.replaceAll("/", ".");
@@ -142,7 +135,6 @@ public class InputEntity extends GenericBusinessEntity {
             throw new IllegalArgumentException("O tipo da variável não corresponde ao esperado: " + expectedType);
         }
 
-        return true;
     }
 
     /*

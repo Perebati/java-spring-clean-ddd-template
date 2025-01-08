@@ -43,19 +43,13 @@ public class NodeTreeEntity extends GenericBusinessEntity {
     @Setter
     private Set<ComparisonOperationEntity> operations = new HashSet<>();
 
-    public enum SortField{
-        NAME
-    }
-
-    public NodeTreeEntity(UUID userId, UUID companyId, String name, Integer sequence) {
-        super(userId, companyId);
+    public NodeTreeEntity(String name, Integer sequence) {
         this.name = name;
         this.sequence = sequence;
     }
 
     @Default
-    public NodeTreeEntity(UUID userId, UUID companyId, String name, Integer sequence, UUID parentId, String parentType) {
-        super(userId, companyId);
+    public NodeTreeEntity(String name, Integer sequence, UUID parentId, String parentType) {
         this.name = name;
         this.sequence = sequence;
         this.parentId = parentId;
@@ -80,5 +74,9 @@ public class NodeTreeEntity extends GenericBusinessEntity {
     public void setParent(UUID parentId, String parentType) {
         this.parentId = parentId;
         this.parentType = parentType;
+    }
+
+    public enum SortField {
+        NAME
     }
 }

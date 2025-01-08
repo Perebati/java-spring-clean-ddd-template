@@ -43,12 +43,10 @@ public class ComparisonOperationFactoryImpl implements ComparisonOperationFactor
      * then through the root it checks if the jsonPath existis inside the input variable.
      * After all this validation, the ComparisonOperation is created.
      *
-     * @param user_id    UserId.
-     * @param company_id CompanyId.
-     * @param type       Comparison type.
-     * @param jsonPath   JsonPath to compared variable.
-     * @param variable   Variable value.
-     * @param node_id    Node parentId.
+     * @param type     Comparison type.
+     * @param jsonPath JsonPath to compared variable.
+     * @param variable Variable value.
+     * @param node_id  Node parentId.
      * @return ComparisonOperationEntity
      * @throws FactoryException                  Thrown when something wrong happened on factory layer.
      * @throws BadRequestException               Thrown when there's something wrong in user input.
@@ -58,7 +56,7 @@ public class ComparisonOperationFactoryImpl implements ComparisonOperationFactor
      * @since 30/10/2024
      */
 
-    public ComparisonOperationEntity produce(UUID user_id, UUID company_id, ComparisonTypeEnum type, String jsonPath, String variable, UUID node_id) throws FactoryException, BadRequestException {
+    public ComparisonOperationEntity produce(ComparisonTypeEnum type, String jsonPath, String variable, UUID node_id) throws FactoryException, BadRequestException {
         try {
             Object rootTreeEntity = this.treeService
                     .getRootTreeBusiness()
@@ -78,7 +76,7 @@ public class ComparisonOperationFactoryImpl implements ComparisonOperationFactor
                 inputEntity.validateJsonPathAndType(jsonPath, variable);
             }
 
-            return new ComparisonOperationEntity(user_id, company_id, type, jsonPath, Set.of(variable), null);
+            return new ComparisonOperationEntity(type, jsonPath, Set.of(variable), null);
         } catch (BadRequestException | RepositoryEntityNotFoundException e) {
             throw new FactoryException(e.getMessage());
         } catch (Exception e) {

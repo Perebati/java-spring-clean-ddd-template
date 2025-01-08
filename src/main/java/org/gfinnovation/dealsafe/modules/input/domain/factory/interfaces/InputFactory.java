@@ -3,8 +3,6 @@ package org.gfinnovation.dealsafe.modules.input.domain.factory.interfaces;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
 import org.gfinnovation.dealsafe.modules.input.domain.InputEntity;
 
-import java.util.UUID;
-
 /**
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
@@ -13,5 +11,5 @@ import java.util.UUID;
  */
 
 public interface InputFactory {
-    InputEntity produce(UUID user_id, UUID company_id, String name, String json) throws FactoryException;
+    InputEntity produce(String name, String json) throws FactoryException;
 }

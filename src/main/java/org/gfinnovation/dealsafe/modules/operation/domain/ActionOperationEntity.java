@@ -6,8 +6,6 @@ import lombok.Setter;
 import lombok.ToString;
 import org.gfinnovation.dealsafe._shared.modules.domain.GenericBusinessEntity;
 
-import java.util.UUID;
-
 /**
  * An action will 'do' something when it's called.
  * This one only sends a message to a URL.
@@ -25,8 +23,7 @@ public class ActionOperationEntity extends GenericBusinessEntity {
     private String url;
     private String message;
 
-    public ActionOperationEntity(UUID user_id, UUID company_id, String url, String message) {
-        super(user_id, company_id);
+    public ActionOperationEntity(String url, String message) {
         this.url = url;
         this.message = message;
     }

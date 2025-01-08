@@ -65,7 +65,7 @@ public class ActionOperationServiceImpl extends GenericServiceImpl implements Ac
     public ActionOperationEntity create(UUID user_id, UUID company_id, String url, String message, UUID operation_id) throws BusinessException {
         try {
             ComparisonOperationEntity operation = this.comparisonOperationBusiness.read(operation_id);
-            ActionOperationEntity newOperationAction = this.operationFactory.getActionOperationFactory().produce(user_id, company_id, url, message);
+            ActionOperationEntity newOperationAction = this.operationFactory.getActionOperationFactory().produce(url, message);
             operation.addAction(newOperationAction);
             this.comparisonOperationBusiness.updateSync(operation);
             return newOperationAction;

@@ -6,8 +6,6 @@ import org.gfinnovation.dealsafe.modules.input.domain.InputEntity;
 import org.gfinnovation.dealsafe.modules.input.domain.factory.interfaces.InputFactory;
 import org.springframework.stereotype.Component;
 
-import java.util.UUID;
-
 /**
  * Standard entity factory.
  *
@@ -19,9 +17,9 @@ import java.util.UUID;
 
 @Component
 class InputFactoryImpl implements InputFactory {
-    public InputEntity produce(@NotNull UUID user_id, @NotNull UUID company_id, @NotNull String name, @NotNull String json) throws FactoryException {
+    public InputEntity produce(@NotNull String name, @NotNull String json) throws FactoryException {
         try {
-            return new InputEntity(user_id, company_id, name, json);
+            return new InputEntity(name, json);
         } catch (Exception e) {
             throw new FactoryException("Factory: Something went wrong creating an input.", e);
         }

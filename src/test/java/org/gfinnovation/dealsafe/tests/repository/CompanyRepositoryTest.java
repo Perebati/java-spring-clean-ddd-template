@@ -32,7 +32,6 @@ public class CompanyRepositoryTest extends GenericRepositoryTest<CompanyEntity> 
     @Autowired
     private UserBusiness userBusiness;
 
-
     @Override
     protected CompanyEntity createEntity() throws BadRequestException {
         UserEntity userTest = this.userBusiness.create("Taba júnior");

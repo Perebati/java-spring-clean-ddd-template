@@ -26,8 +26,8 @@ public class RootTreeDynamicEntity extends RootTreeEntity {
     private UUID dynamicReference;
 
     @Default
-    public RootTreeDynamicEntity(UUID userId, UUID companyId, String name, UUID dynamicReference) {
-        super(userId, companyId, name);
+    public RootTreeDynamicEntity(String name, UUID dynamicReference) {
+        super(name);
         this.dynamicReference = dynamicReference;
     }
 }

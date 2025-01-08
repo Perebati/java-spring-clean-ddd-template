@@ -60,7 +60,7 @@ class NodeTreeServiceImpl extends GenericServiceImpl implements NodeTreeService 
     public NodeTreeEntity create(String name, Integer sequence, UUID parent_id) throws BusinessException {
         try {
             Object parent = this.rootTreeBusiness.readGenericRoot(parent_id);
-            NodeTreeEntity newNode = this.treeFactory.getNodeTreeFactory().produce(getUserId(), getCompanyId(), name, sequence);
+            NodeTreeEntity newNode = this.treeFactory.getNodeTreeFactory().produce(name, sequence);
             return this.treeRepository.createNode(newNode, parent, parent_id, getRepositoryAuth());
         } catch (BusinessException e) {
             throw e;

@@ -71,7 +71,7 @@ public class ComparisonOperationServiceImpl extends GenericServiceImpl implement
     public ComparisonOperationEntity create(ComparisonTypeEnum type, String jsonPath, String variable, UUID node_id) throws BusinessException, BadRequestException {
         try {
             NodeTreeEntity parent = this.treeService.getNodeTreeBusiness().read(node_id);
-            ComparisonOperationEntity newOperation = this.operationFactory.getComparisonOperationFactory().produce(getUserId(), getCompanyId(), type, jsonPath, variable, node_id);
+            ComparisonOperationEntity newOperation = this.operationFactory.getComparisonOperationFactory().produce(type, jsonPath, variable, node_id);
             return this.operationRepository.getComparisonOperationRepository().createComparison(newOperation, parent, getRepositoryAuth());
         } catch (BadRequestException | BusinessException e) {
             throw e;

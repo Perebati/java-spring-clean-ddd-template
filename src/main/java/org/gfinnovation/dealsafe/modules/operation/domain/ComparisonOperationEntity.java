@@ -10,7 +10,6 @@ import org.gfinnovation.dealsafe.modules.operation.domain.comparison.ComparisonT
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 /**
  * An comparison compares variables (:
@@ -32,23 +31,20 @@ public class ComparisonOperationEntity extends GenericBusinessEntity {
     private Set<ActionOperationEntity> actions = new HashSet<>();
 
     @Default
-    public ComparisonOperationEntity(UUID user_id, UUID company_id, ComparisonTypeEnum comparisonTypeEnum, String jsonPath, Set<String> variables, Set<ActionOperationEntity> actions) {
-        super(user_id, company_id);
+    public ComparisonOperationEntity(ComparisonTypeEnum comparisonTypeEnum, String jsonPath, Set<String> variables, Set<ActionOperationEntity> actions) {
         this.comparisonTypeEnum = comparisonTypeEnum;
         this.jsonVariablePath = jsonPath;
         this.expectedVars = variables;
         this.actions = actions;
     }
 
-    public ComparisonOperationEntity(UUID user_id, UUID company_id, ComparisonTypeEnum comparisonTypeEnum, String jsonPath, Set<String> variables) {
-        super(user_id, company_id);
+    public ComparisonOperationEntity(ComparisonTypeEnum comparisonTypeEnum, String jsonPath, Set<String> variables) {
         this.comparisonTypeEnum = comparisonTypeEnum;
         this.jsonVariablePath = jsonPath;
         this.expectedVars = variables;
     }
 
-    public ComparisonOperationEntity(UUID user_id, UUID company_id, Set<ActionOperationEntity> actions) {
-        super(user_id, company_id);
+    public ComparisonOperationEntity(Set<ActionOperationEntity> actions) {
         this.actions = actions;
     }
 

@@ -9,7 +9,6 @@ import org.gfinnovation.dealsafe._shared.utils.annotations.Default;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 /**
  * It sets off what type of tree will be build using nodes.
@@ -29,15 +28,13 @@ public class RootTreeEntity extends GenericBusinessEntity {
     private Set<NodeTreeEntity> nodes;
 
     @Default
-    public RootTreeEntity(UUID userId, UUID companyId, String name) {
-        super(userId, companyId);
+    public RootTreeEntity(String name) {
         this.name = name;
         this.nodes = new HashSet<>();
     }
 
-    public RootTreeEntity addNode(NodeTreeEntity entity) {
+    public void addNode(NodeTreeEntity entity) {
         this.nodes.add(entity);
         entity.setParent(this.getId(), "ROOT");
-        return this;
     }
 }

@@ -65,8 +65,6 @@ class RootTreeServiceImpl extends GenericServiceImpl implements RootTreeService 
                     .createAsync(
                             treeFactory.getRootTreeFactory()
                                     .produce(
-                                            getUserId(),
-                                            getCompanyId(),
                                             name,
                                             static_input
                                     ), getRepositoryAuth());
@@ -94,8 +92,6 @@ class RootTreeServiceImpl extends GenericServiceImpl implements RootTreeService 
             return this.treeRepository.getRootTreeDynamicRepository()
                     .createAsync(treeFactory.getRootTreeFactory()
                             .produce(
-                                    getUserId(),
-                                    getCompanyId(),
                                     name,
                                     dynamic_input
                             ), getRepositoryAuth());

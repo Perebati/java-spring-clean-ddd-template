@@ -15,5 +15,5 @@ import java.util.UUID;
  */
 
 public interface ComparisonOperationFactory {
-    ComparisonOperationEntity produce(UUID user_id, UUID company_id, ComparisonTypeEnum type, String jsonPath, String variable, UUID node_id) throws FactoryException, BadRequestException;
+    ComparisonOperationEntity produce(ComparisonTypeEnum type, String jsonPath, String variable, UUID node_id) throws FactoryException, BadRequestException;
 }

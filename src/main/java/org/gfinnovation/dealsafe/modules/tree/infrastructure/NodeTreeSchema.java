@@ -21,7 +21,6 @@ import java.util.UUID;
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "tree_root_node")
 public class NodeTreeSchema extends GenericBusinessSchema {
-
     @Column(name = "name", nullable = false)
     private String name;
 

@@ -15,7 +15,7 @@ import java.util.UUID;
  */
 
 public interface RootTreeFactory {
-    RootTreeDynamicEntity produce(UUID user_id, UUID company_id, String name, UUID dynamic_input) throws FactoryException;
+    RootTreeDynamicEntity produce(String name, UUID dynamic_input) throws FactoryException;
 
-    RootTreeStaticEntity produce(UUID user_id, UUID company_id, String name, PredefinedTypeEnum static_input) throws FactoryException;
+    RootTreeStaticEntity produce(String name, PredefinedTypeEnum static_input) throws FactoryException;
 }

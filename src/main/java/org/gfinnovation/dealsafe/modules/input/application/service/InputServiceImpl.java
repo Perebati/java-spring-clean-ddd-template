@@ -1,7 +1,6 @@
 package org.gfinnovation.dealsafe.modules.input.application.service;
 
 import org.gfinnovation.dealsafe._shared.modules.application.GenericServiceImpl;
-import org.gfinnovation.dealsafe._shared.utils.pagination.PageRequestDTO;
 import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
 import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
@@ -9,9 +8,7 @@ import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.In
 import org.gfinnovation.dealsafe.modules.input.domain.InputEntity;
 import org.gfinnovation.dealsafe.modules.input.domain.factory.interfaces.InputFactory;
 import org.gfinnovation.dealsafe.modules.input.domain.repository.InputRepository;
-import org.gfinnovation.dealsafe.modules.tree.domain.NodeTreeEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -59,11 +56,11 @@ class InputServiceImpl extends GenericServiceImpl implements InputService {
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
-
-    @Override
-    public InputEntity create(String name, String json) throws BusinessException {
+    public InputEntity create(
+            String name,
+            String json) throws BusinessException {
         try {
-            return this.inputRepository.createAsync(this.inputFactory.produce(getUserId(), getCompanyId(), name, json), getRepositoryAuth()).join();
+            return this.inputRepository.createSync(this.inputFactory.produce(name, json), getRepositoryAuth());
         } catch (BusinessException e) {
             throw e;
         } catch (Exception e) {
@@ -71,7 +68,6 @@ class InputServiceImpl extends GenericServiceImpl implements InputService {
         }
     }
 
-    @Override
     public InputEntity read(UUID id) throws BusinessException {
         try {
             return this.inputRepository.read(id, getRepositoryAuth());
@@ -82,7 +78,6 @@ class InputServiceImpl extends GenericServiceImpl implements InputService {
         }
     }
 
-    @Override
     public CompletableFuture<InputEntity> updateAsync(InputEntity entity) throws BusinessException {
         try {
             return this.inputRepository.updateAsync(entity, getRepositoryAuth());
@@ -93,7 +88,6 @@ class InputServiceImpl extends GenericServiceImpl implements InputService {
         }
     }
 
-    @Override
     public InputEntity updateSync(InputEntity entity) throws BusinessException {
         try {
             return this.inputRepository.updateSync(entity, getRepositoryAuth());
@@ -104,7 +98,6 @@ class InputServiceImpl extends GenericServiceImpl implements InputService {
         }
     }
 
-    @Override
     public void deleteAsync(UUID id) throws BusinessException {
         try {
             this.inputRepository.deleteAsync(id, getRepositoryAuth());
@@ -115,7 +108,6 @@ class InputServiceImpl extends GenericServiceImpl implements InputService {
         }
     }
 
-    @Override
     public void deleteSync(UUID id) throws BusinessException {
         try {
             this.inputRepository.deleteSync(id, getRepositoryAuth());
@@ -126,7 +118,6 @@ class InputServiceImpl extends GenericServiceImpl implements InputService {
         }
     }
 
-    @Override
     public Optional<List<InputEntity>> readAll() throws BusinessException {
         try {
             return this.inputRepository.findAll(getRepositoryAuth());
@@ -137,7 +128,6 @@ class InputServiceImpl extends GenericServiceImpl implements InputService {
         }
     }
 
-    @Override
     public Optional<List<InputEntity>> readAllByIds(List<UUID> ids) throws BusinessException {
         try {
             return this.inputRepository.findAllByIds(ids, getRepositoryAuth());
@@ -148,7 +138,6 @@ class InputServiceImpl extends GenericServiceImpl implements InputService {
         }
     }
 
-    @Override
     public void check(UUID id) throws BusinessException {
         try {
             this.inputRepository.check(id, getRepositoryAuth());
@@ -159,7 +148,6 @@ class InputServiceImpl extends GenericServiceImpl implements InputService {
         }
     }
 
-    @Override
     public void checkAll(Set<UUID> ids) throws BusinessException {
         try {
             this.inputRepository.checkAll(ids, getRepositoryAuth());
@@ -167,16 +155,6 @@ class InputServiceImpl extends GenericServiceImpl implements InputService {
             throw e;
         } catch (Exception e) {
             throw new BusinessException("Business: Something went wrong checking all inputs by ids.", e);
-        }
-    }
-
-    public Page<InputEntity> readAllPaginated(PageRequestDTO<NodeTreeEntity.SortField> pageRequestDTO) throws BusinessException {
-        try {
-            return this.inputRepository.findAllPaginated(pageRequestDTO, getRepositoryAuth());
-        } catch (BusinessException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new BusinessException("Business: Something went wrong reading all inputs paginated.", e);
         }
     }
 }

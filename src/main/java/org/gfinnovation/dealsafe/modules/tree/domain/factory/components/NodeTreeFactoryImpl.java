@@ -6,8 +6,6 @@ import org.gfinnovation.dealsafe.modules.tree.domain.NodeTreeEntity;
 import org.gfinnovation.dealsafe.modules.tree.domain.factory.components.interfaces.NodeTreeFactory;
 import org.springframework.stereotype.Component;
 
-import java.util.UUID;
-
 /**
  * Handles the creation and validation of Nodes.
  *
@@ -23,19 +21,17 @@ class NodeTreeFactoryImpl implements NodeTreeFactory {
     /**
      * Validates business information and creates a NodeTreeEntity.
      *
-     * @param user_id    UserId.
-     * @param company_id CompanyID.
-     * @param name       Name of the node.
-     * @param sequence   Sequence position of given node.
+     * @param name     Name of the node.
+     * @param sequence Sequence position of given node.
      * @return NodeTreeEntity
      * @throws FactoryException    Thrown when an error occurs on factory level.
      * @throws ValidationException Thrown when an error occurs on factory level.
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
-    public NodeTreeEntity produce(UUID user_id, UUID company_id, String name, Integer sequence) throws FactoryException {
+    public NodeTreeEntity produce(String name, Integer sequence) throws FactoryException {
         try {
-            return new NodeTreeEntity(user_id, company_id, name, sequence);
+            return new NodeTreeEntity(name, sequence);
         } catch (Exception e) {
             throw new FactoryException("Factory: Something went wrong creating a node.", e);
         }

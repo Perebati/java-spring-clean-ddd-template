@@ -30,9 +30,9 @@ public class GenericBusinessJpaRepositoryImpl<S extends GenericBusinessSchema> {
     /**
      * Finds an entity by its id, company id and user id.
      *
-     * @param id The id of the entity.
-     * @param companyId The id of the company.
-     * @param userId The id of the user.
+     * @param id          The id of the entity.
+     * @param companyId   The id of the company.
+     * @param userId      The id of the user.
      * @param entityClass The class of the entity.
      * @return An optional of the entity.
      * @author Lucas Batista Pereira
@@ -42,8 +42,7 @@ public class GenericBusinessJpaRepositoryImpl<S extends GenericBusinessSchema> {
             UUID id,
             UUID companyId,
             UUID userId,
-            Class<S> entityClass)
-    {
+            Class<S> entityClass) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<S> query = cb.createQuery(entityClass);
         Root<S> root = query.from(entityClass);
@@ -61,8 +60,8 @@ public class GenericBusinessJpaRepositoryImpl<S extends GenericBusinessSchema> {
     /**
      * Finds all entities by user id, company id and entity class.
      *
-     * @param userId The id of the user.
-     * @param companyId The id of the company.
+     * @param userId      The id of the user.
+     * @param companyId   The id of the company.
      * @param entityClass The class of the entity.
      * @return A list of entities.
      * @author Lucas Batista Pereira
@@ -71,8 +70,7 @@ public class GenericBusinessJpaRepositoryImpl<S extends GenericBusinessSchema> {
     public List<S> findAll(
             UUID userId,
             UUID companyId,
-            Class<S> entityClass)
-    {
+            Class<S> entityClass) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<S> query = cb.createQuery(entityClass);
         Root<S> root = query.from(entityClass);
@@ -89,9 +87,9 @@ public class GenericBusinessJpaRepositoryImpl<S extends GenericBusinessSchema> {
     /**
      * Finds all entities by a list of ids. Also including user id, company id and entity class.
      *
-     * @param userId The id of the user.
-     * @param companyId The id of the company.
-     * @param ids The list of ids.
+     * @param userId      The id of the user.
+     * @param companyId   The id of the company.
+     * @param ids         The list of ids.
      * @param entityClass The class of the entity.
      * @return A list of entities.
      * @author Lucas Batista Pereira
@@ -123,9 +121,9 @@ public class GenericBusinessJpaRepositoryImpl<S extends GenericBusinessSchema> {
     /**
      * Finds all entities by user id, company id and entity class. Paginated.
      *
-     * @param userId The id of the user.
-     * @param companyId The id of the company.
-     * @param pageable The page request.
+     * @param userId      The id of the user.
+     * @param companyId   The id of the company.
+     * @param pageable    The page request.
      * @param entityClass The class of the entity.
      * @return A page of entities.
      * @author Lucas Batista Pereira
@@ -135,8 +133,7 @@ public class GenericBusinessJpaRepositoryImpl<S extends GenericBusinessSchema> {
             UUID userId,
             UUID companyId,
             PageRequest pageable,
-            Class<S> entityClass)
-    {
+            Class<S> entityClass) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<S> query = cb.createQuery(entityClass);
         Root<S> root = query.from(entityClass);
@@ -151,8 +148,8 @@ public class GenericBusinessJpaRepositoryImpl<S extends GenericBusinessSchema> {
         List<Order> orders = new ArrayList<>();
         for (Sort.Order sortOrder : pageable.getSort()) {
             Order order = sortOrder.isAscending()
-                ? cb.asc(root.get(sortOrder.getProperty()))
-                : cb.desc(root.get(sortOrder.getProperty()));
+                    ? cb.asc(root.get(sortOrder.getProperty()))
+                    : cb.desc(root.get(sortOrder.getProperty()));
             orders.add(order);
         }
         query.orderBy(orders);

@@ -361,7 +361,7 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
      * @since 06/11/2024
      */
     public Page<E> findAllPaginated(PageRequest pageRequest, @NotNull RepositoryAuth auth) throws RepositoryException {
-        try{
+        try {
             return this.findAllPaginated(auth.user_id(), auth.company_id(), pageRequest, entityClass)
                     .map(mapper::toEntity);
         } catch (Exception e) {
