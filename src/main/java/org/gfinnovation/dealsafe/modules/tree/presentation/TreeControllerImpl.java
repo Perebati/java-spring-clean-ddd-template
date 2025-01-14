@@ -2,9 +2,9 @@ package org.gfinnovation.dealsafe.modules.tree.presentation;
 
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.DomainException;
 import org.gfinnovation.dealsafe.modules.tree.application.service.interfaces.TreeService;
-import org.gfinnovation.dealsafe.modules.tree.domain.NodeTreeEntity;
-import org.gfinnovation.dealsafe.modules.tree.domain.valueobjects.RootTreeDynamicEntity;
-import org.gfinnovation.dealsafe.modules.tree.domain.valueobjects.RootTreeStaticEntity;
+import org.gfinnovation.dealsafe.modules.tree.domain.TreeNode;
+import org.gfinnovation.dealsafe.modules.tree.domain.valueobjects.TreeDynamicRoot;
+import org.gfinnovation.dealsafe.modules.tree.domain.valueobjects.TreeStaticRoot;
 import org.gfinnovation.dealsafe.modules.tree.presentation.dto.request.NodeCreationDTO;
 import org.gfinnovation.dealsafe.modules.tree.presentation.dto.request.RootCreationDynamicInputDTO;
 import org.gfinnovation.dealsafe.modules.tree.presentation.dto.request.RootCreationPredefinedInputDTO;
@@ -32,7 +32,7 @@ class TreeControllerImpl implements TreeController {
     }
 
     @Override
-    public ResponseEntity<CompletableFuture<RootTreeStaticEntity>> createRootPredefined(@RequestBody RootCreationPredefinedInputDTO request) throws DomainException {
+    public ResponseEntity<CompletableFuture<TreeStaticRoot>> createRootPredefined(@RequestBody RootCreationPredefinedInputDTO request) throws DomainException {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(
                     this.treeService.getRootTreeBusiness().create(
@@ -47,7 +47,7 @@ class TreeControllerImpl implements TreeController {
     }
 
     @Override
-    public ResponseEntity<CompletableFuture<RootTreeDynamicEntity>> createRootPredefined(RootCreationDynamicInputDTO request) throws DomainException {
+    public ResponseEntity<CompletableFuture<TreeDynamicRoot>> createRootPredefined(RootCreationDynamicInputDTO request) throws DomainException {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(
                     this.treeService.getRootTreeBusiness().create(
@@ -62,7 +62,7 @@ class TreeControllerImpl implements TreeController {
     }
 
     @Override
-    public ResponseEntity<NodeTreeEntity> createNode(NodeCreationDTO request) throws DomainException {
+    public ResponseEntity<TreeNode> createNode(NodeCreationDTO request) throws DomainException {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(
                     this.treeService.getNodeTreeBusiness().create(

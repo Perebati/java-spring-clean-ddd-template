@@ -51,7 +51,11 @@ public class Engine {
      * @since 30/10/2024
      */
 
-    public boolean bfsValidation(JsonNode root, JsonNode objectToValidate) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException {
+    public boolean bfsValidation(
+            JsonNode root,
+            JsonNode objectToValidate)
+            throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException
+    {
         Queue<JsonNode> queue = new LinkedList<>();
 
         this.neo4jTest.storeUserInput(objectToValidate.toString());

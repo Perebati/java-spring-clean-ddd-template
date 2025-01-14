@@ -2,15 +2,16 @@ package org.gfinnovation.dealsafe.tests.repository;
 
 import jakarta.annotation.PostConstruct;
 import org.apache.coyote.BadRequestException;
-import org.gfinnovation.dealsafe._shared.modules.domain.repository.GenericBusinessRepository;
 import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
 import org.gfinnovation.dealsafe.authentication.company.entity.CompanyEntity;
 import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
 import org.gfinnovation.dealsafe.authentication.user.entity.UserEntity;
 import org.gfinnovation.dealsafe.configuration.security.RepositoryAuth;
-import org.gfinnovation.dealsafe.modules.tree.domain.NodeTreeEntity;
+import org.gfinnovation.dealsafe.modules.input.domain.valueobjects.predefined.enums.PredefinedTypeEnum;
 import org.gfinnovation.dealsafe.modules.tree.domain.factory.interfaces.TreeFactory;
 import org.gfinnovation.dealsafe.modules.tree.domain.repository.TreeRepository;
+import org.gfinnovation.dealsafe.modules.tree.domain.repository.components.TreeStaticRootRepository;
+import org.gfinnovation.dealsafe.modules.tree.domain.valueobjects.TreeStaticRoot;
 import org.gfinnovation.dealsafe.tests._shared.GenericBusinessRepositoryTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -23,12 +24,12 @@ import java.util.UUID;
 /**
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
- * @class NodeTreeRepositoryTest
+ * @class RootTreeRepositoryTest
  * @since 30/10/2024
  */
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
-public class NodeTreeRepositoryTest extends GenericBusinessRepositoryTest<NodeTreeEntity> {
+public class TreeStaticRootRepositoryTest extends GenericBusinessRepositoryTest<TreeStaticRoot> {
     @Autowired
     private UserBusiness userBusiness;
 
@@ -36,12 +37,13 @@ public class NodeTreeRepositoryTest extends GenericBusinessRepositoryTest<NodeTr
     private CompanyBusiness companyBusiness;
 
     @Autowired
-    private TreeRepository treeRepository;
-
-    @Autowired
     private TreeFactory treeFactory;
 
+    @Autowired
+    private TreeRepository treeRepository;
+
     private Map.Entry<UserEntity, CompanyEntity> auth;
+
 
     @PostConstruct
     public void init() throws BadRequestException {
@@ -51,17 +53,19 @@ public class NodeTreeRepositoryTest extends GenericBusinessRepositoryTest<NodeTr
     }
 
     @Override
-    protected NodeTreeEntity createEntity() {
-        return this.treeFactory.getNodeTreeFactory().produce("Teste", 0);
-    }
-
-    @Override
-    protected GenericBusinessRepository<NodeTreeEntity> createRepository() {
-        return this.treeRepository.getNodeTreeRepository();
-    }
-
-    @Override
     protected RepositoryAuth createRepositoryAuth() {
-        return new RepositoryAuth(auth.getKey().getId(), auth.getValue().getId(), UUID.randomUUID());
+        return new RepositoryAuth(auth.getValue().getId(), auth.getValue().getId(), UUID.randomUUID());
+    }
+
+
+    @Override
+    protected TreeStaticRoot createEntity() {
+        String name = "Teste";
+        return this.treeFactory.getTreeRootFactory().produce(name, PredefinedTypeEnum.TESTE);
+    }
+
+    @Override
+    protected TreeStaticRootRepository createRepository() {
+        return this.treeRepository.getTreeStaticRootRepository();
     }
 }

@@ -9,7 +9,7 @@ import org.gfinnovation.dealsafe.modules.operation.domain.ComparisonOperationEnt
 import org.gfinnovation.dealsafe.modules.operation.domain.repository.components.ComparisonOperationRepository;
 import org.gfinnovation.dealsafe.modules.operation.infrastructure.ComparisonOperationSchema;
 import org.gfinnovation.dealsafe.modules.operation.infrastructure.mapper.ComparisonOperationMapper;
-import org.gfinnovation.dealsafe.modules.tree.domain.NodeTreeEntity;
+import org.gfinnovation.dealsafe.modules.tree.domain.TreeNode;
 import org.gfinnovation.dealsafe.modules.tree.domain.repository.TreeRepository;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Component;
@@ -37,10 +37,10 @@ class ComparisonOperationRepositoryImpl
     }
 
     @Transactional
-    public ComparisonOperationEntity createComparison(ComparisonOperationEntity newOperation, NodeTreeEntity parent, RepositoryAuth auth) throws RepositoryException {
+    public ComparisonOperationEntity createComparison(ComparisonOperationEntity newOperation, TreeNode parent, RepositoryAuth auth) throws RepositoryException {
         try {
             newOperation = this.createSync(newOperation, auth);
-            this.treeRepository.getNodeTreeRepository().updateSync(parent.addOperation(newOperation), auth);
+            this.treeRepository.getTreeNodeRepository().updateSync(parent.addOperation(newOperation), auth);
             return this.read(newOperation.getId(), auth);
         } catch (Exception e) {
             throw new RepositoryException("Something went wrong on a transaction to save a comparison operation.");

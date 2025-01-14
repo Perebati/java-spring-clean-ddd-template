@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.gfinnovation.dealsafe._shared.utils.annotations.Default;
-import org.gfinnovation.dealsafe.modules.tree.domain.RootTreeEntity;
+import org.gfinnovation.dealsafe.modules.tree.domain.TreeRoot;
 
 import java.util.UUID;
 
@@ -14,7 +14,7 @@ import java.util.UUID;
  *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
- * @class RootTreeDynamicEntity
+ * @class TreeDynamicRoot
  * @since 30/10/2024
  */
 
@@ -22,11 +22,11 @@ import java.util.UUID;
 @Setter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class RootTreeDynamicEntity extends RootTreeEntity {
+public class TreeDynamicRoot extends TreeRoot {
     private UUID dynamicReference;
 
     @Default
-    public RootTreeDynamicEntity(String name, UUID dynamicReference) {
+    public TreeDynamicRoot(String name, UUID dynamicReference) {
         super(name);
         this.dynamicReference = dynamicReference;
     }

@@ -2,7 +2,7 @@ package org.gfinnovation.dealsafe.modules.tree.application.service.components.in
 
 import org.gfinnovation.dealsafe._shared.modules.application.interfaces.GenericService;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
-import org.gfinnovation.dealsafe.modules.tree.domain.NodeTreeEntity;
+import org.gfinnovation.dealsafe.modules.tree.domain.TreeNode;
 
 import java.util.UUID;
 
@@ -13,6 +13,6 @@ import java.util.UUID;
  * @since 30/10/2024
  */
 
-public interface NodeTreeService extends GenericService<NodeTreeEntity> {
-    NodeTreeEntity create(String name, Integer sequence, UUID parent_id) throws BusinessException;
+public interface NodeTreeService extends GenericService<TreeNode> {
+    TreeNode create(String name, Integer sequence, UUID parent_id) throws BusinessException;
 }

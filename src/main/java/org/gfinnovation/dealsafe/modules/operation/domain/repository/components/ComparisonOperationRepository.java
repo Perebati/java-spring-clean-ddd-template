@@ -4,7 +4,7 @@ import org.gfinnovation.dealsafe._shared.modules.domain.repository.GenericBusine
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.configuration.security.RepositoryAuth;
 import org.gfinnovation.dealsafe.modules.operation.domain.ComparisonOperationEntity;
-import org.gfinnovation.dealsafe.modules.tree.domain.NodeTreeEntity;
+import org.gfinnovation.dealsafe.modules.tree.domain.TreeNode;
 
 /**
  * @author Lucas Batista Pereira
@@ -13,5 +13,5 @@ import org.gfinnovation.dealsafe.modules.tree.domain.NodeTreeEntity;
  * @since 30/10/2024
  */
 public interface ComparisonOperationRepository extends GenericBusinessRepository<ComparisonOperationEntity> {
-    ComparisonOperationEntity createComparison(ComparisonOperationEntity newOperation, NodeTreeEntity parent, RepositoryAuth auth) throws RepositoryException;
+    ComparisonOperationEntity createComparison(ComparisonOperationEntity newOperation, TreeNode parent, RepositoryAuth auth) throws RepositoryException;
 }

@@ -2,8 +2,8 @@ package org.gfinnovation.dealsafe.modules.tree.domain.factory.components;
 
 import jakarta.validation.ValidationException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
-import org.gfinnovation.dealsafe.modules.tree.domain.NodeTreeEntity;
-import org.gfinnovation.dealsafe.modules.tree.domain.factory.components.interfaces.NodeTreeFactory;
+import org.gfinnovation.dealsafe.modules.tree.domain.TreeNode;
+import org.gfinnovation.dealsafe.modules.tree.domain.factory.components.interfaces.TreeNodeFactory;
 import org.springframework.stereotype.Component;
 
 /**
@@ -16,22 +16,22 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-class NodeTreeFactoryImpl implements NodeTreeFactory {
+class TreeNodeFactoryImpl implements TreeNodeFactory {
 
     /**
-     * Validates business information and creates a NodeTreeEntity.
+     * Validates business information and creates a TreeNode.
      *
      * @param name     Name of the node.
      * @param sequence Sequence position of given node.
-     * @return NodeTreeEntity
+     * @return TreeNode
      * @throws FactoryException    Thrown when an error occurs on factory level.
      * @throws ValidationException Thrown when an error occurs on factory level.
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
-    public NodeTreeEntity produce(String name, Integer sequence) throws FactoryException {
+    public TreeNode produce(String name, Integer sequence) throws FactoryException {
         try {
-            return new NodeTreeEntity(name, sequence);
+            return new TreeNode(name, sequence);
         } catch (Exception e) {
             throw new FactoryException("Factory: Something went wrong creating a node.", e);
         }

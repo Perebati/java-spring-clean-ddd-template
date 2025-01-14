@@ -1,14 +1,14 @@
 package org.gfinnovation.dealsafe.modules.tree.domain.repository.components;
 
 import org.gfinnovation.dealsafe._shared.modules.domain.repository.GenericBusinessRepository;
-import org.gfinnovation.dealsafe.modules.tree.domain.valueobjects.RootTreeDynamicEntity;
+import org.gfinnovation.dealsafe.modules.tree.domain.valueobjects.TreeDynamicRoot;
 
 /**
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
- * @interface RootTreeDynamicRepository
+ * @interface TreeDynamicRootRepository
  * @since 30/10/2024
  */
 
-public interface RootTreeDynamicRepository extends GenericBusinessRepository<RootTreeDynamicEntity> {
+public interface TreeDynamicRootRepository extends GenericBusinessRepository<TreeDynamicRoot> {
 }

@@ -2,8 +2,8 @@ package org.gfinnovation.dealsafe.modules.tree.domain.factory.components.interfa
 
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
 import org.gfinnovation.dealsafe.modules.input.domain.valueobjects.predefined.enums.PredefinedTypeEnum;
-import org.gfinnovation.dealsafe.modules.tree.domain.valueobjects.RootTreeDynamicEntity;
-import org.gfinnovation.dealsafe.modules.tree.domain.valueobjects.RootTreeStaticEntity;
+import org.gfinnovation.dealsafe.modules.tree.domain.valueobjects.TreeDynamicRoot;
+import org.gfinnovation.dealsafe.modules.tree.domain.valueobjects.TreeStaticRoot;
 
 import java.util.UUID;
 
@@ -14,8 +14,8 @@ import java.util.UUID;
  * @since 30/10/2024
  */
 
-public interface RootTreeFactory {
-    RootTreeDynamicEntity produce(String name, UUID dynamic_input) throws FactoryException;
+public interface TreeRootFactory {
+    TreeDynamicRoot produce(String name, UUID dynamic_input) throws FactoryException;
 
-    RootTreeStaticEntity produce(String name, PredefinedTypeEnum static_input) throws FactoryException;
+    TreeStaticRoot produce(String name, PredefinedTypeEnum static_input) throws FactoryException;
 }

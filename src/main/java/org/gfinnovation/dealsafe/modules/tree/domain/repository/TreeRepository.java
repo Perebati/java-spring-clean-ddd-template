@@ -3,12 +3,12 @@ package org.gfinnovation.dealsafe.modules.tree.domain.repository;
 import jakarta.validation.constraints.NotNull;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.configuration.security.RepositoryAuth;
-import org.gfinnovation.dealsafe.modules.tree.domain.NodeTreeEntity;
-import org.gfinnovation.dealsafe.modules.tree.domain.RootTreeEntity;
-import org.gfinnovation.dealsafe.modules.tree.domain.repository.components.NodeTreeRepository;
-import org.gfinnovation.dealsafe.modules.tree.domain.repository.components.RootTreeDynamicRepository;
-import org.gfinnovation.dealsafe.modules.tree.domain.repository.components.RootTreeRepository;
-import org.gfinnovation.dealsafe.modules.tree.domain.repository.components.RootTreeStaticRepository;
+import org.gfinnovation.dealsafe.modules.tree.domain.TreeNode;
+import org.gfinnovation.dealsafe.modules.tree.domain.TreeRoot;
+import org.gfinnovation.dealsafe.modules.tree.domain.repository.components.TreeDynamicRootRepository;
+import org.gfinnovation.dealsafe.modules.tree.domain.repository.components.TreeNodeRepository;
+import org.gfinnovation.dealsafe.modules.tree.domain.repository.components.TreeRootRepository;
+import org.gfinnovation.dealsafe.modules.tree.domain.repository.components.TreeStaticRootRepository;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -24,19 +24,19 @@ import java.util.UUID;
 
 public interface TreeRepository {
 
-    NodeTreeRepository getNodeTreeRepository();
+    TreeNodeRepository getTreeNodeRepository();
 
-    RootTreeDynamicRepository getRootTreeDynamicRepository();
+    TreeDynamicRootRepository getTreeDynamicRootRepository();
 
-    RootTreeRepository getRootTreeRepository();
+    TreeRootRepository getTreeRootRepository();
 
-    RootTreeStaticRepository getRootTreeStaticRepository();
+    TreeStaticRootRepository getTreeStaticRootRepository();
 
-    NodeTreeEntity createNode(@NotNull NodeTreeEntity newNode, @NotNull Object parent, @NotNull UUID parent_id, @NotNull RepositoryAuth auth) throws RepositoryException;
+    TreeNode createNode(@NotNull TreeNode newNode, @NotNull Object parent, @NotNull UUID parent_id, @NotNull RepositoryAuth auth) throws RepositoryException;
 
     Object readGenericRoot(@NotNull UUID id, @NotNull RepositoryAuth auth) throws RepositoryException;
 
-    RootTreeEntity updateGenericRootSync(@NotNull RootTreeEntity entity, @NotNull RepositoryAuth auth) throws RepositoryException, IllegalArgumentException;
+    TreeRoot updateGenericRootSync(@NotNull TreeRoot entity, @NotNull RepositoryAuth auth) throws RepositoryException, IllegalArgumentException;
 
     Optional<UUID> findRootIdByNodeId(UUID nodeId);
 }

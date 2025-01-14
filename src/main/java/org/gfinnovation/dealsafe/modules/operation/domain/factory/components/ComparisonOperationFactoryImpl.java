@@ -11,8 +11,8 @@ import org.gfinnovation.dealsafe.modules.operation.domain.ComparisonOperationEnt
 import org.gfinnovation.dealsafe.modules.operation.domain.comparison.ComparisonTypeEnum;
 import org.gfinnovation.dealsafe.modules.operation.domain.factory.components.interfaces.ComparisonOperationFactory;
 import org.gfinnovation.dealsafe.modules.tree.application.service.interfaces.TreeService;
-import org.gfinnovation.dealsafe.modules.tree.domain.valueobjects.RootTreeDynamicEntity;
-import org.gfinnovation.dealsafe.modules.tree.domain.valueobjects.RootTreeStaticEntity;
+import org.gfinnovation.dealsafe.modules.tree.domain.valueobjects.TreeDynamicRoot;
+import org.gfinnovation.dealsafe.modules.tree.domain.valueobjects.TreeStaticRoot;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;
@@ -64,15 +64,15 @@ public class ComparisonOperationFactoryImpl implements ComparisonOperationFactor
                             .getRootTreeBusiness()
                             .findRootIdByNodeId(node_id)
                             .orElseThrow(() -> new RepositoryEntityNotFoundException("Factory: Root parent not found!")));
-            if (rootTreeEntity instanceof RootTreeStaticEntity) {
-                PredefinedTypeEnum predefinedTypeEnum = ((RootTreeStaticEntity) rootTreeEntity).getType();
+            if (rootTreeEntity instanceof TreeStaticRoot) {
+                PredefinedTypeEnum predefinedTypeEnum = ((TreeStaticRoot) rootTreeEntity).getType();
                 try {
                     predefinedTypeEnum.validateJsonPath(predefinedTypeEnum, jsonPath);
                 } catch (NoSuchFieldException e) {
                     throw new BadRequestException("Factory: field not found: " + e.getMessage());
                 }
-            } else if (rootTreeEntity instanceof RootTreeDynamicEntity) {
-                InputEntity inputEntity = this.inputService.read(((RootTreeDynamicEntity) rootTreeEntity).getDynamicReference());
+            } else if (rootTreeEntity instanceof TreeDynamicRoot) {
+                InputEntity inputEntity = this.inputService.read(((TreeDynamicRoot) rootTreeEntity).getDynamicReference());
                 inputEntity.validateJsonPathAndType(jsonPath, variable);
             }
 

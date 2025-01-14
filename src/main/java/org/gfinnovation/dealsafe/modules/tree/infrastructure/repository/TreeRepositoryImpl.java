@@ -11,15 +11,15 @@ import org.gfinnovation.dealsafe.configuration.exception.models.layered.Business
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryEntityNotFoundException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.configuration.security.RepositoryAuth;
-import org.gfinnovation.dealsafe.modules.tree.domain.NodeTreeEntity;
-import org.gfinnovation.dealsafe.modules.tree.domain.RootTreeEntity;
+import org.gfinnovation.dealsafe.modules.tree.domain.TreeNode;
+import org.gfinnovation.dealsafe.modules.tree.domain.TreeRoot;
 import org.gfinnovation.dealsafe.modules.tree.domain.repository.TreeRepository;
-import org.gfinnovation.dealsafe.modules.tree.domain.repository.components.NodeTreeRepository;
-import org.gfinnovation.dealsafe.modules.tree.domain.repository.components.RootTreeDynamicRepository;
-import org.gfinnovation.dealsafe.modules.tree.domain.repository.components.RootTreeRepository;
-import org.gfinnovation.dealsafe.modules.tree.domain.repository.components.RootTreeStaticRepository;
-import org.gfinnovation.dealsafe.modules.tree.domain.valueobjects.RootTreeDynamicEntity;
-import org.gfinnovation.dealsafe.modules.tree.domain.valueobjects.RootTreeStaticEntity;
+import org.gfinnovation.dealsafe.modules.tree.domain.repository.components.TreeDynamicRootRepository;
+import org.gfinnovation.dealsafe.modules.tree.domain.repository.components.TreeNodeRepository;
+import org.gfinnovation.dealsafe.modules.tree.domain.repository.components.TreeRootRepository;
+import org.gfinnovation.dealsafe.modules.tree.domain.repository.components.TreeStaticRootRepository;
+import org.gfinnovation.dealsafe.modules.tree.domain.valueobjects.TreeDynamicRoot;
+import org.gfinnovation.dealsafe.modules.tree.domain.valueobjects.TreeStaticRoot;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -40,24 +40,24 @@ import java.util.UUID;
 @Repository
 class TreeRepositoryImpl implements TreeRepository {
 
-    private final NodeTreeRepository nodeTreeRepository;
-    private final RootTreeDynamicRepository rootTreeDynamicRepository;
-    private final RootTreeRepository rootTreeRepository;
-    private final RootTreeStaticRepository rootTreeStaticRepository;
+    private final TreeNodeRepository treeNodeRepository;
+    private final TreeDynamicRootRepository treeDynamicRootRepository;
+    private final TreeRootRepository treeRootRepository;
+    private final TreeStaticRootRepository treeStaticRootRepository;
 
     @PersistenceContext
     private EntityManager entityManager;
 
     @Autowired
     TreeRepositoryImpl(
-            NodeTreeRepository nodeTreeRepository,
-            RootTreeDynamicRepository rootTreeDynamicRepository,
-            RootTreeRepository rootTreeRepository,
-            RootTreeStaticRepository rootTreeStaticRepository) {
-        this.nodeTreeRepository = nodeTreeRepository;
-        this.rootTreeDynamicRepository = rootTreeDynamicRepository;
-        this.rootTreeRepository = rootTreeRepository;
-        this.rootTreeStaticRepository = rootTreeStaticRepository;
+            TreeNodeRepository treeNodeRepository,
+            TreeDynamicRootRepository treeDynamicRootRepository,
+            TreeRootRepository treeRootRepository,
+            TreeStaticRootRepository treeStaticRootRepository) {
+        this.treeNodeRepository = treeNodeRepository;
+        this.treeDynamicRootRepository = treeDynamicRootRepository;
+        this.treeRootRepository = treeRootRepository;
+        this.treeStaticRootRepository = treeStaticRootRepository;
     }
 
     /**
@@ -66,32 +66,32 @@ class TreeRepositoryImpl implements TreeRepository {
      * @param newNode   New entity to be saved, mede by factory.
      * @param parent    Parent of given newNode, can be either a root or a node.
      * @param parent_id ParentId of given newNode
-     * @return NodeTreeEntity
+     * @return TreeNode
      * @throws RepositoryException Thrown when an error occur on Repository Level
      * @author Lucas Batista Pereira
      * @since 08/11/2024
      */
     @Transactional
     @Override
-    public NodeTreeEntity createNode(@NotNull NodeTreeEntity newNode, @NotNull Object parent, @NotNull UUID parent_id, @NotNull RepositoryAuth auth) throws RepositoryException {
+    public TreeNode createNode(@NotNull TreeNode newNode, @NotNull Object parent, @NotNull UUID parent_id, @NotNull RepositoryAuth auth) throws RepositoryException {
         try {
-            if (parent instanceof RootTreeStaticEntity) {
-                RootTreeStaticEntity parent_root = this.rootTreeStaticRepository.read(parent_id, auth);
-                NodeTreeEntity createdNodeEntity = this.nodeTreeRepository.createSync(newNode, auth);
+            if (parent instanceof TreeStaticRoot) {
+                TreeStaticRoot parent_root = this.treeStaticRootRepository.read(parent_id, auth);
+                TreeNode createdNodeEntity = this.treeNodeRepository.createSync(newNode, auth);
                 parent_root.addNode(createdNodeEntity);
                 this.updateGenericRootSync(parent_root, auth);
-                return this.nodeTreeRepository.read(createdNodeEntity.getId(), auth);
-            } else if (parent instanceof RootTreeDynamicEntity) {
-                RootTreeDynamicEntity parent_root = this.rootTreeDynamicRepository.read(parent_id, auth);
-                NodeTreeEntity createdNodeEntity = this.nodeTreeRepository.createSync(newNode, auth);
+                return this.treeNodeRepository.read(createdNodeEntity.getId(), auth);
+            } else if (parent instanceof TreeDynamicRoot) {
+                TreeDynamicRoot parent_root = this.treeDynamicRootRepository.read(parent_id, auth);
+                TreeNode createdNodeEntity = this.treeNodeRepository.createSync(newNode, auth);
                 parent_root.addNode(createdNodeEntity);
                 this.updateGenericRootSync(parent_root, auth);
-                return this.nodeTreeRepository.read(createdNodeEntity.getId(), auth);
+                return this.treeNodeRepository.read(createdNodeEntity.getId(), auth);
             } else {
-                NodeTreeEntity parent_node = this.nodeTreeRepository.read(parent_id, auth);
-                NodeTreeEntity createdNodeEntity = this.nodeTreeRepository.createSync(newNode, auth);
-                this.nodeTreeRepository.updateSync(parent_node.addChild(createdNodeEntity), auth);
-                return this.nodeTreeRepository.read(createdNodeEntity.getId(), auth);
+                TreeNode parent_node = this.treeNodeRepository.read(parent_id, auth);
+                TreeNode createdNodeEntity = this.treeNodeRepository.createSync(newNode, auth);
+                this.treeNodeRepository.updateSync(parent_node.addChild(createdNodeEntity), auth);
+                return this.treeNodeRepository.read(createdNodeEntity.getId(), auth);
             }
         } catch (Exception e) {
             throw new RepositoryException("Something went wrong creating a new node.", e);
@@ -109,10 +109,10 @@ class TreeRepositoryImpl implements TreeRepository {
     @Override
     public Object readGenericRoot(@NotNull UUID id, @NotNull RepositoryAuth auth) throws RepositoryException {
         try {
-            return this.rootTreeStaticRepository.read(id, auth);
+            return this.treeStaticRootRepository.read(id, auth);
         } catch (RepositoryEntityNotFoundException e1) {
             try {
-                return this.rootTreeDynamicRepository.read(id, auth);
+                return this.treeDynamicRootRepository.read(id, auth);
             } catch (RepositoryEntityNotFoundException e2) {
                 return Optional.empty();
             }
@@ -122,17 +122,17 @@ class TreeRepositoryImpl implements TreeRepository {
     }
 
     @Override
-    public RootTreeEntity updateGenericRootSync(@NotNull RootTreeEntity entity, @NotNull RepositoryAuth auth) throws RepositoryException, IllegalArgumentException {
+    public TreeRoot updateGenericRootSync(@NotNull TreeRoot entity, @NotNull RepositoryAuth auth) throws RepositoryException, IllegalArgumentException {
         try {
-            if (entity instanceof RootTreeDynamicEntity dynamicRoot) {
-                return this.rootTreeDynamicRepository.updateSync(dynamicRoot, auth);
-            } else if (entity instanceof RootTreeStaticEntity staticRoot) {
-                return this.rootTreeStaticRepository.updateSync(staticRoot, auth);
+            if (entity instanceof TreeDynamicRoot dynamicRoot) {
+                return this.treeDynamicRootRepository.updateSync(dynamicRoot, auth);
+            } else if (entity instanceof TreeStaticRoot staticRoot) {
+                return this.treeStaticRootRepository.updateSync(staticRoot, auth);
             } else {
-                throw new IllegalArgumentException("Unexpected RootTreeEntity type: " + entity.getClass().getName());
+                throw new IllegalArgumentException("Unexpected TreeRoot type: " + entity.getClass().getName());
             }
         } catch (Exception e) {
-            throw new BusinessException("Unexpected error during update of RootTreeEntity. ERROR_CODE: PATCH-01", e);
+            throw new BusinessException("Unexpected error during update of TreeRoot. ERROR_CODE: PATCH-01", e);
         }
     }
 

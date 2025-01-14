@@ -8,17 +8,17 @@ import org.gfinnovation.dealsafe.modules.input.domain.valueobjects.predefined.en
 /**
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
- * @class RootTreeStaticSchema
+ * @class TreeStaticRootSchema
  * @since 30/10/2024
  */
 
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
-@DiscriminatorValue(RootTreeSchema.DISCRIMINATOR_STATIC)
+@DiscriminatorValue(TreeRootSchema.DISCRIMINATOR_STATIC)
 @PrimaryKeyJoinColumn(name = "id", foreignKey = @ForeignKey(name = "fk_static_root_x_root"))
 @Table(name = "tree_root_node_static")
 @AttributeOverride(name = "type", column = @Column(name = "static_type"))
-public class RootTreeStaticSchema extends RootTreeSchema {
+public class TreeStaticRootSchema extends TreeRootSchema {
     private PredefinedTypeEnum type;
 }

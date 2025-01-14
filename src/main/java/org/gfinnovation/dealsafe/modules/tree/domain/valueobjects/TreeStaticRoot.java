@@ -6,14 +6,14 @@ import lombok.Setter;
 import lombok.ToString;
 import org.gfinnovation.dealsafe._shared.utils.annotations.Default;
 import org.gfinnovation.dealsafe.modules.input.domain.valueobjects.predefined.enums.PredefinedTypeEnum;
-import org.gfinnovation.dealsafe.modules.tree.domain.RootTreeEntity;
+import org.gfinnovation.dealsafe.modules.tree.domain.TreeRoot;
 
 /**
  * Maps Root attributes if the input of the validation tree is predefined.
  *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
- * @class RootTreeStaticEntity
+ * @class TreeStaticRoot
  * @since 30/10/2024
  */
 
@@ -21,11 +21,11 @@ import org.gfinnovation.dealsafe.modules.tree.domain.RootTreeEntity;
 @Setter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class RootTreeStaticEntity extends RootTreeEntity {
+public class TreeStaticRoot extends TreeRoot {
     private PredefinedTypeEnum type;
 
     @Default
-    public RootTreeStaticEntity(String name, PredefinedTypeEnum type) {
+    public TreeStaticRoot(String name, PredefinedTypeEnum type) {
         super(name);
         this.type = type;
     }

@@ -12,7 +12,7 @@ import java.util.UUID;
 /**
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
- * @class NodeTreeSchema
+ * @class TreeNodeSchema
  * @since 30/10/2024
  */
 
@@ -20,7 +20,7 @@ import java.util.UUID;
 @Entity
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "tree_root_node")
-public class NodeTreeSchema extends GenericBusinessSchema {
+public class TreeNodeSchema extends GenericBusinessSchema {
     @Column(name = "name", nullable = false)
     private String name;
 
@@ -39,7 +39,7 @@ public class NodeTreeSchema extends GenericBusinessSchema {
             joinColumns = @JoinColumn(name = "node_parent"),
             inverseJoinColumns = @JoinColumn(name = "node_child")
     )
-    private Set<NodeTreeSchema> children;
+    private Set<TreeNodeSchema> children;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinTable(

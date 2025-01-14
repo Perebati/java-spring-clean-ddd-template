@@ -9,11 +9,11 @@ import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryE
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.modules.input.domain.valueobjects.predefined.enums.PredefinedTypeEnum;
 import org.gfinnovation.dealsafe.modules.tree.application.service.components.interfaces.RootTreeService;
-import org.gfinnovation.dealsafe.modules.tree.domain.RootTreeEntity;
+import org.gfinnovation.dealsafe.modules.tree.domain.TreeRoot;
 import org.gfinnovation.dealsafe.modules.tree.domain.factory.interfaces.TreeFactory;
 import org.gfinnovation.dealsafe.modules.tree.domain.repository.TreeRepository;
-import org.gfinnovation.dealsafe.modules.tree.domain.valueobjects.RootTreeDynamicEntity;
-import org.gfinnovation.dealsafe.modules.tree.domain.valueobjects.RootTreeStaticEntity;
+import org.gfinnovation.dealsafe.modules.tree.domain.valueobjects.TreeDynamicRoot;
+import org.gfinnovation.dealsafe.modules.tree.domain.valueobjects.TreeStaticRoot;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -41,7 +41,12 @@ final class RootTreeServiceImpl extends GenericServiceImpl implements RootTreeSe
     private final TreeRepository treeRepository;
 
     @Autowired
-    public RootTreeServiceImpl(UserBusiness userBusiness, CompanyBusiness companyBusiness, TreeFactory treeFactory, TreeRepository treeRepository) {
+    public RootTreeServiceImpl(
+            UserBusiness userBusiness,
+            CompanyBusiness companyBusiness,
+            TreeFactory treeFactory,
+            TreeRepository treeRepository)
+    {
         super(userBusiness, companyBusiness);
         this.treeFactory = treeFactory;
         this.treeRepository = treeRepository;
@@ -52,18 +57,18 @@ final class RootTreeServiceImpl extends GenericServiceImpl implements RootTreeSe
      *
      * @param name         Name of given root node.
      * @param static_input Identification of referenced predefined input.
-     * @return RootTreeStaticEntity
+     * @return TreeStaticRoot
      * @throws BusinessException Thrown when an error occurs on business level.
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
 
     @Override
-    public CompletableFuture<RootTreeStaticEntity> create(String name, PredefinedTypeEnum static_input) throws BusinessException {
+    public CompletableFuture<TreeStaticRoot> create(String name, PredefinedTypeEnum static_input) throws BusinessException {
         try {
-            return this.treeRepository.getRootTreeStaticRepository()
+            return this.treeRepository.getTreeStaticRootRepository()
                     .createAsync(
-                            treeFactory.getRootTreeFactory()
+                            treeFactory.getTreeRootFactory()
                                     .produce(
                                             name,
                                             static_input
@@ -80,17 +85,17 @@ final class RootTreeServiceImpl extends GenericServiceImpl implements RootTreeSe
      *
      * @param name          Name of given root node.
      * @param dynamic_input Identification of referenced dynamic input.
-     * @return RootTreeDynamicEntity
+     * @return TreeDynamicRoot
      * @throws BusinessException   Thrown when an error occurs on business level.
      * @throws FactoryException    Thrown when an error occurs on factory level.
      * @throws ValidationException Thrown when an error occurs on factory level.
      * @throws RepositoryException Thrown when an error occurs on repository level.
      */
     @Override
-    public CompletableFuture<RootTreeDynamicEntity> create(String name, UUID dynamic_input) throws BusinessException {
+    public CompletableFuture<TreeDynamicRoot> create(String name, UUID dynamic_input) throws BusinessException {
         try {
-            return this.treeRepository.getRootTreeDynamicRepository()
-                    .createAsync(treeFactory.getRootTreeFactory()
+            return this.treeRepository.getTreeDynamicRootRepository()
+                    .createAsync(treeFactory.getTreeRootFactory()
                             .produce(
                                     name,
                                     dynamic_input
@@ -107,7 +112,7 @@ final class RootTreeServiceImpl extends GenericServiceImpl implements RootTreeSe
      * response of this method needs handling.
      *
      * @param id RootId of given root.
-     * @return Object(RootTreeEntity)
+     * @return Object(TreeRoot)
      * @throws RepositoryException Thrown when an error occur on Repository level.
      * @author Lucas Batista Pereira
      * @since 08/11/2024
@@ -146,13 +151,13 @@ final class RootTreeServiceImpl extends GenericServiceImpl implements RootTreeSe
      * Update a root, can be either RootTreeStatic or RootTreeDynamic.
      *
      * @param entity Entity to be updated.
-     * @return RootTreeEntity
+     * @return TreeRoot
      * @throws RepositoryException Thrown when an error occur on Repository level.
      * @author Lucas Batista Pereira
      * @since 08/11/2024
      */
     @Override
-    public RootTreeEntity updateSync(RootTreeEntity entity) throws BusinessException {
+    public TreeRoot updateSync(TreeRoot entity) throws BusinessException {
         try {
             return this.treeRepository.updateGenericRootSync(entity, getRepositoryAuth());
         } catch (BusinessException e) {
@@ -164,9 +169,9 @@ final class RootTreeServiceImpl extends GenericServiceImpl implements RootTreeSe
 
 
     @Override
-    public Optional<RootTreeStaticEntity> readRootStatic(UUID id) throws BusinessException {
+    public Optional<TreeStaticRoot> readRootStatic(UUID id) throws BusinessException {
         try {
-            return Optional.ofNullable(this.treeRepository.getRootTreeStaticRepository().read(id, getRepositoryAuth()));
+            return Optional.ofNullable(this.treeRepository.getTreeStaticRootRepository().read(id, getRepositoryAuth()));
         } catch (BusinessException e) {
             throw e;
         } catch (Exception e) {
@@ -175,9 +180,9 @@ final class RootTreeServiceImpl extends GenericServiceImpl implements RootTreeSe
     }
 
     @Override
-    public Optional<RootTreeDynamicEntity> readRootDynamic(UUID id) throws BusinessException {
+    public Optional<TreeDynamicRoot> readRootDynamic(UUID id) throws BusinessException {
         try {
-            return Optional.ofNullable(this.treeRepository.getRootTreeDynamicRepository().read(id, getRepositoryAuth()));
+            return Optional.ofNullable(this.treeRepository.getTreeDynamicRootRepository().read(id, getRepositoryAuth()));
         } catch (BusinessException e) {
             throw e;
         } catch (Exception e) {
@@ -186,9 +191,9 @@ final class RootTreeServiceImpl extends GenericServiceImpl implements RootTreeSe
     }
 
     @Override
-    public RootTreeEntity read(UUID id) throws BusinessException {
+    public TreeRoot read(UUID id) throws BusinessException {
         try {
-            return this.treeRepository.getRootTreeRepository().read(id, getRepositoryAuth());
+            return this.treeRepository.getTreeRootRepository().read(id, getRepositoryAuth());
         } catch (BusinessException e) {
             throw e;
         } catch (Exception e) {
@@ -197,9 +202,9 @@ final class RootTreeServiceImpl extends GenericServiceImpl implements RootTreeSe
     }
 
     @Override
-    public CompletableFuture<RootTreeEntity> updateAsync(RootTreeEntity entity) throws BusinessException {
+    public CompletableFuture<TreeRoot> updateAsync(TreeRoot entity) throws BusinessException {
         try {
-            return this.treeRepository.getRootTreeRepository().updateAsync(entity, getRepositoryAuth());
+            return this.treeRepository.getTreeRootRepository().updateAsync(entity, getRepositoryAuth());
         } catch (BusinessException e) {
             throw e;
         } catch (Exception e) {
@@ -210,7 +215,7 @@ final class RootTreeServiceImpl extends GenericServiceImpl implements RootTreeSe
     @Override
     public void deleteSync(UUID id) throws BusinessException {
         try {
-            this.treeRepository.getRootTreeRepository().deleteSync(id, getRepositoryAuth());
+            this.treeRepository.getTreeRootRepository().deleteSync(id, getRepositoryAuth());
         } catch (BusinessException e) {
             throw e;
         } catch (Exception e) {
@@ -221,7 +226,7 @@ final class RootTreeServiceImpl extends GenericServiceImpl implements RootTreeSe
     @Override
     public void deleteAsync(UUID id) throws BusinessException {
         try {
-            this.treeRepository.getRootTreeRepository().deleteAsync(id, getRepositoryAuth());
+            this.treeRepository.getTreeRootRepository().deleteAsync(id, getRepositoryAuth());
         } catch (BusinessException e) {
             throw e;
         } catch (Exception e) {
@@ -230,9 +235,9 @@ final class RootTreeServiceImpl extends GenericServiceImpl implements RootTreeSe
     }
 
     @Override
-    public Optional<List<RootTreeEntity>> readAll() throws BusinessException {
+    public Optional<List<TreeRoot>> readAll() throws BusinessException {
         try {
-            return this.treeRepository.getRootTreeRepository().findAll(getRepositoryAuth());
+            return this.treeRepository.getTreeRootRepository().findAll(getRepositoryAuth());
         } catch (BusinessException e) {
             throw e;
         } catch (Exception e) {
@@ -241,9 +246,9 @@ final class RootTreeServiceImpl extends GenericServiceImpl implements RootTreeSe
     }
 
     @Override
-    public Optional<List<RootTreeEntity>> readAllByIds(List<UUID> ids) throws BusinessException {
+    public Optional<List<TreeRoot>> readAllByIds(List<UUID> ids) throws BusinessException {
         try {
-            return this.treeRepository.getRootTreeRepository().findAllByIds(ids, getRepositoryAuth());
+            return this.treeRepository.getTreeRootRepository().findAllByIds(ids, getRepositoryAuth());
         } catch (BusinessException e) {
             throw e;
         } catch (Exception e) {
@@ -254,7 +259,7 @@ final class RootTreeServiceImpl extends GenericServiceImpl implements RootTreeSe
     @Override
     public void check(UUID id) throws BusinessException {
         try {
-            this.treeRepository.getRootTreeRepository().check(id, getRepositoryAuth());
+            this.treeRepository.getTreeRootRepository().check(id, getRepositoryAuth());
         } catch (BusinessException e) {
             throw e;
         } catch (Exception e) {
@@ -265,7 +270,7 @@ final class RootTreeServiceImpl extends GenericServiceImpl implements RootTreeSe
     @Override
     public void checkAll(Set<UUID> ids) throws BusinessException {
         try {
-            this.treeRepository.getRootTreeRepository().checkAll(ids, getRepositoryAuth());
+            this.treeRepository.getTreeRootRepository().checkAll(ids, getRepositoryAuth());
         } catch (BusinessException e) {
             throw e;
         } catch (Exception e) {
