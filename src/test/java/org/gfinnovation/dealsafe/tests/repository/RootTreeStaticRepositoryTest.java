@@ -7,54 +7,32 @@ import org.gfinnovation.dealsafe.authentication.company.entity.CompanyEntity;
 import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
 import org.gfinnovation.dealsafe.authentication.user.entity.UserEntity;
 import org.gfinnovation.dealsafe.configuration.security.RepositoryAuth;
-import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.InputService;
+import org.gfinnovation.dealsafe.modules.input.domain.valueobjects.predefined.enums.PredefinedTypeEnum;
 import org.gfinnovation.dealsafe.modules.tree.domain.factory.interfaces.TreeFactory;
 import org.gfinnovation.dealsafe.modules.tree.domain.repository.TreeRepository;
-import org.gfinnovation.dealsafe.modules.tree.domain.repository.components.TreeDynamicRootRepository;
-import org.gfinnovation.dealsafe.modules.tree.domain.valueobjects.TreeDynamicRoot;
+import org.gfinnovation.dealsafe.modules.tree.domain.repository.components.RootTreeStaticRepository;
+import org.gfinnovation.dealsafe.modules.tree.domain.valueobjects.RootTreeStatic;
 import org.gfinnovation.dealsafe.tests._shared.GenericBusinessRepositoryTest;
-import org.junit.jupiter.api.BeforeEach;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doNothing;
-
 /**
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
- * @class TreeDynamicRootRepositoryTest
+ * @class RootTreeRepositoryTest
  * @since 30/10/2024
  */
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
-public class TreeDynamicRootRepositoryTest extends GenericBusinessRepositoryTest<TreeDynamicRoot> {
-    String json = """
-            {
-              "nome": "João",
-              "idade": 30,
-              "endereco": {
-                "rua": "Rua A",
-                "bairro": "Centro"
-              },
-              "telefone": ["123456789", "987654321"],
-              "teste": {
-                  "teste":{
-                      "teste": "teste"
-                  }
-               }
-            }
-            """;
-    private Map.Entry<UserEntity, CompanyEntity> auth;
+public class RootTreeStaticRepositoryTest extends GenericBusinessRepositoryTest<RootTreeStatic> {
     @Autowired
     private UserBusiness userBusiness;
+
     @Autowired
     private CompanyBusiness companyBusiness;
 
@@ -64,20 +42,8 @@ public class TreeDynamicRootRepositoryTest extends GenericBusinessRepositoryTest
     @Autowired
     private TreeRepository treeRepository;
 
-    @Mock
-    private InputService inputService;
+    private Map.Entry<UserEntity, CompanyEntity> auth;
 
-    @BeforeEach
-    public void setUp() throws BadRequestException {
-        super.setUp();
-        doNothing().when(inputService).check(any(UUID.class));
-
-        ReflectionTestUtils.setField(
-                treeFactory.getTreeRootFactory(),
-                "inputService",
-                inputService
-        );
-    }
 
     @PostConstruct
     public void init() throws BadRequestException {
@@ -93,14 +59,13 @@ public class TreeDynamicRootRepositoryTest extends GenericBusinessRepositoryTest
 
 
     @Override
-    protected TreeDynamicRoot createEntity() {
+    protected RootTreeStatic createEntity() {
         String name = "Teste";
-        UUID dynamicInput = UUID.randomUUID();
-        return this.treeFactory.getTreeRootFactory().produce(name, dynamicInput);
+        return this.treeFactory.getRootTreeFactory().produce(name, PredefinedTypeEnum.TESTE);
     }
 
     @Override
-    protected TreeDynamicRootRepository createRepository() {
-        return this.treeRepository.getTreeDynamicRootRepository();
+    protected RootTreeStaticRepository createRepository() {
+        return this.treeRepository.getRootTreeStaticRepository();
     }
 }

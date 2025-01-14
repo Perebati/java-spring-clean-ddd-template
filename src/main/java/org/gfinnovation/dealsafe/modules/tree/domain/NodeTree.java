@@ -13,20 +13,20 @@ import java.util.Set;
 import java.util.UUID;
 
 /**
- * TreeNode is the base foundation where Dealsafe sits upon.
+ * NodeTree is the base foundation where Dealsafe sits upon.
  * It follows the general struct of leafs on an ordinary data tree.
  * A node can be both a parent and a child, algo it can contain operations.
  *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
- * @class TreeNode
+ * @class NodeTree
  * @since 30/10/2024
  */
 
 @EqualsAndHashCode(callSuper = true)
 @Getter
 @ToString
-public class TreeNode extends GenericBusinessEntity {
+public class NodeTree extends GenericBusinessEntity {
     @Setter
     private String name;
 
@@ -38,31 +38,31 @@ public class TreeNode extends GenericBusinessEntity {
     private String parentType;
 
     @Setter
-    private Set<TreeNode> children = new HashSet<>();
+    private Set<NodeTree> children = new HashSet<>();
 
     @Setter
     private Set<ComparisonOperationEntity> operations = new HashSet<>();
 
-    public TreeNode(String name, Integer sequence) {
+    public NodeTree(String name, Integer sequence) {
         this.name = name;
         this.sequence = sequence;
     }
 
     @Default
-    public TreeNode(String name, Integer sequence, UUID parentId, String parentType) {
+    public NodeTree(String name, Integer sequence, UUID parentId, String parentType) {
         this.name = name;
         this.sequence = sequence;
         this.parentId = parentId;
         this.parentType = parentType;
     }
 
-    public TreeNode addChild(TreeNode child) {
+    public NodeTree addChild(NodeTree child) {
         this.children.add(child);
         child.setParent(this.getId(), "NODE");
         return this;
     }
 
-    public TreeNode addOperation(ComparisonOperationEntity operation) {
+    public NodeTree addOperation(ComparisonOperationEntity operation) {
         this.operations.add(operation);
         return this;
     }

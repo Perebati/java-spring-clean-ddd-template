@@ -1,8 +1,8 @@
 package org.gfinnovation.dealsafe.modules.tree.infrastructure.mapper;
 
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.mapper.GenericBusinessMapper;
-import org.gfinnovation.dealsafe.modules.tree.domain.TreeNode;
-import org.gfinnovation.dealsafe.modules.tree.infrastructure.TreeNodeSchema;
+import org.gfinnovation.dealsafe.modules.tree.domain.valueobjects.RootTreeStatic;
+import org.gfinnovation.dealsafe.modules.tree.infrastructure.RootTreeStaticEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.ReportingPolicy;
@@ -10,7 +10,7 @@ import org.mapstruct.ReportingPolicy;
 /**
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
- * @interface TreeNodeMapper
+ * @interface RootTreeStaticMapper
  * @since 30/10/2024
  */
 
@@ -18,5 +18,5 @@ import org.mapstruct.ReportingPolicy;
         componentModel = MappingConstants.ComponentModel.SPRING,
         unmappedTargetPolicy = ReportingPolicy.IGNORE
 )
-public interface TreeNodeMapper extends GenericBusinessMapper<TreeNode, TreeNodeSchema> {
+public interface RootTreeStaticMapper extends GenericBusinessMapper<RootTreeStatic, RootTreeStaticEntity> {
 }

@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe.modules.tree.domain.factory.components.interfaces;
 
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
-import org.gfinnovation.dealsafe.modules.tree.domain.TreeNode;
+import org.gfinnovation.dealsafe.modules.tree.domain.NodeTree;
 
 /**
  * @author Lucas Batista Pereira
@@ -10,6 +10,6 @@ import org.gfinnovation.dealsafe.modules.tree.domain.TreeNode;
  * @since 30/10/2024
  */
 
-public interface TreeNodeFactory {
-    TreeNode produce(String name, Integer sequence) throws FactoryException;
+public interface NodeTreeFactory {
+    NodeTree produce(String name, Integer sequence) throws FactoryException;
 }

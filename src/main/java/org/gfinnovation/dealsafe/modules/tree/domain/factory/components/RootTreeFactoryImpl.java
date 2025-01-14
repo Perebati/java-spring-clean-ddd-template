@@ -4,9 +4,9 @@ import jakarta.validation.ValidationException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
 import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.InputService;
 import org.gfinnovation.dealsafe.modules.input.domain.valueobjects.predefined.enums.PredefinedTypeEnum;
-import org.gfinnovation.dealsafe.modules.tree.domain.factory.components.interfaces.TreeRootFactory;
-import org.gfinnovation.dealsafe.modules.tree.domain.valueobjects.TreeDynamicRoot;
-import org.gfinnovation.dealsafe.modules.tree.domain.valueobjects.TreeStaticRoot;
+import org.gfinnovation.dealsafe.modules.tree.domain.factory.components.interfaces.RootTreeFactory;
+import org.gfinnovation.dealsafe.modules.tree.domain.valueobjects.RootTreeDynamic;
+import org.gfinnovation.dealsafe.modules.tree.domain.valueobjects.RootTreeStatic;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -21,10 +21,10 @@ import java.util.UUID;
  */
 
 @Component
-class TreeRootFactoryImpl implements TreeRootFactory {
+class RootTreeFactoryImpl implements RootTreeFactory {
     private final InputService inputService;
 
-    TreeRootFactoryImpl(InputService inputService) {
+    RootTreeFactoryImpl(InputService inputService) {
         this.inputService = inputService;
     }
 
@@ -33,16 +33,16 @@ class TreeRootFactoryImpl implements TreeRootFactory {
      *
      * @param name          Name of the given root.
      * @param dynamic_input id of the dynamic input entity.
-     * @return TreeDynamicRoot
+     * @return RootTreeDynamic
      * @throws FactoryException    Thrown when an error on factory level occurs.
      * @throws ValidationException Thrown when an error on factory level occurs.
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
-    public TreeDynamicRoot produce(String name, UUID dynamic_input) throws FactoryException {
+    public RootTreeDynamic produce(String name, UUID dynamic_input) throws FactoryException {
         try {
             this.inputService.check(dynamic_input);
-            return new TreeDynamicRoot(name, dynamic_input);
+            return new RootTreeDynamic(name, dynamic_input);
         } catch (Exception e) {
             throw new FactoryException("Factory: Something went wrong creating a dynamic root node.", e);
         }
@@ -53,16 +53,16 @@ class TreeRootFactoryImpl implements TreeRootFactory {
      *
      * @param name         Name of the given root.
      * @param static_input Type of the predefined input entity.
-     * @return TreeStaticRoot
+     * @return RootTreeStatic
      * @throws FactoryException    Thrown when an error on factory level occurs.
      * @throws ValidationException Thrown when an error on factory level occurs.
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
 
-    public TreeStaticRoot produce(String name, PredefinedTypeEnum static_input) throws FactoryException {
+    public RootTreeStatic produce(String name, PredefinedTypeEnum static_input) throws FactoryException {
         try {
-            return new TreeStaticRoot(name, static_input);
+            return new RootTreeStatic(name, static_input);
         } catch (Exception e) {
             throw new FactoryException("Factory: Something went wrong creating a predefined root node.", e);
         }

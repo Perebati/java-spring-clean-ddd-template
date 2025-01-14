@@ -6,7 +6,7 @@ import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBus
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
 import org.gfinnovation.dealsafe.modules.tree.application.service.components.interfaces.NodeTreeService;
 import org.gfinnovation.dealsafe.modules.tree.application.service.components.interfaces.RootTreeService;
-import org.gfinnovation.dealsafe.modules.tree.domain.TreeNode;
+import org.gfinnovation.dealsafe.modules.tree.domain.NodeTree;
 import org.gfinnovation.dealsafe.modules.tree.domain.factory.interfaces.TreeFactory;
 import org.gfinnovation.dealsafe.modules.tree.domain.repository.TreeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ import java.util.concurrent.CompletableFuture;
  */
 
 @Component
-final class NodeTreeServiceImpl extends GenericServiceImpl implements NodeTreeService {
+class NodeTreeServiceImpl extends GenericServiceImpl implements NodeTreeService {
     private final TreeRepository treeRepository;
     private final TreeFactory treeFactory;
     private final RootTreeService rootTreeBusiness;
@@ -51,16 +51,16 @@ final class NodeTreeServiceImpl extends GenericServiceImpl implements NodeTreeSe
      * @param name      Name of the new node.
      * @param sequence  Position/Priority of node execution.
      * @param parent_id ParentId, tha can be either an id from a RootNode or another Node.
-     * @return TreeNode
+     * @return NodeTree
      * @throws BusinessException Thrown when an error occurs on business level.
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
 
-    public TreeNode create(String name, Integer sequence, UUID parent_id) throws BusinessException {
+    public NodeTree create(String name, Integer sequence, UUID parent_id) throws BusinessException {
         try {
             Object parent = this.rootTreeBusiness.readGenericRoot(parent_id);
-            TreeNode newNode = this.treeFactory.getTreeNodeFactory().produce(name, sequence);
+            NodeTree newNode = this.treeFactory.getNodeTreeFactory().produce(name, sequence);
             return this.treeRepository.createNode(newNode, parent, parent_id, getRepositoryAuth());
         } catch (BusinessException e) {
             throw e;
@@ -70,9 +70,9 @@ final class NodeTreeServiceImpl extends GenericServiceImpl implements NodeTreeSe
     }
 
     @Override
-    public TreeNode read(UUID id) throws BusinessException {
+    public NodeTree read(UUID id) throws BusinessException {
         try {
-            return this.treeRepository.getTreeNodeRepository().read(id, getRepositoryAuth());
+            return this.treeRepository.getNodeTreeRepository().read(id, getRepositoryAuth());
         } catch (BusinessException e) {
             throw e;
         } catch (Exception e) {
@@ -81,9 +81,9 @@ final class NodeTreeServiceImpl extends GenericServiceImpl implements NodeTreeSe
     }
 
     @Override
-    public CompletableFuture<TreeNode> updateAsync(TreeNode entity) throws BusinessException {
+    public CompletableFuture<NodeTree> updateAsync(NodeTree entity) throws BusinessException {
         try {
-            return this.treeRepository.getTreeNodeRepository().updateAsync(entity, getRepositoryAuth());
+            return this.treeRepository.getNodeTreeRepository().updateAsync(entity, getRepositoryAuth());
         } catch (BusinessException e) {
             throw e;
         } catch (Exception e) {
@@ -92,9 +92,9 @@ final class NodeTreeServiceImpl extends GenericServiceImpl implements NodeTreeSe
     }
 
     @Override
-    public TreeNode updateSync(TreeNode entity) throws BusinessException {
+    public NodeTree updateSync(NodeTree entity) throws BusinessException {
         try {
-            return this.treeRepository.getTreeNodeRepository().updateSync(entity, getRepositoryAuth());
+            return this.treeRepository.getNodeTreeRepository().updateSync(entity, getRepositoryAuth());
         } catch (BusinessException e) {
             throw e;
         } catch (Exception e) {
@@ -105,7 +105,7 @@ final class NodeTreeServiceImpl extends GenericServiceImpl implements NodeTreeSe
     @Override
     public void deleteAsync(UUID id) throws BusinessException {
         try {
-            this.treeRepository.getTreeNodeRepository().deleteAsync(id, getRepositoryAuth());
+            this.treeRepository.getNodeTreeRepository().deleteAsync(id, getRepositoryAuth());
         } catch (BusinessException e) {
             throw e;
         } catch (Exception e) {
@@ -116,7 +116,7 @@ final class NodeTreeServiceImpl extends GenericServiceImpl implements NodeTreeSe
     @Override
     public void deleteSync(UUID id) throws BusinessException {
         try {
-            this.treeRepository.getTreeNodeRepository().deleteSync(id, getRepositoryAuth());
+            this.treeRepository.getNodeTreeRepository().deleteSync(id, getRepositoryAuth());
         } catch (BusinessException e) {
             throw e;
         } catch (Exception e) {
@@ -125,9 +125,9 @@ final class NodeTreeServiceImpl extends GenericServiceImpl implements NodeTreeSe
     }
 
     @Override
-    public Optional<List<TreeNode>> readAll() throws BusinessException {
+    public Optional<List<NodeTree>> readAll() throws BusinessException {
         try {
-            return this.treeRepository.getTreeNodeRepository().findAll(getRepositoryAuth());
+            return this.treeRepository.getNodeTreeRepository().findAll(getRepositoryAuth());
         } catch (BusinessException e) {
             throw e;
         } catch (Exception e) {
@@ -136,9 +136,9 @@ final class NodeTreeServiceImpl extends GenericServiceImpl implements NodeTreeSe
     }
 
     @Override
-    public Optional<List<TreeNode>> readAllByIds(List<UUID> ids) throws BusinessException {
+    public Optional<List<NodeTree>> readAllByIds(List<UUID> ids) throws BusinessException {
         try {
-            return this.treeRepository.getTreeNodeRepository().findAllByIds(ids, getRepositoryAuth());
+            return this.treeRepository.getNodeTreeRepository().findAllByIds(ids, getRepositoryAuth());
         } catch (BusinessException e) {
             throw e;
         } catch (Exception e) {
@@ -149,7 +149,7 @@ final class NodeTreeServiceImpl extends GenericServiceImpl implements NodeTreeSe
     @Override
     public void check(UUID id) throws BusinessException {
         try {
-            this.treeRepository.getTreeNodeRepository().check(id, getRepositoryAuth());
+            this.treeRepository.getNodeTreeRepository().check(id, getRepositoryAuth());
         } catch (BusinessException e) {
             throw e;
         } catch (Exception e) {
@@ -160,7 +160,7 @@ final class NodeTreeServiceImpl extends GenericServiceImpl implements NodeTreeSe
     @Override
     public void checkAll(Set<UUID> ids) throws BusinessException {
         try {
-            this.treeRepository.getTreeNodeRepository().checkAll(ids, getRepositoryAuth());
+            this.treeRepository.getNodeTreeRepository().checkAll(ids, getRepositoryAuth());
         } catch (BusinessException e) {
             throw e;
         } catch (Exception e) {

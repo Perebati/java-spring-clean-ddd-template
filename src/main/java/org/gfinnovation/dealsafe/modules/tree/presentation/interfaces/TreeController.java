@@ -7,9 +7,9 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.coyote.BadRequestException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.DomainException;
-import org.gfinnovation.dealsafe.modules.tree.domain.TreeNode;
-import org.gfinnovation.dealsafe.modules.tree.domain.valueobjects.TreeDynamicRoot;
-import org.gfinnovation.dealsafe.modules.tree.domain.valueobjects.TreeStaticRoot;
+import org.gfinnovation.dealsafe.modules.tree.domain.NodeTree;
+import org.gfinnovation.dealsafe.modules.tree.domain.valueobjects.RootTreeDynamic;
+import org.gfinnovation.dealsafe.modules.tree.domain.valueobjects.RootTreeStatic;
 import org.gfinnovation.dealsafe.modules.tree.presentation.dto.request.NodeCreationDTO;
 import org.gfinnovation.dealsafe.modules.tree.presentation.dto.request.RootCreationDynamicInputDTO;
 import org.gfinnovation.dealsafe.modules.tree.presentation.dto.request.RootCreationPredefinedInputDTO;
@@ -42,7 +42,7 @@ public interface TreeController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PostMapping("/root/predefind-input")
-    ResponseEntity<CompletableFuture<TreeStaticRoot>> createRootPredefined(@RequestBody RootCreationPredefinedInputDTO request) throws DomainException, BadRequestException;
+    ResponseEntity<CompletableFuture<RootTreeStatic>> createRootPredefined(@RequestBody RootCreationPredefinedInputDTO request) throws DomainException, BadRequestException;
 
     @Operation(
             summary = "Cadastro de root de árvore com input dinâmico",
@@ -53,7 +53,7 @@ public interface TreeController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PostMapping("/root/dynamic-input")
-    ResponseEntity<CompletableFuture<TreeDynamicRoot>> createRootPredefined(@RequestBody RootCreationDynamicInputDTO request) throws DomainException, BadRequestException;
+    ResponseEntity<CompletableFuture<RootTreeDynamic>> createRootPredefined(@RequestBody RootCreationDynamicInputDTO request) throws DomainException, BadRequestException;
 
     @Operation(
             summary = "Cadastro de nó de árvore",
@@ -64,5 +64,5 @@ public interface TreeController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PostMapping("/node")
-    ResponseEntity<TreeNode> createNode(NodeCreationDTO request) throws DomainException, BadRequestException;
+    ResponseEntity<NodeTree> createNode(NodeCreationDTO request) throws DomainException, BadRequestException;
 }

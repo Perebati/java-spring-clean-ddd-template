@@ -14,7 +14,7 @@ import org.gfinnovation.dealsafe.modules.operation.domain.comparison.ComparisonT
 import org.gfinnovation.dealsafe.modules.operation.domain.factory.interfaces.OperationFactory;
 import org.gfinnovation.dealsafe.modules.operation.domain.repository.OperationRepository;
 import org.gfinnovation.dealsafe.modules.tree.application.service.interfaces.TreeService;
-import org.gfinnovation.dealsafe.modules.tree.domain.TreeNode;
+import org.gfinnovation.dealsafe.modules.tree.domain.NodeTree;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -70,7 +70,7 @@ public class ComparisonOperationServiceImpl extends GenericServiceImpl implement
     @Override
     public ComparisonOperationEntity create(ComparisonTypeEnum type, String jsonPath, String variable, UUID node_id) throws BusinessException, BadRequestException {
         try {
-            TreeNode parent = this.treeService.getNodeTreeBusiness().read(node_id);
+            NodeTree parent = this.treeService.getNodeTreeBusiness().read(node_id);
             ComparisonOperationEntity newOperation = this.operationFactory.getComparisonOperationFactory().produce(type, jsonPath, variable, node_id);
             return this.operationRepository.getComparisonOperationRepository().createComparison(newOperation, parent, getRepositoryAuth());
         } catch (BadRequestException | BusinessException e) {

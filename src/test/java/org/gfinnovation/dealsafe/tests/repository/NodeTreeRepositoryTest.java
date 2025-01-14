@@ -8,7 +8,7 @@ import org.gfinnovation.dealsafe.authentication.company.entity.CompanyEntity;
 import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
 import org.gfinnovation.dealsafe.authentication.user.entity.UserEntity;
 import org.gfinnovation.dealsafe.configuration.security.RepositoryAuth;
-import org.gfinnovation.dealsafe.modules.tree.domain.TreeNode;
+import org.gfinnovation.dealsafe.modules.tree.domain.NodeTree;
 import org.gfinnovation.dealsafe.modules.tree.domain.factory.interfaces.TreeFactory;
 import org.gfinnovation.dealsafe.modules.tree.domain.repository.TreeRepository;
 import org.gfinnovation.dealsafe.tests._shared.GenericBusinessRepositoryTest;
@@ -23,12 +23,12 @@ import java.util.UUID;
 /**
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
- * @class TreeNodeRepositoryTest
+ * @class NodeTreeRepositoryTest
  * @since 30/10/2024
  */
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
-public class TreeNodeRepositoryTest extends GenericBusinessRepositoryTest<TreeNode> {
+public class NodeTreeRepositoryTest extends GenericBusinessRepositoryTest<NodeTree> {
     @Autowired
     private UserBusiness userBusiness;
 
@@ -51,13 +51,13 @@ public class TreeNodeRepositoryTest extends GenericBusinessRepositoryTest<TreeNo
     }
 
     @Override
-    protected TreeNode createEntity() {
-        return this.treeFactory.getTreeNodeFactory().produce("Teste", 0);
+    protected NodeTree createEntity() {
+        return this.treeFactory.getNodeTreeFactory().produce("Teste", 0);
     }
 
     @Override
-    protected GenericBusinessRepository<TreeNode> createRepository() {
-        return this.treeRepository.getTreeNodeRepository();
+    protected GenericBusinessRepository<NodeTree> createRepository() {
+        return this.treeRepository.getNodeTreeRepository();
     }
 
     @Override

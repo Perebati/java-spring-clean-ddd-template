@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe.modules.tree.domain.factory.interfaces;
 
-import org.gfinnovation.dealsafe.modules.tree.domain.factory.components.interfaces.TreeNodeFactory;
-import org.gfinnovation.dealsafe.modules.tree.domain.factory.components.interfaces.TreeRootFactory;
+import org.gfinnovation.dealsafe.modules.tree.domain.factory.components.interfaces.NodeTreeFactory;
+import org.gfinnovation.dealsafe.modules.tree.domain.factory.components.interfaces.RootTreeFactory;
 
 
 /**
@@ -14,7 +14,7 @@ import org.gfinnovation.dealsafe.modules.tree.domain.factory.components.interfac
  */
 
 public interface TreeFactory {
-    TreeNodeFactory getTreeNodeFactory();
+    NodeTreeFactory getNodeTreeFactory();
 
-    TreeRootFactory getTreeRootFactory();
+    RootTreeFactory getRootTreeFactory();
 }

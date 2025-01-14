@@ -16,8 +16,8 @@ import org.gfinnovation.dealsafe.modules.operation.application.service.interface
 import org.gfinnovation.dealsafe.modules.operation.domain.ComparisonOperationEntity;
 import org.gfinnovation.dealsafe.modules.operation.domain.comparison.ComparisonTypeEnum;
 import org.gfinnovation.dealsafe.modules.tree.application.service.interfaces.TreeService;
-import org.gfinnovation.dealsafe.modules.tree.domain.TreeNode;
-import org.gfinnovation.dealsafe.modules.tree.domain.valueobjects.TreeDynamicRoot;
+import org.gfinnovation.dealsafe.modules.tree.domain.NodeTree;
+import org.gfinnovation.dealsafe.modules.tree.domain.valueobjects.RootTreeDynamic;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,11 +59,11 @@ public class TreeTest {
 
             InputEntity inputEntity = this.inputController.create2();
 
-            CompletableFuture<TreeDynamicRoot> createdRoot = this.treeService.getRootTreeBusiness().create("ROOT Teste", inputEntity.getUser_id());
+            CompletableFuture<RootTreeDynamic> createdRoot = this.treeService.getRootTreeBusiness().create("ROOT Teste", inputEntity.getUser_id());
 
-            TreeNode createdNode1 = this.treeService.getNodeTreeBusiness().create("NODE 1", 0, createdRoot.get().getId());
+            NodeTree createdNode1 = this.treeService.getNodeTreeBusiness().create("NODE 1", 0, createdRoot.get().getId());
 
-            TreeNode createdNode2 = this.treeService.getNodeTreeBusiness().create("NODE 2", 0, createdNode1.getId());
+            NodeTree createdNode2 = this.treeService.getNodeTreeBusiness().create("NODE 2", 0, createdNode1.getId());
 
             ComparisonOperationEntity comparisonOperationEntity = this.operationService.getComparisonOperationBusiness().create(ComparisonTypeEnum.GREATERTHANOREQUAL, "/idade", "18", createdNode2.getId());
 
@@ -73,11 +73,11 @@ public class TreeTest {
 
             //OperationActionEntity operationActionEntity2 = this.operationActionFactory.createOperationAction("http://localhost:8081/teste", "Olá mundo", operationEntity2.getId());
 
-            TreeNode createdNode3 = this.treeService.getNodeTreeBusiness().create("NODE 3", 0, createdNode1.getId());
+            NodeTree createdNode3 = this.treeService.getNodeTreeBusiness().create("NODE 3", 0, createdNode1.getId());
 
             ComparisonOperationEntity comparisonOperationEntity3 = this.operationService.getComparisonOperationBusiness().create(ComparisonTypeEnum.DIFFERENT, "/CPF", "11330176650", createdNode3.getId());
 
-            TreeNode createdNode4 = this.treeService.getNodeTreeBusiness().create("Node4", 0, createdNode3.getId());
+            NodeTree createdNode4 = this.treeService.getNodeTreeBusiness().create("Node4", 0, createdNode3.getId());
 
             ComparisonOperationEntity comparisonOperationEntity1 = this.operationService.getComparisonOperationBusiness().create(ComparisonTypeEnum.EQUAL, "/endereco/rua", "Rua do Limão", createdNode4.getId());
 
@@ -89,7 +89,7 @@ public class TreeTest {
 
             mapper.findAndRegisterModules();
 
-            createdRoot = (CompletableFuture<TreeDynamicRoot>) this.treeService.getRootTreeBusiness().readGenericRoot(createdRoot.get().getId());
+            createdRoot = (CompletableFuture<RootTreeDynamic>) this.treeService.getRootTreeBusiness().readGenericRoot(createdRoot.get().getId());
 
             String validationTreeJson = mapper.writeValueAsString(this.treeService.getRootTreeBusiness().readGenericRoot(createdRoot.get().getId()));
 

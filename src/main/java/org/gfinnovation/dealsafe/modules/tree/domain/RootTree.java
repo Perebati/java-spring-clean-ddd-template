@@ -15,7 +15,7 @@ import java.util.Set;
  *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
- * @class TreeRoot
+ * @class RootTree
  * @since 30/10/2024
  */
 
@@ -23,17 +23,17 @@ import java.util.Set;
 @Setter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class TreeRoot extends GenericBusinessEntity {
+public class RootTree extends GenericBusinessEntity {
     private String name;
-    private Set<TreeNode> nodes;
+    private Set<NodeTree> nodes;
 
     @Default
-    public TreeRoot(String name) {
+    public RootTree(String name) {
         this.name = name;
         this.nodes = new HashSet<>();
     }
 
-    public void addNode(TreeNode entity) {
+    public void addNode(NodeTree entity) {
         this.nodes.add(entity);
         entity.setParent(this.getId(), "ROOT");
     }

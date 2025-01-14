@@ -5,9 +5,9 @@ import org.gfinnovation.dealsafe._shared.modules.application.interfaces.GenericS
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.modules.input.domain.valueobjects.predefined.enums.PredefinedTypeEnum;
-import org.gfinnovation.dealsafe.modules.tree.domain.TreeRoot;
-import org.gfinnovation.dealsafe.modules.tree.domain.valueobjects.TreeDynamicRoot;
-import org.gfinnovation.dealsafe.modules.tree.domain.valueobjects.TreeStaticRoot;
+import org.gfinnovation.dealsafe.modules.tree.domain.RootTree;
+import org.gfinnovation.dealsafe.modules.tree.domain.valueobjects.RootTreeDynamic;
+import org.gfinnovation.dealsafe.modules.tree.domain.valueobjects.RootTreeStatic;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -20,18 +20,18 @@ import java.util.concurrent.CompletableFuture;
  * @since 30/10/2024
  */
 
-public interface RootTreeService extends GenericService<TreeRoot> {
-    CompletableFuture<TreeStaticRoot> create(String name, PredefinedTypeEnum static_input) throws BusinessException, ValidationException;
+public interface RootTreeService extends GenericService<RootTree> {
+    CompletableFuture<RootTreeStatic> create(String name, PredefinedTypeEnum static_input) throws BusinessException, ValidationException;
 
-    CompletableFuture<TreeDynamicRoot> create(String name, UUID dynamic_input) throws BusinessException, ValidationException;
+    CompletableFuture<RootTreeDynamic> create(String name, UUID dynamic_input) throws BusinessException, ValidationException;
 
-    Optional<TreeStaticRoot> readRootStatic(UUID id) throws RepositoryException;
+    Optional<RootTreeStatic> readRootStatic(UUID id) throws RepositoryException;
 
-    Optional<TreeDynamicRoot> readRootDynamic(UUID id) throws RepositoryException;
+    Optional<RootTreeDynamic> readRootDynamic(UUID id) throws RepositoryException;
 
     Object readGenericRoot(UUID id) throws RepositoryException;
 
     Optional<UUID> findRootIdByNodeId(UUID node_id) throws RepositoryException;
 
-    TreeRoot updateSync(TreeRoot entity) throws RepositoryException;
+    RootTree updateSync(RootTree entity) throws RepositoryException;
 }

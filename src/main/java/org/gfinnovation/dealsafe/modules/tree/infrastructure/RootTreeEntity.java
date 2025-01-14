@@ -10,7 +10,7 @@ import java.util.Set;
 /**
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
- * @class TreeRootSchema
+ * @class RootTreeEntity
  * @since 30/10/2024
  */
 
@@ -20,7 +20,7 @@ import java.util.Set;
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "type", length = 3, discriminatorType = DiscriminatorType.STRING)
 @Table(name = "tree_root")
-public class TreeRootSchema extends GenericBusinessSchema {
+public class RootTreeEntity extends GenericBusinessSchema {
 
     protected final static String DISCRIMINATOR_DYNAMIC = "DY";
     protected final static String DISCRIMINATOR_STATIC = "ST";
@@ -34,5 +34,5 @@ public class TreeRootSchema extends GenericBusinessSchema {
             joinColumns = @JoinColumn(name = "root_id"),
             inverseJoinColumns = @JoinColumn(name = "node_id")
     )
-    private Set<TreeNodeSchema> nodes;
+    private Set<NodeTreeEntity> nodes;
 }
