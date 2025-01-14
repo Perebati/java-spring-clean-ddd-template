@@ -7,5 +7,6 @@ package org.gfinnovation.dealsafe.modules.operation.domain;
  * @since 14/01/2025
  */
 
-public class Condition {
+public abstract class Condition {
+    public abstract boolean execute() throws Exception;
 }
