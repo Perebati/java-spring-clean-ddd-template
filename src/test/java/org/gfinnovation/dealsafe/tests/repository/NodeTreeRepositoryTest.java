@@ -8,9 +8,9 @@ import org.gfinnovation.dealsafe.authentication.company.entity.CompanyEntity;
 import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
 import org.gfinnovation.dealsafe.authentication.user.entity.UserEntity;
 import org.gfinnovation.dealsafe.configuration.security.RepositoryAuth;
-import org.gfinnovation.dealsafe.modules.tree.domain.NodeTree;
-import org.gfinnovation.dealsafe.modules.tree.domain.factory.interfaces.TreeFactory;
-import org.gfinnovation.dealsafe.modules.tree.domain.repository.TreeRepository;
+import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTree;
+import org.gfinnovation.dealsafe.modules.tree.node.domain.factory.interfaces.NodeTreeFactory;
+import org.gfinnovation.dealsafe.modules.tree.node.domain.repository.NodeTreeRepository;
 import org.gfinnovation.dealsafe.tests._shared.GenericBusinessRepositoryTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -36,10 +36,10 @@ public class NodeTreeRepositoryTest extends GenericBusinessRepositoryTest<NodeTr
     private CompanyBusiness companyBusiness;
 
     @Autowired
-    private TreeRepository treeRepository;
+    private NodeTreeRepository nodeTreeRepository;
 
     @Autowired
-    private TreeFactory treeFactory;
+    private NodeTreeFactory nodeTreeFactory;
 
     private Map.Entry<UserEntity, CompanyEntity> auth;
 
@@ -52,12 +52,12 @@ public class NodeTreeRepositoryTest extends GenericBusinessRepositoryTest<NodeTr
 
     @Override
     protected NodeTree createEntity() {
-        return this.treeFactory.getNodeTreeFactory().produce("Teste", 0);
+        return this.nodeTreeFactory.produce("Teste", 0);
     }
 
     @Override
     protected GenericBusinessRepository<NodeTree> createRepository() {
-        return this.treeRepository.getNodeTreeRepository();
+        return this.nodeTreeRepository;
     }
 
     @Override

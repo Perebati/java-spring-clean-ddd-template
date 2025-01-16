@@ -8,10 +8,9 @@ import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBus
 import org.gfinnovation.dealsafe.authentication.user.entity.UserEntity;
 import org.gfinnovation.dealsafe.configuration.security.RepositoryAuth;
 import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.InputService;
-import org.gfinnovation.dealsafe.modules.tree.domain.factory.interfaces.TreeFactory;
-import org.gfinnovation.dealsafe.modules.tree.domain.repository.TreeRepository;
-import org.gfinnovation.dealsafe.modules.tree.domain.repository.components.RootTreeDynamicRepository;
-import org.gfinnovation.dealsafe.modules.tree.domain.valueobjects.RootTreeDynamic;
+import org.gfinnovation.dealsafe.modules.tree.node.domain.factory.interfaces.RootTreeFactory;
+import org.gfinnovation.dealsafe.modules.tree.node.domain.repository.RootTreeDynamicRepository;
+import org.gfinnovation.dealsafe.modules.tree.node.domain.aggregates.RootTreeDynamic;
 import org.gfinnovation.dealsafe.tests._shared.GenericBusinessRepositoryTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mock;
@@ -59,10 +58,10 @@ public class RootTreeDynamicRepositoryTest extends GenericBusinessRepositoryTest
     private CompanyBusiness companyBusiness;
 
     @Autowired
-    private TreeFactory treeFactory;
+    private RootTreeFactory rootTreeFactory;
 
     @Autowired
-    private TreeRepository treeRepository;
+    private RootTreeDynamicRepository rootTreeDynamicRepository;
 
     @Mock
     private InputService inputService;
@@ -73,7 +72,7 @@ public class RootTreeDynamicRepositoryTest extends GenericBusinessRepositoryTest
         doNothing().when(inputService).check(any(UUID.class));
 
         ReflectionTestUtils.setField(
-                treeFactory.getRootTreeFactory(),
+                rootTreeFactory,
                 "inputService",
                 inputService
         );
@@ -96,11 +95,11 @@ public class RootTreeDynamicRepositoryTest extends GenericBusinessRepositoryTest
     protected RootTreeDynamic createEntity() {
         String name = "Teste";
         UUID dynamicInput = UUID.randomUUID();
-        return this.treeFactory.getRootTreeFactory().produce(name, dynamicInput);
+        return this.rootTreeFactory.produce(name, dynamicInput);
     }
 
     @Override
     protected RootTreeDynamicRepository createRepository() {
-        return this.treeRepository.getRootTreeDynamicRepository();
+        return this.rootTreeDynamicRepository;
     }
 }
