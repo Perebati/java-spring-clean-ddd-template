@@ -3,7 +3,7 @@ package org.gfinnovation.dealsafe.engine;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import org.gfinnovation.dealsafe._sandbox.Neo4jTest;
-import org.gfinnovation.dealsafe.modules.tree.operation.domain.comparison.ComparisonTypeEnum;
+import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.logic.ComparisonTypeEnum;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;

@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.gfinnovation.dealsafe._shared.utils.annotations.Default;
-import org.gfinnovation.dealsafe.modules.tree.operation.domain.ComparisonOperation;
+import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.ComparisonOperation;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -68,6 +68,8 @@ public class NodeTree extends RootTree {
         this.parentId = parentId;
         this.parentType = parentType;
     }
+
+    public void execute() {}
 
     public enum SortField {
         NAME
