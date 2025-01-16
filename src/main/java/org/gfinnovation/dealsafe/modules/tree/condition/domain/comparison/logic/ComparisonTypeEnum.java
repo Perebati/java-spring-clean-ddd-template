@@ -1,8 +1,6 @@
 package org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.logic;
 
-import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.logic.ComparisonOperation;
 import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.logic.types.*;
-import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.types.*;
 
 /**
  * This enum maps all possible comparisons in this system,
