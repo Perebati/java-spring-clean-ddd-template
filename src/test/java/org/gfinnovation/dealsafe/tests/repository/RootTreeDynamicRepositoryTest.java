@@ -8,9 +8,9 @@ import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBus
 import org.gfinnovation.dealsafe.authentication.user.entity.UserEntity;
 import org.gfinnovation.dealsafe.configuration.security.RepositoryAuth;
 import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.InputService;
-import org.gfinnovation.dealsafe.modules.tree.node.domain.factory.interfaces.RootTreeFactory;
-import org.gfinnovation.dealsafe.modules.tree.node.domain.repository.RootTreeDynamicRepository;
-import org.gfinnovation.dealsafe.modules.tree.node.domain.aggregates.RootTreeDynamic;
+import org.gfinnovation.dealsafe.modules.tree.branch.domain.root.factory.interfaces.RootTreeFactory;
+import org.gfinnovation.dealsafe.modules.tree.branch.domain.root.repository.RootTreeDynamicRepository;
+import org.gfinnovation.dealsafe.modules.tree.branch.domain.RootTreeDynamic;
 import org.gfinnovation.dealsafe.tests._shared.GenericBusinessRepositoryTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mock;

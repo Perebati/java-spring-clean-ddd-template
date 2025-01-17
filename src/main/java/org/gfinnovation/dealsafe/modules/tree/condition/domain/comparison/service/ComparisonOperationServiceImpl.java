@@ -5,13 +5,13 @@ import org.apache.coyote.BadRequestException;
 import org.gfinnovation.dealsafe._shared.modules.application.GenericServiceImpl;
 import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
 import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.ServiceException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
-import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTree;
-import org.gfinnovation.dealsafe.modules.tree.node.domain.service.interfaces.NodeTreeService;
-import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.ComparisonOperation;
-import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.logic.ComparisonTypeEnum;
+import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.Comparison;
+import org.gfinnovation.dealsafe.modules.tree.branch.domain.NodeTree;
+import org.gfinnovation.dealsafe.modules.tree.branch.domain.node.service.interfaces.NodeTreeService;
+import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.logic.enums.ComparisonTypeEnum;
 import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.factory.interfaces.ComparisonOperationFactory;
 import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.repository.ComparisonOperationRepository;
 import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.service.interfaces.ComparisonOperationService;
@@ -58,8 +58,8 @@ public class ComparisonOperationServiceImpl extends GenericServiceImpl implement
      * @param jsonPath Path to the compared variable.
      * @param variable Variable to compare.
      * @param node_id  Parent node.
-     * @return ComparisonOperation
-     * @throws BusinessException   Thrown when an error occurred on business level.
+     * @return Comparison
+     * @throws ServiceException   Thrown when an error occurred on business level.
      * @throws FactoryException    Thrown when an error occurred on factory level.
      * @throws ValidationException Thrown when an error occurred on factory level.
      * @throws RepositoryException Thrown when an error occurred on repository level.
@@ -68,115 +68,115 @@ public class ComparisonOperationServiceImpl extends GenericServiceImpl implement
      * @since 30/10/2024
      */
     @Override
-    public ComparisonOperation create(ComparisonTypeEnum type, String jsonPath, String variable, UUID node_id) throws BusinessException, BadRequestException {
+    public Comparison create(ComparisonTypeEnum type, String jsonPath, String variable, UUID node_id) throws ServiceException, BadRequestException {
         try {
             NodeTree parent = this.nodeTreeService.read(node_id);
-            ComparisonOperation newOperation = this.comparisonOperationFactory.produce(type, jsonPath, variable, node_id);
+            Comparison newOperation = this.comparisonOperationFactory.produce(type, jsonPath, variable, node_id);
             return this.comparisonOperationRepository.createComparison(newOperation, parent, getRepositoryAuth());
-        } catch (BadRequestException | BusinessException e) {
+        } catch (BadRequestException | ServiceException e) {
             throw e;
         } catch (Exception e) {
-            throw new BusinessException("Business: Something went wrong creating a comparison operation.", e);
+            throw new ServiceException("Business: Something went wrong creating a comparison operation.", e);
         }
     }
 
     @Override
-    public ComparisonOperation read(UUID id) throws BusinessException {
+    public Comparison read(UUID id) throws ServiceException {
         try {
             return this.comparisonOperationRepository.read(id, getRepositoryAuth());
-        } catch (BusinessException e) {
+        } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {
-            throw new BusinessException("Business: Something went wrong reading a comparison operation.", e);
+            throw new ServiceException("Business: Something went wrong reading a comparison operation.", e);
         }
     }
 
     @Override
-    public CompletableFuture<ComparisonOperation> updateAsync(ComparisonOperation entity) throws BusinessException {
+    public CompletableFuture<Comparison> updateAsync(Comparison entity) throws ServiceException {
         try {
             return this.comparisonOperationRepository.updateAsync(entity, getRepositoryAuth());
-        } catch (BusinessException e) {
+        } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {
-            throw new BusinessException("Business: Something went wrong async updating a comparison operation.", e);
+            throw new ServiceException("Business: Something went wrong async updating a comparison operation.", e);
         }
 
     }
 
     @Override
-    public ComparisonOperation updateSync(ComparisonOperation entity) throws BusinessException {
+    public Comparison updateSync(Comparison entity) throws ServiceException {
         try {
             return this.comparisonOperationRepository.updateSync(entity, getRepositoryAuth());
-        } catch (BusinessException e) {
+        } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {
-            throw new BusinessException("Business: Something went wrong updating a comparison operation.", e);
+            throw new ServiceException("Business: Something went wrong updating a comparison operation.", e);
         }
     }
 
     @Override
-    public void deleteAsync(UUID id) throws BusinessException {
+    public void deleteAsync(UUID id) throws ServiceException {
         try {
             this.comparisonOperationRepository.deleteAsync(id, getRepositoryAuth());
-        } catch (BusinessException e) {
+        } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {
-            throw new BusinessException("Business: Something went wrong async deleting a comparison operation.", e);
+            throw new ServiceException("Business: Something went wrong async deleting a comparison operation.", e);
         }
     }
 
     @Override
-    public void deleteSync(UUID id) throws BusinessException {
+    public void deleteSync(UUID id) throws ServiceException {
         try {
             this.comparisonOperationRepository.deleteSync(id, getRepositoryAuth());
-        } catch (BusinessException e) {
+        } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {
-            throw new BusinessException("Business: Something went wrong deleting a comparison operation.", e);
+            throw new ServiceException("Business: Something went wrong deleting a comparison operation.", e);
         }
     }
 
     @Override
-    public Optional<List<ComparisonOperation>> readAll() throws BusinessException {
+    public Optional<List<Comparison>> readAll() throws ServiceException {
         try {
             return this.comparisonOperationRepository.findAll(getRepositoryAuth());
-        } catch (BusinessException e) {
+        } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {
-            throw new BusinessException("Business: Something went wrong reading all comparison operations.", e);
+            throw new ServiceException("Business: Something went wrong reading all comparison operations.", e);
         }
     }
 
     @Override
-    public Optional<List<ComparisonOperation>> readAllByIds(List<UUID> ids) throws BusinessException {
+    public Optional<List<Comparison>> readAllByIds(List<UUID> ids) throws ServiceException {
         try {
             return this.comparisonOperationRepository.findAllByIds(ids, getRepositoryAuth());
-        } catch (BusinessException e) {
+        } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {
-            throw new BusinessException("Business: Something went wrong reading all comparison operations by ids.", e);
+            throw new ServiceException("Business: Something went wrong reading all comparison operations by ids.", e);
         }
     }
 
     @Override
-    public void check(UUID id) throws BusinessException {
+    public void check(UUID id) throws ServiceException {
         try {
             this.comparisonOperationRepository.check(id, getRepositoryAuth());
-        } catch (BusinessException e) {
+        } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {
-            throw new BusinessException("Business: Something went wrong checking a comparison operation.", e);
+            throw new ServiceException("Business: Something went wrong checking a comparison operation.", e);
         }
     }
 
     @Override
-    public void checkAll(Set<UUID> ids) throws BusinessException {
+    public void checkAll(Set<UUID> ids) throws ServiceException {
         try {
             this.comparisonOperationRepository.checkAll(ids, getRepositoryAuth());
-        } catch (BusinessException e) {
+        } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {
-            throw new BusinessException("Business: Something went wrong checking all comparison operations.", e);
+            throw new ServiceException("Business: Something went wrong checking all comparison operations.", e);
         }
     }
 }

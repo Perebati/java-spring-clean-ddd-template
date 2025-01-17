@@ -2,7 +2,7 @@ package org.gfinnovation.dealsafe.configuration.exception;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.BadRequestException;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.ServiceException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.DomainException;
 import org.gfinnovation.dealsafe.configuration.logging.LogService;
 import org.gfinnovation.dealsafe.configuration.logging.infrastrutcture.ErrorLogSchema;
@@ -38,7 +38,7 @@ public class GlobalExceptionHandler {
     private final LogService logService;
 
     @ExceptionHandler(DomainException.class)
-    public ResponseEntity<Object> handleBusinessException(BusinessException ex, WebRequest request) {
+    public ResponseEntity<Object> handleBusinessException(ServiceException ex, WebRequest request) {
         ErrorLogSchema errorLog = buildErrorLog(ex);
         logService.saveErrorLogAsync(errorLog);
 
@@ -48,7 +48,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(BadRequestException.class)
-    public ResponseEntity<Object> handleBadRequestException(BusinessException ex, WebRequest request) {
+    public ResponseEntity<Object> handleBadRequestException(ServiceException ex, WebRequest request) {
         ErrorLogSchema errorLog = buildErrorLog(ex);
         logService.saveErrorLogAsync(errorLog);
 
@@ -58,7 +58,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(AuthenticationException.class)
-    public ResponseEntity<Object> handleAuthenticationException(BusinessException ex, WebRequest request) {
+    public ResponseEntity<Object> handleAuthenticationException(ServiceException ex, WebRequest request) {
         ErrorLogSchema errorLog = buildErrorLog(ex);
         logService.saveErrorLogAsync(errorLog);
 

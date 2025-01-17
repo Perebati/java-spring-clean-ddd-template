@@ -2,9 +2,9 @@ package org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.servi
 
 import org.apache.coyote.BadRequestException;
 import org.gfinnovation.dealsafe._shared.modules.application.interfaces.GenericService;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
-import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.ComparisonOperation;
-import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.logic.ComparisonTypeEnum;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.ServiceException;
+import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.Comparison;
+import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.logic.enums.ComparisonTypeEnum;
 
 import java.util.UUID;
 
@@ -14,6 +14,6 @@ import java.util.UUID;
  * @interface ComparisonOperationBusiness
  * @since 30/10/2024
  */
-public interface ComparisonOperationService extends GenericService<ComparisonOperation> {
-    ComparisonOperation create(ComparisonTypeEnum type, String jsonPath, String variable, UUID node_id) throws BusinessException, BadRequestException;
+public interface ComparisonOperationService extends GenericService<Comparison> {
+    Comparison create(ComparisonTypeEnum type, String jsonPath, String variable, UUID node_id) throws ServiceException, BadRequestException;
 }

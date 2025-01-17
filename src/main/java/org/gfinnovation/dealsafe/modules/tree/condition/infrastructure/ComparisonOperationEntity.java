@@ -4,7 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.GenericBusinessSchema;
-import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.logic.ComparisonTypeEnum;
+import org.gfinnovation.dealsafe.modules.tree.action.infrastructure.ActionOperationEntity;
+import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.logic.enums.ComparisonTypeEnum;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -1,12 +1,14 @@
 package org.gfinnovation.dealsafe.modules.tree.condition.domain;
 
+import org.gfinnovation.dealsafe._shared.modules.domain.GenericBusinessEntity;
+
 /**
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
- * @class Condition
- * @since 14/01/2025
+ * @class ConditionInterface
+ * @since 16/01/2025
  */
 
-public abstract class Condition {
-    public abstract boolean evaluate() throws Exception;
+public abstract class Condition<T> extends GenericBusinessEntity {
+    public abstract boolean evaluate(T data);
 }

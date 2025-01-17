@@ -2,8 +2,8 @@ package org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.facto
 
 import org.apache.coyote.BadRequestException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
-import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.ComparisonOperation;
-import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.logic.ComparisonTypeEnum;
+import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.Comparison;
+import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.logic.enums.ComparisonTypeEnum;
 
 import java.util.UUID;
 
@@ -15,5 +15,5 @@ import java.util.UUID;
  */
 
 public interface ComparisonOperationFactory {
-    ComparisonOperation produce(ComparisonTypeEnum type, String jsonPath, String variable, UUID node_id) throws FactoryException, BadRequestException;
+    Comparison produce(ComparisonTypeEnum type, String jsonPath, String variable, UUID node_id) throws FactoryException, BadRequestException;
 }

@@ -9,7 +9,7 @@ package org.gfinnovation.dealsafe.configuration.exception.models.layered;
  * @class RepositoryException
  * @since 30/10/2024
  */
-public class RepositoryException extends BusinessException {
+public class RepositoryException extends ServiceException {
     public RepositoryException(String message) {
         super(message);
     }

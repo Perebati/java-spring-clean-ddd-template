@@ -10,7 +10,7 @@ import lombok.ToString;
 import org.gfinnovation.dealsafe._shared.modules.domain.GenericEntity;
 import org.gfinnovation.dealsafe._shared.utils.annotations.Default;
 import org.gfinnovation.dealsafe.authentication.user.entity.UserEntity;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.ServiceException;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.HashSet;
@@ -50,7 +50,7 @@ public class CompanyEntity extends GenericEntity {
             @NotNull @Size(min = 4) String name,
             @NotNull Set<UserEntity> users) {
         if (users.isEmpty()) {
-            throw new BusinessException("Company must have at least one user");
+            throw new ServiceException("Company must have at least one user");
         }
         this.name = name;
         this.users = users;

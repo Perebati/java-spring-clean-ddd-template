@@ -32,7 +32,6 @@ public class GenericBusinessJpaRepositoryImpl<S extends GenericBusinessSchema> {
      *
      * @param id          The id of the entity.
      * @param companyId   The id of the company.
-     * @param userId      The id of the user.
      * @param entityClass The class of the entity.
      * @return An optional of the entity.
      * @author Lucas Batista Pereira
@@ -41,7 +40,6 @@ public class GenericBusinessJpaRepositoryImpl<S extends GenericBusinessSchema> {
     public Optional<S> findById(
             UUID id,
             UUID companyId,
-            UUID userId,
             Class<S> entityClass) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<S> query = cb.createQuery(entityClass);
@@ -49,10 +47,9 @@ public class GenericBusinessJpaRepositoryImpl<S extends GenericBusinessSchema> {
 
         Predicate idPredicate = cb.equal(root.get("id"), id);
         Predicate companyIdPredicate = cb.equal(root.get("company_id"), companyId);
-        Predicate userIdPredicate = cb.equal(root.get("user_id"), userId);
         Predicate notDeletedPredicate = cb.isFalse(root.get("deleted"));
 
-        query.select(root).where(cb.and(idPredicate, companyIdPredicate, userIdPredicate, notDeletedPredicate));
+        query.select(root).where(cb.and(idPredicate, companyIdPredicate, notDeletedPredicate));
 
         return entityManager.createQuery(query).getResultStream().findFirst();
     }

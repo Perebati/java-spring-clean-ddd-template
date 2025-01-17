@@ -4,7 +4,7 @@ import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
 import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
 import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessAuthenticationException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.ServiceAuthenticationException;
 import org.gfinnovation.dealsafe.configuration.security.RepositoryAuth;
 import org.slf4j.MDC;
 
@@ -31,7 +31,7 @@ public class GenericServiceImpl {
             this.userBusiness.check(user_id);
             return user_id;
         } catch (Exception e) {
-            throw new BusinessAuthenticationException("Something went wrong checking for user business info.", e);
+            throw new ServiceAuthenticationException("Something went wrong checking for user business info.", e);
         }
     }
 
@@ -41,7 +41,7 @@ public class GenericServiceImpl {
             this.companyBusiness.check(company_id);
             return company_id;
         } catch (Exception e) {
-            throw new BusinessAuthenticationException("Something went wrong checking for user business info.", e);
+            throw new ServiceAuthenticationException("Something went wrong checking for user business info.", e);
         }
     }
 
@@ -51,12 +51,12 @@ public class GenericServiceImpl {
             if (requestIdStr != null) {
                 return UUID.fromString(requestIdStr);
             } else {
-                throw new BusinessAuthenticationException("Request ID is null.");
+                throw new ServiceAuthenticationException("Request ID is null.");
             }
         } catch (IllegalArgumentException e) {
-            throw new BusinessAuthenticationException("Invalid request ID format.", e);
+            throw new ServiceAuthenticationException("Invalid request ID format.", e);
         } catch (Exception e) {
-            throw new BusinessAuthenticationException("Something went wrong checking for web request info.", e);
+            throw new ServiceAuthenticationException("Something went wrong checking for web request info.", e);
         }
     }
 
@@ -65,7 +65,7 @@ public class GenericServiceImpl {
             this.userBusiness.check(user_id);
             this.companyBusiness.check(company_id);
         } catch (Exception e) {
-            throw new BusinessAuthenticationException("Something went wrong checking for business info.", e);
+            throw new ServiceAuthenticationException("Something went wrong checking for business info.", e);
         }
     }
 

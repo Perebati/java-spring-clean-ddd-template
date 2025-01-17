@@ -40,9 +40,9 @@ public class TreeTest {
 //
 //            NodeTree createdNode2 = this.treeService.getNodeTreeBusiness().create("NODE 2", 0, createdNode1.getId());
 //
-//            ComparisonOperation comparisonOperation = this.operationService.getComparisonOperationBusiness().create(ComparisonTypeEnum.GREATERTHANOREQUAL, "/idade", "18", createdNode2.getId());
+//            Comparison comparisonOperation = this.operationService.getComparisonOperationBusiness().create(ComparisonTypeEnum.GREATERTHANOREQUAL, "/idade", "18", createdNode2.getId());
 //
-//            ComparisonOperation comparisonOperation2 = this.operationService.getComparisonOperationBusiness().create(ComparisonTypeEnum.LESSTHANOREQUAL, "/idade", "65", createdNode2.getId());
+//            Comparison comparisonOperation2 = this.operationService.getComparisonOperationBusiness().create(ComparisonTypeEnum.LESSTHANOREQUAL, "/idade", "65", createdNode2.getId());
 //
 //            //OperationActionEntity operationActionEntity = this.operationActionFactory.createOperationAction("http://localhost:8081/teste", "Olá mundo", operationEntity.getId());
 //
@@ -50,13 +50,13 @@ public class TreeTest {
 //
 //            NodeTree createdNode3 = this.treeService.getNodeTreeBusiness().create("NODE 3", 0, createdNode1.getId());
 //
-//            ComparisonOperation comparisonOperation3 = this.operationService.getComparisonOperationBusiness().create(ComparisonTypeEnum.DIFFERENT, "/CPF", "11330176650", createdNode3.getId());
+//            Comparison comparisonOperation3 = this.operationService.getComparisonOperationBusiness().create(ComparisonTypeEnum.DIFFERENT, "/CPF", "11330176650", createdNode3.getId());
 //
 //            NodeTree createdNode4 = this.treeService.getNodeTreeBusiness().create("Node4", 0, createdNode3.getId());
 //
-//            ComparisonOperation comparisonOperation1 = this.operationService.getComparisonOperationBusiness().create(ComparisonTypeEnum.EQUAL, "/endereco/rua", "Rua do Limão", createdNode4.getId());
+//            Comparison comparisonOperation1 = this.operationService.getComparisonOperationBusiness().create(ComparisonTypeEnum.EQUAL, "/endereco/rua", "Rua do Limão", createdNode4.getId());
 //
-//            ComparisonOperation comparisonOperation4 = this.operationService.getComparisonOperationBusiness().create(ComparisonTypeEnum.EQUAL, "/endereco/bairro", "Bairro do Limão", createdNode4.getId());
+//            Comparison comparisonOperation4 = this.operationService.getComparisonOperationBusiness().create(ComparisonTypeEnum.EQUAL, "/endereco/bairro", "Bairro do Limão", createdNode4.getId());
 //
 //            //OperationActionEntity operationActionEntity3 = this.operationActionFactory.createOperationAction("http://localhost:8081/teste", "Olá mundo", operationEntity4.getId());
 //

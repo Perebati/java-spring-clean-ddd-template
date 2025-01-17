@@ -7,12 +7,12 @@ import org.gfinnovation.dealsafe.configuration.exception.models.layered.Reposito
 import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.InputService;
 import org.gfinnovation.dealsafe.modules.input.domain.InputEntity;
 import org.gfinnovation.dealsafe.modules.input.domain.valueobjects.predefined.enums.PredefinedTypeEnum;
-import org.gfinnovation.dealsafe.modules.tree.node.domain.service.interfaces.RootTreeService;
-import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.ComparisonOperation;
-import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.logic.ComparisonTypeEnum;
+import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.Comparison;
+import org.gfinnovation.dealsafe.modules.tree.branch.domain.root.service.interfaces.RootTreeService;
+import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.logic.enums.ComparisonTypeEnum;
 import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.factory.interfaces.ComparisonOperationFactory;
-import org.gfinnovation.dealsafe.modules.tree.node.domain.aggregates.RootTreeDynamic;
-import org.gfinnovation.dealsafe.modules.tree.node.domain.aggregates.RootTreeStatic;
+import org.gfinnovation.dealsafe.modules.tree.branch.domain.RootTreeDynamic;
+import org.gfinnovation.dealsafe.modules.tree.branch.domain.RootTreeStatic;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;
@@ -44,13 +44,13 @@ public class ComparisonOperationFactoryImpl implements ComparisonOperationFactor
      * This method creates an operation,
      * however before creating it checks the node in order to find the root node,
      * then through the root it checks if the jsonPath existis inside the input variable.
-     * After all this validation, the ComparisonOperation is created.
+     * After all this validation, the Comparison is created.
      *
      * @param type     Comparison type.
      * @param jsonPath JsonPath to compared variable.
      * @param variable Variable value.
      * @param node_id  Node parentId.
-     * @return ComparisonOperation
+     * @return Comparison
      * @throws FactoryException                  Thrown when something wrong happened on factory layer.
      * @throws BadRequestException               Thrown when there's something wrong in user input.
      * @throws RepositoryEntityNotFoundException Thrown when something wrong happened on reading entities.
@@ -59,7 +59,7 @@ public class ComparisonOperationFactoryImpl implements ComparisonOperationFactor
      * @since 30/10/2024
      */
 
-    public ComparisonOperation produce(ComparisonTypeEnum type, String jsonPath, String variable, UUID node_id) throws FactoryException, BadRequestException {
+    public Comparison produce(ComparisonTypeEnum type, String jsonPath, String variable, UUID node_id) throws FactoryException, BadRequestException {
         try {
             Object rootTreeEntity = this.rootTreeService
                     .readGenericRoot(this.rootTreeService
@@ -77,7 +77,7 @@ public class ComparisonOperationFactoryImpl implements ComparisonOperationFactor
                 inputEntity.validateJsonPathAndType(jsonPath, variable);
             }
 
-            return new ComparisonOperation(type, jsonPath, Set.of(variable), null);
+            return new Comparison(type, jsonPath, Set.of(variable));
         } catch (BadRequestException | RepositoryEntityNotFoundException e) {
             throw new FactoryException(e.getMessage());
         } catch (Exception e) {

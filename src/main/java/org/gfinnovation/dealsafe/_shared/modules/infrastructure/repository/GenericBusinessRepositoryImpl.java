@@ -194,7 +194,7 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
     @Override
     public E read(@NotNull UUID id, @NotNull RepositoryAuth auth) throws RepositoryException {
         try {
-            return this.findById(id, auth.company_id(), auth.user_id(), entityClass)
+            return this.findById(id, auth.company_id(), entityClass)
                     .map(mapper::toEntity)
                     .orElseThrow(() -> new RepositoryEntityNotFoundException("Repository: Entity not found or already deleted with id: " + id));
         } catch (Exception e) {
@@ -216,7 +216,7 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
      */
     protected S readInternal(@NotNull UUID id, @NotNull RepositoryAuth auth) throws RepositoryException {
         try {
-            return this.findById(id, auth.company_id(), auth.user_id(), entityClass)
+            return this.findById(id, auth.company_id(), entityClass)
                     .orElseThrow(() -> new RepositoryEntityNotFoundException("Repository: Entity not found or already deleted with id: " + id));
         } catch (Exception e) {
             logger.error("Failed to retrieve entity with id: {}", id, e);

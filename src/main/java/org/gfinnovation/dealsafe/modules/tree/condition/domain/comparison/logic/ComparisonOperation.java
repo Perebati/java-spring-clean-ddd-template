@@ -7,7 +7,7 @@ package org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.logic
  *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
- * @class ComparisonOperation
+ * @class Comparison
  * @since 30/10/2024
  */
 public class ComparisonOperation {

@@ -10,7 +10,7 @@ package org.gfinnovation.dealsafe.configuration.exception.models.layered;
  * @since 04/11/2024
  */
 
-public class FactoryException extends BusinessException {
+public class FactoryException extends ServiceException {
     public FactoryException(String message) {
         super(message);
     }

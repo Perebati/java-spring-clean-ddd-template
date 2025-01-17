@@ -3,7 +3,7 @@ package org.gfinnovation.dealsafe.modules.input.application.service;
 import org.gfinnovation.dealsafe._shared.modules.application.GenericServiceImpl;
 import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
 import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.ServiceException;
 import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.InputService;
 import org.gfinnovation.dealsafe.modules.input.domain.InputEntity;
 import org.gfinnovation.dealsafe.modules.input.domain.factory.interfaces.InputFactory;
@@ -52,109 +52,109 @@ class InputServiceImpl extends GenericServiceImpl implements InputService {
      * @param name Name of given input.
      * @param json Example of json to map.
      * @return InputEntity
-     * @throws BusinessException Thrown when ac error occurred on business level.
+     * @throws ServiceException Thrown when ac error occurred on business level.
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
     public InputEntity create(
             String name,
-            String json) throws BusinessException {
+            String json) throws ServiceException {
         try {
             return this.inputRepository.createSync(this.inputFactory.produce(name, json), getRepositoryAuth());
-        } catch (BusinessException e) {
+        } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {
-            throw new BusinessException("Business: Something went wrong creating an input.", e);
+            throw new ServiceException("Business: Something went wrong creating an input.", e);
         }
     }
 
-    public InputEntity read(UUID id) throws BusinessException {
+    public InputEntity read(UUID id) throws ServiceException {
         try {
             return this.inputRepository.read(id, getRepositoryAuth());
-        } catch (BusinessException e) {
+        } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {
-            throw new BusinessException("Business: Something went wrong reading an input.", e);
+            throw new ServiceException("Business: Something went wrong reading an input.", e);
         }
     }
 
-    public CompletableFuture<InputEntity> updateAsync(InputEntity entity) throws BusinessException {
+    public CompletableFuture<InputEntity> updateAsync(InputEntity entity) throws ServiceException {
         try {
             return this.inputRepository.updateAsync(entity, getRepositoryAuth());
-        } catch (BusinessException e) {
+        } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {
-            throw new BusinessException("Business: Something went wrong async updating an input.", e);
+            throw new ServiceException("Business: Something went wrong async updating an input.", e);
         }
     }
 
-    public InputEntity updateSync(InputEntity entity) throws BusinessException {
+    public InputEntity updateSync(InputEntity entity) throws ServiceException {
         try {
             return this.inputRepository.updateSync(entity, getRepositoryAuth());
-        } catch (BusinessException e) {
+        } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {
-            throw new BusinessException("Business: Something went wrong updating an input.", e);
+            throw new ServiceException("Business: Something went wrong updating an input.", e);
         }
     }
 
-    public void deleteAsync(UUID id) throws BusinessException {
+    public void deleteAsync(UUID id) throws ServiceException {
         try {
             this.inputRepository.deleteAsync(id, getRepositoryAuth());
-        } catch (BusinessException e) {
+        } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {
-            throw new BusinessException("Business: Something went wrong async deleting an input.", e);
+            throw new ServiceException("Business: Something went wrong async deleting an input.", e);
         }
     }
 
-    public void deleteSync(UUID id) throws BusinessException {
+    public void deleteSync(UUID id) throws ServiceException {
         try {
             this.inputRepository.deleteSync(id, getRepositoryAuth());
-        } catch (BusinessException e) {
+        } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {
-            throw new BusinessException("Business: Something went wrong deleting an input.", e);
+            throw new ServiceException("Business: Something went wrong deleting an input.", e);
         }
     }
 
-    public Optional<List<InputEntity>> readAll() throws BusinessException {
+    public Optional<List<InputEntity>> readAll() throws ServiceException {
         try {
             return this.inputRepository.findAll(getRepositoryAuth());
-        } catch (BusinessException e) {
+        } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {
-            throw new BusinessException("Business: Something went wrong reading all inputs.", e);
+            throw new ServiceException("Business: Something went wrong reading all inputs.", e);
         }
     }
 
-    public Optional<List<InputEntity>> readAllByIds(List<UUID> ids) throws BusinessException {
+    public Optional<List<InputEntity>> readAllByIds(List<UUID> ids) throws ServiceException {
         try {
             return this.inputRepository.findAllByIds(ids, getRepositoryAuth());
-        } catch (BusinessException e) {
+        } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {
-            throw new BusinessException("Business: Something went wrong reading all inputs by id.", e);
+            throw new ServiceException("Business: Something went wrong reading all inputs by id.", e);
         }
     }
 
-    public void check(UUID id) throws BusinessException {
+    public void check(UUID id) throws ServiceException {
         try {
             this.inputRepository.check(id, getRepositoryAuth());
-        } catch (BusinessException e) {
+        } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {
-            throw new BusinessException("Business: Something went wrong checking an input.", e);
+            throw new ServiceException("Business: Something went wrong checking an input.", e);
         }
     }
 
-    public void checkAll(Set<UUID> ids) throws BusinessException {
+    public void checkAll(Set<UUID> ids) throws ServiceException {
         try {
             this.inputRepository.checkAll(ids, getRepositoryAuth());
-        } catch (BusinessException e) {
+        } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {
-            throw new BusinessException("Business: Something went wrong checking all inputs by ids.", e);
+            throw new ServiceException("Business: Something went wrong checking all inputs by ids.", e);
         }
     }
 }

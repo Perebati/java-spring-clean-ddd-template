@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe.modules.tree.condition.infrastructure.mapper;
 
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.mapper.GenericBusinessMapper;
-import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.ComparisonOperation;
+import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.Comparison;
 import org.gfinnovation.dealsafe.modules.tree.condition.infrastructure.ComparisonOperationEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
@@ -17,5 +17,5 @@ import org.mapstruct.ReportingPolicy;
         componentModel = MappingConstants.ComponentModel.SPRING,
         unmappedTargetPolicy = ReportingPolicy.IGNORE
 )
-public interface ComparisonOperationMapper extends GenericBusinessMapper<ComparisonOperation, ComparisonOperationEntity> {
+public interface ComparisonOperationMapper extends GenericBusinessMapper<Comparison, ComparisonOperationEntity> {
 }

@@ -10,7 +10,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.BusinessAuthenticationException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.ServiceAuthenticationException;
 import org.gfinnovation.dealsafe.configuration.logging.LogService;
 import org.gfinnovation.dealsafe.configuration.logging.infrastrutcture.RequestLogSchema;
 import org.slf4j.MDC;
@@ -66,7 +66,7 @@ public class RequestHandler implements Filter {
                 String company_id = claims.getBody().get("company_id", String.class);
 
                 if (user_id == null || company_id == null) {
-                    throw new BusinessAuthenticationException("Authentication error.");
+                    throw new ServiceAuthenticationException("Authentication error.");
                 }
 
                 RequestLogSchema requestLog = new RequestLogSchema();
@@ -84,9 +84,9 @@ public class RequestHandler implements Filter {
 
             chain.doFilter(request, response);
         } catch (JwtException e) {
-            throw new BusinessAuthenticationException("Invalid or expired token.");
+            throw new ServiceAuthenticationException("Invalid or expired token.");
         } catch (Exception e) {
-            throw new BusinessAuthenticationException("Something went wrong validation business user.");
+            throw new ServiceAuthenticationException("Something went wrong validation business user.");
         } finally {
             MDC.clear();
         }
