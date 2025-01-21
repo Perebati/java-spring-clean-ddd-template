@@ -24,7 +24,7 @@ import java.util.UUID;
 @Setter
 @ToString
 @EqualsAndHashCode(callSuper = true)
-public class NodeTree extends Branch {
+public class NodeTree extends Branch implements NodeTreeInterface{
     private UUID parentId;
     private ParentType parentType;
 
@@ -61,5 +61,10 @@ public class NodeTree extends Branch {
 
     public enum SortField {
         NAME
+    }
+
+    @Override
+    public boolean traverse() {
+        return false;
     }
 }

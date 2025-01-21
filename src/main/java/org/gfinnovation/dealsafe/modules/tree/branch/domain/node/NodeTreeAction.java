@@ -33,4 +33,9 @@ public class NodeTreeAction extends NodeTree {
     public enum SortType{
         NAME, ACTION_TYPE
     }
+
+    @Override
+    public boolean traverse() {
+        return true;
+    }
 }

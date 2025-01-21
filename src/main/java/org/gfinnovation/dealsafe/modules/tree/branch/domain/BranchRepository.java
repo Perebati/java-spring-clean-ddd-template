@@ -3,8 +3,6 @@ package org.gfinnovation.dealsafe.modules.tree.branch.domain;
 import org.gfinnovation.dealsafe._shared.modules.domain.repository.GenericBusinessRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.UUID;
-
 /**
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
@@ -14,6 +12,4 @@ import java.util.UUID;
 
 @Repository
 public interface BranchRepository extends GenericBusinessRepository<Branch> {
-
-    String findTypeByBranchId(UUID branchId);
 }
