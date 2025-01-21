@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.*;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.GenericBusinessSchema;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -41,17 +42,21 @@ public class GenericBusinessJpaRepositoryImpl<S extends GenericBusinessSchema> {
             UUID id,
             UUID companyId,
             Class<S> entityClass) {
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<S> query = cb.createQuery(entityClass);
-        Root<S> root = query.from(entityClass);
+        try {
+            CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+            CriteriaQuery<S> query = cb.createQuery(entityClass);
+            Root<S> root = query.from(entityClass);
 
-        Predicate idPredicate = cb.equal(root.get("id"), id);
-        Predicate companyIdPredicate = cb.equal(root.get("company_id"), companyId);
-        Predicate notDeletedPredicate = cb.isFalse(root.get("deleted"));
+            Predicate idPredicate = cb.equal(root.get("id"), id);
+            Predicate companyIdPredicate = cb.equal(root.get("company_id"), companyId);
+            Predicate notDeletedPredicate = cb.isFalse(root.get("deleted"));
 
-        query.select(root).where(cb.and(idPredicate, companyIdPredicate, notDeletedPredicate));
+            query.select(root).where(cb.and(idPredicate, companyIdPredicate, notDeletedPredicate));
 
-        return entityManager.createQuery(query).getResultStream().findFirst();
+            return entityManager.createQuery(query).getResultStream().findFirst();
+        }catch (Exception e) {
+            throw new RepositoryException("Error while trying to find entity by id.");
+        }
     }
 
     /**

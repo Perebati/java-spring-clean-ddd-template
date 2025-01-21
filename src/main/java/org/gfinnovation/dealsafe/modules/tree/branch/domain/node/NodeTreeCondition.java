@@ -4,7 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import org.gfinnovation.dealsafe._shared.utils.annotations.Default;
-import org.gfinnovation.dealsafe.modules.tree.branch.domain.root.RootTree;
+import org.gfinnovation.dealsafe.modules.tree.branch.domain.Branch;
 import org.gfinnovation.dealsafe.modules.tree.condition.domain.Condition;
 
 import java.util.LinkedList;
@@ -27,11 +27,12 @@ public class NodeTreeCondition extends NodeTree {
     @Default
     public NodeTreeCondition(
             String name,
-            RootTree parent,
+            Branch parent,
             LinkedList<Condition<?>> conditionInterfaces
     ) {
         super(name, parent);
         this.conditionInterfaces = conditionInterfaces;
+        this.setBranchType(BranchType.NODE_CONDITION);
     }
 
     public void addThenNode(NodeTree node) {

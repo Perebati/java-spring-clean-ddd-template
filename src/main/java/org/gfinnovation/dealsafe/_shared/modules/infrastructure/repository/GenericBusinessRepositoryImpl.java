@@ -168,6 +168,7 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
      * @since 06/11/2024
      */
     @Override
+    @Transactional
     public E createSync(@NotNull E entity, @NotNull RepositoryAuth auth) throws RepositoryException {
         try {
             S schema = mapper.toSchema(entity);
@@ -192,6 +193,7 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
      * @since 06/11/2024
      */
     @Override
+    @Transactional
     public E read(@NotNull UUID id, @NotNull RepositoryAuth auth) throws RepositoryException {
         try {
             return this.findById(id, auth.company_id(), entityClass)
@@ -234,6 +236,7 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
      * @since 06/11/2024
      */
     @Override
+    @Transactional
     public E updateSync(@NotNull E entity, @NotNull RepositoryAuth auth) throws RepositoryException {
         try {
             this.readInternal(entity.getId(), auth);

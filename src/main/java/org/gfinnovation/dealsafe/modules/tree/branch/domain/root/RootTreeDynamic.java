@@ -5,7 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.gfinnovation.dealsafe._shared.utils.annotations.Default;
+import org.gfinnovation.dealsafe.modules.tree.branch.domain.node.NodeTree;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -25,8 +27,14 @@ public class RootTreeDynamic extends RootTree {
     private UUID dynamicReference;
 
     @Default
-    public RootTreeDynamic(String name, UUID dynamicReference) {
+    public RootTreeDynamic(String name, List<NodeTree> nodes, UUID dynamicReference) {
+        super(name, nodes);
+        this.dynamicReference = dynamicReference;
+        this.setBranchType(BranchType.ROOT_DYNAMIC);
+    }
+    public RootTreeDynamic(String name,  UUID dynamicReference) {
         super(name);
         this.dynamicReference = dynamicReference;
+        this.setBranchType(BranchType.ROOT_DYNAMIC);
     }
 }

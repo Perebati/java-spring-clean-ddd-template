@@ -23,7 +23,6 @@ import java.util.UUID;
 @NoArgsConstructor
 @EntityListeners(GenericSchema.EntityListener.class)
 public abstract class GenericSchema {
-
     @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

@@ -3,10 +3,7 @@ package org.gfinnovation.dealsafe.modules.tree.branch.infrastructure.root;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.gfinnovation.dealsafe._shared.modules.infrastructure.GenericBusinessSchema;
-import org.gfinnovation.dealsafe.modules.tree.branch.infrastructure.node.NodeTreeEntity;
-
-import java.util.Set;
+import org.gfinnovation.dealsafe.modules.tree.branch.infrastructure.BranchEntity;
 
 /**
  * @author Lucas Batista Pereira
@@ -18,22 +15,7 @@ import java.util.Set;
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
-@Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "type", length = 3, discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorValue(BranchEntity.DISCRIMINATOR_ROOT)
 @Table(name = "tree_root")
-public class RootTreeEntity extends GenericBusinessSchema {
-
-    protected final static String DISCRIMINATOR_DYNAMIC = "DY";
-    protected final static String DISCRIMINATOR_STATIC = "ST";
-
-    @Column(name = "name")
-    private String name;
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "_relation_root_x_node",
-            joinColumns = @JoinColumn(name = "root_id"),
-            inverseJoinColumns = @JoinColumn(name = "node_id")
-    )
-    private Set<NodeTreeEntity> nodes;
+public class RootTreeEntity extends BranchEntity {
 }

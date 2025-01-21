@@ -21,11 +21,9 @@ import org.mapstruct.ReportingPolicy;
 )
 public interface RootTreeMapper extends GenericBusinessMapper<RootTree, RootTreeEntity> {
     @Override
-    @Mapping(target = "nodes", source = "nodes")
     RootTree toEntity(RootTreeEntity schema);
 
     @Override
-    @Mapping(target = "nodes", source = "nodes")
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "deleted", ignore = true)

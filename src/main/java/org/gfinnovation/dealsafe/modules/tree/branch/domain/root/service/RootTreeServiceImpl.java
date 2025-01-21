@@ -1,5 +1,6 @@
 package org.gfinnovation.dealsafe.modules.tree.branch.domain.root.service;
 
+import jakarta.transaction.Transactional;
 import jakarta.validation.ValidationException;
 import org.gfinnovation.dealsafe._shared.modules.application.GenericServiceImpl;
 import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
@@ -73,10 +74,11 @@ class RootTreeServiceImpl extends GenericServiceImpl implements RootTreeService 
      */
 
     @Override
-    public CompletableFuture<RootTreeStatic> create(String name, PredefinedTypeEnum static_input) throws ServiceException {
+    @Transactional
+    public RootTreeStatic create(String name, PredefinedTypeEnum static_input) throws ServiceException {
         try {
             return this.rootTreeStaticRepository
-                    .createAsync(
+                    .createSync(
                             rootTreeFactory
                                     .produce(
                                             name,

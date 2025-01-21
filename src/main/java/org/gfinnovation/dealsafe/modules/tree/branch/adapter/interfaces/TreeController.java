@@ -10,7 +10,6 @@ import org.gfinnovation.dealsafe.configuration.exception.models.layered.DomainEx
 import org.gfinnovation.dealsafe.modules.tree.branch.adapter.dto.request.NodeCreationDTO;
 import org.gfinnovation.dealsafe.modules.tree.branch.adapter.dto.request.RootCreationDynamicInputDTO;
 import org.gfinnovation.dealsafe.modules.tree.branch.adapter.dto.request.RootCreationPredefinedInputDTO;
-import org.gfinnovation.dealsafe.modules.tree.branch.domain.node.NodeTree;
 import org.gfinnovation.dealsafe.modules.tree.branch.domain.root.RootTreeDynamic;
 import org.gfinnovation.dealsafe.modules.tree.branch.domain.root.RootTreeStatic;
 import org.springframework.http.ResponseEntity;
@@ -42,7 +41,7 @@ public interface TreeController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PostMapping("/root/predefind-input")
-    ResponseEntity<CompletableFuture<RootTreeStatic>> createRootPredefined(@RequestBody RootCreationPredefinedInputDTO request) throws DomainException, BadRequestException;
+    ResponseEntity<RootTreeStatic> createRootPredefined(@RequestBody RootCreationPredefinedInputDTO request) throws DomainException, BadRequestException;
 
     @Operation(
             summary = "Cadastro de root de árvore com input dinâmico",
@@ -64,5 +63,5 @@ public interface TreeController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PostMapping("/node")
-    ResponseEntity<NodeTree> createNode(NodeCreationDTO request) throws DomainException, BadRequestException;
+    ResponseEntity<Void> createNode(NodeCreationDTO request) throws DomainException, BadRequestException;
 }

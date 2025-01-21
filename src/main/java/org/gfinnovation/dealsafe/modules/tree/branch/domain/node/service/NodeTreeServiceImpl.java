@@ -5,12 +5,12 @@ import org.gfinnovation.dealsafe.authentication.company.business.interfaces.Comp
 import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.ServiceException;
 import org.gfinnovation.dealsafe.modules.tree.branch.adapter.dto.request.NodeCreationDTO;
+import org.gfinnovation.dealsafe.modules.tree.branch.domain.Branch;
+import org.gfinnovation.dealsafe.modules.tree.branch.domain.BranchRepository;
 import org.gfinnovation.dealsafe.modules.tree.branch.domain.node.NodeTree;
 import org.gfinnovation.dealsafe.modules.tree.branch.domain.node.factory.interfaces.NodeTreeFactory;
 import org.gfinnovation.dealsafe.modules.tree.branch.domain.node.repository.NodeTreeRepository;
 import org.gfinnovation.dealsafe.modules.tree.branch.domain.node.service.interfaces.NodeTreeService;
-import org.gfinnovation.dealsafe.modules.tree.branch.domain.root.RootTree;
-import org.gfinnovation.dealsafe.modules.tree.branch.domain.root.service.interfaces.RootTreeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -35,7 +35,7 @@ import java.util.concurrent.CompletableFuture;
 class NodeTreeServiceImpl extends GenericServiceImpl implements NodeTreeService {
     private final NodeTreeRepository nodeTreeRepository;
     private final NodeTreeFactory nodeTreeFactory;
-    private final RootTreeService rootTreeBusiness;
+    private final BranchRepository branchRepository;
 
     @Autowired
     public NodeTreeServiceImpl(
@@ -43,12 +43,11 @@ class NodeTreeServiceImpl extends GenericServiceImpl implements NodeTreeService 
             CompanyBusiness companyBusiness,
             NodeTreeRepository nodeTreeRepository,
             NodeTreeFactory nodeTreeFactory,
-            RootTreeService rootTreeBusiness
-    ) {
+            BranchRepository branchRepository) {
         super(userBusiness, companyBusiness);
         this.nodeTreeRepository = nodeTreeRepository;
         this.nodeTreeFactory = nodeTreeFactory;
-        this.rootTreeBusiness = rootTreeBusiness;
+        this.branchRepository = branchRepository;
     }
 
     /**
@@ -56,8 +55,6 @@ class NodeTreeServiceImpl extends GenericServiceImpl implements NodeTreeService 
      * Every Node needs a parent, in this case the parent can be either an RootNode or a common Node.
      * ParentId can either belong to a Root or a Node, this method supports both.
      *
-     * @param nodeCreationDTO DTO containing the information to create a new Node.
-     * @return NodeTree
      * @throws ServiceException Thrown when an error occurs on business level.
      * @author Lucas Batista Pereira
      * @since 30/10/2024
@@ -65,16 +62,9 @@ class NodeTreeServiceImpl extends GenericServiceImpl implements NodeTreeService 
 
     public NodeTree create(NodeCreationDTO nodeCreationDTO) throws ServiceException {
         try {
-            Object parent = this.rootTreeBusiness.readGenericRoot(parent_id);
-            if(parent instanceof NodeTree){
-                NodeTree newNode = this.nodeTreeFactory.produce(name, (NodeTree) parent);
-                return this.nodeTreeRepository.createNode(newNode, parent, parent_id, getRepositoryAuth());
-            } else if(parent instanceof RootTree){
-                NodeTree newNode = this.nodeTreeFactory.produce(name, (RootTree) parent);
-                return this.nodeTreeRepository.createNode(newNode, parent, parent_id, getRepositoryAuth());
-            } else {
-                throw new ServiceException("Business: Something went wrong creating a node.");
-            }
+            Branch parent = this.branchRepository.read(nodeCreationDTO.parent_id(), getRepositoryAuth());
+            NodeTree newNode = this.nodeTreeFactory.produce(nodeCreationDTO.name(), parent);
+            return this.read(this.nodeTreeRepository.createNode(newNode, parent, getRepositoryAuth()).getId());
         } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {

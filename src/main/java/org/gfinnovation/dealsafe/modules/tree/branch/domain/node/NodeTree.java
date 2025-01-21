@@ -7,6 +7,7 @@ import lombok.ToString;
 import org.gfinnovation.dealsafe._shared.utils.annotations.Default;
 import org.gfinnovation.dealsafe.modules.tree.branch.domain.Branch;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -19,28 +20,34 @@ import java.util.UUID;
  * @class NodeTree
  * @since 30/10/2024
  */
-@EqualsAndHashCode(callSuper = true)
 @Getter
 @Setter
 @ToString
+@EqualsAndHashCode(callSuper = true)
 public class NodeTree extends Branch {
     private UUID parentId;
     private ParentType parentType;
 
     @Default
-    private NodeTree(
+    public NodeTree(
             String name,
+            List<NodeTree> nodes,
             UUID parentId,
             ParentType parentType
     ) {
-        super(name);
+        super(name, nodes);
         this.parentId = parentId;
         this.parentType = parentType;
+        this.setBranchType(BranchType.NODE_COMMON);
     }
 
-    public NodeTree(String name, Branch parent) {
+    public NodeTree(
+            String name,
+            Branch parent
+    ) {
         super(name);
         setParent(parent);
+        this.setBranchType(BranchType.NODE_COMMON);
     }
 
     public void setParent(Branch parent){

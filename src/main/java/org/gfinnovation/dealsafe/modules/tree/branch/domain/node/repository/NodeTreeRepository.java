@@ -4,9 +4,8 @@ import jakarta.validation.constraints.NotNull;
 import org.gfinnovation.dealsafe._shared.modules.domain.repository.GenericBusinessRepository;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.configuration.security.RepositoryAuth;
+import org.gfinnovation.dealsafe.modules.tree.branch.domain.Branch;
 import org.gfinnovation.dealsafe.modules.tree.branch.domain.node.NodeTree;
-
-import java.util.UUID;
 
 /**
  * @author Lucas Batista Pereira
@@ -16,5 +15,5 @@ import java.util.UUID;
  */
 
 public interface NodeTreeRepository extends GenericBusinessRepository<NodeTree> {
-    NodeTree createNode(@NotNull NodeTree newNode, @NotNull Object parent, @NotNull UUID parent_id, @NotNull RepositoryAuth auth) throws RepositoryException;
+    NodeTree createNode(@NotNull NodeTree newNode, @NotNull Branch parent, @NotNull RepositoryAuth auth) throws RepositoryException;
 }

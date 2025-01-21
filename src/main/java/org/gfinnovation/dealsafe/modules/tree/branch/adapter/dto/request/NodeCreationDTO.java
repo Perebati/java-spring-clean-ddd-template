@@ -1,7 +1,5 @@
 package org.gfinnovation.dealsafe.modules.tree.branch.adapter.dto.request;
 
-import org.gfinnovation.dealsafe.modules.tree.branch.domain.Branch;
-
 import java.util.UUID;
 
 /**
@@ -11,5 +9,5 @@ import java.util.UUID;
  * @since 04/11/2024
  */
 
-public record NodeCreationDTO(String name, Integer sequence, UUID parent_id, Branch.ParentType parent_type) {
+public record NodeCreationDTO(String name, UUID parent_id) {
 }

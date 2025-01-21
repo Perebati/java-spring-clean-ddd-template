@@ -22,7 +22,6 @@ import java.util.UUID;
 @EqualsAndHashCode(callSuper = true)
 @MappedSuperclass
 public abstract class GenericBusinessSchema extends GenericSchema {
-
     @Column(name = "user_id", updatable = false, nullable = false)
     private UUID user_id;
 

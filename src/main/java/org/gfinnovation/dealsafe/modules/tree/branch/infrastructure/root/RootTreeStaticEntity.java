@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.gfinnovation.dealsafe.modules.input.domain.valueobjects.predefined.enums.PredefinedTypeEnum;
+import org.gfinnovation.dealsafe.modules.tree.branch.infrastructure.BranchEntity;
 
 /**
  * @author Lucas Batista Pereira
@@ -15,10 +16,14 @@ import org.gfinnovation.dealsafe.modules.input.domain.valueobjects.predefined.en
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
-@DiscriminatorValue(RootTreeEntity.DISCRIMINATOR_STATIC)
+@DiscriminatorValue(BranchEntity.DISCRIMINATOR_STATIC)
 @PrimaryKeyJoinColumn(name = "id", foreignKey = @ForeignKey(name = "fk_static_root_x_root"))
-@Table(name = "tree_root_node_static")
-@AttributeOverride(name = "type", column = @Column(name = "static_type"))
+@Table(
+        name = "tree_root_node_static",
+        indexes = {
+                @Index(name = "idx_tree_root_static_id", columnList = "id")
+        }
+)
 public class RootTreeStaticEntity extends RootTreeEntity {
-    private PredefinedTypeEnum type;
+    private PredefinedTypeEnum input_type;
 }

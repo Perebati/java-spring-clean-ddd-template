@@ -21,7 +21,7 @@ import java.util.concurrent.CompletableFuture;
  */
 
 public interface RootTreeService extends GenericService<RootTree> {
-    CompletableFuture<RootTreeStatic> create(String name, PredefinedTypeEnum static_input) throws ServiceException, ValidationException;
+    RootTreeStatic create(String name, PredefinedTypeEnum static_input) throws ServiceException, ValidationException;
 
     CompletableFuture<RootTreeDynamic> create(String name, UUID dynamic_input) throws ServiceException, ValidationException;
 

@@ -4,9 +4,9 @@ import jakarta.validation.ValidationException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
 import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.InputService;
 import org.gfinnovation.dealsafe.modules.input.domain.valueobjects.predefined.enums.PredefinedTypeEnum;
+import org.gfinnovation.dealsafe.modules.tree.branch.domain.root.RootTreeDynamic;
+import org.gfinnovation.dealsafe.modules.tree.branch.domain.root.RootTreeStatic;
 import org.gfinnovation.dealsafe.modules.tree.branch.domain.root.factory.interfaces.RootTreeFactory;
-import org.gfinnovation.dealsafe.modules.tree.branch.domain.RootTreeDynamic;
-import org.gfinnovation.dealsafe.modules.tree.branch.domain.RootTreeStatic;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;

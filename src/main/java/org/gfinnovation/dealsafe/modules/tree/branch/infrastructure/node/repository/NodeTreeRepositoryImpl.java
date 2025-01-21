@@ -2,10 +2,10 @@ package org.gfinnovation.dealsafe.modules.tree.branch.infrastructure.node.reposi
 
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
-import jakarta.validation.constraints.NotNull;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.GenericBusinessRepositoryImpl;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.configuration.security.RepositoryAuth;
+import org.gfinnovation.dealsafe.modules.tree.branch.domain.Branch;
 import org.gfinnovation.dealsafe.modules.tree.branch.domain.node.NodeTree;
 import org.gfinnovation.dealsafe.modules.tree.branch.domain.node.repository.NodeTreeRepository;
 import org.gfinnovation.dealsafe.modules.tree.branch.domain.root.RootTreeDynamic;
@@ -18,8 +18,6 @@ import org.gfinnovation.dealsafe.modules.tree.branch.infrastructure.node.mapper.
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Component;
-
-import java.util.UUID;
 
 /**
  * @author Lucas Batista Pereira
@@ -54,8 +52,7 @@ class NodeTreeRepositoryImpl
      * Transactional operation to save a new node on the database.
      *
      * @param newNode   New entity to be saved, mede by factory.
-     * @param parent    Parent of given newNode, can be either a root or a node.
-     * @param parent_id ParentId of given newNode
+     * @param parent    Parent of given newNode, can be either a root or a node, always a branch.
      * @return NodeTree
      * @throws RepositoryException Thrown when an error occur on Repository Level
      * @author Lucas Batista Pereira
@@ -63,29 +60,35 @@ class NodeTreeRepositoryImpl
      */
     @Transactional
     @Override
-    public NodeTree createNode(@NotNull NodeTree newNode, @NotNull Object parent, @NotNull UUID parent_id, @NotNull RepositoryAuth auth) throws RepositoryException {
+    public NodeTree createNode(NodeTree newNode, Branch parent, RepositoryAuth auth) throws RepositoryException {
         try {
-            if (parent instanceof RootTreeStatic) {
-                RootTreeStatic parent_root = this.rootTreeStaticRepository.read(parent_id, auth);
-                NodeTree createdNodeEntity = this.createSync(newNode, auth);
-                parent_root.addNode(createdNodeEntity);
-                this.rootTreeRepository.updateGenericRootSync(parent_root, auth);
-                return this.read(createdNodeEntity.getId(), auth);
-            } else if (parent instanceof RootTreeDynamic) {
-                RootTreeDynamic parent_root = this.rootTreeDynamicRepository.read(parent_id, auth);
-                NodeTree createdNodeEntity = this.createSync(newNode, auth);
-                parent_root.addNode(createdNodeEntity);
-                this.rootTreeRepository.updateGenericRootSync(parent_root, auth);
-                return this.read(createdNodeEntity.getId(), auth);
-            } else {
-                NodeTree parent_node = this.read(parent_id, auth);
-                NodeTree createdNodeEntity = this.createSync(newNode, auth);
-                parent_node.addNode(createdNodeEntity);
-                this.updateSync(parent_node, auth);
-                return this.read(createdNodeEntity.getId(), auth);
+            switch (parent.getBranchType()){
+                case Branch.BranchType.ROOT_STATIC:
+                    RootTreeStatic parent_static = this.rootTreeStaticRepository.read(parent.getId(), auth);
+                    NodeTree createdNodeEntity_0 = this.createSync(newNode, auth);
+                    parent_static.addNode(createdNodeEntity_0);
+                    this.rootTreeRepository.updateGenericRootSync(parent_static, auth);
+                    return this.read(createdNodeEntity_0.getId(), auth);
+
+                case Branch.BranchType.ROOT_DYNAMIC:
+                    RootTreeDynamic parent_dynamic = this.rootTreeDynamicRepository.read(parent.getId(), auth);
+                    NodeTree createdNodeEntity_1 = this.createSync(newNode, auth);
+                    parent_dynamic.addNode(createdNodeEntity_1);
+                    this.rootTreeRepository.updateGenericRootSync(parent_dynamic, auth);
+                    return this.read(createdNodeEntity_1.getId(), auth);
+
+                case Branch.BranchType.NODE_COMMON:
+                    NodeTree parent_node = this.read(parent.getId(), auth);
+                    NodeTree createdNodeEntity_2 = this.createSync(newNode, auth);
+                    parent_node.addNode(createdNodeEntity_2);
+                    this.updateSync(parent_node, auth);
+                    return this.read(createdNodeEntity_2.getId(), auth);
+
+                default:
+                    throw new RepositoryException("Tipo de branch desconhecido: ");
             }
         } catch (Exception e) {
-            throw new RepositoryException("Something went wrong creating a new node.", e);
+            throw new RepositoryException("Ocorreu um erro ao criar um novo nó.", e);
         }
     }
 }

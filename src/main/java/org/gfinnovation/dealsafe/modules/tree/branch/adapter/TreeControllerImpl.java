@@ -5,7 +5,6 @@ import org.gfinnovation.dealsafe.modules.tree.branch.adapter.dto.request.NodeCre
 import org.gfinnovation.dealsafe.modules.tree.branch.adapter.dto.request.RootCreationDynamicInputDTO;
 import org.gfinnovation.dealsafe.modules.tree.branch.adapter.dto.request.RootCreationPredefinedInputDTO;
 import org.gfinnovation.dealsafe.modules.tree.branch.adapter.interfaces.TreeController;
-import org.gfinnovation.dealsafe.modules.tree.branch.domain.node.NodeTree;
 import org.gfinnovation.dealsafe.modules.tree.branch.domain.node.service.interfaces.NodeTreeService;
 import org.gfinnovation.dealsafe.modules.tree.branch.domain.root.RootTreeDynamic;
 import org.gfinnovation.dealsafe.modules.tree.branch.domain.root.RootTreeStatic;
@@ -35,7 +34,7 @@ class TreeControllerImpl implements TreeController {
     }
 
     @Override
-    public ResponseEntity<CompletableFuture<RootTreeStatic>> createRootPredefined(@RequestBody RootCreationPredefinedInputDTO request) throws DomainException {
+    public ResponseEntity<RootTreeStatic> createRootPredefined(@RequestBody RootCreationPredefinedInputDTO request) throws DomainException {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(
                     this.rootTreeService.create(
@@ -65,14 +64,12 @@ class TreeControllerImpl implements TreeController {
     }
 
     @Override
-    public ResponseEntity<NodeTree> createNode(NodeCreationDTO request) throws DomainException {
+    public ResponseEntity<Void> createNode(NodeCreationDTO request) throws DomainException {
         try {
-            return ResponseEntity.status(HttpStatus.CREATED).body(
-                    this.nodeTreeService.create(
-                            request.name(),
-                            request.sequence(),
-                            request.parent_id()
-                    ));
+            this.nodeTreeService.create(
+                    request
+            );
+            return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (DomainException e) {
             throw e;
         } catch (Exception e) {
