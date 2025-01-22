@@ -44,7 +44,7 @@ public class ComparisonOperationServiceImpl extends GenericServiceImpl implement
             NodeTreeService nodeTreeService,
             ComparisonOperationRepository comparisonOperationRepository,
             ComparisonOperationFactory comparisonOperationFactory
-            ) {
+    ) {
         super(userBusiness, companyBusiness);
         this.nodeTreeService = nodeTreeService;
         this.comparisonOperationRepository = comparisonOperationRepository;
@@ -59,7 +59,7 @@ public class ComparisonOperationServiceImpl extends GenericServiceImpl implement
      * @param variable Variable to compare.
      * @param node_id  Parent node.
      * @return Comparison
-     * @throws ServiceException   Thrown when an error occurred on business level.
+     * @throws ServiceException    Thrown when an error occurred on business level.
      * @throws FactoryException    Thrown when an error occurred on factory level.
      * @throws ValidationException Thrown when an error occurred on factory level.
      * @throws RepositoryException Thrown when an error occurred on repository level.

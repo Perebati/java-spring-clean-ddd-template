@@ -34,9 +34,9 @@ public class BranchEntity extends GenericBusinessSchema {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "branch_type")
-    private Branch.BranchType branchType;
+    private Branch.NodeType nodeType;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "_relation_branch_x_node",
             joinColumns = @JoinColumn(name = "branch_id"),

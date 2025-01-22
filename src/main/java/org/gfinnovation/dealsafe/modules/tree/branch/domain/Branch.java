@@ -4,7 +4,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.gfinnovation.dealsafe._shared.modules.domain.GenericBusinessEntity;
 import org.gfinnovation.dealsafe._shared.utils.annotations.Default;
 import org.gfinnovation.dealsafe.modules.tree.branch.domain.node.NodeTree;
 import org.gfinnovation.dealsafe.modules.tree.branch.domain.root.RootTree;
@@ -18,15 +17,14 @@ import java.util.List;
  * @class Branch
  * @since 17/01/2025
  */
-
 @Setter
 @Getter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class Branch extends GenericBusinessEntity {
+public class Branch extends BranchTraversal {
     private String name;
     private List<NodeTree> nodes;
-    private BranchType branchType;
+    private NodeType nodeType;
 
     @Default
     public Branch(
@@ -35,17 +33,13 @@ public class Branch extends GenericBusinessEntity {
     ) {
         this.name = name;
         this.nodes = nodes;
-        this.setBranchType(BranchType.BRANCH);
+        this.setNodeType(NodeType.BRANCH);
     }
 
     public Branch(String name) {
         this.name = name;
         this.nodes = new ArrayList<>();
-        this.setBranchType(BranchType.BRANCH);
-    }
-
-    public enum ParentType {
-        NODE, ROOT
+        this.setNodeType(NodeType.BRANCH);
     }
 
     public void addNode(NodeTree node) {
@@ -62,7 +56,16 @@ public class Branch extends GenericBusinessEntity {
         }
     }
 
-    public enum BranchType {
+    @Override
+    public boolean execute(String input) {
+        return true;
+    }
+
+    public enum ParentType {
+        NODE, ROOT
+    }
+
+    public enum NodeType {
         BRANCH,
         NODE_COMMON,
         NODE_ACTION,

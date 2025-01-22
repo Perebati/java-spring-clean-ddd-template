@@ -31,6 +31,7 @@ class BranchRepositoryImpl
         super(mapper, new SimpleJpaRepository<>(BranchEntity.class, entityManager), BranchEntity.class);
         this.entityManager = entityManager1;
     }
+
     public String findTypeByBranchId(UUID branchId) {
         String sql = "SELECT tb.type FROM tree_branch tb WHERE tb.id = ?1";
 

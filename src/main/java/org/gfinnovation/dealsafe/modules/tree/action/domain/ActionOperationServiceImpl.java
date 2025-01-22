@@ -35,7 +35,7 @@ public class ActionOperationServiceImpl extends GenericServiceImpl implements Ac
             ActionOperationFactory actionOperationFactory,
             ComparisonOperationService comparisonOperationBusiness,
             ActionOperationRepository actionOperationRepository
-            ) {
+    ) {
         super(userBusiness, companyBusiness);
         this.actionOperationFactory = actionOperationFactory;
         this.comparisonOperationBusiness = comparisonOperationBusiness;

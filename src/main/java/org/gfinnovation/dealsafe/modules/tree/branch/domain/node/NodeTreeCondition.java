@@ -32,7 +32,7 @@ public class NodeTreeCondition extends NodeTree {
     ) {
         super(name, parent);
         this.conditionInterfaces = conditionInterfaces;
-        this.setBranchType(BranchType.NODE_CONDITION);
+        this.setNodeType(NodeType.NODE_CONDITION);
     }
 
     public void addThenNode(NodeTree node) {

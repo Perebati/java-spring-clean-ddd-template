@@ -16,6 +16,7 @@ import static java.util.stream.Collectors.toList;
 
 public interface GenericBusinessMapper<E extends GenericEntity, S extends GenericSchema> {
     E toEntity(S schema);
+
     S toSchema(E entity);
 
     default List<E> toEntityList(List<S> schemaList) {

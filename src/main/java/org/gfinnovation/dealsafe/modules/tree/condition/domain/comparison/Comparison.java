@@ -29,6 +29,7 @@ public class Comparison extends Condition<ComparisonContext> {
     private ComparisonTypeEnum comparisonTypeEnum;
     private String jsonVariablePath;
     private Set<String> expectedVars;
+
     @Default
     public Comparison(
             ComparisonTypeEnum comparisonTypeEnum,
@@ -39,11 +40,12 @@ public class Comparison extends Condition<ComparisonContext> {
         this.jsonVariablePath = jsonPath;
         this.expectedVars = variables;
     }
+
     public void addVariable(String variable) {
         this.expectedVars.add(variable);
     }
 
-    //TODO: Rever este evaluate
+    // TODO: Rever este evaluate
     @Override
     public boolean evaluate(ComparisonContext data) {
         try {

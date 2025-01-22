@@ -8,7 +8,9 @@ import org.gfinnovation.dealsafe.modules.tree.branch.adapter.dto.request.NodeCre
 import org.gfinnovation.dealsafe.modules.tree.branch.domain.Branch;
 import org.gfinnovation.dealsafe.modules.tree.branch.domain.BranchRepository;
 import org.gfinnovation.dealsafe.modules.tree.branch.domain.node.NodeTree;
+import org.gfinnovation.dealsafe.modules.tree.branch.domain.node.NodeTreeAction;
 import org.gfinnovation.dealsafe.modules.tree.branch.domain.node.factory.interfaces.NodeTreeFactory;
+import org.gfinnovation.dealsafe.modules.tree.branch.domain.node.repository.NodeTreeActionRepository;
 import org.gfinnovation.dealsafe.modules.tree.branch.domain.node.repository.NodeTreeRepository;
 import org.gfinnovation.dealsafe.modules.tree.branch.domain.node.service.interfaces.NodeTreeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +38,7 @@ class NodeTreeServiceImpl extends GenericServiceImpl implements NodeTreeService 
     private final NodeTreeRepository nodeTreeRepository;
     private final NodeTreeFactory nodeTreeFactory;
     private final BranchRepository branchRepository;
+    private final NodeTreeActionRepository nodeTreeActionRepository;
 
     @Autowired
     public NodeTreeServiceImpl(
@@ -43,11 +46,14 @@ class NodeTreeServiceImpl extends GenericServiceImpl implements NodeTreeService 
             CompanyBusiness companyBusiness,
             NodeTreeRepository nodeTreeRepository,
             NodeTreeFactory nodeTreeFactory,
-            BranchRepository branchRepository) {
+            BranchRepository branchRepository,
+            NodeTreeActionRepository nodeTreeActionRepository
+    ) {
         super(userBusiness, companyBusiness);
         this.nodeTreeRepository = nodeTreeRepository;
         this.nodeTreeFactory = nodeTreeFactory;
         this.branchRepository = branchRepository;
+        this.nodeTreeActionRepository = nodeTreeActionRepository;
     }
 
     /**
@@ -67,6 +73,16 @@ class NodeTreeServiceImpl extends GenericServiceImpl implements NodeTreeService 
             return this.read(this.nodeTreeRepository.createNode(newNode, parent, getRepositoryAuth()).getId());
         } catch (ServiceException e) {
             throw e;
+        } catch (Exception e) {
+            throw new ServiceException("Business: Something went wrong checking a node.", e);
+        }
+    }
+
+    public NodeTreeAction createAction(NodeCreationDTO nodeCreationDTO) {
+        try {
+            Branch parent = this.branchRepository.read(nodeCreationDTO.parent_id(), getRepositoryAuth());
+            NodeTreeAction newNode = this.nodeTreeFactory.produceAction(nodeCreationDTO.name(), parent);
+            return this.nodeTreeActionRepository.createNode(newNode, parent, getRepositoryAuth());
         } catch (Exception e) {
             throw new ServiceException("Business: Something went wrong checking a node.", e);
         }

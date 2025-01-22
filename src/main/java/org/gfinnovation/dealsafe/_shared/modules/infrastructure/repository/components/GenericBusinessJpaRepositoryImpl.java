@@ -54,7 +54,7 @@ public class GenericBusinessJpaRepositoryImpl<S extends GenericBusinessSchema> {
             query.select(root).where(cb.and(idPredicate, companyIdPredicate, notDeletedPredicate));
 
             return entityManager.createQuery(query).getResultStream().findFirst();
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new RepositoryException("Error while trying to find entity by id.");
         }
     }

@@ -27,11 +27,20 @@ public class RootTree extends Branch {
     @Default
     public RootTree(String name, List<NodeTree> nodes) {
         super(name, nodes);
-        this.setBranchType(BranchType.ROOT_COMMON);
+        this.setNodeType(NodeType.ROOT_COMMON);
     }
 
     public RootTree(String name) {
         super(name);
-        this.setBranchType(BranchType.ROOT_COMMON);
+        this.setNodeType(NodeType.ROOT_COMMON);
+    }
+
+    @Override
+    public boolean execute(String input) {
+        System.out.println("Dentro de um Root!");
+        for(NodeTree node: this.getNodes()){
+            node.execute(input);
+        }
+        return true;
     }
 }

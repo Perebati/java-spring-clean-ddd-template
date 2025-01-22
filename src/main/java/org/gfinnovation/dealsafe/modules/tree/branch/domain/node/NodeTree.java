@@ -24,7 +24,7 @@ import java.util.UUID;
 @Setter
 @ToString
 @EqualsAndHashCode(callSuper = true)
-public class NodeTree extends Branch implements NodeTreeInterface{
+public class NodeTree extends Branch {
     private UUID parentId;
     private ParentType parentType;
 
@@ -38,7 +38,7 @@ public class NodeTree extends Branch implements NodeTreeInterface{
         super(name, nodes);
         this.parentId = parentId;
         this.parentType = parentType;
-        this.setBranchType(BranchType.NODE_COMMON);
+        this.setNodeType(NodeType.NODE_COMMON);
     }
 
     public NodeTree(
@@ -47,24 +47,32 @@ public class NodeTree extends Branch implements NodeTreeInterface{
     ) {
         super(name);
         setParent(parent);
-        this.setBranchType(BranchType.NODE_COMMON);
+        this.setNodeType(NodeType.NODE_COMMON);
     }
 
-    public void setParent(Branch parent){
-        this.parentId = parent.getId();
-        if (parent instanceof NodeTree) {
-            this.parentType = ParentType.NODE;
-        } else {
-            this.parentType = ParentType.ROOT;
+    // TODO: REVER ISSO
+    public void setParent(Branch parent) {
+        try {
+            this.parentId = parent.getId();
+            if (parent instanceof NodeTree) {
+                this.parentType = ParentType.NODE;
+            } else {
+                this.parentType = ParentType.ROOT;
+            }
+        } catch (Exception e) {
         }
+    }
+
+    @Override
+    public boolean execute(String input) {
+        System.out.println("Dentro de um Node!");
+        for(NodeTree node: this.getNodes()){
+            node.execute(input);
+        }
+        return true;
     }
 
     public enum SortField {
         NAME
-    }
-
-    @Override
-    public boolean traverse() {
-        return false;
     }
 }

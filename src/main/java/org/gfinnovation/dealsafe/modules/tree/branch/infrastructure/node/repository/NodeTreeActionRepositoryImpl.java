@@ -7,14 +7,16 @@ import org.gfinnovation.dealsafe.configuration.exception.models.layered.Reposito
 import org.gfinnovation.dealsafe.configuration.security.RepositoryAuth;
 import org.gfinnovation.dealsafe.modules.tree.branch.domain.Branch;
 import org.gfinnovation.dealsafe.modules.tree.branch.domain.node.NodeTree;
+import org.gfinnovation.dealsafe.modules.tree.branch.domain.node.NodeTreeAction;
+import org.gfinnovation.dealsafe.modules.tree.branch.domain.node.repository.NodeTreeActionRepository;
 import org.gfinnovation.dealsafe.modules.tree.branch.domain.node.repository.NodeTreeRepository;
 import org.gfinnovation.dealsafe.modules.tree.branch.domain.root.RootTreeDynamic;
 import org.gfinnovation.dealsafe.modules.tree.branch.domain.root.RootTreeStatic;
 import org.gfinnovation.dealsafe.modules.tree.branch.domain.root.repository.RootTreeDynamicRepository;
 import org.gfinnovation.dealsafe.modules.tree.branch.domain.root.repository.RootTreeRepository;
 import org.gfinnovation.dealsafe.modules.tree.branch.domain.root.repository.RootTreeStaticRepository;
-import org.gfinnovation.dealsafe.modules.tree.branch.infrastructure.node.NodeTreeEntity;
-import org.gfinnovation.dealsafe.modules.tree.branch.infrastructure.node.mapper.NodeTreeMapper;
+import org.gfinnovation.dealsafe.modules.tree.branch.infrastructure.node.NodeTreeActionEntity;
+import org.gfinnovation.dealsafe.modules.tree.branch.infrastructure.node.mapper.NodeTreeActionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Component;
@@ -22,30 +24,33 @@ import org.springframework.stereotype.Component;
 /**
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
- * @class NodeTreeRepositoryImpl
- * @since 30/10/2024
+ * @class NodeTreeActionRepositoryImpl
+ * @since 22/01/2025
  */
 
 @Component
-class NodeTreeRepositoryImpl
-        extends GenericBusinessRepositoryImpl<NodeTree, NodeTreeEntity>
-        implements NodeTreeRepository {
+class NodeTreeActionRepositoryImpl
+        extends GenericBusinessRepositoryImpl<NodeTreeAction, NodeTreeActionEntity>
+        implements NodeTreeActionRepository {
     private final RootTreeDynamicRepository rootTreeDynamicRepository;
     private final RootTreeStaticRepository rootTreeStaticRepository;
     private final RootTreeRepository rootTreeRepository;
+    private final NodeTreeRepository nodeTreeRepository;
 
     @Autowired
-    NodeTreeRepositoryImpl(
-            NodeTreeMapper mapper,
+    NodeTreeActionRepositoryImpl(
+            NodeTreeActionMapper mapper,
             EntityManager entityManager,
             RootTreeDynamicRepository rootTreeDynamicRepository,
             RootTreeStaticRepository rootTreeStaticRepository,
-            RootTreeRepository rootTreeRepository
+            RootTreeRepository rootTreeRepository,
+            NodeTreeRepository nodeTreeRepository
     ) {
-        super(mapper, new SimpleJpaRepository<>(NodeTreeEntity.class, entityManager), NodeTreeEntity.class);
+        super(mapper, new SimpleJpaRepository<>(NodeTreeActionEntity.class, entityManager), NodeTreeActionEntity.class);
         this.rootTreeDynamicRepository = rootTreeDynamicRepository;
         this.rootTreeStaticRepository = rootTreeStaticRepository;
         this.rootTreeRepository = rootTreeRepository;
+        this.nodeTreeRepository = nodeTreeRepository;
     }
 
     /**
@@ -60,28 +65,28 @@ class NodeTreeRepositoryImpl
      */
     @Transactional
     @Override
-    public NodeTree createNode(NodeTree newNode, Branch parent, RepositoryAuth auth) throws RepositoryException {
+    public NodeTreeAction createNode(NodeTreeAction newNode, Branch parent, RepositoryAuth auth) throws RepositoryException {
         try {
             switch (parent.getNodeType()) {
                 case Branch.NodeType.ROOT_STATIC:
                     RootTreeStatic parent_static = this.rootTreeStaticRepository.read(parent.getId(), auth);
-                    NodeTree createdNodeEntity_0 = this.createSync(newNode, auth);
+                    NodeTreeAction createdNodeEntity_0 = this.createSync(newNode, auth);
                     parent_static.addNode(createdNodeEntity_0);
                     this.rootTreeRepository.updateGenericRootSync(parent_static, auth);
                     return this.read(createdNodeEntity_0.getId(), auth);
 
                 case Branch.NodeType.ROOT_DYNAMIC:
                     RootTreeDynamic parent_dynamic = this.rootTreeDynamicRepository.read(parent.getId(), auth);
-                    NodeTree createdNodeEntity_1 = this.createSync(newNode, auth);
+                    NodeTreeAction createdNodeEntity_1 = this.createSync(newNode, auth);
                     parent_dynamic.addNode(createdNodeEntity_1);
                     this.rootTreeRepository.updateGenericRootSync(parent_dynamic, auth);
                     return this.read(createdNodeEntity_1.getId(), auth);
 
                 case Branch.NodeType.NODE_COMMON:
-                    NodeTree parent_node = this.read(parent.getId(), auth);
-                    NodeTree createdNodeEntity_2 = this.createSync(newNode, auth);
+                    NodeTree parent_node = this.nodeTreeRepository.read(parent.getId(), auth);
+                    NodeTreeAction createdNodeEntity_2 = this.createSync(newNode, auth);
                     parent_node.addNode(createdNodeEntity_2);
-                    this.updateSync(parent_node, auth);
+                    this.nodeTreeRepository.updateSync(parent_node, auth);
                     return this.read(createdNodeEntity_2.getId(), auth);
 
                 default:

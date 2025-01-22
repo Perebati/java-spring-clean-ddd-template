@@ -8,9 +8,9 @@ package org.gfinnovation.dealsafe.modules.tree.action.domain;
  */
 
 public class SendEmailAction extends Action {
-    private String to;
-    private String subject;
-    private String body;
+    private final String to;
+    private final String subject;
+    private final String body;
 
     public SendEmailAction(String to, String subject, String body) {
         this.to = to;

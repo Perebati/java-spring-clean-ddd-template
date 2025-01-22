@@ -97,7 +97,7 @@ class RootTreeServiceImpl extends GenericServiceImpl implements RootTreeService 
      * @param name          Name of given root node.
      * @param dynamic_input Identification of referenced dynamic input.
      * @return RootTreeDynamic
-     * @throws ServiceException   Thrown when an error occurs on business level.
+     * @throws ServiceException    Thrown when an error occurs on business level.
      * @throws FactoryException    Thrown when an error occurs on factory level.
      * @throws ValidationException Thrown when an error occurs on factory level.
      * @throws RepositoryException Thrown when an error occurs on repository level.

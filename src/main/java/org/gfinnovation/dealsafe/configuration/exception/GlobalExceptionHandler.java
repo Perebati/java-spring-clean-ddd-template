@@ -2,8 +2,8 @@ package org.gfinnovation.dealsafe.configuration.exception;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.BadRequestException;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.ServiceException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.DomainException;
+import org.gfinnovation.dealsafe.configuration.exception.models.layered.ServiceException;
 import org.gfinnovation.dealsafe.configuration.logging.LogService;
 import org.gfinnovation.dealsafe.configuration.logging.infrastrutcture.ErrorLogSchema;
 import org.slf4j.Logger;

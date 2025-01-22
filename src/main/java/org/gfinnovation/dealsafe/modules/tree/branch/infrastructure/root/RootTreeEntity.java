@@ -1,6 +1,8 @@
 package org.gfinnovation.dealsafe.modules.tree.branch.infrastructure.root;
 
-import jakarta.persistence.*;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.gfinnovation.dealsafe.modules.tree.branch.infrastructure.BranchEntity;

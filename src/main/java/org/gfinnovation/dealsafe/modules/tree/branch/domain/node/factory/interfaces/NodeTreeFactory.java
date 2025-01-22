@@ -3,6 +3,7 @@ package org.gfinnovation.dealsafe.modules.tree.branch.domain.node.factory.interf
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
 import org.gfinnovation.dealsafe.modules.tree.branch.domain.Branch;
 import org.gfinnovation.dealsafe.modules.tree.branch.domain.node.NodeTree;
+import org.gfinnovation.dealsafe.modules.tree.branch.domain.node.NodeTreeAction;
 
 /**
  * @author Lucas Batista Pereira
@@ -13,4 +14,6 @@ import org.gfinnovation.dealsafe.modules.tree.branch.domain.node.NodeTree;
 
 public interface NodeTreeFactory {
     NodeTree produce(String name, Branch branch) throws FactoryException;
+
+    NodeTreeAction produceAction(String name, Branch branch) throws FactoryException;
 }

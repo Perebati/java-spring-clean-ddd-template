@@ -30,11 +30,12 @@ public class RootTreeDynamic extends RootTree {
     public RootTreeDynamic(String name, List<NodeTree> nodes, UUID dynamicReference) {
         super(name, nodes);
         this.dynamicReference = dynamicReference;
-        this.setBranchType(BranchType.ROOT_DYNAMIC);
+        this.setNodeType(NodeType.ROOT_DYNAMIC);
     }
-    public RootTreeDynamic(String name,  UUID dynamicReference) {
+
+    public RootTreeDynamic(String name, UUID dynamicReference) {
         super(name);
         this.dynamicReference = dynamicReference;
-        this.setBranchType(BranchType.ROOT_DYNAMIC);
+        this.setNodeType(NodeType.ROOT_DYNAMIC);
     }
 }

@@ -4,6 +4,7 @@ import org.gfinnovation.dealsafe._shared.modules.application.interfaces.GenericS
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.ServiceException;
 import org.gfinnovation.dealsafe.modules.tree.branch.adapter.dto.request.NodeCreationDTO;
 import org.gfinnovation.dealsafe.modules.tree.branch.domain.node.NodeTree;
+import org.gfinnovation.dealsafe.modules.tree.branch.domain.node.NodeTreeAction;
 
 /**
  * @author Lucas Batista Pereira
@@ -14,4 +15,6 @@ import org.gfinnovation.dealsafe.modules.tree.branch.domain.node.NodeTree;
 
 public interface NodeTreeService extends GenericService<NodeTree> {
     NodeTree create(NodeCreationDTO nodeCreationDTO) throws ServiceException;
+
+    NodeTreeAction createAction(NodeCreationDTO nodeCreationDTO);
 }

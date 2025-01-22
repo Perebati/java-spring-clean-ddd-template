@@ -1,29 +1,22 @@
 package org.gfinnovation.dealsafe.modules.tree.branch.infrastructure.node.mapper;
 
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.mapper.GenericBusinessMapper;
-import org.gfinnovation.dealsafe.modules.tree.branch.domain.node.NodeTree;
 import org.gfinnovation.dealsafe.modules.tree.branch.domain.node.NodeTreeAction;
 import org.gfinnovation.dealsafe.modules.tree.branch.infrastructure.node.NodeTreeActionEntity;
-import org.gfinnovation.dealsafe.modules.tree.branch.infrastructure.node.NodeTreeEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.ReportingPolicy;
-import org.mapstruct.SubclassMapping;
 
 /**
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
- * @interface NodeTreeMapper
- * @since 30/10/2024
+ * @interface NodeTreeActionMapper
+ * @since 22/01/2025
  */
 
 @Mapper(
         componentModel = MappingConstants.ComponentModel.SPRING,
         unmappedTargetPolicy = ReportingPolicy.IGNORE
 )
-public interface NodeTreeMapper extends GenericBusinessMapper<NodeTree, NodeTreeEntity> {
-    @Override
-    @SubclassMapping(source = NodeTreeActionEntity.class, target = NodeTreeAction.class)
-    @SubclassMapping(source = NodeTreeEntity.class,       target = NodeTree.class)
-    NodeTree toEntity(NodeTreeEntity entity);
+public interface NodeTreeActionMapper extends GenericBusinessMapper<NodeTreeAction, NodeTreeActionEntity> {
 }

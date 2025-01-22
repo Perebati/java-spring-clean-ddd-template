@@ -34,7 +34,7 @@ public class RootTreeStatic extends RootTree {
     ) {
         super(name, nodes);
         this.input_type = type;
-        this.setBranchType(BranchType.ROOT_STATIC);
+        this.setNodeType(NodeType.ROOT_STATIC);
     }
 
     public RootTreeStatic(
@@ -43,6 +43,6 @@ public class RootTreeStatic extends RootTree {
     ) {
         super(name);
         this.input_type = type;
-        this.setBranchType(BranchType.ROOT_STATIC);
+        this.setNodeType(NodeType.ROOT_STATIC);
     }
 }
