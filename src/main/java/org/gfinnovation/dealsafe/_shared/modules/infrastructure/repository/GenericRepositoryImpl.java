@@ -2,9 +2,9 @@ package org.gfinnovation.dealsafe._shared.modules.infrastructure.repository;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.gfinnovation.dealsafe._shared.modules.domain.GenericEntity;
+import org.gfinnovation.dealsafe._shared.modules.domain.GenericClass;
 import org.gfinnovation.dealsafe._shared.modules.domain.repository.GenericRepository;
-import org.gfinnovation.dealsafe._shared.modules.infrastructure.GenericSchema;
+import org.gfinnovation.dealsafe._shared.modules.infrastructure.GenericEntity;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.mapper.GenericMapper;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryEntityNotFoundException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
@@ -30,7 +30,7 @@ import java.util.UUID;
  */
 
 @RequiredArgsConstructor
-public class GenericRepositoryImpl<E extends GenericEntity, S extends GenericSchema>
+public class GenericRepositoryImpl<E extends GenericClass, S extends GenericEntity>
         implements GenericRepository<E> {
 
     private static final Logger logger = LoggerFactory.getLogger(GenericRepositoryImpl.class);

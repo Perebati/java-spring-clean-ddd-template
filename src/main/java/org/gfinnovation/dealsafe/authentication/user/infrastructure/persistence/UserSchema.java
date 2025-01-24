@@ -6,7 +6,7 @@ import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.gfinnovation.dealsafe._shared.modules.infrastructure.GenericSchema;
+import org.gfinnovation.dealsafe._shared.modules.infrastructure.GenericEntity;
 
 import java.util.UUID;
 
@@ -21,7 +21,7 @@ import java.util.UUID;
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "auth_user")
 @NoArgsConstructor
-public class UserSchema extends GenericSchema {
+public class UserSchema extends GenericEntity {
     @Column(name = "email", nullable = false)
     private String email;
     private UUID companyId;

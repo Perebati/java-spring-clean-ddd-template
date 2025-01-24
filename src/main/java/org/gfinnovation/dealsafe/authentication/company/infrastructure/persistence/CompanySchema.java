@@ -3,7 +3,7 @@ package org.gfinnovation.dealsafe.authentication.company.infrastructure.persiste
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.gfinnovation.dealsafe._shared.modules.infrastructure.GenericSchema;
+import org.gfinnovation.dealsafe._shared.modules.infrastructure.GenericEntity;
 import org.gfinnovation.dealsafe.authentication.user.infrastructure.persistence.UserSchema;
 
 import java.util.Set;
@@ -20,7 +20,7 @@ import java.util.Set;
 @Entity
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "auth_company")
-public class CompanySchema extends GenericSchema {
+public class CompanySchema extends GenericEntity {
     @Column(name = "name", nullable = false)
     private String name;
 

@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe._shared.modules.application;
 
-import org.gfinnovation.dealsafe._shared.modules.domain.GenericEntity;
-import org.gfinnovation.dealsafe._shared.modules.infrastructure.GenericSchema;
+import org.gfinnovation.dealsafe._shared.modules.domain.GenericClass;
+import org.gfinnovation.dealsafe._shared.modules.infrastructure.GenericEntity;
 
 /**
  * @author Lucas Batista Pereira
@@ -12,7 +12,7 @@ import org.gfinnovation.dealsafe._shared.modules.infrastructure.GenericSchema;
  */
 
 @Deprecated
-public class GenericBusinessDeprecated<E extends GenericEntity, S extends GenericSchema> {
+public class GenericBusinessDeprecated<E extends GenericClass, S extends GenericEntity> {
 //    private final GenericMapper<E, S> mapper;
 //    private final GenericRepository<S> repository;
 //

@@ -6,7 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.gfinnovation.dealsafe._shared.modules.infrastructure.GenericBusinessSchema;
+import org.gfinnovation.dealsafe._shared.modules.infrastructure.GenericBusinessEntity;
 import org.gfinnovation.dealsafe._shared.utils.converter.HashMapConverter;
 
 import java.util.HashMap;
@@ -22,7 +22,7 @@ import java.util.HashMap;
 @Entity
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "dynamic_input")
-public class InputSchema extends GenericBusinessSchema {
+public class InputSchema extends GenericBusinessEntity {
 
     @Column(name = "name", nullable = false)
     private String name;

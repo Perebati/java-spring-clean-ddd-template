@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.gfinnovation.dealsafe._shared.modules.domain.GenericEntity;
+import org.gfinnovation.dealsafe._shared.modules.domain.GenericClass;
 import org.gfinnovation.dealsafe._shared.utils.annotations.Default;
 import org.springframework.validation.annotation.Validated;
 
@@ -26,7 +26,7 @@ import java.util.UUID;
 @Setter
 @ToString
 @Validated
-public class UserEntity extends GenericEntity {
+public class UserEntity extends GenericClass {
     private String email;
     private UUID companyId;
 

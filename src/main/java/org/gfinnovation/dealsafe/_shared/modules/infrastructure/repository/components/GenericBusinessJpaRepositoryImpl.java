@@ -3,7 +3,7 @@ package org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.comp
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.*;
-import org.gfinnovation.dealsafe._shared.modules.infrastructure.GenericBusinessSchema;
+import org.gfinnovation.dealsafe._shared.modules.infrastructure.GenericBusinessEntity;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -23,7 +23,7 @@ import java.util.*;
  * @since 06/11/2024
  */
 
-public class GenericBusinessJpaRepositoryImpl<S extends GenericBusinessSchema> {
+public class GenericBusinessJpaRepositoryImpl<S extends GenericBusinessEntity> {
 
     @PersistenceContext
     private EntityManager entityManager;

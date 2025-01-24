@@ -4,7 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.gfinnovation.dealsafe._shared.modules.domain.GenericBusinessEntity;
+import org.gfinnovation.dealsafe._shared.modules.domain.GenericBusinessClass;
 
 /**
  * An action will 'do' something when it's called.
@@ -19,7 +19,7 @@ import org.gfinnovation.dealsafe._shared.modules.domain.GenericBusinessEntity;
 @Getter
 @Setter
 @ToString
-public class ActionOperation extends GenericBusinessEntity {
+public class ActionOperation extends GenericBusinessClass {
     private String url;
     private String message;
 

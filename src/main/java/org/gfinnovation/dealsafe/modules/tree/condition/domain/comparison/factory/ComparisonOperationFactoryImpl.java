@@ -7,12 +7,12 @@ import org.gfinnovation.dealsafe.configuration.exception.models.layered.Reposito
 import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.InputService;
 import org.gfinnovation.dealsafe.modules.input.domain.InputEntity;
 import org.gfinnovation.dealsafe.modules.input.domain.valueobjects.predefined.enums.PredefinedTypeEnum;
-import org.gfinnovation.dealsafe.modules.tree.branch.domain.root.RootTreeDynamic;
-import org.gfinnovation.dealsafe.modules.tree.branch.domain.root.RootTreeStatic;
-import org.gfinnovation.dealsafe.modules.tree.branch.domain.root.service.interfaces.RootTreeService;
 import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.Comparison;
 import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.factory.interfaces.ComparisonOperationFactory;
 import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.logic.enums.ComparisonTypeEnum;
+import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.RootTreeDynamic;
+import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.RootTreeStatic;
+import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.service.interfaces.RootTreeService;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;
@@ -73,7 +73,7 @@ public class ComparisonOperationFactoryImpl implements ComparisonOperationFactor
                     throw new BadRequestException("Factory: field not found: " + e.getMessage());
                 }
             } else if (rootTreeEntity instanceof RootTreeDynamic) {
-                InputEntity inputEntity = this.inputService.read(((RootTreeDynamic) rootTreeEntity).getDynamicReference());
+                InputEntity inputEntity = this.inputService.read(((RootTreeDynamic) rootTreeEntity).getDynamicInputId());
                 inputEntity.validateJsonPathAndType(jsonPath, variable);
             }
 

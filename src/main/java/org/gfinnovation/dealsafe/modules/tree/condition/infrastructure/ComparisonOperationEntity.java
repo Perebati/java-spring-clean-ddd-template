@@ -3,7 +3,7 @@ package org.gfinnovation.dealsafe.modules.tree.condition.infrastructure;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.gfinnovation.dealsafe._shared.modules.infrastructure.GenericBusinessSchema;
+import org.gfinnovation.dealsafe._shared.modules.infrastructure.GenericBusinessEntity;
 import org.gfinnovation.dealsafe.modules.tree.action.infrastructure.ActionOperationEntity;
 import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.logic.enums.ComparisonTypeEnum;
 
@@ -20,7 +20,7 @@ import java.util.Set;
 @Entity
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "tree_root_node_operation_comparison")
-public class ComparisonOperationEntity extends GenericBusinessSchema {
+public class ComparisonOperationEntity extends GenericBusinessEntity {
 
     @Column(name = "type", nullable = false)
     private ComparisonTypeEnum comparisonTypeEnum;

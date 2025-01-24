@@ -8,13 +8,13 @@ import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBus
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.ServiceException;
-import org.gfinnovation.dealsafe.modules.tree.branch.domain.node.NodeTree;
-import org.gfinnovation.dealsafe.modules.tree.branch.domain.node.service.interfaces.NodeTreeService;
 import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.Comparison;
 import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.factory.interfaces.ComparisonOperationFactory;
 import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.logic.enums.ComparisonTypeEnum;
 import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.repository.ComparisonOperationRepository;
 import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.service.interfaces.ComparisonOperationService;
+import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTree;
+import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.service.interfaces.NodeTreeService;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

@@ -2,9 +2,9 @@ package org.gfinnovation.dealsafe._shared.modules.infrastructure.repository;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.NotNull;
-import org.gfinnovation.dealsafe._shared.modules.domain.GenericBusinessEntity;
+import org.gfinnovation.dealsafe._shared.modules.domain.GenericBusinessClass;
 import org.gfinnovation.dealsafe._shared.modules.domain.repository.GenericBusinessRepository;
-import org.gfinnovation.dealsafe._shared.modules.infrastructure.GenericBusinessSchema;
+import org.gfinnovation.dealsafe._shared.modules.infrastructure.GenericBusinessEntity;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.mapper.GenericBusinessMapper;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.components.GenericBusinessJpaRepositoryImpl;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryEntityNotFoundException;
@@ -40,7 +40,7 @@ import java.util.stream.Collectors;
  * @since 01/11/2024
  */
 
-public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S extends GenericBusinessSchema>
+public class GenericBusinessRepositoryImpl<E extends GenericBusinessClass, S extends GenericBusinessEntity>
         extends GenericBusinessJpaRepositoryImpl<S> implements GenericBusinessRepository<E> {
 
     private static final Logger logger = LoggerFactory.getLogger(GenericRepositoryImpl.class);
@@ -87,7 +87,7 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
      * In the future, creation will be done on a remote database using
      * kafka queues, that's why it needs to be async.
      *
-     * @param entity Entity that extends GenericBusinessEntity
+     * @param entity Entity that extends GenericBusinessClass
      * @return CompletableFuture<E>
      * @throws RepositoryException Thrown when an unexpected database error occurs.
      * @author Lucas Batista Pereira
@@ -161,7 +161,7 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessEntity, S ex
     /**
      * Sync version of create.
      *
-     * @param entity Entity that extends GenericBusinessEntity
+     * @param entity Entity that extends GenericBusinessClass
      * @return CompletableFuture<E>
      * @throws RepositoryException Thrown when an unexpected database error occurs.
      * @author Lucas Batista Pereira

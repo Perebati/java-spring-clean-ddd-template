@@ -8,7 +8,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.gfinnovation.dealsafe._shared.modules.domain.GenericBusinessEntity;
+import org.gfinnovation.dealsafe._shared.modules.domain.GenericBusinessClass;
 import org.gfinnovation.dealsafe._shared.utils.annotations.Default;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.ServiceException;
 import org.springframework.validation.annotation.Validated;
@@ -33,7 +33,7 @@ import java.util.Map;
 @Setter
 @ToString
 @Validated
-public class InputEntity extends GenericBusinessEntity {
+public class InputEntity extends GenericBusinessClass {
     @NotNull(message = "O nome do input não pode ser nulo.")
     @Size(min = 4, max = 100, message = "O nome do input deve ter entre 1 e 100 caracteres.")
     private String name;

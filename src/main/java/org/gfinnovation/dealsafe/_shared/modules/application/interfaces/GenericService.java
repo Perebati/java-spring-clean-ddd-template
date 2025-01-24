@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe._shared.modules.application.interfaces;
 
-import org.gfinnovation.dealsafe._shared.modules.domain.GenericEntity;
+import org.gfinnovation.dealsafe._shared.modules.domain.GenericClass;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.ServiceException;
 
 import java.util.List;
@@ -19,7 +19,7 @@ import java.util.concurrent.CompletableFuture;
  * @since 30/10/2024
  */
 
-public interface GenericService<E extends GenericEntity> {
+public interface GenericService<E extends GenericClass> {
     E read(UUID id) throws ServiceException;
 
     CompletableFuture<E> updateAsync(E entity) throws ServiceException;

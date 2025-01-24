@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe._shared.modules.domain.repository;
 
 import jakarta.validation.constraints.NotNull;
-import org.gfinnovation.dealsafe._shared.modules.domain.GenericEntity;
+import org.gfinnovation.dealsafe._shared.modules.domain.GenericClass;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.configuration.security.RepositoryAuth;
 import org.springframework.data.domain.Page;
@@ -24,7 +24,7 @@ import java.util.concurrent.CompletableFuture;
  * @since 30/10/2024
  */
 
-public interface GenericBusinessRepository<E extends GenericEntity> {
+public interface GenericBusinessRepository<E extends GenericClass> {
 
     CompletableFuture<E> createAsync(E entity, RepositoryAuth auth) throws RepositoryException;
 

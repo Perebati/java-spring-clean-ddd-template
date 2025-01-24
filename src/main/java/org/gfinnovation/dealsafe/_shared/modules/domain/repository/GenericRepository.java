@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe._shared.modules.domain.repository;
 
-import org.gfinnovation.dealsafe._shared.modules.domain.GenericEntity;
+import org.gfinnovation.dealsafe._shared.modules.domain.GenericClass;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
 
 import java.util.List;
@@ -19,7 +19,7 @@ import java.util.UUID;
  * @since 30/10/2024
  */
 
-public interface GenericRepository<E extends GenericEntity> {
+public interface GenericRepository<E extends GenericClass> {
 
     E create(E entity) throws RepositoryException;
 

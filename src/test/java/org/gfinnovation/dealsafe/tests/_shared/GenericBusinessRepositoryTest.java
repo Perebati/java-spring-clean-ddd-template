@@ -2,7 +2,7 @@ package org.gfinnovation.dealsafe.tests._shared;
 
 import jakarta.transaction.Transactional;
 import org.apache.coyote.BadRequestException;
-import org.gfinnovation.dealsafe._shared.modules.domain.GenericEntity;
+import org.gfinnovation.dealsafe._shared.modules.domain.GenericClass;
 import org.gfinnovation.dealsafe._shared.modules.domain.repository.GenericBusinessRepository;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.configuration.security.RepositoryAuth;
@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @since 30/10/2024
  */
 public abstract class GenericBusinessRepositoryTest<
-        E extends GenericEntity> {
+        E extends GenericClass> {
 
     protected GenericBusinessRepository<E> repository;
     protected RepositoryAuth repositoryAuth;

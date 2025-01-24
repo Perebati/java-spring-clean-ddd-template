@@ -1,8 +1,8 @@
 package org.gfinnovation.dealsafe._shared.modules.infrastructure.mapper;
 
 
-import org.gfinnovation.dealsafe._shared.modules.domain.GenericEntity;
-import org.gfinnovation.dealsafe._shared.modules.infrastructure.GenericSchema;
+import org.gfinnovation.dealsafe._shared.modules.domain.GenericClass;
+import org.gfinnovation.dealsafe._shared.modules.infrastructure.GenericEntity;
 import org.mapstruct.Mapping;
 
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.List;
  * @since 30/10/2024
  */
 
-public interface GenericMapper<E extends GenericEntity, S extends GenericSchema> {
+public interface GenericMapper<E extends GenericClass, S extends GenericEntity> {
 
     E toEntity(S schema);
 

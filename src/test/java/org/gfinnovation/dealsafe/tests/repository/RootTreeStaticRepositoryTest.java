@@ -8,9 +8,9 @@ import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBus
 import org.gfinnovation.dealsafe.authentication.user.entity.UserEntity;
 import org.gfinnovation.dealsafe.configuration.security.RepositoryAuth;
 import org.gfinnovation.dealsafe.modules.input.domain.valueobjects.predefined.enums.PredefinedTypeEnum;
-import org.gfinnovation.dealsafe.modules.tree.branch.domain.root.RootTreeStatic;
-import org.gfinnovation.dealsafe.modules.tree.branch.domain.root.factory.interfaces.RootTreeFactory;
-import org.gfinnovation.dealsafe.modules.tree.branch.domain.root.repository.RootTreeStaticRepository;
+import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.RootTreeStatic;
+import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.factory.interfaces.RootTreeFactory;
+import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.repository.RootTreeStaticRepository;
 import org.gfinnovation.dealsafe.tests._shared.GenericBusinessRepositoryTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;

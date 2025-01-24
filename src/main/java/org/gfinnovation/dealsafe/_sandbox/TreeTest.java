@@ -7,12 +7,12 @@ import org.gfinnovation.dealsafe.authentication.company.entity.CompanyEntity;
 import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
 import org.gfinnovation.dealsafe.authentication.user.entity.UserEntity;
 import org.gfinnovation.dealsafe.modules.input.domain.valueobjects.predefined.enums.PredefinedTypeEnum;
-import org.gfinnovation.dealsafe.modules.tree.branch.adapter.dto.request.NodeCreationDTO;
-import org.gfinnovation.dealsafe.modules.tree.branch.domain.node.NodeTree;
-import org.gfinnovation.dealsafe.modules.tree.branch.domain.node.NodeTreeAction;
-import org.gfinnovation.dealsafe.modules.tree.branch.domain.node.service.interfaces.NodeTreeService;
-import org.gfinnovation.dealsafe.modules.tree.branch.domain.root.RootTreeStatic;
-import org.gfinnovation.dealsafe.modules.tree.branch.domain.root.service.interfaces.RootTreeService;
+import org.gfinnovation.dealsafe.modules.tree.structure.adapter.dto.request.NodeCreationDTO;
+import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTree;
+import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTreeAction;
+import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.service.interfaces.NodeTreeService;
+import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.RootTreeStatic;
+import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.service.interfaces.RootTreeService;
 import org.slf4j.MDC;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,17 +50,15 @@ public class TreeTest {
 
             RootTreeStatic createdRoot = this.rootTreeService.create("ROOT Teste", PredefinedTypeEnum.TESTE);
 
-            NodeTree node1 = this.nodeTreeService.create(new NodeCreationDTO("NODE 1", createdRoot.getId()));
+            NodeTree<?> node1 = this.nodeTreeService.create(new NodeCreationDTO("NODE 1", createdRoot.getId()));
 
-            NodeTree node2 = this.nodeTreeService.create(new NodeCreationDTO("NODE 3", createdRoot.getId()));
+            NodeTree<?> node2 = this.nodeTreeService.create(new NodeCreationDTO("NODE 3", createdRoot.getId()));
 
-            NodeTree createdNode2 = this.nodeTreeService.create(new NodeCreationDTO("NODE 2", node1.getId()));
+            NodeTree<?> createdNode2 = this.nodeTreeService.create(new NodeCreationDTO("NODE 2", node1.getId()));
 
             NodeTreeAction action = this.nodeTreeService.createAction(new NodeCreationDTO("Action 1", createdNode2.getId()));
 
             createdRoot = this.rootTreeService.readRootStatic(createdRoot.getId()).get();
-
-            createdRoot.execute("input");
 
             return true;
         } catch (Exception e) {

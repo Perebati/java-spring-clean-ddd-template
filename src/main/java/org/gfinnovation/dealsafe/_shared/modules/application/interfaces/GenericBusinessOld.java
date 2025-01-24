@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe._shared.modules.application.interfaces;
 
-import org.gfinnovation.dealsafe._shared.modules.domain.GenericEntity;
+import org.gfinnovation.dealsafe._shared.modules.domain.GenericClass;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,7 +14,7 @@ import java.util.UUID;
  * @since 06/11/2024
  */
 
-public interface GenericBusinessOld<E extends GenericEntity> {
+public interface GenericBusinessOld<E extends GenericClass> {
     Optional<E> read(UUID id) throws RuntimeException;
 
     E update(E entity) throws RuntimeException;

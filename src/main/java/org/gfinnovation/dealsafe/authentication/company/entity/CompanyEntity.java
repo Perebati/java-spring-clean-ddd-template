@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.gfinnovation.dealsafe._shared.modules.domain.GenericEntity;
+import org.gfinnovation.dealsafe._shared.modules.domain.GenericClass;
 import org.gfinnovation.dealsafe._shared.utils.annotations.Default;
 import org.gfinnovation.dealsafe.authentication.user.entity.UserEntity;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.ServiceException;
@@ -29,7 +29,7 @@ import java.util.Set;
 @Setter
 @ToString
 @Validated
-public class CompanyEntity extends GenericEntity {
+public class CompanyEntity extends GenericClass {
     @NotNull(message = "O nome da empresa não pode ser nulo.")
     @Size(min = 4, max = 100, message = "O nome da empresa deve ter entre 1 e 100 caracteres.")
     @JsonView(CompanyView.class)
