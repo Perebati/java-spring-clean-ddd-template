@@ -2,9 +2,8 @@ package org.gfinnovation.dealsafe._shared.modules.infrastructure;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.UUID;
 
@@ -17,8 +16,7 @@ import java.util.UUID;
  * @since 30/10/2024
  */
 
-@Setter
-@Getter
+@Data
 @EqualsAndHashCode(callSuper = true)
 @MappedSuperclass
 public abstract class GenericBusinessEntity extends GenericEntity {

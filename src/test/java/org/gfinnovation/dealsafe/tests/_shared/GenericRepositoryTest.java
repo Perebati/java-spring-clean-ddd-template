@@ -73,8 +73,6 @@ public abstract class GenericRepositoryTest<
     public void testUpdate() throws Exception {
         E entity = createEntity();
         E createdEntity = repository.create(entity);
-
-        createdEntity.setDeleted(false);
         E updatedEntity = repository.update(createdEntity);
 
         assertNotNull(updatedEntity.getId(), "O ID da entidade atualizada não deve ser nulo.");

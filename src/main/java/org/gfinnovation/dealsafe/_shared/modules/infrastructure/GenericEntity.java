@@ -2,9 +2,7 @@ package org.gfinnovation.dealsafe._shared.modules.infrastructure;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -23,37 +21,29 @@ import java.util.UUID;
 @NoArgsConstructor
 @EntityListeners(GenericEntity.EntityListener.class)
 public abstract class GenericEntity {
-    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
-    @Setter
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
-    @Setter
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @Setter
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
 
-    @Setter
     @Column(nullable = false)
     private Boolean deleted = false;
 
-    /**
-     * Entity Listener para automatizar a configuração de campos.
-     */
     public static class EntityListener {
 
         @PrePersist
         public void prePersist(GenericEntity schema) {
             LocalDateTime now = LocalDateTime.now();
             schema.setCreatedAt(now);
-            schema.setUpdatedAt(now);
             schema.setDeleted(false);
         }
 

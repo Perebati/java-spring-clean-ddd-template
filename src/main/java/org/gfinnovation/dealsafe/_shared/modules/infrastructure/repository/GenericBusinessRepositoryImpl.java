@@ -98,7 +98,7 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessClass, S ext
     @Transactional
     public CompletableFuture<E> createAsync(@NotNull E entity, @NotNull RepositoryAuth auth) throws RepositoryException {
         try {
-            S schema = mapper.toSchema(entity);
+            S schema = mapper.toSchemaForCreate(entity);
             setCommonFields(schema, auth);
             S savedSchema = jpaRepository.save(schema);
             logger.info("A new {} was created in the system!", entity.getClass().getSimpleName());
@@ -123,8 +123,9 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessClass, S ext
     @Transactional
     public CompletableFuture<E> updateAsync(@NotNull E entity, @NotNull RepositoryAuth auth) throws RepositoryException {
         try {
-            this.readInternal(entity.getId(), auth);
-            S existingSchema = mapper.toSchema(entity);
+            S existingSchema = this.readInternal(entity.getId(), auth);
+            mapper.updateEntityFromDomain(existingSchema, entity);
+            existingSchema.setUpdatedAt(LocalDateTime.now());
             S savedSchema = jpaRepository.save(existingSchema);
             logger.info("An existing entity of class {} is being updated in the system!", entity.getClass().getSimpleName());
             return CompletableFuture.completedFuture(mapper.toEntity(savedSchema));
@@ -171,7 +172,7 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessClass, S ext
     @Transactional
     public E createSync(@NotNull E entity, @NotNull RepositoryAuth auth) throws RepositoryException {
         try {
-            S schema = mapper.toSchema(entity);
+            S schema = mapper.toSchemaForCreate(entity);
             setCommonFields(schema, auth);
             S savedSchema = jpaRepository.save(schema);
             logger.info("A new {} was created in the system!", entity.getClass().getSimpleName());
@@ -238,8 +239,9 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessClass, S ext
     @Transactional
     public E updateSync(@NotNull E entity, @NotNull RepositoryAuth auth) throws RepositoryException {
         try {
-            this.readInternal(entity.getId(), auth);
-            S existingSchema = mapper.toSchema(entity);
+            S existingSchema = this.readInternal(entity.getId(), auth);
+            mapper.updateEntityFromDomain(existingSchema, entity);
+            existingSchema.setUpdatedAt(LocalDateTime.now());
             S savedSchema = jpaRepository.save(existingSchema);
             logger.info("An existing entity of class {} is being updated in the system!", entity.getClass().getSimpleName());
             return mapper.toEntity(savedSchema);

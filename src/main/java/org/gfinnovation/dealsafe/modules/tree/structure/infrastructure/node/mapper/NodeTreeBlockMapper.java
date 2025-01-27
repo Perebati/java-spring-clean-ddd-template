@@ -29,12 +29,6 @@ public interface NodeTreeBlockMapper extends GenericBusinessMapper<NodeTreeBlock
     NodeTree<Object> toEntity(NodeTreeEntity entity);
 
     @Override
-    @Mapping(target = "createdAt", ignore = true)
-    @Mapping(target = "updatedAt", ignore = true)
-    @Mapping(target = "deleted", ignore = true)
-    @Mapping(target = "deletedAt", ignore = true)
-    @Mapping(target = "user_id", ignore = true)
-    @Mapping(target = "company_id", ignore = true)
     @Mapping(target = "nodes", source = "nodes", qualifiedByName = "mapNodes")
     NodeTreeBlock toEntity(NodeTreeBlockEntity schema);
 

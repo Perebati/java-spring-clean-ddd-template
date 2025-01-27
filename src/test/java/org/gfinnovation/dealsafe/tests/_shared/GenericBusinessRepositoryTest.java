@@ -77,7 +77,6 @@ public abstract class GenericBusinessRepositoryTest<
         E entity = createEntity();
         E createdEntity = repository.createSync(entity, repositoryAuth);
 
-        createdEntity.setDeleted(false);
         E updatedEntity = repository.updateSync(createdEntity, repositoryAuth);
 
         assertNotNull(updatedEntity.getId(), "O ID da entidade atualizada não deve ser nulo.");

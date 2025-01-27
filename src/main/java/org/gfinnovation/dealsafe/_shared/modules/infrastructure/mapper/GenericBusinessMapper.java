@@ -2,7 +2,7 @@ package org.gfinnovation.dealsafe._shared.modules.infrastructure.mapper;
 
 import org.gfinnovation.dealsafe._shared.modules.domain.GenericClass;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.GenericEntity;
-import org.mapstruct.Mapping;
+import org.mapstruct.*;
 
 import java.util.List;
 
@@ -43,4 +43,25 @@ public interface GenericBusinessMapper<E extends GenericClass, S extends Generic
                 .map(this::toSchema)
                 .collect(toList());
     }
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "deletedAt", ignore = true)
+    @Mapping(target = "deleted", ignore = true)
+    @Mapping(target = "user_id", ignore = true)
+    @Mapping(target = "company_id", ignore = true)
+    S toSchemaForCreate(E entity);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mappings({
+            @Mapping(target = "id", ignore = true),
+            @Mapping(target = "createdAt", ignore = true),
+            @Mapping(target = "updatedAt", ignore = true),
+            @Mapping(target = "deletedAt", ignore = true),
+            @Mapping(target = "deleted", ignore = true),
+            @Mapping(target = "user_id", ignore = true),
+            @Mapping(target = "company_id", ignore = true)
+    })
+    void updateEntityFromDomain(@MappingTarget S entity, E domain);
 }

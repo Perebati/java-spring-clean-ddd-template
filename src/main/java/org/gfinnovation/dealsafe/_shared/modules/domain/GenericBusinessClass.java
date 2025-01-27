@@ -1,8 +1,7 @@
 package org.gfinnovation.dealsafe._shared.modules.domain;
 
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.UUID;
 
@@ -19,8 +18,7 @@ import java.util.UUID;
  */
 
 @EqualsAndHashCode(callSuper = true)
-@Getter
-@Setter
+@Data
 public abstract class GenericBusinessClass extends GenericClass {
     private UUID user_id;
     private UUID company_id;
