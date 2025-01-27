@@ -195,10 +195,13 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessClass, S ext
      */
     @Override
     @Transactional
-    public E read(@NotNull UUID id, @NotNull RepositoryAuth auth) throws RepositoryException {
+    public E read(UUID id, RepositoryAuth auth) throws RepositoryException {
         try {
-            S result = this.findById(id, auth.company_id(), entityClass).get();
+            S result = this.findById(id, auth.company_id(), entityClass)
+                    .orElseThrow(() -> new RepositoryException("Entity not found with id: " + id));
             return mapper.toEntity(result);
+        } catch (RepositoryException e) {
+            throw e;
         } catch (Exception e) {
             logger.error("Failed to retrieve entity with id: {}", id, e);
             throw new RepositoryException("Repository: Failed to retrieve data", e);
