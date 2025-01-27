@@ -33,5 +33,5 @@ public interface RootTreeService extends GenericService<RootTree<?>> {
 
     Optional<UUID> findRootIdByNodeId(UUID node_id) throws RepositoryException;
 
-    RootTree updateSync(RootTree entity) throws RepositoryException;
+    RootTree<?> updateSync(RootTree<?> entity) throws RepositoryException;
 }

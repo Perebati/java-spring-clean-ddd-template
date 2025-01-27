@@ -168,7 +168,7 @@ class RootTreeServiceImpl extends GenericServiceImpl implements RootTreeService 
      * @since 08/11/2024
      */
     @Override
-    public RootTree updateSync(RootTree entity) throws ServiceException {
+    public RootTree<?> updateSync(RootTree<?> entity) throws ServiceException {
         try {
             return this.rootTreeRepository.updateGenericRootSync(entity, getRepositoryAuth());
         } catch (ServiceException e) {
@@ -202,7 +202,7 @@ class RootTreeServiceImpl extends GenericServiceImpl implements RootTreeService 
     }
 
     @Override
-    public RootTree read(UUID id) throws ServiceException {
+    public RootTree<?> read(UUID id) throws ServiceException {
         try {
             return this.rootTreeRepository.read(id, getRepositoryAuth());
         } catch (ServiceException e) {
