@@ -1,8 +1,6 @@
 package org.gfinnovation.dealsafe.modules.tree.structure.domain.node.service;
 
 import org.gfinnovation.dealsafe._shared.modules.application.GenericServiceImpl;
-import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
-import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.ServiceException;
 import org.gfinnovation.dealsafe.modules.tree.structure.adapter.dto.request.NodeCreationDTO;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.Node;
@@ -43,14 +41,11 @@ class NodeTreeServiceImpl extends GenericServiceImpl implements NodeTreeService 
 
     @Autowired
     public NodeTreeServiceImpl(
-            UserBusiness userBusiness,
-            CompanyBusiness companyBusiness,
             NodeTreeBlockRepository nodeTreeBlockRepository,
             NodeTreeFactory nodeTreeFactory,
             NodeTreeActionRepository nodeTreeActionRepository,
             NodeRepository nodeRepository
     ) {
-        super(userBusiness, companyBusiness);
         this.nodeTreeBlockRepository = nodeTreeBlockRepository;
         this.nodeTreeFactory = nodeTreeFactory;
         this.nodeTreeActionRepository = nodeTreeActionRepository;

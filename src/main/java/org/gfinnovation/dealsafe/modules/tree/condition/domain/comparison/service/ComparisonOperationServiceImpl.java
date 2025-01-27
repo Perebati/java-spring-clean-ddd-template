@@ -3,8 +3,6 @@ package org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.servi
 import jakarta.validation.ValidationException;
 import org.apache.coyote.BadRequestException;
 import org.gfinnovation.dealsafe._shared.modules.application.GenericServiceImpl;
-import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
-import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.ServiceException;
@@ -39,13 +37,10 @@ public class ComparisonOperationServiceImpl extends GenericServiceImpl implement
     private final ComparisonOperationFactory comparisonOperationFactory;
 
     public ComparisonOperationServiceImpl(
-            UserBusiness userBusiness,
-            CompanyBusiness companyBusiness,
             NodeTreeService nodeTreeService,
             ComparisonOperationRepository comparisonOperationRepository,
             ComparisonOperationFactory comparisonOperationFactory
     ) {
-        super(userBusiness, companyBusiness);
         this.nodeTreeService = nodeTreeService;
         this.comparisonOperationRepository = comparisonOperationRepository;
         this.comparisonOperationFactory = comparisonOperationFactory;

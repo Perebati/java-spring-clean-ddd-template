@@ -1,8 +1,6 @@
 package org.gfinnovation.dealsafe.modules.input.application.service;
 
 import org.gfinnovation.dealsafe._shared.modules.application.GenericServiceImpl;
-import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
-import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.ServiceException;
 import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.InputService;
 import org.gfinnovation.dealsafe.modules.input.domain.InputEntity;
@@ -37,11 +35,8 @@ class InputServiceImpl extends GenericServiceImpl implements InputService {
 
     @Autowired
     public InputServiceImpl(
-            UserBusiness userBusiness,
-            CompanyBusiness companyBusiness,
             InputRepository inputRepository,
             InputFactory inputFactory) {
-        super(userBusiness, companyBusiness);
         this.inputRepository = inputRepository;
         this.inputFactory = inputFactory;
     }

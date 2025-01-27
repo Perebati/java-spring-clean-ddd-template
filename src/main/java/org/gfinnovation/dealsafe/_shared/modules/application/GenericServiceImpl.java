@@ -1,8 +1,6 @@
 package org.gfinnovation.dealsafe._shared.modules.application;
 
 import lombok.RequiredArgsConstructor;
-import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
-import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.ServiceAuthenticationException;
 import org.gfinnovation.dealsafe.configuration.security.RepositoryAuth;
 import org.slf4j.MDC;
@@ -21,9 +19,6 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 public class GenericServiceImpl {
-    private final UserBusiness userBusiness;
-    private final CompanyBusiness companyBusiness;
-
     protected UUID getUserId() {
         try {
             return UUID.fromString(MDC.get("userId"));

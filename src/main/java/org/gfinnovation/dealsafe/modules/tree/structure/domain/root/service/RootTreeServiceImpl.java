@@ -3,8 +3,6 @@ package org.gfinnovation.dealsafe.modules.tree.structure.domain.root.service;
 import jakarta.transaction.Transactional;
 import jakarta.validation.ValidationException;
 import org.gfinnovation.dealsafe._shared.modules.application.GenericServiceImpl;
-import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
-import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.ServiceException;
@@ -47,15 +45,11 @@ class RootTreeServiceImpl extends GenericServiceImpl implements RootTreeService 
 
     @Autowired
     public RootTreeServiceImpl(
-            UserBusiness userBusiness,
-            CompanyBusiness companyBusiness,
             RootTreeFactory rootTreeFactory,
             RootTreeRepository rootTreeRepository,
             RootTreeDynamicRepository rootTreeDynamicRepository,
             RootTreeStaticRepository rootTreeStaticRepository
     ) {
-        super(userBusiness, companyBusiness);
-
         this.rootTreeFactory = rootTreeFactory;
         this.rootTreeRepository = rootTreeRepository;
         this.rootTreeDynamicRepository = rootTreeDynamicRepository;

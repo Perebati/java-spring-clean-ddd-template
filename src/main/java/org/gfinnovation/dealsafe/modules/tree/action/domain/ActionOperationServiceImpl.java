@@ -1,8 +1,6 @@
 package org.gfinnovation.dealsafe.modules.tree.action.domain;
 
 import org.gfinnovation.dealsafe._shared.modules.application.GenericServiceImpl;
-import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
-import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
 import org.gfinnovation.dealsafe.configuration.exception.models.layered.ServiceException;
 import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.service.interfaces.ComparisonOperationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,13 +28,10 @@ public class ActionOperationServiceImpl extends GenericServiceImpl implements Ac
 
     @Autowired
     public ActionOperationServiceImpl(
-            UserBusiness userBusiness,
-            CompanyBusiness companyBusiness,
             ActionOperationFactory actionOperationFactory,
             ComparisonOperationService comparisonOperationBusiness,
             ActionOperationRepository actionOperationRepository
     ) {
-        super(userBusiness, companyBusiness);
         this.actionOperationFactory = actionOperationFactory;
         this.comparisonOperationBusiness = comparisonOperationBusiness;
         this.actionOperationRepository = actionOperationRepository;
