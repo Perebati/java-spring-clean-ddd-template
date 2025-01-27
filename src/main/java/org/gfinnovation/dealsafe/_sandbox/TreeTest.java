@@ -2,10 +2,6 @@ package org.gfinnovation.dealsafe._sandbox;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
-import org.gfinnovation.dealsafe.authentication.company.entity.CompanyEntity;
-import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
-import org.gfinnovation.dealsafe.authentication.user.entity.UserEntity;
 import org.gfinnovation.dealsafe.modules.input.domain.valueobjects.predefined.enums.PredefinedTypeEnum;
 import org.gfinnovation.dealsafe.modules.tree.structure.adapter.dto.request.NodeCreationDTO;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTree;
@@ -18,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collections;
 import java.util.UUID;
 
 /**
@@ -32,21 +27,15 @@ import java.util.UUID;
 @RequestMapping("teste")
 @Tag(name = "Teste")
 public class TreeTest {
-    private final UserBusiness userBusiness;
-    private final CompanyBusiness companyBusiness;
     private final RootTreeService rootTreeService;
     private final NodeTreeService nodeTreeService;
 
     @PostMapping("tree2")
     public boolean testeTree2() throws RuntimeException {
         try {
-            UserEntity createdUser = this.userBusiness.create("Lucas Teste");
-
-            CompanyEntity createdCompany = this.companyBusiness.create("Teste", Collections.singleton(createdUser.getId()));
-
-            MDC.put("user_id", createdUser.getId().toString());
-            MDC.put("company_id", createdCompany.getId().toString());
-            MDC.put("request_id", UUID.randomUUID().toString());
+            MDC.put("userId", UUID.randomUUID().toString());
+            MDC.put("whitelabelId", UUID.randomUUID().toString());
+            MDC.put("requestId", UUID.randomUUID().toString());
 
             RootTreeStatic createdRoot = this.rootTreeService.create("ROOT Teste", PredefinedTypeEnum.TESTE);
 

@@ -21,8 +21,8 @@ import java.util.UUID;
 @MappedSuperclass
 public abstract class GenericBusinessEntity extends GenericEntity {
     @Column(name = "user_id", updatable = false, nullable = false)
-    private UUID user_id;
+    private UUID userId;
 
-    @Column(name = "company_id", updatable = false, nullable = false)
-    private UUID company_id;
+    @Column(name = "whiteLabel_id", updatable = false, nullable = false)
+    private UUID whitelabelId;
 }

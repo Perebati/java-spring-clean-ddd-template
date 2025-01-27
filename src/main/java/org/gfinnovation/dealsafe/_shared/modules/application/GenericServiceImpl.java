@@ -1,6 +1,5 @@
 package org.gfinnovation.dealsafe._shared.modules.application;
 
-import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
 import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
 import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
@@ -27,19 +26,15 @@ public class GenericServiceImpl {
 
     protected UUID getUserId() {
         try {
-            UUID user_id = UUID.fromString(MDC.get("user_id"));
-            this.userBusiness.check(user_id);
-            return user_id;
+            return UUID.fromString(MDC.get("userId"));
         } catch (Exception e) {
             throw new ServiceAuthenticationException("Something went wrong checking for user business info.", e);
         }
     }
 
-    protected UUID getCompanyId() {
+    protected UUID getWhitelabelId() {
         try {
-            UUID company_id = UUID.fromString(MDC.get("company_id"));
-            this.companyBusiness.check(company_id);
-            return company_id;
+            return UUID.fromString(MDC.get("whitelabelId"));
         } catch (Exception e) {
             throw new ServiceAuthenticationException("Something went wrong checking for user business info.", e);
         }
@@ -47,7 +42,7 @@ public class GenericServiceImpl {
 
     protected UUID getRequestId() {
         try {
-            String requestIdStr = MDC.get("request_id");
+            String requestIdStr = MDC.get("requestId");
             if (requestIdStr != null) {
                 return UUID.fromString(requestIdStr);
             } else {
@@ -60,17 +55,7 @@ public class GenericServiceImpl {
         }
     }
 
-    protected void validadeBusiness(UUID user_id, UUID company_id) throws ValidationException {
-        try {
-            this.userBusiness.check(user_id);
-            this.companyBusiness.check(company_id);
-        } catch (Exception e) {
-            throw new ServiceAuthenticationException("Something went wrong checking for business info.", e);
-        }
-    }
-
     protected RepositoryAuth getRepositoryAuth() {
-        this.validadeBusiness(getUserId(), getCompanyId());
-        return new RepositoryAuth(getUserId(), getCompanyId(), getRequestId());
+        return new RepositoryAuth(getUserId(), getWhitelabelId(), getRequestId());
     }
 }

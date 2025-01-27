@@ -19,6 +19,10 @@ spring:
     hibernate:
       ddl-auto: update
 
+jwt:
+  publicKey: ${PUBLIC_KEY}
+  privateKey: ${PRIVATE_KEY}
+
   data:
     mongodb:
       host: localhost

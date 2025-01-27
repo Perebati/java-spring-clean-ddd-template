@@ -35,9 +35,9 @@ public class SystemMonitor {
     @Around("execution(* org.gfinnovation.dealsafe.modules..application..*(..)) || "
             + "execution(* org.gfinnovation.dealsafe.modules..entity..*(..))")
     public Object domainMonitor(ProceedingJoinPoint joinPoint) throws Throwable {
-        String requestId = MDC.get("request_id");
-        String userId = MDC.get("user_id");
-        String companyId = MDC.get("company_id");
+        String requestId = MDC.get("requestId");
+        String userId = MDC.get("userId");
+        String companyId = MDC.get("whitelabelId");
 
         if (companyId == null || userId == null) {
             throw new AuthenticationException("Erro de autenticação!");

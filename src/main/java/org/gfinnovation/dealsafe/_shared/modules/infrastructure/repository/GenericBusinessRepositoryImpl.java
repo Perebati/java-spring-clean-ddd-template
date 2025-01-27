@@ -25,9 +25,9 @@ import java.util.stream.Collectors;
 
 /*
  * TODO: Need revision!. UPDATE: ALL DONE!!
- * TODO: Use MDC for getting company_id and user_id instead of passing the args through method header manually. UPDATE: It's not recommended use MDC on asynchronous methods!
+ * TODO: Use MDC for getting whitelabelId and userId instead of passing the args through method header manually. UPDATE: It's not recommended use MDC on asynchronous methods!
  * TODO: Use native JPA structures to keep track of creation, update and deletion dateTimes. UPDATE: DONE!
- * TODO: Try to optimize the way how company_id and user_id are being filtered on read functions. UPDATE: DONE!
+ * TODO: Try to optimize the way how whitelabelId and userId are being filtered on read functions. UPDATE: DONE!
  */
 
 /**
@@ -43,7 +43,7 @@ import java.util.stream.Collectors;
 public class GenericBusinessRepositoryImpl<E extends GenericBusinessClass, S extends GenericBusinessEntity>
         extends GenericBusinessJpaRepositoryImpl<S> implements GenericBusinessRepository<E> {
 
-    private static final Logger logger = LoggerFactory.getLogger(GenericRepositoryImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(GenericBusinessRepositoryImpl.class);
     private final GenericBusinessMapper<E, S> mapper;
     private final SimpleJpaRepository<S, UUID> jpaRepository;
     private final Class<S> entityClass;
@@ -75,8 +75,8 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessClass, S ext
      */
 
     private void setCommonFields(S schema, RepositoryAuth auth) {
-        schema.setUser_id(auth.user_id());
-        schema.setCompany_id(auth.company_id());
+        schema.setUserId(auth.userId());
+        schema.setWhitelabelId(auth.whitelabelId());
     }
 
     /*
@@ -197,7 +197,7 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessClass, S ext
     @Transactional
     public E read(UUID id, RepositoryAuth auth) throws RepositoryException {
         try {
-            S result = this.findById(id, auth.company_id(), entityClass)
+            S result = this.findById(id, auth.whitelabelId(), entityClass)
                     .orElseThrow(() -> new RepositoryException("Entity not found with id: " + id));
             return mapper.toEntity(result);
         } catch (RepositoryException e) {
@@ -221,7 +221,7 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessClass, S ext
      */
     protected S readInternal(@NotNull UUID id, @NotNull RepositoryAuth auth) throws RepositoryException {
         try {
-            return this.findById(id, auth.company_id(), entityClass)
+            return this.findById(id, auth.whitelabelId(), entityClass)
                     .orElseThrow(() -> new RepositoryEntityNotFoundException("Repository: Entity not found or already deleted with id: " + id));
         } catch (Exception e) {
             logger.error("Failed to retrieve entity with id: {}", id, e);
@@ -293,13 +293,13 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessClass, S ext
     @Override
     public Optional<List<E>> findAll(@NotNull RepositoryAuth auth) throws RepositoryException {
         try {
-            List<S> schemas = this.findAll(auth.user_id(), auth.company_id(), entityClass);
+            List<S> schemas = this.findAll(auth.userId(), auth.whitelabelId(), entityClass);
             List<E> entities = schemas.stream()
                     .map(mapper::toEntity)
                     .collect(Collectors.toList());
             return entities.isEmpty() ? Optional.empty() : Optional.of(entities);
         } catch (Exception e) {
-            logger.error("Failed to find all entities for user_id: {} and company_id: {}", auth.user_id(), auth.company_id(), e);
+            logger.error("Failed to find all entities for userId: {} and whitelabelId: {}", auth.userId(), auth.whitelabelId(), e);
             throw new RepositoryException("Repository: Failed to find all entities", e);
         }
     }
@@ -317,7 +317,7 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessClass, S ext
     public Optional<List<E>> findAllByIds(@NotNull List<UUID> ids, @NotNull RepositoryAuth auth) throws RepositoryException {
         try {
             Set<UUID> idSet = new HashSet<>(ids);
-            List<S> schemas = this.findAllByIds(auth.user_id(), auth.company_id(), idSet, entityClass);
+            List<S> schemas = this.findAllByIds(auth.userId(), auth.whitelabelId(), idSet, entityClass);
             List<E> entities = schemas.stream()
                     .map(mapper::toEntity)
                     .collect(Collectors.toList());
@@ -351,7 +351,7 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessClass, S ext
      */
     @Override
     public void checkAll(@NotNull Set<UUID> ids, @NotNull RepositoryAuth auth) throws RepositoryException {
-        List<S> schemas = this.findAllByIds(auth.user_id(), auth.company_id(), ids, entityClass);
+        List<S> schemas = this.findAllByIds(auth.userId(), auth.whitelabelId(), ids, entityClass);
         if (schemas.size() != ids.size()) {
             Set<UUID> foundIds = schemas.stream().map(S::getId).collect(Collectors.toSet());
             Set<UUID> missingIds = ids.stream().filter(id -> !foundIds.contains(id)).collect(Collectors.toSet());
@@ -369,7 +369,7 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessClass, S ext
      */
     public Page<E> findAllPaginated(PageRequest pageRequest, @NotNull RepositoryAuth auth) throws RepositoryException {
         try {
-            return this.findAllPaginated(auth.user_id(), auth.company_id(), pageRequest, entityClass)
+            return this.findAllPaginated(auth.userId(), auth.whitelabelId(), pageRequest, entityClass)
                     .map(mapper::toEntity);
         } catch (Exception e) {
             logger.error("Failed to find entities paginated");

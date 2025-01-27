@@ -20,6 +20,6 @@ import java.util.UUID;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public abstract class GenericBusinessClass extends GenericClass {
-    private UUID user_id;
-    private UUID company_id;
+    private UUID userId;
+    private UUID whitelabelId;
 }

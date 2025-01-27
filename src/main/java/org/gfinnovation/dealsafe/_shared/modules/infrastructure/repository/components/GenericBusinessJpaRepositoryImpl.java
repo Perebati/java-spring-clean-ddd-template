@@ -48,7 +48,7 @@ public class GenericBusinessJpaRepositoryImpl<S extends GenericBusinessEntity> {
             Root<S> root = query.from(entityClass);
 
             Predicate idPredicate = cb.equal(root.get("id"), id);
-            Predicate companyIdPredicate = cb.equal(root.get("company_id"), companyId);
+            Predicate companyIdPredicate = cb.equal(root.get("whitelabelId"), companyId);
             Predicate notDeletedPredicate = cb.isFalse(root.get("deleted"));
 
             query.select(root).where(cb.and(idPredicate, companyIdPredicate, notDeletedPredicate));
@@ -77,8 +77,8 @@ public class GenericBusinessJpaRepositoryImpl<S extends GenericBusinessEntity> {
         CriteriaQuery<S> query = cb.createQuery(entityClass);
         Root<S> root = query.from(entityClass);
 
-        Predicate userIdPredicate = cb.equal(root.get("user_id"), userId);
-        Predicate companyIdPredicate = cb.equal(root.get("company_id"), companyId);
+        Predicate userIdPredicate = cb.equal(root.get("userId"), userId);
+        Predicate companyIdPredicate = cb.equal(root.get("whitelabelId"), companyId);
         Predicate notDeletedPredicate = cb.isFalse(root.get("deleted"));
 
         query.select(root).where(cb.and(userIdPredicate, companyIdPredicate, notDeletedPredicate));
@@ -110,8 +110,8 @@ public class GenericBusinessJpaRepositoryImpl<S extends GenericBusinessEntity> {
         CriteriaQuery<S> query = cb.createQuery(entityClass);
         Root<S> root = query.from(entityClass);
 
-        Predicate userIdPredicate = cb.equal(root.get("user_id"), userId);
-        Predicate companyIdPredicate = cb.equal(root.get("company_id"), companyId);
+        Predicate userIdPredicate = cb.equal(root.get("userId"), userId);
+        Predicate companyIdPredicate = cb.equal(root.get("whitelabelId"), companyId);
         Predicate idsPredicate = root.get("id").in(ids);
         Predicate notDeletedPredicate = cb.isFalse(root.get("deleted"));
 
@@ -140,8 +140,8 @@ public class GenericBusinessJpaRepositoryImpl<S extends GenericBusinessEntity> {
         CriteriaQuery<S> query = cb.createQuery(entityClass);
         Root<S> root = query.from(entityClass);
 
-        Predicate userIdPredicate = cb.equal(root.get("user_id"), userId);
-        Predicate companyIdPredicate = cb.equal(root.get("company_id"), companyId);
+        Predicate userIdPredicate = cb.equal(root.get("userId"), userId);
+        Predicate companyIdPredicate = cb.equal(root.get("whitelabelId"), companyId);
         Predicate notDeletedPredicate = cb.isFalse(root.get("deleted"));
 
         query.select(root).where(cb.and(userIdPredicate, companyIdPredicate, notDeletedPredicate));
@@ -160,8 +160,8 @@ public class GenericBusinessJpaRepositoryImpl<S extends GenericBusinessEntity> {
         Root<S> countRoot = countQuery.from(entityClass);
         countQuery.select(cb.count(countRoot));
         countQuery.where(cb.and(
-                cb.equal(countRoot.get("user_id"), userId),
-                cb.equal(countRoot.get("company_id"), companyId),
+                cb.equal(countRoot.get("userId"), userId),
+                cb.equal(countRoot.get("whitelabelId"), companyId),
                 cb.isFalse(countRoot.get("deleted"))
         ));
 

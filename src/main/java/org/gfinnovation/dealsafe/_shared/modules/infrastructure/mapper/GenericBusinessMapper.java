@@ -22,8 +22,8 @@ public interface GenericBusinessMapper<E extends GenericClass, S extends Generic
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "deleted", ignore = true)
     @Mapping(target = "deletedAt", ignore = true)
-    @Mapping(target = "user_id", ignore = true)
-    @Mapping(target = "company_id", ignore = true)
+    @Mapping(target = "userId", ignore = true)
+    @Mapping(target = "whitelabelId", ignore = true)
     S toSchema(E entity);
 
     default List<E> toEntityList(List<S> schemaList) {
@@ -49,8 +49,8 @@ public interface GenericBusinessMapper<E extends GenericClass, S extends Generic
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "deletedAt", ignore = true)
     @Mapping(target = "deleted", ignore = true)
-    @Mapping(target = "user_id", ignore = true)
-    @Mapping(target = "company_id", ignore = true)
+    @Mapping(target = "userId", ignore = true)
+    @Mapping(target = "whitelabelId", ignore = true)
     S toSchemaForCreate(E entity);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
@@ -60,8 +60,8 @@ public interface GenericBusinessMapper<E extends GenericClass, S extends Generic
             @Mapping(target = "updatedAt", ignore = true),
             @Mapping(target = "deletedAt", ignore = true),
             @Mapping(target = "deleted", ignore = true),
-            @Mapping(target = "user_id", ignore = true),
-            @Mapping(target = "company_id", ignore = true)
+            @Mapping(target = "userId", ignore = true),
+            @Mapping(target = "whitelabelId", ignore = true)
     })
     void updateEntityFromDomain(@MappingTarget S entity, E domain);
 }
