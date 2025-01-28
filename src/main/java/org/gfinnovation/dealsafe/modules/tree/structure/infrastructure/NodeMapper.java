@@ -5,6 +5,7 @@ import org.gfinnovation.dealsafe.modules.tree.structure.domain.Node;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.ReportingPolicy;
+import org.springframework.context.annotation.Primary;
 
 /**
  * @author Lucas Batista Pereira
@@ -16,5 +17,6 @@ import org.mapstruct.ReportingPolicy;
         componentModel = MappingConstants.ComponentModel.SPRING,
         unmappedTargetPolicy = ReportingPolicy.IGNORE
 )
+@Primary
 public interface NodeMapper extends GenericBusinessMapper<Node<Object>, NodeEntity> {
 }

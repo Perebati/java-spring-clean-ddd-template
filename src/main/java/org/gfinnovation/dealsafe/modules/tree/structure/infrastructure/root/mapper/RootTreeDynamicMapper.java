@@ -10,6 +10,7 @@ import org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.node.Node
 import org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.node.NodeTreeEntity;
 import org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.root.RootTreeDynamicEntity;
 import org.mapstruct.*;
+import org.springframework.context.annotation.Primary;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,6 +26,7 @@ import java.util.stream.Collectors;
         componentModel = MappingConstants.ComponentModel.SPRING,
         unmappedTargetPolicy = ReportingPolicy.IGNORE
 )
+@Primary
 public interface RootTreeDynamicMapper extends GenericBusinessMapper<RootTreeDynamic, RootTreeDynamicEntity> {
     @SubclassMapping(source = NodeTreeBlockEntity.class, target = NodeTreeBlock.class)
     @SubclassMapping(source = NodeTreeActionEntity.class, target = NodeTreeAction.class)

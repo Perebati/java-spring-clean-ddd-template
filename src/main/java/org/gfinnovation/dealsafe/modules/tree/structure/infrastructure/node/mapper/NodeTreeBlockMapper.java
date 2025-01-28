@@ -8,6 +8,7 @@ import org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.node.Node
 import org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.node.NodeTreeBlockEntity;
 import org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.node.NodeTreeEntity;
 import org.mapstruct.*;
+import org.springframework.context.annotation.Primary;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,6 +24,7 @@ import java.util.stream.Collectors;
         componentModel = MappingConstants.ComponentModel.SPRING,
         unmappedTargetPolicy = ReportingPolicy.IGNORE
 )
+@Primary
 public interface NodeTreeBlockMapper extends GenericBusinessMapper<NodeTreeBlock, NodeTreeBlockEntity> {
     @SubclassMapping(source = NodeTreeBlockEntity.class, target = NodeTreeBlock.class)
     @SubclassMapping(source = NodeTreeActionEntity.class, target = NodeTreeAction.class)

@@ -6,6 +6,7 @@ import org.gfinnovation.dealsafe.modules.tree.condition.infrastructure.Compariso
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.ReportingPolicy;
+import org.springframework.context.annotation.Primary;
 
 /**
  * @author Lucas Batista Pereira
@@ -17,5 +18,6 @@ import org.mapstruct.ReportingPolicy;
         componentModel = MappingConstants.ComponentModel.SPRING,
         unmappedTargetPolicy = ReportingPolicy.IGNORE
 )
+@Primary
 public interface ComparisonOperationMapper extends GenericBusinessMapper<Comparison, ComparisonOperationEntity> {
 }
