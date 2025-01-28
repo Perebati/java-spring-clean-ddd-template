@@ -2,8 +2,8 @@ package org.gfinnovation.dealsafe._shared.modules.domain.repository;
 
 import jakarta.validation.constraints.NotNull;
 import org.gfinnovation.dealsafe._shared.modules.domain.GenericClass;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
-import org.gfinnovation.dealsafe.configuration.security.RepositoryAuth;
+import org.gfinnovation.dealsafe.modules.exception.models.layered.RepositoryException;
+import org.gfinnovation.dealsafe._shared.modules.application.RepositoryAuth;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 

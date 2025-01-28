@@ -2,8 +2,8 @@ package org.gfinnovation.dealsafe.modules.tree.structure.domain.node.repository;
 
 import jakarta.validation.constraints.NotNull;
 import org.gfinnovation.dealsafe._shared.modules.domain.repository.GenericBusinessRepository;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
-import org.gfinnovation.dealsafe.configuration.security.RepositoryAuth;
+import org.gfinnovation.dealsafe.modules.exception.models.layered.RepositoryException;
+import org.gfinnovation.dealsafe._shared.modules.application.RepositoryAuth;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.Node;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTree;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTreeBlock;

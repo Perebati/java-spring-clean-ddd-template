@@ -1,4 +1,4 @@
-package org.gfinnovation.dealsafe.configuration.exception.models;
+package org.gfinnovation.dealsafe.modules.exception.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

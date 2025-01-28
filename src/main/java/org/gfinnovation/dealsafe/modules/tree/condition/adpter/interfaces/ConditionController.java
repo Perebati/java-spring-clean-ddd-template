@@ -6,7 +6,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.coyote.BadRequestException;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.DomainException;
+import org.gfinnovation.dealsafe.modules.exception.models.layered.DomainException;
 import org.gfinnovation.dealsafe.modules.tree.condition.adpter.dto.request.ComparisonCreationDTO;
 import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.Comparison;
 import org.springframework.http.ResponseEntity;

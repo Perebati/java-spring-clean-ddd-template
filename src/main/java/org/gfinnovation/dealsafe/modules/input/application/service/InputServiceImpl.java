@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe.modules.input.application.service;
 
 import org.gfinnovation.dealsafe._shared.modules.application.GenericServiceImpl;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.ServiceException;
+import org.gfinnovation.dealsafe.modules.exception.models.layered.ServiceException;
 import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.InputService;
 import org.gfinnovation.dealsafe.modules.input.domain.InputEntity;
 import org.gfinnovation.dealsafe.modules.input.domain.factory.interfaces.InputFactory;

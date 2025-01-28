@@ -1,4 +1,4 @@
-package org.gfinnovation.dealsafe.configuration.exception.models.layered;
+package org.gfinnovation.dealsafe.modules.exception.models.layered;
 
 /**
  * @author Lucas Batista Pereira

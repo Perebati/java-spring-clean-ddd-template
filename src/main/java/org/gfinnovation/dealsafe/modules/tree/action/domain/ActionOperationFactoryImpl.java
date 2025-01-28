@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe.modules.tree.action.domain;
 
 import jakarta.validation.ValidationException;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
+import org.gfinnovation.dealsafe.modules.exception.models.layered.FactoryException;
 import org.springframework.stereotype.Component;
 
 /**

@@ -3,9 +3,9 @@ package org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.servi
 import jakarta.validation.ValidationException;
 import org.apache.coyote.BadRequestException;
 import org.gfinnovation.dealsafe._shared.modules.application.GenericServiceImpl;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.ServiceException;
+import org.gfinnovation.dealsafe.modules.exception.models.layered.FactoryException;
+import org.gfinnovation.dealsafe.modules.exception.models.layered.RepositoryException;
+import org.gfinnovation.dealsafe.modules.exception.models.layered.ServiceException;
 import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.Comparison;
 import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.factory.interfaces.ComparisonOperationFactory;
 import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.logic.enums.ComparisonTypeEnum;

@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe.modules.input.domain.factory.interfaces;
 
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
+import org.gfinnovation.dealsafe.modules.exception.models.layered.FactoryException;
 import org.gfinnovation.dealsafe.modules.input.domain.InputEntity;
 
 /**

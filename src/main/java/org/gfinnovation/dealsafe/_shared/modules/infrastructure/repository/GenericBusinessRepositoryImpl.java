@@ -7,9 +7,9 @@ import org.gfinnovation.dealsafe._shared.modules.domain.repository.GenericBusine
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.GenericBusinessEntity;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.mapper.GenericBusinessMapper;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.components.GenericBusinessJpaRepositoryImpl;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryEntityNotFoundException;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
-import org.gfinnovation.dealsafe.configuration.security.RepositoryAuth;
+import org.gfinnovation.dealsafe.modules.exception.models.layered.RepositoryEntityNotFoundException;
+import org.gfinnovation.dealsafe.modules.exception.models.layered.RepositoryException;
+import org.gfinnovation.dealsafe._shared.modules.application.RepositoryAuth;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package org.gfinnovation.dealsafe.configuration.exception.models.layered;
+package org.gfinnovation.dealsafe.modules.exception.models.layered;
 
 /**
  * Thrown when a method didn't find what it was looking for.

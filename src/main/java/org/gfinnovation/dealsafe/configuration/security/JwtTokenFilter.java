@@ -43,7 +43,6 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain
     ) throws IOException {
-
         try {
             String jwt = getBearerToken(request);
 
@@ -57,7 +56,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
                 Date expiration = jwsClaims.getBody().getExpiration();
                 if (expiration != null && expiration.before(new Date())) {
-                    throw new ExpiredJwtException(jwsClaims.getHeader(), jwsClaims.getBody(), "Token expirado.");
+                    throw new ExpiredJwtException(jwsClaims.getHeader(), jwsClaims.getBody(), "Expired token.");
                 }
 
                 String userId = jwsClaims.getBody().get("userId", String.class);
@@ -81,11 +80,11 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
 
         } catch (ExpiredJwtException ex) {
-            sendErrorResponse(response, HttpServletResponse.SC_UNAUTHORIZED, "Token expirado.");
+            sendErrorResponse(response, HttpServletResponse.SC_UNAUTHORIZED, "Expired JWT token.");
         } catch (JwtException ex) {
-            sendErrorResponse(response, HttpServletResponse.SC_UNAUTHORIZED, "Token inválido.");
+            sendErrorResponse(response, HttpServletResponse.SC_UNAUTHORIZED, "Invalid JWT token.");
         } catch (Exception ex) {
-            sendErrorResponse(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Erro ao processar o token JWT.");
+            sendErrorResponse(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error validating JWT token.");
         } finally {
             MDC.clear();
         }

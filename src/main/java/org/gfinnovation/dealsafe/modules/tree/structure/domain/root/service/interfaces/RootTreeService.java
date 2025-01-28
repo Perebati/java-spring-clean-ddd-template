@@ -1,9 +1,10 @@
 package org.gfinnovation.dealsafe.modules.tree.structure.domain.root.service.interfaces;
 
 import jakarta.validation.ValidationException;
+import org.apache.coyote.BadRequestException;
 import org.gfinnovation.dealsafe._shared.modules.application.interfaces.GenericService;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.ServiceException;
+import org.gfinnovation.dealsafe.modules.exception.models.layered.RepositoryException;
+import org.gfinnovation.dealsafe.modules.exception.models.layered.ServiceException;
 import org.gfinnovation.dealsafe.modules.input.domain.valueobjects.predefined.enums.PredefinedTypeEnum;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.RootTree;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.RootTreeDynamic;
@@ -21,7 +22,7 @@ import java.util.concurrent.CompletableFuture;
  */
 
 public interface RootTreeService extends GenericService<RootTree<?>> {
-    RootTreeStatic create(String name, PredefinedTypeEnum static_input) throws ServiceException, ValidationException;
+    RootTreeStatic create(String name, PredefinedTypeEnum static_input) throws ServiceException, ValidationException, BadRequestException;
 
     CompletableFuture<RootTreeDynamic> create(String name, UUID dynamic_input) throws ServiceException, ValidationException;
 

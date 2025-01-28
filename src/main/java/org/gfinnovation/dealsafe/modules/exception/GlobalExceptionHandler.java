@@ -1,9 +1,9 @@
-package org.gfinnovation.dealsafe.configuration.exception;
+package org.gfinnovation.dealsafe.modules.exception;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.BadRequestException;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.DomainException;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.ServiceException;
+import org.gfinnovation.dealsafe.modules.exception.models.layered.DomainException;
+import org.gfinnovation.dealsafe.modules.exception.models.layered.ServiceException;
 import org.gfinnovation.dealsafe.configuration.logging.LogService;
 import org.gfinnovation.dealsafe.configuration.logging.infrastrutcture.ErrorLogSchema;
 import org.slf4j.Logger;
@@ -42,9 +42,8 @@ public class GlobalExceptionHandler {
         ErrorLogSchema errorLog = buildErrorLog(ex);
         logService.saveErrorLogAsync(errorLog);
 
-        logger.error("Must likely a logic mistake!", ex);
-        ErrorResponse response = new ErrorResponse("An error occurred:", ex.getCause().getMessage());
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        logger.error(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
     }
 
     @ExceptionHandler(BadRequestException.class)
@@ -52,9 +51,8 @@ public class GlobalExceptionHandler {
         ErrorLogSchema errorLog = buildErrorLog(ex);
         logService.saveErrorLogAsync(errorLog);
 
-        logger.error("A request was badly made!", ex);
-        ErrorResponse response = new ErrorResponse("Request error", ex.getCause().getMessage());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        logger.error(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 
     @ExceptionHandler(AuthenticationException.class)
@@ -62,9 +60,8 @@ public class GlobalExceptionHandler {
         ErrorLogSchema errorLog = buildErrorLog(ex);
         logService.saveErrorLogAsync(errorLog);
 
-        logger.error("Authentication failed!", ex);
-        ErrorResponse response = new ErrorResponse("Authentication failed!", ex.getCause().getMessage());
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+        logger.error(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ex.getMessage());
     }
 
     @ExceptionHandler(Exception.class)
@@ -72,11 +69,9 @@ public class GlobalExceptionHandler {
         ErrorLogSchema errorLog = buildErrorLog(ex);
         logService.saveErrorLogAsync(errorLog);
 
-        logger.error("Something terrible happened!", ex);
         logger.error(ex.getCause().getMessage());
 
-        ErrorResponse response = new ErrorResponse("An unexpected error occurred!", ":(");
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong.");
     }
 
     private ErrorLogSchema buildErrorLog(Exception ex) {

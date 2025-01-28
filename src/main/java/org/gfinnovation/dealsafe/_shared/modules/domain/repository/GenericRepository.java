@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe._shared.modules.domain.repository;
 
 import org.gfinnovation.dealsafe._shared.modules.domain.GenericClass;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
+import org.gfinnovation.dealsafe.modules.exception.models.layered.RepositoryException;
 
 import java.util.List;
 import java.util.Optional;

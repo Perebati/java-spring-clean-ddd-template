@@ -2,8 +2,8 @@ package org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.facto
 
 import jakarta.validation.ValidationException;
 import org.apache.coyote.BadRequestException;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryEntityNotFoundException;
+import org.gfinnovation.dealsafe.modules.exception.models.layered.FactoryException;
+import org.gfinnovation.dealsafe.modules.exception.models.layered.RepositoryEntityNotFoundException;
 import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.InputService;
 import org.gfinnovation.dealsafe.modules.input.domain.InputEntity;
 import org.gfinnovation.dealsafe.modules.input.domain.valueobjects.predefined.enums.PredefinedTypeEnum;

@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe.modules.input.presentation;
 
 import org.apache.coyote.BadRequestException;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.DomainException;
+import org.gfinnovation.dealsafe.modules.exception.models.layered.DomainException;
 import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.InputService;
 import org.gfinnovation.dealsafe.modules.input.domain.InputEntity;
 import org.gfinnovation.dealsafe.modules.input.presentation.interfaces.InputController;

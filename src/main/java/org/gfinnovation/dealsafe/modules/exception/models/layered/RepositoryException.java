@@ -1,4 +1,4 @@
-package org.gfinnovation.dealsafe.configuration.exception.models.layered;
+package org.gfinnovation.dealsafe.modules.exception.models.layered;
 
 /**
  * RepositoryException is for general use, throw it when you not sure

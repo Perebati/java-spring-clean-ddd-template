@@ -2,10 +2,11 @@ package org.gfinnovation.dealsafe.modules.tree.structure.domain.root.service;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.ValidationException;
+import org.apache.coyote.BadRequestException;
 import org.gfinnovation.dealsafe._shared.modules.application.GenericServiceImpl;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.ServiceException;
+import org.gfinnovation.dealsafe.modules.exception.models.layered.FactoryException;
+import org.gfinnovation.dealsafe.modules.exception.models.layered.RepositoryException;
+import org.gfinnovation.dealsafe.modules.exception.models.layered.ServiceException;
 import org.gfinnovation.dealsafe.modules.input.domain.valueobjects.predefined.enums.PredefinedTypeEnum;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.RootTree;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.RootTreeDynamic;
@@ -69,7 +70,7 @@ class RootTreeServiceImpl extends GenericServiceImpl implements RootTreeService 
 
     @Override
     @Transactional
-    public RootTreeStatic create(String name, PredefinedTypeEnum static_input) throws ServiceException {
+    public RootTreeStatic create(String name, PredefinedTypeEnum static_input) throws ServiceException, BadRequestException {
         try {
             return this.rootTreeStaticRepository
                     .createSync(
@@ -78,7 +79,7 @@ class RootTreeServiceImpl extends GenericServiceImpl implements RootTreeService 
                                             name,
                                             static_input
                                     ), getRepositoryAuth());
-        } catch (ServiceException e) {
+        } catch (ServiceException | BadRequestException e) {
             throw e;
         } catch (Exception e) {
             throw new ServiceException("Business: Something went wrong creating a static root.", e);

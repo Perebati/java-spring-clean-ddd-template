@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.factory.interfaces;
 
 import org.apache.coyote.BadRequestException;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.FactoryException;
+import org.gfinnovation.dealsafe.modules.exception.models.layered.FactoryException;
 import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.Comparison;
 import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.logic.enums.ComparisonTypeEnum;
 

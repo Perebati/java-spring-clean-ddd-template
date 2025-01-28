@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe.modules.tree.condition.adpter;
 
 import org.apache.coyote.BadRequestException;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.DomainException;
+import org.gfinnovation.dealsafe.modules.exception.models.layered.DomainException;
 import org.gfinnovation.dealsafe.modules.tree.condition.adpter.dto.request.ComparisonCreationDTO;
 import org.gfinnovation.dealsafe.modules.tree.condition.adpter.interfaces.ConditionController;
 import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.Comparison;

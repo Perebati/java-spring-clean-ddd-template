@@ -2,9 +2,9 @@ package org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.node.rep
 
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
+import org.gfinnovation.dealsafe._shared.modules.application.RepositoryAuth;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.GenericBusinessRepositoryImpl;
-import org.gfinnovation.dealsafe.configuration.exception.models.layered.RepositoryException;
-import org.gfinnovation.dealsafe.configuration.security.RepositoryAuth;
+import org.gfinnovation.dealsafe.modules.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.Node;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTreeAction;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTreeBlock;
