@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.GenericBusinessEntity;
 import org.gfinnovation.dealsafe.modules.tree.action.infrastructure.ActionOperationEntity;
-import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.logic.enums.ComparisonTypeEnum;
+import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.singular.logic.enums.ComparisonSingularTypeEnum;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -23,7 +23,7 @@ import java.util.Set;
 public class ComparisonOperationEntity extends GenericBusinessEntity {
 
     @Column(name = "type", nullable = false)
-    private ComparisonTypeEnum comparisonTypeEnum;
+    private ComparisonSingularTypeEnum comparisonTypeEnum;
 
     @Column(name = "json_variable_path", nullable = false)
     private String jsonVariablePath;

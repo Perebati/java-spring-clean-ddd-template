@@ -64,9 +64,7 @@ public class InputEntity extends GenericBusinessClass {
         }
     }
 
-    /**
-     * Método que mapeia um JSON em caminhos completos e tipos.
-     */
+
     public void parseJson(String json) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -77,9 +75,7 @@ public class InputEntity extends GenericBusinessClass {
         }
     }
 
-    /**
-     * Mapeia recursivamente o JSON e armazena os caminhos completos e tipos no HashMap.
-     */
+
     private void mapJsonToFields(String parentPath, JsonNode node, HashMap<String, Object> map) {
         Iterator<Map.Entry<String, JsonNode>> fieldsIterator = node.fields();
 
@@ -100,9 +96,6 @@ public class InputEntity extends GenericBusinessClass {
         }
     }
 
-    /**
-     * Retorna o tipo correspondente de um JsonNode.
-     */
     private String getJsonNodeType(JsonNode node) {
         if (node.isTextual()) return "String";
         if (node.isInt()) return "Integer";
@@ -112,23 +105,17 @@ public class InputEntity extends GenericBusinessClass {
         return "Unknown";
     }
 
-    /**
-     * Retorna um boolean significativo se o path existe em fields.
-     */
     public void validateJsonPathAndType(String jsonPath, Object variable) {
         if (jsonPath.startsWith("/")) jsonPath = jsonPath.replaceFirst("^[/.]", "");
 
         jsonPath = jsonPath.replaceAll("/", ".");
 
-        // Verifica se o jsonPath existe em fields
         if (!fields.containsKey(jsonPath)) {
             throw new IllegalArgumentException("O caminho especificado não existe: " + jsonPath);
         }
 
-        // Obtém o tipo esperado
         String expectedType = fields.get(jsonPath).toString();
 
-        // Verifica o tipo da variável
         boolean isTypeValid = validateType(variable, expectedType);
 
         if (!isTypeValid) {
@@ -137,9 +124,6 @@ public class InputEntity extends GenericBusinessClass {
 
     }
 
-    /*
-     * Método para verificar o tipo da entrada. Redundânte, precisa de revisão.
-     */
     private boolean validateType(Object variable, String expectedType) {
         return switch (expectedType) {
             case "String" -> variable instanceof String || variable instanceof Integer;
@@ -147,10 +131,9 @@ public class InputEntity extends GenericBusinessClass {
             case "Long" -> variable instanceof Long || variable instanceof String;
             case "Double" -> variable instanceof Double || variable instanceof String;
             case "Boolean" -> variable instanceof Boolean || variable instanceof String;
-            case "Unknown" -> false; // Tipo desconhecido, não pode ser validado
+            case "Unknown" -> false;
             default -> {
                 if (expectedType.startsWith("Array<")) {
-                    // Tratamento especial para arrays
                     yield variable instanceof Iterable<?>;
                 }
                 yield false;

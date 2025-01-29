@@ -1,4 +1,4 @@
-package org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.logic;
+package org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.singular.logic;
 
 /**
  * This is generic class that performs validations via comparisons.
@@ -10,7 +10,7 @@ package org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.logic
  * @class Comparison
  * @since 30/10/2024
  */
-public class ComparisonOperation {
+public class ComparisonSingularOperation {
 
     /**
      * Performs a comparison, this is a generic class, so the comparison is

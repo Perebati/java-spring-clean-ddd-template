@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe.modules.tree.condition.infrastructure.mapper;
 
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.mapper.GenericBusinessMapper;
-import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.Comparison;
+import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.singular.ComparisonSingular;
 import org.gfinnovation.dealsafe.modules.tree.condition.infrastructure.ComparisonOperationEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
@@ -19,5 +19,5 @@ import org.springframework.context.annotation.Primary;
         unmappedTargetPolicy = ReportingPolicy.IGNORE
 )
 @Primary
-public interface ComparisonOperationMapper extends GenericBusinessMapper<Comparison, ComparisonOperationEntity> {
+public interface ComparisonOperationMapper extends GenericBusinessMapper<ComparisonSingular, ComparisonOperationEntity> {
 }

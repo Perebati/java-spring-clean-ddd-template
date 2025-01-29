@@ -1,4 +1,4 @@
-package org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.factory;
+package org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.singular.factory;
 
 import jakarta.validation.ValidationException;
 import org.apache.coyote.BadRequestException;
@@ -7,15 +7,14 @@ import org.gfinnovation.dealsafe.modules.exception.models.layered.RepositoryEnti
 import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.InputService;
 import org.gfinnovation.dealsafe.modules.input.domain.InputEntity;
 import org.gfinnovation.dealsafe.modules.input.domain.valueobjects.predefined.enums.PredefinedTypeEnum;
-import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.Comparison;
-import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.factory.interfaces.ComparisonOperationFactory;
-import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.logic.enums.ComparisonTypeEnum;
+import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.singular.ComparisonSingular;
+import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.singular.factory.interfaces.ComparisonSingularFactory;
+import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.singular.logic.enums.ComparisonSingularTypeEnum;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.RootTreeDynamic;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.RootTreeStatic;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.service.interfaces.RootTreeService;
 import org.springframework.stereotype.Component;
 
-import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -28,11 +27,11 @@ import java.util.UUID;
  */
 
 @Component
-public class ComparisonOperationFactoryImpl implements ComparisonOperationFactory {
+public class ComparisonSingularFactoryImpl implements ComparisonSingularFactory {
     private final RootTreeService rootTreeService;
     private final InputService inputService;
 
-    public ComparisonOperationFactoryImpl(
+    public ComparisonSingularFactoryImpl(
             RootTreeService rootTreeService,
             InputService inputService
     ) {
@@ -59,7 +58,7 @@ public class ComparisonOperationFactoryImpl implements ComparisonOperationFactor
      * @since 30/10/2024
      */
 
-    public Comparison produce(ComparisonTypeEnum type, String jsonPath, String variable, UUID node_id) throws FactoryException, BadRequestException {
+    public ComparisonSingular produce(ComparisonSingularTypeEnum type, String jsonPath, String variable, UUID node_id) throws FactoryException, BadRequestException {
         try {
             Object rootTreeEntity = this.rootTreeService
                     .readGenericRoot(this.rootTreeService
@@ -77,7 +76,7 @@ public class ComparisonOperationFactoryImpl implements ComparisonOperationFactor
                 inputEntity.validateJsonPathAndType(jsonPath, variable);
             }
 
-            return new Comparison(type, jsonPath, Set.of(variable));
+            return new ComparisonSingular(type, jsonPath, variable);
         } catch (BadRequestException | RepositoryEntityNotFoundException e) {
             throw new FactoryException(e.getMessage());
         } catch (Exception e) {

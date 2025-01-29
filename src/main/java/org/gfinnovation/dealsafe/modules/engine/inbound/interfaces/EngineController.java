@@ -1,4 +1,4 @@
-package org.gfinnovation.dealsafe.engine.inbound.interfaces;
+package org.gfinnovation.dealsafe.modules.engine.inbound.interfaces;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import io.swagger.v3.oas.annotations.Operation;

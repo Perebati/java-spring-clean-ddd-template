@@ -5,8 +5,8 @@ import jakarta.transaction.Transactional;
 import org.gfinnovation.dealsafe._shared.modules.application.RepositoryAuth;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.GenericBusinessRepositoryImpl;
 import org.gfinnovation.dealsafe.modules.exception.models.layered.RepositoryException;
-import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.Comparison;
-import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.repository.ComparisonOperationRepository;
+import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.singular.ComparisonSingular;
+import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.singular.repository.ComparisonSingularRepository;
 import org.gfinnovation.dealsafe.modules.tree.condition.infrastructure.ComparisonOperationEntity;
 import org.gfinnovation.dealsafe.modules.tree.condition.infrastructure.mapper.ComparisonOperationMapper;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTree;
@@ -21,13 +21,13 @@ import org.springframework.stereotype.Component;
  * @since 30/10/2024
  */
 @Component
-class ComparisonOperationRepositoryImpl
-        extends GenericBusinessRepositoryImpl<Comparison, ComparisonOperationEntity>
-        implements ComparisonOperationRepository {
+class ComparisonSingularRepositoryImpl
+        extends GenericBusinessRepositoryImpl<ComparisonSingular, ComparisonOperationEntity>
+        implements ComparisonSingularRepository {
 
     private final NodeTreeBlockRepository nodeTreeBlockRepository;
 
-    ComparisonOperationRepositoryImpl(
+    ComparisonSingularRepositoryImpl(
             ComparisonOperationMapper mapper,
             EntityManager entityManager,
             NodeTreeBlockRepository nodeTreeBlockRepository
@@ -37,7 +37,7 @@ class ComparisonOperationRepositoryImpl
     }
 
     @Transactional
-    public Comparison createComparison(Comparison newOperation, NodeTree<?> parent, RepositoryAuth auth) throws RepositoryException {
+    public ComparisonSingular createComparison(ComparisonSingular newOperation, NodeTree<?> parent, RepositoryAuth auth) throws RepositoryException {
         try {
 //            LinkedList<Condition<?>> lista = new LinkedList<>();
 //            lista.add(newOperation);

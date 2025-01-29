@@ -8,7 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.coyote.BadRequestException;
 import org.gfinnovation.dealsafe.modules.exception.models.layered.DomainException;
 import org.gfinnovation.dealsafe.modules.tree.condition.adpter.dto.request.ComparisonCreationDTO;
-import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.Comparison;
+import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.singular.ComparisonSingular;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,5 +34,5 @@ public interface ConditionController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PostMapping("comparison")
-    ResponseEntity<Comparison> createOperation(@RequestBody ComparisonCreationDTO request) throws DomainException, BadRequestException;
+    ResponseEntity<ComparisonSingular> createOperation(@RequestBody ComparisonCreationDTO request) throws DomainException, BadRequestException;
 }

@@ -1,18 +1,13 @@
-package org.gfinnovation.dealsafe.engine;
+package org.gfinnovation.dealsafe.modules.engine;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import org.gfinnovation.dealsafe._sandbox.Neo4jTest;
-import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.logic.enums.ComparisonTypeEnum;
+import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.singular.logic.enums.ComparisonSingularTypeEnum;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -72,7 +67,7 @@ public class Engine {
                     Set<String> expectedValues = new HashSet<>();
                     expectedVarsNode.forEach(node -> expectedValues.add(node.asText()));
 
-                    ComparisonTypeEnum getType = ComparisonTypeEnum.valueOf(String.valueOf(operation.get("comparisonTypeEnum").asText()));
+                    ComparisonSingularTypeEnum getType = ComparisonSingularTypeEnum.valueOf(String.valueOf(operation.get("comparisonTypeEnum").asText()));
                     Class<?> clazz = getType.getOperationClass();
                     Object instance = clazz.getDeclaredConstructor().newInstance();
 
@@ -87,29 +82,29 @@ public class Engine {
                         }
                     }
 
-                    if (operation.has("actions")) {
-                        JsonNode actions = operation.get("actions");
-                        for (JsonNode action : actions) {
-                            String url = action.get("url").asText();
-                            HttpClient client = HttpClient.newHttpClient();
-                            HttpRequest request = HttpRequest.newBuilder()
-                                    .uri(URI.create(url))
-                                    .GET()
-                                    .build();
-
-                            try {
-                                HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-                                if (response.statusCode() == 200) {
-                                    System.out.println("Resposta: " + response.body());
-                                } else {
-                                    System.out.println("Falha na requisição, status: " + response.statusCode());
-                                }
-                            } catch (IOException | InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
+//                    if (operation.has("actions")) {
+//                        JsonNode actions = operation.get("actions");
+//                        for (JsonNode action : actions) {
+//                            String url = action.get("url").asText();
+//                            HttpClient client = HttpClient.newHttpClient();
+//                            HttpRequest request = HttpRequest.newBuilder()
+//                                    .uri(URI.create(url))
+//                                    .GET()
+//                                    .build();
+//
+//                            try {
+//                                HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+//
+//                                if (response.statusCode() == 200) {
+//                                    System.out.println("Resposta: " + response.body());
+//                                } else {
+//                                    System.out.println("Falha na requisição, status: " + response.statusCode());
+//                                }
+//                            } catch (IOException | InterruptedException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                    }
                 }
             }
 

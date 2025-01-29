@@ -1,4 +1,4 @@
-package org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.service;
+package org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.singular.service;
 
 import jakarta.validation.ValidationException;
 import org.apache.coyote.BadRequestException;
@@ -6,11 +6,11 @@ import org.gfinnovation.dealsafe._shared.modules.application.GenericServiceImpl;
 import org.gfinnovation.dealsafe.modules.exception.models.layered.FactoryException;
 import org.gfinnovation.dealsafe.modules.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.modules.exception.models.layered.ServiceException;
-import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.Comparison;
-import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.factory.interfaces.ComparisonOperationFactory;
-import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.logic.enums.ComparisonTypeEnum;
-import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.repository.ComparisonOperationRepository;
-import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.service.interfaces.ComparisonOperationService;
+import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.singular.ComparisonSingular;
+import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.singular.factory.interfaces.ComparisonSingularFactory;
+import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.singular.logic.enums.ComparisonSingularTypeEnum;
+import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.singular.repository.ComparisonSingularRepository;
+import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.singular.service.interfaces.ComparisonSingularService;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTree;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.service.interfaces.NodeTreeService;
 import org.springframework.stereotype.Component;
@@ -31,18 +31,18 @@ import java.util.concurrent.CompletableFuture;
  */
 
 @Component
-public class ComparisonOperationServiceImpl extends GenericServiceImpl implements ComparisonOperationService {
+public class ComparisonSingularServiceImpl extends GenericServiceImpl implements ComparisonSingularService {
     private final NodeTreeService nodeTreeService;
-    private final ComparisonOperationRepository comparisonOperationRepository;
-    private final ComparisonOperationFactory comparisonOperationFactory;
+    private final ComparisonSingularRepository comparisonSingularRepository;
+    private final ComparisonSingularFactory comparisonOperationFactory;
 
-    public ComparisonOperationServiceImpl(
+    public ComparisonSingularServiceImpl(
             NodeTreeService nodeTreeService,
-            ComparisonOperationRepository comparisonOperationRepository,
-            ComparisonOperationFactory comparisonOperationFactory
+            ComparisonSingularRepository comparisonSingularRepository,
+            ComparisonSingularFactory comparisonOperationFactory
     ) {
         this.nodeTreeService = nodeTreeService;
-        this.comparisonOperationRepository = comparisonOperationRepository;
+        this.comparisonSingularRepository = comparisonSingularRepository;
         this.comparisonOperationFactory = comparisonOperationFactory;
     }
 
@@ -63,11 +63,11 @@ public class ComparisonOperationServiceImpl extends GenericServiceImpl implement
      * @since 30/10/2024
      */
     @Override
-    public Comparison create(ComparisonTypeEnum type, String jsonPath, String variable, UUID node_id) throws ServiceException, BadRequestException {
+    public ComparisonSingular create(ComparisonSingularTypeEnum type, String jsonPath, String variable, UUID node_id) throws ServiceException, BadRequestException {
         try {
-            NodeTree parent = this.nodeTreeService.read(node_id);
-            Comparison newOperation = this.comparisonOperationFactory.produce(type, jsonPath, variable, node_id);
-            return this.comparisonOperationRepository.createComparison(newOperation, parent, getRepositoryAuth());
+            NodeTree<?> parent = this.nodeTreeService.read(node_id);
+            ComparisonSingular newOperation = this.comparisonOperationFactory.produce(type, jsonPath, variable, node_id);
+            return this.comparisonSingularRepository.createComparison(newOperation, parent, getRepositoryAuth());
         } catch (BadRequestException | ServiceException e) {
             throw e;
         } catch (Exception e) {
@@ -76,9 +76,9 @@ public class ComparisonOperationServiceImpl extends GenericServiceImpl implement
     }
 
     @Override
-    public Comparison read(UUID id) throws ServiceException {
+    public ComparisonSingular read(UUID id) throws ServiceException {
         try {
-            return this.comparisonOperationRepository.read(id, getRepositoryAuth());
+            return this.comparisonSingularRepository.read(id, getRepositoryAuth());
         } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {
@@ -87,9 +87,9 @@ public class ComparisonOperationServiceImpl extends GenericServiceImpl implement
     }
 
     @Override
-    public CompletableFuture<Comparison> updateAsync(Comparison entity) throws ServiceException {
+    public CompletableFuture<ComparisonSingular> updateAsync(ComparisonSingular entity) throws ServiceException {
         try {
-            return this.comparisonOperationRepository.updateAsync(entity, getRepositoryAuth());
+            return this.comparisonSingularRepository.updateAsync(entity, getRepositoryAuth());
         } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {
@@ -99,9 +99,9 @@ public class ComparisonOperationServiceImpl extends GenericServiceImpl implement
     }
 
     @Override
-    public Comparison updateSync(Comparison entity) throws ServiceException {
+    public ComparisonSingular updateSync(ComparisonSingular entity) throws ServiceException {
         try {
-            return this.comparisonOperationRepository.updateSync(entity, getRepositoryAuth());
+            return this.comparisonSingularRepository.updateSync(entity, getRepositoryAuth());
         } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {
@@ -112,7 +112,7 @@ public class ComparisonOperationServiceImpl extends GenericServiceImpl implement
     @Override
     public void deleteAsync(UUID id) throws ServiceException {
         try {
-            this.comparisonOperationRepository.deleteAsync(id, getRepositoryAuth());
+            this.comparisonSingularRepository.deleteAsync(id, getRepositoryAuth());
         } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {
@@ -123,7 +123,7 @@ public class ComparisonOperationServiceImpl extends GenericServiceImpl implement
     @Override
     public void deleteSync(UUID id) throws ServiceException {
         try {
-            this.comparisonOperationRepository.deleteSync(id, getRepositoryAuth());
+            this.comparisonSingularRepository.deleteSync(id, getRepositoryAuth());
         } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {
@@ -132,9 +132,9 @@ public class ComparisonOperationServiceImpl extends GenericServiceImpl implement
     }
 
     @Override
-    public Optional<List<Comparison>> readAll() throws ServiceException {
+    public Optional<List<ComparisonSingular>> readAll() throws ServiceException {
         try {
-            return this.comparisonOperationRepository.findAll(getRepositoryAuth());
+            return this.comparisonSingularRepository.findAll(getRepositoryAuth());
         } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {
@@ -143,9 +143,9 @@ public class ComparisonOperationServiceImpl extends GenericServiceImpl implement
     }
 
     @Override
-    public Optional<List<Comparison>> readAllByIds(List<UUID> ids) throws ServiceException {
+    public Optional<List<ComparisonSingular>> readAllByIds(List<UUID> ids) throws ServiceException {
         try {
-            return this.comparisonOperationRepository.findAllByIds(ids, getRepositoryAuth());
+            return this.comparisonSingularRepository.findAllByIds(ids, getRepositoryAuth());
         } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {
@@ -156,7 +156,7 @@ public class ComparisonOperationServiceImpl extends GenericServiceImpl implement
     @Override
     public void check(UUID id) throws ServiceException {
         try {
-            this.comparisonOperationRepository.check(id, getRepositoryAuth());
+            this.comparisonSingularRepository.check(id, getRepositoryAuth());
         } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {
@@ -167,7 +167,7 @@ public class ComparisonOperationServiceImpl extends GenericServiceImpl implement
     @Override
     public void checkAll(Set<UUID> ids) throws ServiceException {
         try {
-            this.comparisonOperationRepository.checkAll(ids, getRepositoryAuth());
+            this.comparisonSingularRepository.checkAll(ids, getRepositoryAuth());
         } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {

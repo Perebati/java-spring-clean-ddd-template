@@ -2,7 +2,7 @@ package org.gfinnovation.dealsafe.modules.tree.action.domain;
 
 import org.gfinnovation.dealsafe._shared.modules.application.GenericServiceImpl;
 import org.gfinnovation.dealsafe.modules.exception.models.layered.ServiceException;
-import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.service.interfaces.ComparisonOperationService;
+import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.singular.service.interfaces.ComparisonSingularService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,13 +23,13 @@ import java.util.concurrent.CompletableFuture;
 @Component
 public class ActionOperationServiceImpl extends GenericServiceImpl implements ActionOperationService {
     private final ActionOperationFactory actionOperationFactory;
-    private final ComparisonOperationService comparisonOperationBusiness;
+    private final ComparisonSingularService comparisonOperationBusiness;
     private final ActionOperationRepository actionOperationRepository;
 
     @Autowired
     public ActionOperationServiceImpl(
             ActionOperationFactory actionOperationFactory,
-            ComparisonOperationService comparisonOperationBusiness,
+            ComparisonSingularService comparisonOperationBusiness,
             ActionOperationRepository actionOperationRepository
     ) {
         this.actionOperationFactory = actionOperationFactory;

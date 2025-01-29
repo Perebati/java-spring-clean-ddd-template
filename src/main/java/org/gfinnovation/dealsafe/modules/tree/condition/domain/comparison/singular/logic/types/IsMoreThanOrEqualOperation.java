@@ -1,6 +1,6 @@
-package org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.logic.types;
+package org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.singular.logic.types;
 
-import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.logic.ComparisonOperation;
+import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.singular.logic.ComparisonSingularOperation;
 
 /**
  * @author Lucas Batista Pereira
@@ -8,7 +8,7 @@ import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.logic.
  * @class IsMoreThanOrEqualOperation
  * @since 30/10/2024
  */
-public class IsMoreThanOrEqualOperation extends ComparisonOperation {
+public class IsMoreThanOrEqualOperation extends ComparisonSingularOperation {
     @Override
     public Boolean doOperation(String a, String b) {
         Number valueA = parseNumericValue(a);
@@ -20,6 +20,4 @@ public class IsMoreThanOrEqualOperation extends ComparisonOperation {
 
         return Double.compare(valueA.doubleValue(), valueB.doubleValue()) >= 0;
     }
-
-
 }

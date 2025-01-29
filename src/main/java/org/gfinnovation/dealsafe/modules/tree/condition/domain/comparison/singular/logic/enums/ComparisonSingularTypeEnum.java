@@ -1,7 +1,7 @@
-package org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.logic.enums;
+package org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.singular.logic.enums;
 
-import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.logic.ComparisonOperation;
-import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.logic.types.*;
+import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.singular.logic.ComparisonSingularOperation;
+import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.singular.logic.types.*;
 
 /**
  * This enum maps all possible comparisons in this system,
@@ -14,7 +14,7 @@ import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.logic.
  * @since 30/10/2024
  */
 
-public enum ComparisonTypeEnum {
+public enum ComparisonSingularTypeEnum {
     DIFFERENT(IsDifferentOperation.class),
     EQUAL(IsEqualsOperation.class),
     LESSTHAN(IsLessThanOperation.class),
@@ -22,17 +22,17 @@ public enum ComparisonTypeEnum {
     GREATERTHAN(IsMoreThanOperation.class),
     GREATERTHANOREQUAL(IsMoreThanOrEqualOperation.class);
 
-    private final Class<? extends ComparisonOperation> operationClass;
+    private final Class<? extends ComparisonSingularOperation> operationClass;
 
-    ComparisonTypeEnum(Class<? extends ComparisonOperation> operationClass) {
+    ComparisonSingularTypeEnum(Class<? extends ComparisonSingularOperation> operationClass) {
         this.operationClass = operationClass;
     }
 
-    public Class<? extends ComparisonOperation> getOperationClass() {
+    public Class<? extends ComparisonSingularOperation> getOperationClass() {
         return this.operationClass;
     }
 
-    public ComparisonOperation createOperationInstance() throws Exception {
+    public ComparisonSingularOperation createOperationInstance() throws Exception {
         return operationClass.getDeclaredConstructor().newInstance();
     }
 }
