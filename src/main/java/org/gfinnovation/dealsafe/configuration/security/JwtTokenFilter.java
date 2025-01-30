@@ -25,13 +25,11 @@ import java.util.UUID;
 @Component
 public class JwtTokenFilter extends OncePerRequestFilter {
 
+    private final LogService logService;
     @Value("${jwt.privateKey}")
     private String privateKey;
-
     @Value("${jwt.publicKey}")
     private String publicKey;
-
-    private final LogService logService;
 
     public JwtTokenFilter(LogService logService) {
         this.logService = logService;

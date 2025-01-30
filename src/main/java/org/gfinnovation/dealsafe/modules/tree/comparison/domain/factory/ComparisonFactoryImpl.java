@@ -49,7 +49,7 @@ public class ComparisonFactoryImpl implements ComparisonFactory {
      * @param type     Comparison type.
      * @param jsonPath JsonPath to compared variable.
      * @param variable Variable value.
-     * @param parent  Parent node.
+     * @param parent   Parent node.
      * @return Comparison
      * @throws FactoryException                  Thrown when something wrong happened on factory layer.
      * @throws BadRequestException               Thrown when there's something wrong in user input.

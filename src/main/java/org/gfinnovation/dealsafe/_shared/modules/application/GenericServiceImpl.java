@@ -28,7 +28,7 @@ public class GenericServiceImpl {
             }
 
             return UUID.fromString(userIdStr);
-        } catch (BadRequestException e){
+        } catch (BadRequestException e) {
             throw e;
         } catch (IllegalArgumentException e) {
             throw new BadRequestException("Invalid userId format!", e);
@@ -46,7 +46,7 @@ public class GenericServiceImpl {
             }
 
             return UUID.fromString(userIdStr);
-        } catch (BadRequestException e){
+        } catch (BadRequestException e) {
             throw e;
         } catch (IllegalArgumentException e) {
             throw new BadRequestException("Invalid whitelabelId format!", e);

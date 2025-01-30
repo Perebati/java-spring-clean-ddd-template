@@ -27,5 +27,7 @@ public interface ComparisonFactory {
             String jsonVariablePath,
             List<String> expectedVars,
             Node<?> parent
-    ) throws FactoryException, BadRequestException;;
+    ) throws FactoryException, BadRequestException;
+
+    ;
 }

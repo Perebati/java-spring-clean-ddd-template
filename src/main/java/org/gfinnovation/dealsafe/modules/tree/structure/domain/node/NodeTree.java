@@ -40,10 +40,15 @@ public class NodeTree<T> extends Node<T> {
 
     public void setParent(Node<?> parent) {
         this.parentId = parent.getId();
-        if(parent instanceof RootTree)
+        if (parent instanceof RootTree)
             this.parentType = ParentType.ROOT;
         else
             this.parentType = ParentType.NODE;
+    }
+
+    @Override
+    public boolean traverse(T inputData) {
+        return false;
     }
 
     public enum SortField {
@@ -52,10 +57,5 @@ public class NodeTree<T> extends Node<T> {
 
     public enum ParentType {
         NODE, ROOT
-    }
-
-    @Override
-    public boolean traverse(T inputData) {
-        return false;
     }
 }

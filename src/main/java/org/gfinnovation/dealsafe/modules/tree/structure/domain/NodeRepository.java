@@ -11,4 +11,5 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public interface NodeRepository extends GenericBusinessRepository<Node<Object>> { }
+public interface NodeRepository extends GenericBusinessRepository<Node<Object>> {
+}

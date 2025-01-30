@@ -87,7 +87,7 @@ class NodeTreeBlockRepositoryImpl
                 default:
                     throw new RepositoryException("Não é possível salvar um filho no nó: " + parent.getNodeType());
             }
-        }catch (RepositoryException e) {
+        } catch (RepositoryException e) {
             throw e;
         } catch (Exception e) {
             throw new RepositoryException("Ocorreu um erro ao criar um novo nó.", e);
