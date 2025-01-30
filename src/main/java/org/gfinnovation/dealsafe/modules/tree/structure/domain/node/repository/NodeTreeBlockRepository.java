@@ -16,5 +16,9 @@ import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTreeBloc
  */
 
 public interface NodeTreeBlockRepository extends GenericBusinessRepository<NodeTreeBlock> {
-    NodeTree<?> createNode(@NotNull NodeTreeBlock newNode, @NotNull Node<?> parent, @NotNull RepositoryAuth auth) throws RepositoryException;
+    NodeTree<?> createNode(
+            @NotNull NodeTreeBlock newNode,
+            @NotNull Node<?> parent,
+            @NotNull RepositoryAuth auth
+    ) throws RepositoryException;
 }

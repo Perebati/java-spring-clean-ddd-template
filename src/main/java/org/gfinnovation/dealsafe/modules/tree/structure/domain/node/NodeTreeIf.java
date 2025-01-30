@@ -33,6 +33,10 @@ public class NodeTreeIf extends NodeTree<Object> {
         super(NodeType.NODE_IF, parentNode);
     }
 
+    public void addConditionalNode(NodeTree<?> node) {
+        conditionalNodes.add(node);
+    }
+
     public void addThenNode(NodeTree<?> node) {
         thenNodes.add(node);
     }

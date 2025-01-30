@@ -3,10 +3,9 @@ package org.gfinnovation.dealsafe._sandbox;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.gfinnovation.dealsafe.modules.input.domain.valueobjects.predefined.enums.PredefinedTypeEnum;
-import org.gfinnovation.dealsafe.modules.tree.action.domain.NodeTreeAction;
 import org.gfinnovation.dealsafe.modules.tree.structure.adapter.dto.request.NodeCreationDTO;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTree;
-import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.service.interfaces.NodeTreeService;
+import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.service.interfaces.NodeTreeBlockService;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.RootTreeStatic;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.service.interfaces.RootTreeService;
 import org.slf4j.MDC;
@@ -28,7 +27,7 @@ import java.util.UUID;
 @Tag(name = "Teste")
 public class TreeTest {
     private final RootTreeService rootTreeService;
-    private final NodeTreeService nodeTreeService;
+    private final NodeTreeBlockService nodeTreeBlockService;
 
     @PostMapping("tree2")
     public boolean testeTree2() throws RuntimeException {
@@ -39,13 +38,11 @@ public class TreeTest {
 
             RootTreeStatic createdRoot = this.rootTreeService.create("ROOT Teste", PredefinedTypeEnum.TESTE);
 
-            NodeTree<?> node1 = this.nodeTreeService.create(new NodeCreationDTO("NODE 1", createdRoot.getId()));
+            NodeTree<?> node1 = this.nodeTreeBlockService.create(new NodeCreationDTO("NODE 1", createdRoot.getId()));
 
-            NodeTree<?> node2 = this.nodeTreeService.create(new NodeCreationDTO("NODE 3", createdRoot.getId()));
+            NodeTree<?> node2 = this.nodeTreeBlockService.create(new NodeCreationDTO("NODE 3", createdRoot.getId()));
 
-            NodeTree<?> createdNode2 = this.nodeTreeService.create(new NodeCreationDTO("NODE 2", node1.getId()));
-
-            NodeTreeAction action = this.nodeTreeService.createAction(new NodeCreationDTO("Action 1", createdNode2.getId()));
+            NodeTree<?> createdNode2 = this.nodeTreeBlockService.create(new NodeCreationDTO("NODE 2", node1.getId()));
 
             createdRoot = this.rootTreeService.readRootStatic(createdRoot.getId()).get();
 

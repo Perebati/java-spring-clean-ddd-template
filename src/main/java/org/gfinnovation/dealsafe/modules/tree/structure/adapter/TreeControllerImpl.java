@@ -5,7 +5,7 @@ import org.gfinnovation.dealsafe.modules.tree.structure.adapter.dto.request.Node
 import org.gfinnovation.dealsafe.modules.tree.structure.adapter.dto.request.RootCreationDynamicInputDTO;
 import org.gfinnovation.dealsafe.modules.tree.structure.adapter.dto.request.RootCreationPredefinedInputDTO;
 import org.gfinnovation.dealsafe.modules.tree.structure.adapter.interfaces.TreeController;
-import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.service.interfaces.NodeTreeService;
+import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.service.interfaces.NodeTreeBlockService;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.RootTreeDynamic;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.RootTreeStatic;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.service.interfaces.RootTreeService;
@@ -26,11 +26,11 @@ import java.util.concurrent.CompletableFuture;
 @Controller
 class TreeControllerImpl implements TreeController {
     private final RootTreeService rootTreeService;
-    private final NodeTreeService nodeTreeService;
+    private final NodeTreeBlockService nodeTreeBlockService;
 
-    TreeControllerImpl(RootTreeService rootTreeService, NodeTreeService nodeTreeService) {
+    TreeControllerImpl(RootTreeService rootTreeService, NodeTreeBlockService nodeTreeBlockService) {
         this.rootTreeService = rootTreeService;
-        this.nodeTreeService = nodeTreeService;
+        this.nodeTreeBlockService = nodeTreeBlockService;
     }
 
     @Override
@@ -66,7 +66,7 @@ class TreeControllerImpl implements TreeController {
     @Override
     public ResponseEntity<Void> createNode(NodeCreationDTO request) throws DomainException {
         try {
-            this.nodeTreeService.create(
+            this.nodeTreeBlockService.create(
                     request
             );
             return new ResponseEntity<>(HttpStatus.CREATED);

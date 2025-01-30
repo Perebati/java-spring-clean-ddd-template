@@ -1,4 +1,4 @@
-package org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.node.repository;
+package org.gfinnovation.dealsafe.modules.tree.action.infrastructure;
 
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
@@ -6,17 +6,15 @@ import org.gfinnovation.dealsafe._shared.modules.application.RepositoryAuth;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.GenericBusinessRepositoryImpl;
 import org.gfinnovation.dealsafe.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.modules.tree.action.domain.NodeTreeAction;
+import org.gfinnovation.dealsafe.modules.tree.action.domain.NodeTreeActionRepository;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.Node;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTreeBlock;
-import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.repository.NodeTreeActionRepository;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.repository.NodeTreeBlockRepository;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.RootTreeDynamic;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.RootTreeStatic;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.repository.RootTreeDynamicRepository;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.repository.RootTreeRepository;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.repository.RootTreeStaticRepository;
-import org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.node.NodeTreeActionEntity;
-import org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.node.mapper.NodeTreeActionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Component;

@@ -8,7 +8,7 @@ import org.gfinnovation.dealsafe.modules.tree.comparison.domain.factory.interfac
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.repository.ComparisonMultiRepository;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.service.interfaces.ComparisonMultiService;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTree;
-import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.service.interfaces.NodeTreeService;
+import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.service.interfaces.NodeTreeBlockService;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,23 +17,23 @@ import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 public class ComparisonMultiServiceImpl extends GenericServiceImpl implements ComparisonMultiService {
-    private final NodeTreeService nodeTreeService;
+    private final NodeTreeBlockService nodeTreeBlockService;
     private final ComparisonMultiRepository comparisonMultiRepository;
     private final ComparisonFactory comparisonOperationFactory;
 
     public ComparisonMultiServiceImpl(
-            NodeTreeService nodeTreeService,
+            NodeTreeBlockService nodeTreeBlockService,
             ComparisonMultiRepository comparisonMultiRepository,
             ComparisonFactory comparisonOperationFactory
     ) {
-        this.nodeTreeService = nodeTreeService;
+        this.nodeTreeBlockService = nodeTreeBlockService;
         this.comparisonMultiRepository = comparisonMultiRepository;
         this.comparisonOperationFactory = comparisonOperationFactory;
     }
 
     public ComparisonMulti create(ComparisonMulti.ComparisonMultiTypeEnum type, String jsonPath, List<String> variables, UUID node_id) throws ServiceException, BadRequestException {
         try {
-            NodeTree<?> parent = this.nodeTreeService.read(node_id);
+            NodeTree<?> parent = this.nodeTreeBlockService.read(node_id);
             ComparisonMulti newOperation = this.comparisonOperationFactory.produce(type, jsonPath, variables, parent);
             return this.comparisonMultiRepository.createMultiComparison(newOperation, parent, getRepositoryAuth());
         } catch (BadRequestException | ServiceException e) {
