@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe.modules.tree.structure.domain.root.factory;
 
 import jakarta.validation.ValidationException;
-import org.gfinnovation.dealsafe.modules.exception.models.layered.FactoryException;
+import org.gfinnovation.dealsafe.exception.models.layered.FactoryException;
 import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.InputService;
 import org.gfinnovation.dealsafe.modules.input.domain.valueobjects.predefined.enums.PredefinedTypeEnum;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.RootTreeDynamic;

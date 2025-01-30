@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe.modules.tree.structure.adapter;
 
-import org.gfinnovation.dealsafe.modules.exception.models.layered.DomainException;
+import org.gfinnovation.dealsafe.exception.models.layered.DomainException;
 import org.gfinnovation.dealsafe.modules.tree.structure.adapter.dto.request.NodeCreationDTO;
 import org.gfinnovation.dealsafe.modules.tree.structure.adapter.dto.request.RootCreationDynamicInputDTO;
 import org.gfinnovation.dealsafe.modules.tree.structure.adapter.dto.request.RootCreationPredefinedInputDTO;

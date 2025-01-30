@@ -1,9 +1,9 @@
 package org.gfinnovation.dealsafe.modules.tree.structure.domain.root.repository;
 
 import jakarta.validation.constraints.NotNull;
-import org.gfinnovation.dealsafe._shared.modules.domain.repository.GenericBusinessRepository;
-import org.gfinnovation.dealsafe.modules.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe._shared.modules.application.RepositoryAuth;
+import org.gfinnovation.dealsafe._shared.modules.domain.repository.GenericBusinessRepository;
+import org.gfinnovation.dealsafe.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.RootTree;
 
 import java.util.Optional;

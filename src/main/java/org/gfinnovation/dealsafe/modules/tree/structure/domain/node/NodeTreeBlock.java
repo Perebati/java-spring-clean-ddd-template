@@ -21,20 +21,16 @@ import java.util.List;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 public class NodeTreeBlock extends NodeTree<Object> {
+    private String name;
     private List<NodeTree<?>> nodes = new ArrayList<>();
 
     @Default
     public NodeTreeBlock(
-            String name
-    ) {
-        super(name, NodeType.NODE_BLOCK);
-    }
-
-    public NodeTreeBlock(
             String name,
             Node<?> parentNode
     ) {
-        super(name, NodeType.NODE_BLOCK, parentNode);
+        super(NodeType.NODE_BLOCK, parentNode);
+        this.name = name;
     }
 
     public NodeTreeBlock(
@@ -42,7 +38,8 @@ public class NodeTreeBlock extends NodeTree<Object> {
             Node<?> parentNode,
             List<NodeTree<?>> nodes
     ) {
-        super(name, NodeType.NODE_BLOCK, parentNode);
+        super(NodeType.NODE_BLOCK, parentNode);
+        this.name = name;
         this.nodes = nodes;
     }
 

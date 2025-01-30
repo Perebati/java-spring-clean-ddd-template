@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.GenericBusinessEntity;
-import org.gfinnovation.dealsafe.modules.tree.structure.domain.Node;
 
 /**
  * @author Lucas Batista Pereira
@@ -29,10 +28,18 @@ public class NodeEntity extends GenericBusinessEntity {
     public final static String DISCRIMINATOR_BLOCK = "BL";
     public final static String DISCRIMINATOR_IF = "IF";
 
-    @Column(name = "name")
-    private String name;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "node_type")
-    private Node.NodeType nodeType;
+    private NodeType nodeType;
+
+    private enum NodeType {
+        NODE_BLOCK,
+        NODE_ACTION,
+        NODE_IF,
+        NODE_CONDITION,
+        ROOT_STATIC,
+        ROOT_DYNAMIC,
+        CONDITIONAL_COMPARISON_SINGULAR,
+        CONDITIONAL_COMPARISON_MULTIPLE,
+    }
 }

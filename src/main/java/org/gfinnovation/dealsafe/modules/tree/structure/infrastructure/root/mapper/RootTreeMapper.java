@@ -1,8 +1,8 @@
 package org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.root.mapper;
 
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.mapper.GenericBusinessMapper;
+import org.gfinnovation.dealsafe.modules.tree.action.domain.NodeTreeAction;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTree;
-import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTreeAction;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTreeBlock;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.RootTree;
 import org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.node.NodeTreeActionEntity;

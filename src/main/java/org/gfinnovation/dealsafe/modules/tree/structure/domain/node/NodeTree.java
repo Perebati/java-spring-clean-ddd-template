@@ -30,27 +30,12 @@ public class NodeTree<T> extends Node<T> {
 
     @Default
     public NodeTree(
-            String name,
-            NodeType nodeType
-    ) {
-        setName(name);
-        setNodeType(nodeType);
-    }
-
-    public NodeTree(
-            String name,
             NodeType nodeType,
             Node<?> parentNode
     ) {
-        setName(name);
         setNodeType(nodeType);
         this.parentId = parentNode.getId();
         setParent(parentNode);
-    }
-
-    @Override
-    public boolean traverse(T inputData) {
-        return true;
     }
 
     public void setParent(Node<?> parent) {
@@ -67,5 +52,10 @@ public class NodeTree<T> extends Node<T> {
 
     public enum ParentType {
         NODE, ROOT
+    }
+
+    @Override
+    public boolean traverse(T inputData) {
+        return false;
     }
 }

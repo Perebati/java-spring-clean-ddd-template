@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe.modules.input.domain.factory;
 
 import jakarta.validation.constraints.NotNull;
-import org.gfinnovation.dealsafe.modules.exception.models.layered.FactoryException;
+import org.gfinnovation.dealsafe.exception.models.layered.FactoryException;
 import org.gfinnovation.dealsafe.modules.input.domain.InputEntity;
 import org.gfinnovation.dealsafe.modules.input.domain.factory.interfaces.InputFactory;
 import org.springframework.stereotype.Component;

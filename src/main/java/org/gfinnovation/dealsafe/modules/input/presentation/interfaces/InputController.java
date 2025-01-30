@@ -6,7 +6,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.coyote.BadRequestException;
-import org.gfinnovation.dealsafe.modules.exception.models.layered.DomainException;
+import org.gfinnovation.dealsafe.exception.models.layered.DomainException;
 import org.gfinnovation.dealsafe.modules.input.domain.InputEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

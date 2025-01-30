@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.gfinnovation.dealsafe._shared.utils.annotations.Default;
-import org.gfinnovation.dealsafe.modules.tree.condition.domain.Condition;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.Node;
 
 import java.util.ArrayList;
@@ -23,22 +22,15 @@ import java.util.List;
 @Setter
 @ToString
 public class NodeTreeIf extends NodeTree<Object> {
-    private final List<Condition<?>> conditionInterfaces = new ArrayList<>();
+    private final List<NodeTree<?>> conditionalNodes = new ArrayList<>();
     private final List<NodeTree<?>> thenNodes = new ArrayList<>();
     private final List<NodeTree<?>> elseNodes = new ArrayList<>();
 
     @Default
     public NodeTreeIf(
-            String name
-    ) {
-        super(name, NodeType.NODE_IF);
-    }
-
-    public NodeTreeIf(
-            String name,
             Node<?> parentNode
     ) {
-        super(name, NodeType.NODE_IF, parentNode);
+        super(NodeType.NODE_IF, parentNode);
     }
 
     public void addThenNode(NodeTree<?> node) {

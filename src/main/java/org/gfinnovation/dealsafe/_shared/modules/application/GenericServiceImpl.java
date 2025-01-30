@@ -2,7 +2,7 @@ package org.gfinnovation.dealsafe._shared.modules.application;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.BadRequestException;
-import org.gfinnovation.dealsafe.modules.exception.models.layered.ServiceAuthenticationException;
+import org.gfinnovation.dealsafe.exception.models.layered.ServiceAuthenticationException;
 import org.slf4j.MDC;
 
 import java.util.UUID;

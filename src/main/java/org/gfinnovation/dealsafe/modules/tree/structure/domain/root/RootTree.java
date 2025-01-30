@@ -26,6 +26,7 @@ import java.util.List;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 public class RootTree<T> extends Node<T> {
+    private String name;
     private List<NodeTree<?>> nodes = new ArrayList<>();
 
     @Default
@@ -54,5 +55,10 @@ public class RootTree<T> extends Node<T> {
         } catch (Exception e) {
             throw new RuntimeException("Error adding node to branch");
         }
+    }
+
+    @Override
+    public boolean traverse(Object inputData) {
+        return false;
     }
 }

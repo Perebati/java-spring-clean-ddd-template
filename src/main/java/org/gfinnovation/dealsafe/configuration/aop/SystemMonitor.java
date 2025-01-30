@@ -53,7 +53,12 @@ public class SystemMonitor {
         }
     }
 
-    private MethodCallLogSchema buildMethodCallLog(ProceedingJoinPoint joinPoint, String requestId, String userId, String companyId) {
+    private MethodCallLogSchema buildMethodCallLog(
+            ProceedingJoinPoint joinPoint,
+            String requestId,
+            String userId,
+            String companyId
+    ) {
         MethodCallLogSchema methodCallLog = new MethodCallLogSchema();
         methodCallLog.setMethodName(joinPoint.getSignature().getName());
         methodCallLog.setClassName(joinPoint.getTarget().getClass().getSimpleName());

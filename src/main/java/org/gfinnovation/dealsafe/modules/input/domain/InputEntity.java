@@ -10,7 +10,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.gfinnovation.dealsafe._shared.modules.domain.GenericBusinessClass;
 import org.gfinnovation.dealsafe._shared.utils.annotations.Default;
-import org.gfinnovation.dealsafe.modules.exception.models.layered.ServiceException;
+import org.gfinnovation.dealsafe.exception.models.layered.ServiceException;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.HashMap;
@@ -71,7 +71,7 @@ public class InputEntity extends GenericBusinessClass {
             JsonNode rootNode = objectMapper.readTree(json);
             mapJsonToFields("", rootNode, fields);
         } catch (Exception e) {
-            throw new RuntimeException("Erro processing Json", e);
+            throw new RuntimeException("Error processing Json", e);
         }
     }
 
@@ -111,7 +111,7 @@ public class InputEntity extends GenericBusinessClass {
         jsonPath = jsonPath.replaceAll("/", ".");
 
         if (!fields.containsKey(jsonPath)) {
-            throw new IllegalArgumentException("O caminho especificado não existe: " + jsonPath);
+            throw new IllegalArgumentException("Specified path does not exist: " + jsonPath);
         }
 
         String expectedType = fields.get(jsonPath).toString();
@@ -119,9 +119,8 @@ public class InputEntity extends GenericBusinessClass {
         boolean isTypeValid = validateType(variable, expectedType);
 
         if (!isTypeValid) {
-            throw new IllegalArgumentException("O tipo da variável não corresponde ao esperado: " + expectedType);
+            throw new IllegalArgumentException("Variable type does not match expected type: " + expectedType);
         }
-
     }
 
     private boolean validateType(Object variable, String expectedType) {

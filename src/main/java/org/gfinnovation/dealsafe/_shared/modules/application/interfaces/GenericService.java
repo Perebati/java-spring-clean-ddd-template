@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe._shared.modules.application.interfaces;
 
 import org.gfinnovation.dealsafe._shared.modules.domain.GenericClass;
-import org.gfinnovation.dealsafe.modules.exception.models.layered.ServiceException;
+import org.gfinnovation.dealsafe.exception.models.layered.ServiceException;
 
 import java.util.List;
 import java.util.Optional;

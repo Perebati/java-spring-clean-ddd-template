@@ -37,8 +37,8 @@ public class RootTreeStatic extends RootTree<Object> {
 
     public RootTreeStatic(
             String name,
-            LinkedList<NodeTree<?>> nodes,
-            PredefinedTypeEnum type
+            PredefinedTypeEnum type,
+            LinkedList<NodeTree<?>> nodes
     ) {
         super(name, NodeType.ROOT_STATIC, nodes);
         this.input_type = type;

@@ -37,8 +37,9 @@ public class RootTreeDynamic extends RootTree<Object> {
 
     public RootTreeDynamic(
             String name,
-            LinkedList<NodeTree<?>> nodes,
-            UUID dynamicInputId) {
+            UUID dynamicInputId,
+            LinkedList<NodeTree<?>> nodes
+    ) {
         super(name, NodeType.ROOT_STATIC, nodes);
         this.dynamicInputId = dynamicInputId;
     }

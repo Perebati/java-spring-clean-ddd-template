@@ -4,7 +4,7 @@ import jakarta.transaction.Transactional;
 import org.apache.coyote.BadRequestException;
 import org.gfinnovation.dealsafe._shared.modules.domain.GenericClass;
 import org.gfinnovation.dealsafe._shared.modules.domain.repository.GenericBusinessRepository;
-import org.gfinnovation.dealsafe.modules.exception.models.layered.RepositoryException;
+import org.gfinnovation.dealsafe.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe._shared.modules.application.RepositoryAuth;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

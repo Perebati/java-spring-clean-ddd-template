@@ -25,6 +25,9 @@ import java.util.List;
         }
 )
 public class NodeTreeBlockEntity extends NodeTreeEntity {
+    @Column(name = "name")
+    private String name;
+
     @OneToMany
     @JoinTable(
             name = "_relation_node_x_node",

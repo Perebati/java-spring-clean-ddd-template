@@ -2,14 +2,14 @@ package org.gfinnovation.dealsafe._shared.modules.infrastructure.repository;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.NotNull;
+import org.gfinnovation.dealsafe._shared.modules.application.RepositoryAuth;
 import org.gfinnovation.dealsafe._shared.modules.domain.GenericBusinessClass;
 import org.gfinnovation.dealsafe._shared.modules.domain.repository.GenericBusinessRepository;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.GenericBusinessEntity;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.mapper.GenericBusinessMapper;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.components.GenericBusinessJpaRepositoryImpl;
-import org.gfinnovation.dealsafe.modules.exception.models.layered.RepositoryEntityNotFoundException;
-import org.gfinnovation.dealsafe.modules.exception.models.layered.RepositoryException;
-import org.gfinnovation.dealsafe._shared.modules.application.RepositoryAuth;
+import org.gfinnovation.dealsafe.exception.models.layered.RepositoryEntityNotFoundException;
+import org.gfinnovation.dealsafe.exception.models.layered.RepositoryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

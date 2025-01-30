@@ -1,17 +1,12 @@
 package org.gfinnovation.dealsafe.modules.engine;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import org.gfinnovation.dealsafe._sandbox.Neo4jTest;
-import org.gfinnovation.dealsafe.modules.tree.condition.domain.comparison.singular.logic.enums.ComparisonSingularTypeEnum;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Set;
 
 /**
  * It receives two trees. One is input the other one is a validation tree.
@@ -51,36 +46,36 @@ public class Engine {
 
         this.neo4jTest.storeUserInput(objectToValidate.toString());
 
-        if (root.has("nodes")) {
-            for (JsonNode node : root.get("nodes")) {
-                queue.add(node);
-            }
-        }
-
-        while (!queue.isEmpty()) {
-            JsonNode currentNode = queue.poll();
-            if (currentNode.has("operations")) {
-                JsonNode operations = currentNode.get("operations");
-                for (JsonNode operation : operations) {
-                    String jsonVariablePath = operation.get("jsonVariablePath").asText();
-                    ArrayNode expectedVarsNode = (ArrayNode) operation.get("expectedVars");
-                    Set<String> expectedValues = new HashSet<>();
-                    expectedVarsNode.forEach(node -> expectedValues.add(node.asText()));
-
-                    ComparisonSingularTypeEnum getType = ComparisonSingularTypeEnum.valueOf(String.valueOf(operation.get("comparisonTypeEnum").asText()));
-                    Class<?> clazz = getType.getOperationClass();
-                    Object instance = clazz.getDeclaredConstructor().newInstance();
-
-                    Method equalComparisonMethod = clazz.getMethod("doOperation", String.class, String.class);
-
-                    String actualValue = objectToValidate.at(jsonVariablePath).asText();
-
-                    for (String expectedValue : expectedValues) {
-                        Boolean result = (Boolean) equalComparisonMethod.invoke(instance, actualValue, expectedValue);
-                        if (!result) {
-                            return false;
-                        }
-                    }
+//        if (root.has("nodes")) {
+//            for (JsonNode node : root.get("nodes")) {
+//                queue.add(node);
+//            }
+//        }
+//
+//        while (!queue.isEmpty()) {
+//            JsonNode currentNode = queue.poll();
+//            if (currentNode.has("operations")) {
+//                JsonNode operations = currentNode.get("operations");
+//                for (JsonNode operation : operations) {
+//                    String jsonVariablePath = operation.get("jsonVariablePath").asText();
+//                    ArrayNode expectedVarsNode = (ArrayNode) operation.get("expectedVars");
+//                    Set<String> expectedValues = new HashSet<>();
+//                    expectedVarsNode.forEach(node -> expectedValues.add(node.asText()));
+//
+//                    ComparisonSingularTypeEnum getType = ComparisonSingularTypeEnum.valueOf(String.valueOf(operation.get("comparisonTypeEnum").asText()));
+//                    Class<?> clazz = getType.getOperationClass();
+//                    Object instance = clazz.getDeclaredConstructor().newInstance();
+//
+//                    Method equalComparisonMethod = clazz.getMethod("doOperation", String.class, String.class);
+//
+//                    String actualValue = objectToValidate.at(jsonVariablePath).asText();
+//
+//                    for (String expectedValue : expectedValues) {
+//                        Boolean result = (Boolean) equalComparisonMethod.invoke(instance, actualValue, expectedValue);
+//                        if (!result) {
+//                            return false;
+//                        }
+//                    }
 
 //                    if (operation.has("actions")) {
 //                        JsonNode actions = operation.get("actions");
@@ -105,17 +100,17 @@ public class Engine {
 //                            }
 //                        }
 //                    }
-                }
-            }
-
-            if (currentNode.has("children")) {
-                for (JsonNode child : currentNode.get("children")) {
-                    queue.add(child);
-                }
-            }
-        }
-
-
-        return true;
+//                }
+//            }
+//
+//            if (currentNode.has("children")) {
+//                for (JsonNode child : currentNode.get("children")) {
+//                    queue.add(child);
+//                }
+//            }
+//        }
+//
+//
+       return true;
     }
 }

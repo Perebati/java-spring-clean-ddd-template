@@ -1,12 +1,12 @@
 package org.gfinnovation.dealsafe.modules.tree.structure.domain.node.service;
 
 import org.gfinnovation.dealsafe._shared.modules.application.GenericServiceImpl;
-import org.gfinnovation.dealsafe.modules.exception.models.layered.ServiceException;
+import org.gfinnovation.dealsafe.exception.models.layered.ServiceException;
+import org.gfinnovation.dealsafe.modules.tree.action.domain.NodeTreeAction;
 import org.gfinnovation.dealsafe.modules.tree.structure.adapter.dto.request.NodeCreationDTO;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.Node;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.NodeRepository;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTree;
-import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTreeAction;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTreeBlock;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.factory.interfaces.NodeTreeFactory;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.repository.NodeTreeActionRepository;

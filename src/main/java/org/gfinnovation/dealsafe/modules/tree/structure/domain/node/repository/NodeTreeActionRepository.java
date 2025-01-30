@@ -1,10 +1,10 @@
 package org.gfinnovation.dealsafe.modules.tree.structure.domain.node.repository;
 
-import org.gfinnovation.dealsafe._shared.modules.domain.repository.GenericBusinessRepository;
-import org.gfinnovation.dealsafe.modules.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe._shared.modules.application.RepositoryAuth;
+import org.gfinnovation.dealsafe._shared.modules.domain.repository.GenericBusinessRepository;
+import org.gfinnovation.dealsafe.exception.models.layered.RepositoryException;
+import org.gfinnovation.dealsafe.modules.tree.action.domain.NodeTreeAction;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.Node;
-import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTreeAction;
 
 /**
  * @author Lucas Batista Pereira

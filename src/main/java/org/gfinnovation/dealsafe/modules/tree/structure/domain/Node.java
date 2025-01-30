@@ -18,7 +18,6 @@ import org.gfinnovation.dealsafe._shared.modules.domain.GenericBusinessClass;
 @ToString
 @EqualsAndHashCode(callSuper = true)
 public class Node<T> extends GenericBusinessClass implements NodeTraversal<T> {
-    private String name;
     private NodeType nodeType;
 
     @Override
@@ -32,6 +31,8 @@ public class Node<T> extends GenericBusinessClass implements NodeTraversal<T> {
         NODE_IF,
         NODE_CONDITION,
         ROOT_STATIC,
-        ROOT_DYNAMIC
+        ROOT_DYNAMIC,
+        CONDITIONAL_COMPARISON_SINGULAR,
+        CONDITIONAL_COMPARISON_MULTIPLE,
     }
 }

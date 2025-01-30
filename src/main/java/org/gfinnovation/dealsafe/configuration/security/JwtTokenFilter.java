@@ -37,6 +37,8 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         this.logService = logService;
     }
 
+    //TODO: Extrair Roles do JWT e melhorar o tratamente de requisição. Otimizar a salvamento de log.
+
     @Override
     protected void doFilterInternal(
             @NonNull HttpServletRequest request,

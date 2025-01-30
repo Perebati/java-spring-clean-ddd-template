@@ -1,10 +1,10 @@
 package org.gfinnovation.dealsafe.modules.tree.structure.domain.node.factory;
 
 import jakarta.validation.ValidationException;
-import org.gfinnovation.dealsafe.modules.exception.models.layered.FactoryException;
+import org.gfinnovation.dealsafe.exception.models.layered.FactoryException;
 import org.gfinnovation.dealsafe.modules.tree.action.domain.ActionEnum;
+import org.gfinnovation.dealsafe.modules.tree.action.domain.NodeTreeAction;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.Node;
-import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTreeAction;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTreeBlock;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.factory.interfaces.NodeTreeFactory;
 import org.springframework.stereotype.Component;

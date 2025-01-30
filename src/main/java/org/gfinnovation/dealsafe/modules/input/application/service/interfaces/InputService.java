@@ -2,7 +2,7 @@ package org.gfinnovation.dealsafe.modules.input.application.service.interfaces;
 
 import org.apache.coyote.BadRequestException;
 import org.gfinnovation.dealsafe._shared.modules.application.interfaces.GenericService;
-import org.gfinnovation.dealsafe.modules.exception.models.layered.ServiceException;
+import org.gfinnovation.dealsafe.exception.models.layered.ServiceException;
 import org.gfinnovation.dealsafe.modules.input.domain.InputEntity;
 
 /**
