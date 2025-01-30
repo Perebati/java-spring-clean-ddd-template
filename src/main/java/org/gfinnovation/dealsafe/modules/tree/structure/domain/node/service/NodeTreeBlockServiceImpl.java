@@ -2,16 +2,16 @@ package org.gfinnovation.dealsafe.modules.tree.structure.domain.node.service;
 
 import org.gfinnovation.dealsafe._shared.modules.application.GenericServiceImpl;
 import org.gfinnovation.dealsafe.exception.models.layered.ServiceException;
-import org.gfinnovation.dealsafe.modules.tree.action.domain.NodeTreeAction;
 import org.gfinnovation.dealsafe.modules.tree.structure.adapter.dto.request.NodeCreationDTO;
+import org.gfinnovation.dealsafe.modules.tree.structure.adapter.dto.request.NodeCreationIfDTO;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.Node;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.NodeRepository;
-import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTree;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTreeBlock;
+import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTreeIf;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.factory.interfaces.NodeTreeFactory;
-import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.repository.NodeTreeActionRepository;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.repository.NodeTreeBlockRepository;
-import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.service.interfaces.NodeTreeService;
+import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.repository.NodeTreeIfRepository;
+import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.service.interfaces.NodeTreeBlockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -33,23 +33,23 @@ import java.util.concurrent.CompletableFuture;
  */
 
 @Component
-class NodeTreeServiceImpl extends GenericServiceImpl implements NodeTreeService {
+class NodeTreeBlockServiceImpl extends GenericServiceImpl implements NodeTreeBlockService {
     private final NodeTreeBlockRepository nodeTreeBlockRepository;
     private final NodeTreeFactory nodeTreeFactory;
-    private final NodeTreeActionRepository nodeTreeActionRepository;
     private final NodeRepository nodeRepository;
+    private final NodeTreeIfRepository nodeTreeIfRepository;
 
     @Autowired
-    public NodeTreeServiceImpl(
+    public NodeTreeBlockServiceImpl(
             NodeTreeBlockRepository nodeTreeBlockRepository,
             NodeTreeFactory nodeTreeFactory,
-            NodeTreeActionRepository nodeTreeActionRepository,
-            NodeRepository nodeRepository
+            NodeRepository nodeRepository,
+            NodeTreeIfRepository nodeTreeIfRepository
     ) {
         this.nodeTreeBlockRepository = nodeTreeBlockRepository;
         this.nodeTreeFactory = nodeTreeFactory;
-        this.nodeTreeActionRepository = nodeTreeActionRepository;
         this.nodeRepository = nodeRepository;
+        this.nodeTreeIfRepository = nodeTreeIfRepository;
     }
 
     /**
@@ -62,10 +62,10 @@ class NodeTreeServiceImpl extends GenericServiceImpl implements NodeTreeService 
      * @since 30/10/2024
      */
 
-    public NodeTree<?> create(NodeCreationDTO nodeCreationDTO) throws ServiceException {
+    public NodeTreeBlock create(NodeCreationDTO nodeCreationDTO) throws ServiceException {
         try {
             Node<?> parent = this.nodeRepository.read(nodeCreationDTO.parent_id(), getRepositoryAuth());
-            NodeTreeBlock newNode = this.nodeTreeFactory.produce(nodeCreationDTO.name(), parent);
+            NodeTreeBlock newNode = this.nodeTreeFactory.produceBlock(nodeCreationDTO.name(), parent);
             return this.read(this.nodeTreeBlockRepository.createNode(newNode, parent, getRepositoryAuth()).getId());
         } catch (ServiceException e) {
             throw e;
@@ -74,11 +74,19 @@ class NodeTreeServiceImpl extends GenericServiceImpl implements NodeTreeService 
         }
     }
 
-    public NodeTreeAction createAction(NodeCreationDTO nodeCreationDTO) {
+    public NodeTreeBlock create(NodeCreationIfDTO nodeCreationDTO) throws ServiceException {
         try {
-            Node<?> parent = this.nodeRepository.read(nodeCreationDTO.parent_id(), getRepositoryAuth());
-            NodeTreeAction newNode = this.nodeTreeFactory.produceAction(nodeCreationDTO.name(), parent);
-            return this.nodeTreeActionRepository.createNode(newNode, parent, getRepositoryAuth());
+            NodeTreeIf parent = this.nodeTreeIfRepository.read(nodeCreationDTO.parent_id(), getRepositoryAuth());
+            NodeTreeBlock newNode = this.nodeTreeFactory.produceBlock(nodeCreationDTO.name(), parent);
+            return this.read(
+                    this.nodeTreeBlockRepository.createIfNode(
+                            newNode,
+                            parent,
+                            nodeCreationDTO.position(),
+                            getRepositoryAuth()).getId()
+            );
+        } catch (ServiceException e) {
+            throw e;
         } catch (Exception e) {
             throw new ServiceException("Business: Something went wrong checking a node.", e);
         }

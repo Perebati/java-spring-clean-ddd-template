@@ -1,10 +1,11 @@
-package org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.node;
+package org.gfinnovation.dealsafe.modules.tree.action.infrastructure;
 
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.gfinnovation.dealsafe.modules.tree.action.domain.ActionEnum;
 import org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.NodeEntity;
+import org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.node.NodeTreeEntity;
 
 /**
  * @author Lucas Batista Pereira

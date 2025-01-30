@@ -1,19 +1,13 @@
 package org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.root.mapper;
 
-import org.gfinnovation.dealsafe._shared.modules.infrastructure.mapper.GenericBusinessMapper;
-import org.gfinnovation.dealsafe.modules.tree.action.domain.NodeTreeAction;
-import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTree;
-import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTreeBlock;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.RootTree;
-import org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.node.NodeTreeActionEntity;
-import org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.node.NodeTreeBlockEntity;
-import org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.node.NodeTreeEntity;
+import org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.node.mapper.NodeTreeMapper;
 import org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.root.RootTreeEntity;
-import org.mapstruct.*;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingConstants;
+import org.mapstruct.ReportingPolicy;
 import org.springframework.context.annotation.Primary;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author Lucas Batista Pereira
@@ -27,22 +21,8 @@ import java.util.stream.Collectors;
         unmappedTargetPolicy = ReportingPolicy.IGNORE
 )
 @Primary
-public interface RootTreeMapper extends GenericBusinessMapper<RootTree<?>, RootTreeEntity> {
-    @SubclassMapping(source = NodeTreeBlockEntity.class, target = NodeTreeBlock.class)
-    @SubclassMapping(source = NodeTreeActionEntity.class, target = NodeTreeAction.class)
-    NodeTree<Object> toEntity(NodeTreeEntity entity);
-
+public interface RootTreeMapper extends NodeTreeMapper<RootTree<?>, RootTreeEntity> {
     @Override
     @Mapping(target = "nodes", source = "nodes", qualifiedByName = "mapNodes")
     RootTree<Object> toEntity(RootTreeEntity schema);
-
-    @Named("mapNodes")
-    default List<NodeTree<?>> mapNodes(List<NodeTreeEntity> entities) {
-        if (entities == null) {
-            return null;
-        }
-        return entities.stream()
-                .map(this::toEntity)
-                .collect(Collectors.toList());
-    }
 }

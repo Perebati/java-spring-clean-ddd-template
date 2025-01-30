@@ -13,6 +13,10 @@ import org.gfinnovation.dealsafe.modules.tree.structure.domain.Node;
  * @since 30/10/2024
  */
 public interface ComparisonSingularRepository extends GenericBusinessRepository<ComparisonSingular> {
-    ComparisonSingular createSingComparison(ComparisonSingular newNode, Node<?> parent, RepositoryAuth auth) throws RepositoryException;
+    ComparisonSingular createSingComparison(
+            ComparisonSingular newNode,
+            Node<?> parent,
+            RepositoryAuth auth
+    ) throws RepositoryException;
 
 }

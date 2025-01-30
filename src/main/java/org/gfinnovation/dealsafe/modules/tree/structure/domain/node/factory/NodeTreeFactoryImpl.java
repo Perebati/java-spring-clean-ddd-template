@@ -2,10 +2,9 @@ package org.gfinnovation.dealsafe.modules.tree.structure.domain.node.factory;
 
 import jakarta.validation.ValidationException;
 import org.gfinnovation.dealsafe.exception.models.layered.FactoryException;
-import org.gfinnovation.dealsafe.modules.tree.action.domain.ActionEnum;
-import org.gfinnovation.dealsafe.modules.tree.action.domain.NodeTreeAction;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.Node;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTreeBlock;
+import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTreeIf;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.factory.interfaces.NodeTreeFactory;
 import org.springframework.stereotype.Component;
 
@@ -31,7 +30,7 @@ class NodeTreeFactoryImpl implements NodeTreeFactory {
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
-    public NodeTreeBlock produce(String name, Node<?> nodeParent) throws FactoryException {
+    public NodeTreeBlock produceBlock(String name, Node<?> nodeParent) throws FactoryException {
         try {
             return new NodeTreeBlock(name, nodeParent);
         } catch (Exception e) {
@@ -39,9 +38,9 @@ class NodeTreeFactoryImpl implements NodeTreeFactory {
         }
     }
 
-    public NodeTreeAction produceAction(String name, Node<?> nodeTreeBlock) throws FactoryException {
+    public NodeTreeIf produceIf(Node<?> nodeParent) throws FactoryException {
         try {
-            return new NodeTreeAction(name, nodeTreeBlock, ActionEnum.CREATE);
+            return new NodeTreeIf(nodeParent);
         } catch (Exception e) {
             throw new FactoryException("Factory: Something went wrong creating a node.", e);
         }

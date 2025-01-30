@@ -1,0 +1,55 @@
+package org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.node.mapper;
+
+import org.gfinnovation.dealsafe._shared.modules.domain.GenericClass;
+import org.gfinnovation.dealsafe._shared.modules.infrastructure.GenericEntity;
+import org.gfinnovation.dealsafe._shared.modules.infrastructure.mapper.GenericBusinessMapper;
+import org.gfinnovation.dealsafe.modules.tree.action.domain.NodeTreeAction;
+import org.gfinnovation.dealsafe.modules.tree.action.infrastructure.NodeTreeActionEntity;
+import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonMulti;
+import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
+import org.gfinnovation.dealsafe.modules.tree.comparison.infrastructure.ComparisonMultiEntity;
+import org.gfinnovation.dealsafe.modules.tree.comparison.infrastructure.ComparisonSingularEntity;
+import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTree;
+import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTreeBlock;
+import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTreeIf;
+import org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.node.NodeTreeBlockEntity;
+import org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.node.NodeTreeEntity;
+import org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.node.NodeTreeIfEntity;
+import org.mapstruct.Named;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+public interface NodeTreeMapper<E extends GenericClass, S extends GenericEntity> extends GenericBusinessMapper<E, S> {
+    ComparisonMulti toComparisonMulti(ComparisonMultiEntity entity);
+
+    ComparisonSingular toComparisonSingular(ComparisonSingularEntity entity);
+
+    NodeTreeIf toNodeTreeIf(NodeTreeIfEntity entity);
+
+    NodeTreeBlock toNodeTreeBlock(NodeTreeBlockEntity entity);
+
+    NodeTreeAction toNodeTreeAction(NodeTreeActionEntity entity);
+
+    default NodeTree<?> toEntity(NodeTreeEntity entity) {
+        return switch (entity) {
+            case null -> null;
+            case ComparisonMultiEntity comparisonMultiEntity -> toComparisonMulti(comparisonMultiEntity);
+            case ComparisonSingularEntity comparisonSingularEntity -> toComparisonSingular(comparisonSingularEntity);
+            case NodeTreeIfEntity nodeTreeIfEntity -> toNodeTreeIf(nodeTreeIfEntity);
+            case NodeTreeBlockEntity nodeTreeBlockEntity -> toNodeTreeBlock(nodeTreeBlockEntity);
+            case NodeTreeActionEntity nodeTreeActionEntity -> toNodeTreeAction(nodeTreeActionEntity);
+            default -> throw new IllegalArgumentException("Unknown node type: " + entity.getClass().getName());
+        };
+    }
+
+    @Named("mapNodes")
+    default List<NodeTree<?>> mapNodes(List<NodeTreeEntity> entities) {
+        if (entities == null) {
+            return null;
+        }
+        return entities.stream()
+                .map(this::toEntity)
+                .collect(Collectors.toList());
+    }
+}

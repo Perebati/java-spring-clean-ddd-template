@@ -1,9 +1,9 @@
 package org.gfinnovation.dealsafe.modules.tree.structure.domain.node.factory.interfaces;
 
 import org.gfinnovation.dealsafe.exception.models.layered.FactoryException;
-import org.gfinnovation.dealsafe.modules.tree.action.domain.NodeTreeAction;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.Node;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTreeBlock;
+import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTreeIf;
 
 /**
  * @author Lucas Batista Pereira
@@ -13,7 +13,8 @@ import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTreeBloc
  */
 
 public interface NodeTreeFactory {
-    NodeTreeBlock produce(String name, Node<?> nodeParent) throws FactoryException;
+    NodeTreeBlock produceBlock(String name, Node<?> nodeParent) throws FactoryException;
 
-    NodeTreeAction produceAction(String name, Node<?> nodeTreeBlock) throws FactoryException;
+    NodeTreeIf produceIf(Node<?> nodeParent) throws FactoryException;
+
 }

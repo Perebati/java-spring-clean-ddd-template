@@ -15,115 +15,65 @@ import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.RootTreeStat
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.repository.RootTreeDynamicRepository;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.repository.RootTreeRepository;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.repository.RootTreeStaticRepository;
-import org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.node.NodeTreeBlockEntity;
-import org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.node.mapper.NodeTreeBlockMapper;
+import org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.node.NodeTreeIfEntity;
+import org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.node.mapper.NodeTreeIfMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Component;
 
-/**
- * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
- * @class NodeTreeBlockRepositoryImpl
- * @since 30/10/2024
- */
-
 @Component
-class NodeTreeBlockRepositoryImpl
-        extends GenericBusinessRepositoryImpl<NodeTreeBlock, NodeTreeBlockEntity>
-        implements NodeTreeBlockRepository {
+class NodeTreeIfRepositoryImpl extends GenericBusinessRepositoryImpl<NodeTreeIf, NodeTreeIfEntity>
+        implements NodeTreeIfRepository {
     private final RootTreeDynamicRepository rootTreeDynamicRepository;
     private final RootTreeStaticRepository rootTreeStaticRepository;
     private final RootTreeRepository rootTreeRepository;
-    private final NodeTreeIfRepository nodeTreeIfRepository;
+    private final NodeTreeBlockRepository nodeTreeBlockRepository;
 
     @Autowired
-    NodeTreeBlockRepositoryImpl(
-            NodeTreeBlockMapper mapper,
+    NodeTreeIfRepositoryImpl(
+            NodeTreeIfMapper mapper,
             EntityManager entityManager,
             RootTreeDynamicRepository rootTreeDynamicRepository,
             RootTreeStaticRepository rootTreeStaticRepository,
             RootTreeRepository rootTreeRepository,
-            NodeTreeIfRepository nodeTreeIfRepository
+            NodeTreeBlockRepository nodeTreeBlockRepository
     ) {
-        super(mapper, new SimpleJpaRepository<>(NodeTreeBlockEntity.class, entityManager), NodeTreeBlockEntity.class);
+        super(mapper, new SimpleJpaRepository<>(NodeTreeIfEntity.class, entityManager), NodeTreeIfEntity.class);
         this.rootTreeDynamicRepository = rootTreeDynamicRepository;
         this.rootTreeStaticRepository = rootTreeStaticRepository;
         this.rootTreeRepository = rootTreeRepository;
-        this.nodeTreeIfRepository = nodeTreeIfRepository;
+        this.nodeTreeBlockRepository = nodeTreeBlockRepository;
     }
 
-    /**
-     * Transactional operation to save a new node on the database.
-     *
-     * @param newNode New entity to be saved, mede by factory.
-     * @param parent  Parent of given newNode, can be either a root or a node, always a branch.
-     * @return NodeTree
-     * @throws RepositoryException Thrown when an error occur on Repository Level
-     * @author Lucas Batista Pereira
-     * @since 08/11/2024
-     */
     @Transactional
     @Override
-    public NodeTreeBlock createNode(
-            NodeTreeBlock newNode,
-            Node<?> parent,
-            RepositoryAuth auth
-    ) throws RepositoryException {
+    public NodeTreeIf createNode(NodeTreeIf newNode, Node<?> parent, RepositoryAuth auth) throws RepositoryException {
         try {
             switch (parent.getNodeType()) {
                 case Node.NodeType.ROOT_STATIC:
                     RootTreeStatic parent_static = this.rootTreeStaticRepository.read(parent.getId(), auth);
-                    NodeTreeBlock createdNodeEntity_0 = this.createSync(newNode, auth);
+                    NodeTreeIf createdNodeEntity_0 = this.createSync(newNode, auth);
                     parent_static.addNode(createdNodeEntity_0);
                     this.rootTreeRepository.updateGenericRootSync(parent_static, auth);
                     return this.read(createdNodeEntity_0.getId(), auth);
 
                 case Node.NodeType.ROOT_DYNAMIC:
                     RootTreeDynamic parent_dynamic = this.rootTreeDynamicRepository.read(parent.getId(), auth);
-                    NodeTreeBlock createdNodeEntity_1 = this.createSync(newNode, auth);
+                    NodeTreeIf createdNodeEntity_1 = this.createSync(newNode, auth);
                     parent_dynamic.addNode(createdNodeEntity_1);
                     this.rootTreeRepository.updateGenericRootSync(parent_dynamic, auth);
                     return this.read(createdNodeEntity_1.getId(), auth);
 
                 case Node.NodeType.NODE_BLOCK:
-                    NodeTreeBlock parent_node = this.read(parent.getId(), auth);
-                    NodeTreeBlock createdNodeEntity_2 = this.createSync(newNode, auth);
+                    NodeTreeBlock parent_node = this.nodeTreeBlockRepository.read(parent.getId(), auth);
+                    NodeTreeIf createdNodeEntity_2 = this.createSync(newNode, auth);
                     parent_node.addNode(createdNodeEntity_2);
-                    this.updateSync(parent_node, auth);
+                    this.nodeTreeBlockRepository.updateSync(parent_node, auth);
                     return this.read(createdNodeEntity_2.getId(), auth);
 
                 default:
                     throw new RepositoryException("Não é possível salvar um filho no nó: " + parent.getNodeType());
             }
-        } catch (RepositoryException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new RepositoryException("Ocorreu um erro ao criar um novo nó.", e);
-        }
-    }
-
-    @Transactional
-    public NodeTreeBlock createIfNode(
-            NodeTreeBlock newNode,
-            NodeTreeIf parent,
-            NodeTreeIf.SetNode position,
-            RepositoryAuth auth
-    ) throws RepositoryException {
-        try {
-            NodeTreeBlock createdNodeEntity = this.createSync(newNode, auth);
-            switch (position) {
-                case NodeTreeIf.SetNode.CONDITIONAL:
-                    parent.addConditionalNode(createdNodeEntity);
-
-                case NodeTreeIf.SetNode.THEN:
-                    parent.addThenNode(createdNodeEntity);
-
-                case NodeTreeIf.SetNode.ELSE:
-                    parent.addElseNode(createdNodeEntity);
-            }
-            this.nodeTreeIfRepository.updateSync(parent, auth);
-            return this.read(createdNodeEntity.getId(), auth);
         } catch (RepositoryException e) {
             throw e;
         } catch (Exception e) {

@@ -7,6 +7,7 @@ import org.gfinnovation.dealsafe.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.Node;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTree;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTreeBlock;
+import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTreeIf;
 
 /**
  * @author Lucas Batista Pereira
@@ -16,5 +17,16 @@ import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTreeBloc
  */
 
 public interface NodeTreeBlockRepository extends GenericBusinessRepository<NodeTreeBlock> {
-    NodeTree<?> createNode(@NotNull NodeTreeBlock newNode, @NotNull Node<?> parent, @NotNull RepositoryAuth auth) throws RepositoryException;
+    NodeTree<?> createNode(
+            @NotNull NodeTreeBlock newNode,
+            @NotNull Node<?> parent,
+            @NotNull RepositoryAuth auth
+    ) throws RepositoryException;
+
+    NodeTreeBlock createIfNode(
+            NodeTreeBlock newNode,
+            NodeTreeIf parent,
+            NodeTreeIf.SetNode position,
+            RepositoryAuth auth
+    ) throws RepositoryException;
 }

@@ -5,9 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 /*
-TODO: Encapsulate UserID and CompanyID on o single authentication object to pass to repository layer: UPDATE: DONE!
-TODO: Create proper error objects that inherits one another. UPDATE: DONE!
-TODO: Documentation.
+TODO: Verificar a visibilidade de todas as classes criadas recentemente.
+TODO: Adicionar comentários.
  */
 
 @SpringBootApplication
