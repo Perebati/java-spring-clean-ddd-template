@@ -3,7 +3,7 @@ package org.gfinnovation.dealsafe.modules.tree.comparison.infrastructure;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.gfinnovation.dealsafe._shared.modules.infrastructure.GenericBusinessEntity;
+import org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.node.NodeTreeEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +12,9 @@ import java.util.List;
 @Entity
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "tree_root_node_condition_comparison_multi")
-public class ComparisonMultiEntity extends GenericBusinessEntity {
+public class ComparisonMultiEntity extends NodeTreeEntity {
     @Enumerated(EnumType.STRING)
-    @Column(name = "type", nullable = false)
+    @Column(name = "comparisonType", nullable = false)
     private ComparisonMultiTypeEnum comparisonTypeEnum;
 
     @Column(name = "json_variable_path", nullable = false)
@@ -28,7 +28,7 @@ public class ComparisonMultiEntity extends GenericBusinessEntity {
     @Column(name = "expected_vars", columnDefinition = "TEXT", nullable = false)
     private List<String> expectedVars = new ArrayList<>();
 
-    private enum ComparisonMultiTypeEnum {
+    public enum ComparisonMultiTypeEnum {
         CONTAINS,
         NOT_CONTAINS;
     }

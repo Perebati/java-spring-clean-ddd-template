@@ -7,7 +7,9 @@ import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.Gener
 import org.gfinnovation.dealsafe.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.Node;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTreeBlock;
+import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTreeIf;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.repository.NodeTreeBlockRepository;
+import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.repository.NodeTreeIfRepository;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.RootTreeDynamic;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.RootTreeStatic;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.repository.RootTreeDynamicRepository;
@@ -33,6 +35,7 @@ class NodeTreeBlockRepositoryImpl
     private final RootTreeDynamicRepository rootTreeDynamicRepository;
     private final RootTreeStaticRepository rootTreeStaticRepository;
     private final RootTreeRepository rootTreeRepository;
+    private final NodeTreeIfRepository nodeTreeIfRepository;
 
     @Autowired
     NodeTreeBlockRepositoryImpl(
@@ -40,12 +43,14 @@ class NodeTreeBlockRepositoryImpl
             EntityManager entityManager,
             RootTreeDynamicRepository rootTreeDynamicRepository,
             RootTreeStaticRepository rootTreeStaticRepository,
-            RootTreeRepository rootTreeRepository
+            RootTreeRepository rootTreeRepository,
+            NodeTreeIfRepository nodeTreeIfRepository
     ) {
         super(mapper, new SimpleJpaRepository<>(NodeTreeBlockEntity.class, entityManager), NodeTreeBlockEntity.class);
         this.rootTreeDynamicRepository = rootTreeDynamicRepository;
         this.rootTreeStaticRepository = rootTreeStaticRepository;
         this.rootTreeRepository = rootTreeRepository;
+        this.nodeTreeIfRepository = nodeTreeIfRepository;
     }
 
     /**
@@ -60,7 +65,11 @@ class NodeTreeBlockRepositoryImpl
      */
     @Transactional
     @Override
-    public NodeTreeBlock createNode(NodeTreeBlock newNode, Node<?> parent, RepositoryAuth auth) throws RepositoryException {
+    public NodeTreeBlock createNode(
+            NodeTreeBlock newNode,
+            Node<?> parent,
+            RepositoryAuth auth
+    ) throws RepositoryException {
         try {
             switch (parent.getNodeType()) {
                 case Node.NodeType.ROOT_STATIC:
@@ -87,6 +96,34 @@ class NodeTreeBlockRepositoryImpl
                 default:
                     throw new RepositoryException("Não é possível salvar um filho no nó: " + parent.getNodeType());
             }
+        } catch (RepositoryException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new RepositoryException("Ocorreu um erro ao criar um novo nó.", e);
+        }
+    }
+
+    @Transactional
+    public NodeTreeBlock createIfNode(
+            NodeTreeBlock newNode,
+            NodeTreeIf parent,
+            NodeTreeIf.SetNode position,
+            RepositoryAuth auth
+    ) throws RepositoryException {
+        try {
+            NodeTreeBlock createdNodeEntity = this.createSync(newNode, auth);
+            switch (position) {
+                case NodeTreeIf.SetNode.CONDITIONAL:
+                    parent.addConditionalNode(createdNodeEntity);
+
+                case NodeTreeIf.SetNode.THEN:
+                    parent.addThenNode(createdNodeEntity);
+
+                case NodeTreeIf.SetNode.ELSE:
+                    parent.addElseNode(createdNodeEntity);
+            }
+            this.nodeTreeIfRepository.updateSync(parent, auth);
+            return this.read(createdNodeEntity.getId(), auth);
         } catch (RepositoryException e) {
             throw e;
         } catch (Exception e) {

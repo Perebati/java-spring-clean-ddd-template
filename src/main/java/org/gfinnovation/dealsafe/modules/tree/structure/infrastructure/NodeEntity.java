@@ -32,7 +32,7 @@ public class NodeEntity extends GenericBusinessEntity {
     @Column(name = "node_type")
     private NodeType nodeType;
 
-    private enum NodeType {
+    public enum NodeType {
         NODE_BLOCK,
         NODE_ACTION,
         NODE_IF,

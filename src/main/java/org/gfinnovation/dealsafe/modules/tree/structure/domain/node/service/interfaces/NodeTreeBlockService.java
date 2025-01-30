@@ -3,7 +3,6 @@ package org.gfinnovation.dealsafe.modules.tree.structure.domain.node.service.int
 import org.gfinnovation.dealsafe._shared.modules.application.interfaces.GenericService;
 import org.gfinnovation.dealsafe.exception.models.layered.ServiceException;
 import org.gfinnovation.dealsafe.modules.tree.structure.adapter.dto.request.NodeCreationDTO;
-import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTree;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTreeBlock;
 
 /**
@@ -14,5 +13,5 @@ import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTreeBloc
  */
 
 public interface NodeTreeBlockService extends GenericService<NodeTreeBlock> {
-    NodeTree<?> create(NodeCreationDTO nodeCreationDTO) throws ServiceException;
+    NodeTreeBlock create(NodeCreationDTO nodeCreationDTO) throws ServiceException;
 }

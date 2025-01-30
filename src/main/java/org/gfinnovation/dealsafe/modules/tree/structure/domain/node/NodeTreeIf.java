@@ -45,6 +45,10 @@ public class NodeTreeIf extends NodeTree<Object> {
         elseNodes.add(node);
     }
 
+    public enum SetNode {
+        CONDITIONAL, THEN, ELSE
+    }
+
     @Override
     public boolean traverse(Object inputData) {
         return false;

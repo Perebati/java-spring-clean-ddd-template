@@ -3,7 +3,7 @@ package org.gfinnovation.dealsafe.modules.tree.comparison.infrastructure;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.gfinnovation.dealsafe._shared.modules.infrastructure.GenericBusinessEntity;
+import org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.node.NodeTreeEntity;
 
 /**
  * @author Lucas Batista Pereira
@@ -15,9 +15,9 @@ import org.gfinnovation.dealsafe._shared.modules.infrastructure.GenericBusinessE
 @Entity
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "tree_root_node_condition_comparison_singular")
-public class ComparisonSingularEntity extends GenericBusinessEntity {
+public class ComparisonSingularEntity extends NodeTreeEntity {
     @Enumerated(EnumType.STRING)
-    @Column(name = "type", nullable = false)
+    @Column(name = "comparisonType", nullable = false)
     private ComparisonSingularEntityTypeEnum comparisonTypeEnum;
 
     @Column(name = "json_variable_path", nullable = false)
@@ -26,7 +26,7 @@ public class ComparisonSingularEntity extends GenericBusinessEntity {
     @Column(name = "expected_var", columnDefinition = "TEXT", nullable = false)
     private String expectedVar;
 
-    private enum ComparisonSingularEntityTypeEnum {
+    public enum ComparisonSingularEntityTypeEnum {
         DIFFERENT,
         EQUAL,
         LESS_THAN,
