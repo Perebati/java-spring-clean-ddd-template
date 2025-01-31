@@ -8,7 +8,6 @@ import org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.root.Root
 import org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.root.mapper.RootTreeDynamicMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -21,8 +20,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 class RootTreeDynamicRepositoryImpl
         extends GenericBusinessRepositoryImpl<RootTreeDynamic, RootTreeDynamicEntity>
-        implements RootTreeDynamicRepository
-{
+        implements RootTreeDynamicRepository {
     @Autowired
     RootTreeDynamicRepositoryImpl(
             RootTreeDynamicMapper mapper,

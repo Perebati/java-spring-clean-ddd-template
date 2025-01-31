@@ -7,7 +7,6 @@ import org.gfinnovation.dealsafe.modules.tree.structure.adapter.dto.request.Node
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTree;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.service.interfaces.NodeTreeBlockDomainService;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.RootTreeStatic;
-import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.service.interfaces.RootTreeDomainService;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.service.interfaces.RootTreeStaticDomainService;
 import org.slf4j.MDC;
 import org.springframework.web.bind.annotation.PostMapping;

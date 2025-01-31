@@ -20,7 +20,6 @@ import org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.root.Root
 import org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.root.mapper.RootTreeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.nio.ByteBuffer;
@@ -37,8 +36,7 @@ import java.util.UUID;
 @Repository
 class RootTreeRepositoryImpl
         extends GenericBusinessRepositoryImpl<RootTree<?>, RootTreeEntity>
-        implements RootTreeRepository
-{
+        implements RootTreeRepository {
     private final RootTreeDynamicRepository rootTreeDynamicRepository;
     private final RootTreeStaticRepository rootTreeStaticRepository;
 

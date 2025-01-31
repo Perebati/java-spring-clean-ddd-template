@@ -18,7 +18,6 @@ import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.repository.R
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.repository.RootTreeRepository;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.repository.RootTreeStaticRepository;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -30,8 +29,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 class ComparisonSingularRepositoryImpl
         extends GenericBusinessRepositoryImpl<ComparisonSingular, ComparisonSingularEntity>
-        implements ComparisonSingularRepository
-{
+        implements ComparisonSingularRepository {
     private final RootTreeDynamicRepository rootTreeDynamicRepository;
     private final RootTreeStaticRepository rootTreeStaticRepository;
     private final RootTreeRepository rootTreeRepository;
