@@ -7,8 +7,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CompanyListDomainServiceImpl
         extends GenericDomainServiceImpl<CompanyList, CompanyListRepository>
-        implements CompanyListService
-{
+        implements CompanyListService {
     public CompanyListDomainServiceImpl(
             CompanyListRepository repository
     ) {

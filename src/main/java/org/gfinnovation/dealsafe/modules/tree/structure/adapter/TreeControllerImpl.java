@@ -8,7 +8,6 @@ import org.gfinnovation.dealsafe.modules.tree.structure.adapter.interfaces.TreeC
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.service.interfaces.NodeTreeBlockDomainService;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.RootTreeDynamic;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.RootTreeStatic;
-import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.service.interfaces.RootTreeDomainService;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.service.interfaces.RootTreeDynamicDomainService;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.service.interfaces.RootTreeStaticDomainService;
 import org.springframework.http.HttpStatus;
@@ -32,9 +31,9 @@ class TreeControllerImpl implements TreeController {
     private final RootTreeDynamicDomainService rootTreeDynamicDomainService;
 
     TreeControllerImpl(
-                       NodeTreeBlockDomainService nodeTreeBlockDomainService,
-                       RootTreeStaticDomainService rootTreeStaticDomainService,
-                       RootTreeDynamicDomainService rootTreeDynamicDomainService) {
+            NodeTreeBlockDomainService nodeTreeBlockDomainService,
+            RootTreeStaticDomainService rootTreeStaticDomainService,
+            RootTreeDynamicDomainService rootTreeDynamicDomainService) {
         this.nodeTreeBlockDomainService = nodeTreeBlockDomainService;
         this.rootTreeStaticDomainService = rootTreeStaticDomainService;
         this.rootTreeDynamicDomainService = rootTreeDynamicDomainService;

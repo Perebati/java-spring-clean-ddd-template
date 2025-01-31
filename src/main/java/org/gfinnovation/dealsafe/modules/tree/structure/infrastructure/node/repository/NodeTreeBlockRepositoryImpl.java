@@ -20,7 +20,6 @@ import org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.node.mapp
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -33,8 +32,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 class NodeTreeBlockRepositoryImpl
         extends GenericBusinessRepositoryImpl<NodeTreeBlock, NodeTreeBlockEntity>
-        implements NodeTreeBlockRepository
-{
+        implements NodeTreeBlockRepository {
     private final RootTreeDynamicRepository rootTreeDynamicRepository;
     private final RootTreeStaticRepository rootTreeStaticRepository;
     private final RootTreeRepository rootTreeRepository;
