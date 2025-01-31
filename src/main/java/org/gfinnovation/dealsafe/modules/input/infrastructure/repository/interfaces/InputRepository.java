@@ -1,4 +1,4 @@
-package org.gfinnovation.dealsafe.modules.input.domain.repository;
+package org.gfinnovation.dealsafe.modules.input.infrastructure.repository.interfaces;
 
 import org.gfinnovation.dealsafe._shared.modules.domain.repository.GenericBusinessRepository;
 import org.gfinnovation.dealsafe.modules.input.domain.InputEntity;

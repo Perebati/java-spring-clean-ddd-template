@@ -1,7 +1,7 @@
-package org.gfinnovation.dealsafe.modules.input.domain.valueobjects.predefined.enums;
+package org.gfinnovation.dealsafe.modules.tree.root.domain.valueobjects;
 
 import lombok.Getter;
-import org.gfinnovation.dealsafe.modules.input.domain.valueobjects.predefined.PredefinedInputExampleEntity;
+import org.gfinnovation.dealsafe.modules.tree.root.domain.valueobjects.predefined.PredefinedInputExampleEntity;
 
 import java.lang.reflect.Field;
 
@@ -45,17 +45,14 @@ public enum PredefinedTypeEnum {
      */
 
     public void validateJsonPath(PredefinedTypeEnum predefinedTypeEnum, String jsonPath) throws NoSuchFieldException {
-        // Remove o prefixo '/' ou '.' para facilitar a manipulação e divide o jsonPath em partes para percorrer cada campo.
         jsonPath = jsonPath.replaceFirst("^[/.]", "");
         String[] fields = jsonPath.split("[/.]");
 
-        // Obtém a classe a partir do PredefinedTypeEnum
         Class<?> currentClass = predefinedTypeEnum.getClazz();
 
-        // Verifica cada campo no jsonPath
         for (String fieldName : fields) {
-            Field field = getFieldOrThrow(currentClass, fieldName); // Tenta obter o campo na classe atual
-            currentClass = field.getType(); // Avança para o próximo nível de classe (se existir)
+            Field field = getFieldOrThrow(currentClass, fieldName);
+            currentClass = field.getType();
         }
     }
 }

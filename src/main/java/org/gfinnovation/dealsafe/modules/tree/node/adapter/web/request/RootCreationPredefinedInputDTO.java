@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request;
 
-import org.gfinnovation.dealsafe.modules.input.domain.valueobjects.predefined.enums.PredefinedTypeEnum;
+import org.gfinnovation.dealsafe.modules.tree.root.domain.valueobjects.PredefinedTypeEnum;
 
 /**
  * @author Lucas Batista Pereira

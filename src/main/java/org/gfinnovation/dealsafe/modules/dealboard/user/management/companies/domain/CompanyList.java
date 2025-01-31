@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.gfinnovation.dealsafe._shared.modules.domain.GenericBusinessClass;
+import org.gfinnovation.dealsafe._shared.utils.annotations.Default;
 
 import java.util.List;
 
@@ -16,6 +17,13 @@ public class CompanyList extends GenericBusinessClass {
     private String name;
     private List<String> cnpjs;
 
+    @Default
+    public CompanyList(
+            String name
+    ) {
+        this.name = name;
+    }
+
     public CompanyList(
             String name,
             List<String> cnpjs
@@ -23,13 +31,6 @@ public class CompanyList extends GenericBusinessClass {
         this.name = name;
         this.cnpjs = cnpjs;
     }
-
-    public CompanyList(
-            String name
-    ) {
-        this.name = name;
-    }
-
 
     public void addCnpj(String cnpj) {
         this.cnpjs.add(cnpj);

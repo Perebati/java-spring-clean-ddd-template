@@ -3,7 +3,7 @@ package org.gfinnovation.dealsafe.modules.input.infrastructure.repository;
 import jakarta.persistence.EntityManager;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.GenericBusinessRepositoryImpl;
 import org.gfinnovation.dealsafe.modules.input.domain.InputEntity;
-import org.gfinnovation.dealsafe.modules.input.domain.repository.InputRepository;
+import org.gfinnovation.dealsafe.modules.input.infrastructure.repository.interfaces.InputRepository;
 import org.gfinnovation.dealsafe.modules.input.infrastructure.InputSchema;
 import org.gfinnovation.dealsafe.modules.input.infrastructure.mapper.InputMapper;
 import org.springframework.beans.factory.annotation.Autowired;

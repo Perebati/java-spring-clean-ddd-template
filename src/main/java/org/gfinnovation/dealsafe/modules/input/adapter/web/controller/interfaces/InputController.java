@@ -1,4 +1,4 @@
-package org.gfinnovation.dealsafe.modules.input.presentation.interfaces;
+package org.gfinnovation.dealsafe.modules.input.adapter.web.controller.interfaces;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

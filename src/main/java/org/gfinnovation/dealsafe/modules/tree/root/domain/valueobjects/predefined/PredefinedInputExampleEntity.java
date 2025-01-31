@@ -1,4 +1,4 @@
-package org.gfinnovation.dealsafe.modules.input.domain.valueobjects.predefined;
+package org.gfinnovation.dealsafe.modules.tree.root.domain.valueobjects.predefined;
 
 import lombok.Data;
 
