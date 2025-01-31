@@ -3,7 +3,7 @@ package org.gfinnovation.dealsafe.modules.tree.comparison.infrastructure;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.node.NodeTreeEntity;
+import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.NodeTreeEntity;
 
 import java.util.ArrayList;
 import java.util.List;

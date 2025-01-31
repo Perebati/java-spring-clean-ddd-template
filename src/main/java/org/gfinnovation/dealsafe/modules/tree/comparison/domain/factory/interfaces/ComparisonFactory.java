@@ -4,7 +4,7 @@ import org.apache.coyote.BadRequestException;
 import org.gfinnovation.dealsafe.exception.models.layered.FactoryException;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonMulti;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
-import org.gfinnovation.dealsafe.modules.tree.structure.domain.Node;
+import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
 
 import java.util.List;
 

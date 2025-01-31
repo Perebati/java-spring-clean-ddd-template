@@ -4,7 +4,7 @@ import org.gfinnovation.dealsafe._shared.modules.application.RepositoryAuth;
 import org.gfinnovation.dealsafe._shared.modules.domain.repository.GenericBusinessRepository;
 import org.gfinnovation.dealsafe.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
-import org.gfinnovation.dealsafe.modules.tree.structure.domain.Node;
+import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
 
 /**
  * @author Lucas Batista Pereira

@@ -6,10 +6,10 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.gfinnovation.dealsafe._shared.utils.annotations.Default;
-import org.gfinnovation.dealsafe.modules.tree.comparison.domain.logic.singular.ComparisonSingularOperation;
-import org.gfinnovation.dealsafe.modules.tree.comparison.domain.logic.singular.types.*;
-import org.gfinnovation.dealsafe.modules.tree.structure.domain.Node;
-import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTree;
+import org.gfinnovation.dealsafe.modules.tree.comparison.domain.service.singular.ComparisonSingularOperation;
+import org.gfinnovation.dealsafe.modules.tree.comparison.domain.service.singular.types.*;
+import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
+import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTree;
 
 /**
  * An comparison compares variables (:

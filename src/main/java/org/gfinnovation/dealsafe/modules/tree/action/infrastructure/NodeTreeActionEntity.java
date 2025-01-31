@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.gfinnovation.dealsafe.modules.tree.action.domain.ActionEnum;
-import org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.NodeEntity;
-import org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.node.NodeTreeEntity;
+import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.NodeEntity;
+import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.NodeTreeEntity;
 
 /**
  * @author Lucas Batista Pereira

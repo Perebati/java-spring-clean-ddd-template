@@ -8,9 +8,9 @@ import org.gfinnovation.dealsafe.authentication.company.business.interfaces.Comp
 import org.gfinnovation.dealsafe.authentication.company.entity.CompanyEntity;
 import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
 import org.gfinnovation.dealsafe.authentication.user.entity.UserEntity;
-import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTreeBlock;
-import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.factory.interfaces.NodeTreeFactory;
-import org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.node.repository.interfaces.NodeTreeBlockRepository;
+import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeBlock;
+import org.gfinnovation.dealsafe.modules.tree.node.domain.factory.interfaces.NodeTreeFactory;
+import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.repository.interfaces.NodeTreeBlockRepository;
 import org.gfinnovation.dealsafe.tests._shared.GenericBusinessRepositoryTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;

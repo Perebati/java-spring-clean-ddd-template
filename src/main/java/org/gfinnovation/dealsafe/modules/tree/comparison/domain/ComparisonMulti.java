@@ -6,11 +6,11 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.gfinnovation.dealsafe._shared.utils.annotations.Default;
-import org.gfinnovation.dealsafe.modules.tree.comparison.domain.logic.multi.ComparisonMultiOperation;
-import org.gfinnovation.dealsafe.modules.tree.comparison.domain.logic.multi.types.ContainsOperation;
-import org.gfinnovation.dealsafe.modules.tree.comparison.domain.logic.multi.types.NotContainsOperation;
-import org.gfinnovation.dealsafe.modules.tree.structure.domain.Node;
-import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTree;
+import org.gfinnovation.dealsafe.modules.tree.comparison.domain.service.multi.ComparisonMultiOperation;
+import org.gfinnovation.dealsafe.modules.tree.comparison.domain.service.multi.types.ContainsOperation;
+import org.gfinnovation.dealsafe.modules.tree.comparison.domain.service.multi.types.NotContainsOperation;
+import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
+import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTree;
 
 import java.util.List;
 
