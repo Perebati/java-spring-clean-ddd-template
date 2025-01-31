@@ -18,6 +18,7 @@ import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.repository.R
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 /**
  * @author Lucas Batista Pereira
@@ -26,10 +27,11 @@ import org.springframework.stereotype.Component;
  * @since 22/01/2025
  */
 
-@Component
+@Repository
 class NodeTreeActionRepositoryImpl
         extends GenericBusinessRepositoryImpl<NodeTreeAction, NodeTreeActionEntity>
-        implements NodeTreeActionRepository {
+        implements NodeTreeActionRepository
+{
     private final RootTreeDynamicRepository rootTreeDynamicRepository;
     private final RootTreeStaticRepository rootTreeStaticRepository;
     private final RootTreeRepository rootTreeRepository;

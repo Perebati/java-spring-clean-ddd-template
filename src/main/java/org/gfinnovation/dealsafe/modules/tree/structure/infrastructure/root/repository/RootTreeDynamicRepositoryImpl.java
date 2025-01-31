@@ -9,6 +9,7 @@ import org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.root.mapp
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 /**
  * @author Lucas Batista Pereira
@@ -17,11 +18,11 @@ import org.springframework.stereotype.Component;
  * @since 30/10/2024
  */
 
-@Component
+@Repository
 class RootTreeDynamicRepositoryImpl
         extends GenericBusinessRepositoryImpl<RootTreeDynamic, RootTreeDynamicEntity>
-        implements RootTreeDynamicRepository {
-
+        implements RootTreeDynamicRepository
+{
     @Autowired
     RootTreeDynamicRepositoryImpl(
             RootTreeDynamicMapper mapper,

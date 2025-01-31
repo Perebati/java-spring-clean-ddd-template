@@ -7,6 +7,7 @@ import org.gfinnovation.dealsafe.modules.tree.action.domain.ActionOperationRepos
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 /**
  * @author Lucas Batista Pereira
@@ -14,11 +15,11 @@ import org.springframework.stereotype.Component;
  * @class ActionOperationRepositoryImpl
  * @since 30/10/2024
  */
-@Component
+@Repository
 class ActionOperationRepositoryImpl
         extends GenericBusinessRepositoryImpl<ActionOperation, ActionOperationEntity>
-        implements ActionOperationRepository {
-
+        implements ActionOperationRepository
+{
     @Autowired
     ActionOperationRepositoryImpl(
             ActionOperationMapper mapper,

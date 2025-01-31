@@ -21,10 +21,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component
-class NodeTreeIfRepositoryImpl extends GenericBusinessRepositoryImpl<NodeTreeIf, NodeTreeIfEntity>
-        implements NodeTreeIfRepository {
+@Repository
+class NodeTreeIfRepositoryImpl
+        extends GenericBusinessRepositoryImpl<NodeTreeIf, NodeTreeIfEntity>
+        implements NodeTreeIfRepository
+{
     private final RootTreeDynamicRepository rootTreeDynamicRepository;
     private final RootTreeStaticRepository rootTreeStaticRepository;
     private final RootTreeRepository rootTreeRepository;
