@@ -1,4 +1,4 @@
-package org.gfinnovation.dealsafe.modules.dealboard.user.management.companies;
+package org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.infrastructure;
 
 import jakarta.persistence.*;
 import lombok.Data;

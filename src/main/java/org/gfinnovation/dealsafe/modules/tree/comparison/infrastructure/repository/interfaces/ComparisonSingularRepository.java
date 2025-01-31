@@ -1,4 +1,4 @@
-package org.gfinnovation.dealsafe.modules.tree.comparison.domain.repository;
+package org.gfinnovation.dealsafe.modules.tree.comparison.infrastructure.repository.interfaces;
 
 import org.gfinnovation.dealsafe._shared.modules.application.RepositoryAuth;
 import org.gfinnovation.dealsafe._shared.modules.domain.repository.GenericBusinessRepository;

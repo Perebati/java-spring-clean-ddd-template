@@ -6,7 +6,7 @@ import org.gfinnovation.dealsafe.exception.models.layered.ServiceException;
 import org.gfinnovation.dealsafe.modules.input.domain.valueobjects.predefined.enums.PredefinedTypeEnum;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.RootTreeStatic;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.factory.interfaces.RootTreeFactory;
-import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.repository.RootTreeStaticRepository;
+import org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.root.repository.interfaces.RootTreeStaticRepository;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.service.interfaces.RootTreeStaticDomainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

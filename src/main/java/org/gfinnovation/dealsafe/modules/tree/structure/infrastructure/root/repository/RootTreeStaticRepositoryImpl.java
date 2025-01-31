@@ -3,7 +3,7 @@ package org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.root.rep
 import jakarta.persistence.EntityManager;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.GenericBusinessRepositoryImpl;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.RootTreeStatic;
-import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.repository.RootTreeStaticRepository;
+import org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.root.repository.interfaces.RootTreeStaticRepository;
 import org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.root.RootTreeStaticEntity;
 import org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.root.mapper.RootTreeStaticMapper;
 import org.springframework.beans.factory.annotation.Autowired;

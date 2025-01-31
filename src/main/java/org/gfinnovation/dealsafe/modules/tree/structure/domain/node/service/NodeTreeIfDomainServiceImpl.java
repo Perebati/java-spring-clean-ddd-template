@@ -7,7 +7,7 @@ import org.gfinnovation.dealsafe.modules.tree.structure.domain.Node;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.NodeRepository;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTreeIf;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.factory.interfaces.NodeTreeFactory;
-import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.repository.NodeTreeIfRepository;
+import org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.node.repository.interfaces.NodeTreeIfRepository;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.service.interfaces.NodeTreeIfDomainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

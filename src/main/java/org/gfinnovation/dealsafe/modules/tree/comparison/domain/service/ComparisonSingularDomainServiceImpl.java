@@ -8,7 +8,7 @@ import org.gfinnovation.dealsafe.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.exception.models.layered.ServiceException;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.factory.interfaces.ComparisonFactory;
-import org.gfinnovation.dealsafe.modules.tree.comparison.domain.repository.ComparisonSingularRepository;
+import org.gfinnovation.dealsafe.modules.tree.comparison.infrastructure.repository.interfaces.ComparisonSingularRepository;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.service.interfaces.ComparisonSingularDomainService;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTree;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.service.interfaces.NodeTreeBlockDomainService;

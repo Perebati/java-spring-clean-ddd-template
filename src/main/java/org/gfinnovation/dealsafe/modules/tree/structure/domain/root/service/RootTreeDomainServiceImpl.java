@@ -4,7 +4,7 @@ import org.gfinnovation.dealsafe._shared.modules.application.GenericAuthDomainSe
 import org.gfinnovation.dealsafe.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.exception.models.layered.ServiceException;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.RootTree;
-import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.repository.RootTreeRepository;
+import org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.root.repository.interfaces.RootTreeRepository;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.service.interfaces.RootTreeDomainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

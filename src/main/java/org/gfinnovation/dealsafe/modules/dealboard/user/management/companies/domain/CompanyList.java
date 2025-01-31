@@ -1,4 +1,4 @@
-package org.gfinnovation.dealsafe.modules.dealboard.user.management.companies;
+package org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.domain;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -16,9 +16,20 @@ public class CompanyList extends GenericBusinessClass {
     private String name;
     private List<String> cnpjs;
 
-    public CompanyList(List<String> cnpjs) {
+    public CompanyList(
+            String name,
+            List<String> cnpjs
+    ) {
+        this.name = name;
         this.cnpjs = cnpjs;
     }
+
+    public CompanyList(
+            String name
+    ) {
+        this.name = name;
+    }
+
 
     public void addCnpj(String cnpj) {
         this.cnpjs.add(cnpj);

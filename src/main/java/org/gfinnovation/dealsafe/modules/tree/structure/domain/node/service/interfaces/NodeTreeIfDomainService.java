@@ -6,7 +6,6 @@ import org.gfinnovation.dealsafe.modules.tree.structure.adapter.dto.request.Node
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTreeIf;
 import org.springframework.stereotype.Service;
 
-@Service
 public interface NodeTreeIfDomainService extends GenericService<NodeTreeIf> {
     NodeTreeIf create(NodeCreationDTO nodeCreationDTO) throws ServiceException;
 }

@@ -1,4 +1,4 @@
-package org.gfinnovation.dealsafe.modules.tree.structure.domain.root.repository;
+package org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.root.repository.interfaces;
 
 import jakarta.validation.constraints.NotNull;
 import org.gfinnovation.dealsafe._shared.modules.application.RepositoryAuth;

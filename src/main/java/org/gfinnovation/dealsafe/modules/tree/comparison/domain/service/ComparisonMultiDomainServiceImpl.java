@@ -5,7 +5,7 @@ import org.gfinnovation.dealsafe._shared.modules.application.GenericDomainServic
 import org.gfinnovation.dealsafe.exception.models.layered.ServiceException;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonMulti;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.factory.interfaces.ComparisonFactory;
-import org.gfinnovation.dealsafe.modules.tree.comparison.domain.repository.ComparisonMultiRepository;
+import org.gfinnovation.dealsafe.modules.tree.comparison.infrastructure.repository.interfaces.ComparisonMultiRepository;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.service.interfaces.ComparisonMultiDomainService;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTree;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.service.interfaces.NodeTreeBlockDomainService;
