@@ -7,9 +7,9 @@ import org.gfinnovation.dealsafe.authentication.company.business.interfaces.Comp
 import org.gfinnovation.dealsafe.authentication.company.entity.CompanyEntity;
 import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
 import org.gfinnovation.dealsafe.authentication.user.entity.UserEntity;
-import org.gfinnovation.dealsafe.modules.tree.root.domain.valueobjects.PredefinedTypeEnum;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeStatic;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.factory.interfaces.RootTreeFactory;
+import org.gfinnovation.dealsafe.modules.tree.root.domain.valueobjects.PredefinedTypeEnum;
 import org.gfinnovation.dealsafe.modules.tree.root.infrastructure.repository.interfaces.RootTreeStaticRepository;
 import org.gfinnovation.dealsafe.tests._shared.GenericBusinessRepositoryTest;
 import org.springframework.beans.factory.annotation.Autowired;

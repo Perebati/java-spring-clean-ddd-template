@@ -1,14 +1,14 @@
 package org.gfinnovation.dealsafe.modules.tree.root.application.service;
 
 import jakarta.validation.ValidationException;
-import org.gfinnovation.dealsafe._shared.modules.application.GenericDomainServiceImpl;
+import org.gfinnovation.dealsafe._shared.modules.application.GenericServiceImpl;
 import org.gfinnovation.dealsafe.exception.models.layered.FactoryException;
 import org.gfinnovation.dealsafe.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.exception.models.layered.ServiceException;
+import org.gfinnovation.dealsafe.modules.tree.root.application.service.interfaces.RootTreeDynamicService;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeDynamic;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.factory.interfaces.RootTreeFactory;
 import org.gfinnovation.dealsafe.modules.tree.root.infrastructure.repository.interfaces.RootTreeDynamicRepository;
-import org.gfinnovation.dealsafe.modules.tree.root.application.service.interfaces.RootTreeDynamicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ import java.util.concurrent.CompletableFuture;
 
 @Service
 public class RootTreeDynamicServiceImpl
-        extends GenericDomainServiceImpl<RootTreeDynamic, RootTreeDynamicRepository>
+        extends GenericServiceImpl<RootTreeDynamic, RootTreeDynamicRepository>
         implements RootTreeDynamicService {
     private final RootTreeFactory rootTreeFactory;
 

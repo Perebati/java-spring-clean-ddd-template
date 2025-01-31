@@ -24,7 +24,8 @@ import java.util.UUID;
                 @Index(name = "idx_tree_node_id", columnList = "id")
         }
 )
-public class NodeTreeEntity extends NodeEntity {
+public class NodeTreeEntity
+        extends NodeEntity {
     @Column(name = "parent_id")
     private UUID parentId;
 

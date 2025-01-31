@@ -1,13 +1,13 @@
 package org.gfinnovation.dealsafe._shared.modules.infrastructure.repository;
 
+import jakarta.annotation.Nonnull;
 import jakarta.transaction.Transactional;
-import jakarta.validation.constraints.NotNull;
 import org.gfinnovation.dealsafe._shared.modules.application.RepositoryAuth;
 import org.gfinnovation.dealsafe._shared.modules.domain.GenericBusinessClass;
-import org.gfinnovation.dealsafe._shared.modules.domain.repository.GenericBusinessRepository;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.GenericBusinessEntity;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.mapper.GenericBusinessMapper;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.components.GenericBusinessJpaRepositoryImpl;
+import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.interfaces.GenericBusinessRepository;
 import org.gfinnovation.dealsafe.exception.models.layered.RepositoryEntityNotFoundException;
 import org.gfinnovation.dealsafe.exception.models.layered.RepositoryException;
 import org.slf4j.Logger;
@@ -23,13 +23,6 @@ import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
-/*
- * TODO: Need revision!. UPDATE: ALL DONE!!
- * TODO: Use MDC for getting whitelabelId and userId instead of passing the args through method header manually. UPDATE: It's not recommended use MDC on asynchronous methods!
- * TODO: Use native JPA structures to keep track of creation, update and deletion dateTimes. UPDATE: DONE!
- * TODO: Try to optimize the way how whitelabelId and userId are being filtered on read functions. UPDATE: DONE!
- */
-
 /**
  * This is a business version of GenericRepositoryImpl.
  * This repository should be used for any entity/domain that is dependent of business rules.
@@ -40,8 +33,10 @@ import java.util.stream.Collectors;
  * @since 01/11/2024
  */
 
-public class GenericBusinessRepositoryImpl<E extends GenericBusinessClass, S extends GenericBusinessEntity>
-        extends GenericBusinessJpaRepositoryImpl<S> implements GenericBusinessRepository<E> {
+public abstract class GenericBusinessRepositoryImpl
+        <E extends GenericBusinessClass, S extends GenericBusinessEntity>
+        extends GenericBusinessJpaRepositoryImpl<S>
+        implements GenericBusinessRepository<E> {
 
     private static final Logger logger = LoggerFactory.getLogger(GenericBusinessRepositoryImpl.class);
     private final GenericBusinessMapper<E, S> mapper;
@@ -58,12 +53,15 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessClass, S ext
      */
 
     @Autowired
-    public GenericBusinessRepositoryImpl(GenericBusinessMapper<E, S> mapper, SimpleJpaRepository<S, UUID> jpaRepository, Class<S> entityClass) {
+    public GenericBusinessRepositoryImpl(
+            GenericBusinessMapper<E, S> mapper,
+            SimpleJpaRepository<S, UUID> jpaRepository,
+            Class<S> entityClass
+    ) {
         this.mapper = mapper;
         this.jpaRepository = jpaRepository;
         this.entityClass = entityClass;
     }
-
 
     /**
      * Some methods of this class are asynchronous, so using MDC here would be
@@ -74,7 +72,9 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessClass, S ext
      * @since 06/11/2024
      */
 
-    private void setCommonFields(S schema, RepositoryAuth auth) {
+    private void setCommonFields(
+            S schema,
+            RepositoryAuth auth) {
         schema.setUserId(auth.userId());
         schema.setWhitelabelId(auth.whitelabelId());
     }
@@ -96,12 +96,14 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessClass, S ext
     @Override
     @Async
     @Transactional
-    public CompletableFuture<E> createAsync(@NotNull E entity, @NotNull RepositoryAuth auth) throws RepositoryException {
+    public CompletableFuture<E> createAsync(
+            @Nonnull E entity,
+            @Nonnull RepositoryAuth auth) throws RepositoryException {
         try {
             S schema = mapper.toSchemaForCreate(entity);
             setCommonFields(schema, auth);
             S savedSchema = jpaRepository.save(schema);
-            logger.info("A new {} was created in the system!", entity.getClass().getSimpleName());
+            logger.info("A new {} was created in the system! (Async)", entity.getClass().getSimpleName());
             return CompletableFuture.completedFuture(mapper.toEntity(savedSchema));
         } catch (Exception e) {
             logger.error("Failed to save entity: {}", entity, e);
@@ -121,13 +123,16 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessClass, S ext
     @Override
     @Async
     @Transactional
-    public CompletableFuture<E> updateAsync(@NotNull E entity, @NotNull RepositoryAuth auth) throws RepositoryException {
+    public CompletableFuture<E> updateAsync(
+            @Nonnull E entity,
+            @Nonnull RepositoryAuth auth) throws RepositoryException {
         try {
             S existingSchema = this.readInternal(entity.getId(), auth);
             mapper.updateEntityFromDomain(existingSchema, entity);
             existingSchema.setUpdatedAt(LocalDateTime.now());
             S savedSchema = jpaRepository.save(existingSchema);
-            logger.info("An existing entity of class {} is being updated in the system!", entity.getClass().getSimpleName());
+            logger.info("An existing entity of class {} is being updated in the system! (Async)",
+                    entity.getClass().getSimpleName());
             return CompletableFuture.completedFuture(mapper.toEntity(savedSchema));
         } catch (Exception e) {
             logger.error("Failed to update entity: {}", entity, e);
@@ -146,7 +151,9 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessClass, S ext
     @Override
     @Async
     @Transactional
-    public void deleteAsync(@NotNull UUID id, @NotNull RepositoryAuth auth) throws RepositoryException {
+    public void deleteAsync(
+            @Nonnull UUID id,
+            @Nonnull RepositoryAuth auth) throws RepositoryException {
         try {
             delete(id, auth);
         } catch (Exception e) {
@@ -170,7 +177,9 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessClass, S ext
      */
     @Override
     @Transactional
-    public E createSync(@NotNull E entity, @NotNull RepositoryAuth auth) throws RepositoryException {
+    public E createSync(
+            @Nonnull E entity,
+            @Nonnull RepositoryAuth auth) throws RepositoryException {
         try {
             S schema = mapper.toSchemaForCreate(entity);
             setCommonFields(schema, auth);
@@ -195,7 +204,9 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessClass, S ext
      */
     @Override
     @Transactional
-    public E read(UUID id, RepositoryAuth auth) throws RepositoryException {
+    public E read(
+            @Nonnull UUID id,
+            @Nonnull RepositoryAuth auth) throws RepositoryException {
         try {
             S result = this.findById(id, auth.whitelabelId(), entityClass)
                     .orElseThrow(() -> new RepositoryException("Entity not found with id: " + id));
@@ -219,10 +230,14 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessClass, S ext
      * @author Lucas Batista Pereira
      * @since 06/11/2024
      */
-    protected S readInternal(@NotNull UUID id, @NotNull RepositoryAuth auth) throws RepositoryException {
+    protected S readInternal(
+            UUID id,
+            RepositoryAuth auth) throws RepositoryException {
         try {
             return this.findById(id, auth.whitelabelId(), entityClass)
-                    .orElseThrow(() -> new RepositoryEntityNotFoundException("Repository: Entity not found or already deleted with id: " + id));
+                    .orElseThrow(() ->
+                            new RepositoryEntityNotFoundException
+                                    ("Repository: Entity not found or already deleted with id: " + id));
         } catch (Exception e) {
             logger.error("Failed to retrieve entity with id: {}", id, e);
             throw new RepositoryException("Repository: Failed to retrieve data", e);
@@ -240,13 +255,16 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessClass, S ext
      */
     @Override
     @Transactional
-    public E updateSync(@NotNull E entity, @NotNull RepositoryAuth auth) throws RepositoryException {
+    public E updateSync(
+            @Nonnull E entity,
+            @Nonnull RepositoryAuth auth) throws RepositoryException {
         try {
             S existingSchema = this.readInternal(entity.getId(), auth);
             mapper.updateEntityFromDomain(existingSchema, entity);
             existingSchema.setUpdatedAt(LocalDateTime.now());
             S savedSchema = jpaRepository.save(existingSchema);
-            logger.info("An existing entity of class {} is being updated in the system!", entity.getClass().getSimpleName());
+            logger.info("An existing entity of class {} is being updated in the system!",
+                    entity.getClass().getSimpleName());
             return mapper.toEntity(savedSchema);
         } catch (Exception e) {
             logger.error("Failed to update entity: {}", entity, e);
@@ -263,7 +281,9 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessClass, S ext
      * @since 06/11/2024
      */
     @Override
-    public void deleteSync(@NotNull UUID id, @NotNull RepositoryAuth auth) throws RepositoryException {
+    public void deleteSync(
+            @Nonnull UUID id,
+            @Nonnull RepositoryAuth auth) throws RepositoryException {
         try {
             this.delete(id, auth);
         } catch (Exception e) {
@@ -272,7 +292,9 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessClass, S ext
         }
     }
 
-    protected void delete(@NotNull UUID id, @NotNull RepositoryAuth auth) {
+    protected void delete(
+            UUID id,
+            RepositoryAuth auth) {
         S schema = this.readInternal(id, auth);
 
         schema.setDeleted(true);
@@ -291,7 +313,8 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessClass, S ext
      * @since 06/11/2024
      */
     @Override
-    public Optional<List<E>> findAll(@NotNull RepositoryAuth auth) throws RepositoryException {
+    public Optional<List<E>> findAll(
+            @Nonnull RepositoryAuth auth) throws RepositoryException {
         try {
             List<S> schemas = this.findAll(auth.userId(), auth.whitelabelId(), entityClass);
             List<E> entities = schemas.stream()
@@ -299,7 +322,8 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessClass, S ext
                     .collect(Collectors.toList());
             return entities.isEmpty() ? Optional.empty() : Optional.of(entities);
         } catch (Exception e) {
-            logger.error("Failed to find all entities for userId: {} and whitelabelId: {}", auth.userId(), auth.whitelabelId(), e);
+            logger.error("Failed to find all entities for userId: {} and whitelabelId: {}",
+                    auth.userId(), auth.whitelabelId(), e);
             throw new RepositoryException("Repository: Failed to find all entities", e);
         }
     }
@@ -314,7 +338,9 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessClass, S ext
      * @since 06/11/2024
      */
     @Override
-    public Optional<List<E>> findAllByIds(@NotNull List<UUID> ids, @NotNull RepositoryAuth auth) throws RepositoryException {
+    public Optional<List<E>> findAllByIds(
+            @Nonnull List<UUID> ids,
+            @Nonnull RepositoryAuth auth) throws RepositoryException {
         try {
             Set<UUID> idSet = new HashSet<>(ids);
             List<S> schemas = this.findAllByIds(auth.userId(), auth.whitelabelId(), idSet, entityClass);
@@ -337,7 +363,9 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessClass, S ext
      * @since 06/11/2024
      */
     @Override
-    public void check(@NotNull UUID id, @NotNull RepositoryAuth auth) throws RepositoryException {
+    public void check(
+            @Nonnull UUID id,
+            @Nonnull RepositoryAuth auth) throws RepositoryException {
         this.readInternal(id, auth);
     }
 
@@ -350,12 +378,15 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessClass, S ext
      * @since 06/11/2024
      */
     @Override
-    public void checkAll(@NotNull Set<UUID> ids, @NotNull RepositoryAuth auth) throws RepositoryException {
+    public void checkAll(
+            @Nonnull Set<UUID> ids,
+            @Nonnull RepositoryAuth auth) throws RepositoryException {
         List<S> schemas = this.findAllByIds(auth.userId(), auth.whitelabelId(), ids, entityClass);
         if (schemas.size() != ids.size()) {
             Set<UUID> foundIds = schemas.stream().map(S::getId).collect(Collectors.toSet());
             Set<UUID> missingIds = ids.stream().filter(id -> !foundIds.contains(id)).collect(Collectors.toSet());
-            throw new RepositoryEntityNotFoundException("Repository: Entities not found or already deleted for IDs: " + missingIds);
+            throw new RepositoryEntityNotFoundException
+                    ("Repository: Entities not found or already deleted for IDs: " + missingIds);
         }
     }
 
@@ -367,7 +398,9 @@ public class GenericBusinessRepositoryImpl<E extends GenericBusinessClass, S ext
      * @throws RepositoryException Thrown when an unexpected database error occurs.
      * @since 06/11/2024
      */
-    public Page<E> findAllPaginated(PageRequest pageRequest, @NotNull RepositoryAuth auth) throws RepositoryException {
+    public Page<E> findAllPaginated(
+            @Nonnull PageRequest pageRequest,
+            @Nonnull RepositoryAuth auth) throws RepositoryException {
         try {
             return this.findAllPaginated(auth.userId(), auth.whitelabelId(), pageRequest, entityClass)
                     .map(mapper::toEntity);

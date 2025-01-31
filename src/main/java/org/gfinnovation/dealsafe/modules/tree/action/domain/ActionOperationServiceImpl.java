@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe.modules.tree.action.domain;
 
-import org.gfinnovation.dealsafe._shared.modules.application.GenericDomainServiceImpl;
+import org.gfinnovation.dealsafe._shared.modules.application.GenericServiceImpl;
 import org.gfinnovation.dealsafe.exception.models.layered.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,11 +16,11 @@ import java.util.UUID;
  * @since 30/10/2024
  */
 @Service
-public class ActionOperationDomainServiceImpl
-        extends GenericDomainServiceImpl<ActionOperation, ActionOperationRepository>
+public class ActionOperationServiceImpl
+        extends GenericServiceImpl<ActionOperation, ActionOperationRepository>
         implements ActionOperationService {
     @Autowired
-    public ActionOperationDomainServiceImpl(
+    public ActionOperationServiceImpl(
             ActionOperationRepository actionOperationRepository
     ) {
         super(actionOperationRepository);

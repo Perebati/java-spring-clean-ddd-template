@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe.modules.tree.action.domain;
 
-import org.gfinnovation.dealsafe._shared.modules.domain.repository.GenericBusinessRepository;
+import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.interfaces.GenericBusinessRepository;
 
 /**
  * @author Lucas Batista Pereira

@@ -3,8 +3,8 @@ package org.gfinnovation.dealsafe.modules.tree.root.infrastructure;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.gfinnovation.dealsafe.modules.tree.root.domain.valueobjects.PredefinedTypeEnum;
 import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.NodeEntity;
+import org.gfinnovation.dealsafe.modules.tree.root.domain.valueobjects.PredefinedTypeEnum;
 
 /**
  * @author Lucas Batista Pereira

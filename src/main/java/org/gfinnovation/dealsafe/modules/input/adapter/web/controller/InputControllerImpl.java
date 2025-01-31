@@ -2,9 +2,9 @@ package org.gfinnovation.dealsafe.modules.input.adapter.web.controller;
 
 import org.apache.coyote.BadRequestException;
 import org.gfinnovation.dealsafe.exception.models.layered.DomainException;
+import org.gfinnovation.dealsafe.modules.input.adapter.web.controller.interfaces.InputController;
 import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.InputService;
 import org.gfinnovation.dealsafe.modules.input.domain.InputEntity;
-import org.gfinnovation.dealsafe.modules.input.adapter.web.controller.interfaces.InputController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

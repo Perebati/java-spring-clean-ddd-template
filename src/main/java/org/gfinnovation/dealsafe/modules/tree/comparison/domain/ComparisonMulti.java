@@ -18,7 +18,8 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class ComparisonMulti extends NodeTree<JsonNode> {
+public class ComparisonMulti
+        extends NodeTree<JsonNode> {
     private ComparisonMultiTypeEnum comparisonTypeEnum;
     private String jsonVariablePath;
     private List<String> expectedVars;

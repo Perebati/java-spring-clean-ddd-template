@@ -13,6 +13,6 @@ import java.util.UUID;
  * @interface ComparisonOperationBusiness
  * @since 30/10/2024
  */
-public interface ComparisonSingularDomainService extends GenericService<ComparisonSingular> {
+public interface ComparisonSingularService extends GenericService<ComparisonSingular> {
     ComparisonSingular create(ComparisonSingular.ComparisonSingularTypeEnum type, String jsonPath, String variable, UUID node_id) throws ServiceException, BadRequestException;
 }

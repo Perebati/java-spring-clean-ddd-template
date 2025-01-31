@@ -19,7 +19,8 @@ import java.util.List;
 @Getter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class NodeTreeBlock extends NodeTree<Object> {
+public class NodeTreeBlock
+        extends NodeTree<Object> {
     private String name;
     private List<NodeTree<?>> nodes = new ArrayList<>();
 

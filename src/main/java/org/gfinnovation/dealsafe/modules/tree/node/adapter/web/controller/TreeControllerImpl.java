@@ -1,15 +1,15 @@
 package org.gfinnovation.dealsafe.modules.tree.node.adapter.web.controller;
 
 import org.gfinnovation.dealsafe.exception.models.layered.DomainException;
+import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.controller.interfaces.TreeController;
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeCreationDTO;
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.RootCreationDynamicInputDTO;
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.RootCreationPredefinedInputDTO;
-import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.controller.interfaces.TreeController;
 import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeBlockService;
-import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeDynamic;
-import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeStatic;
 import org.gfinnovation.dealsafe.modules.tree.root.application.service.interfaces.RootTreeDynamicService;
 import org.gfinnovation.dealsafe.modules.tree.root.application.service.interfaces.RootTreeStaticService;
+import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeDynamic;
+import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeStatic;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -40,7 +40,8 @@ class TreeControllerImpl implements TreeController {
     }
 
     @Override
-    public ResponseEntity<RootTreeStatic> createRootPredefined(@RequestBody RootCreationPredefinedInputDTO request) throws DomainException {
+    public ResponseEntity<RootTreeStatic> createRootPredefined(
+            @RequestBody RootCreationPredefinedInputDTO request) throws DomainException {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(
                     this.rootTreeStaticService.create(
@@ -55,7 +56,8 @@ class TreeControllerImpl implements TreeController {
     }
 
     @Override
-    public ResponseEntity<CompletableFuture<RootTreeDynamic>> createRootPredefined(RootCreationDynamicInputDTO request) throws DomainException {
+    public ResponseEntity<CompletableFuture<RootTreeDynamic>> createRootPredefined(
+            RootCreationDynamicInputDTO request) throws DomainException {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(
                     this.rootTreeDynamicService.create(
@@ -70,7 +72,9 @@ class TreeControllerImpl implements TreeController {
     }
 
     @Override
-    public ResponseEntity<Void> createNode(NodeCreationDTO request) throws DomainException {
+    public ResponseEntity<Void> createNode(
+            NodeCreationDTO request
+    ) throws DomainException {
         try {
             this.nodeTreeBlockService.create(
                     request

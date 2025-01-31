@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface CompanyListFactory {
     CompanyList produce(String name, List<String> cnpjs) throws FactoryException;
+
     CompanyList produce(String name) throws FactoryException;
 }

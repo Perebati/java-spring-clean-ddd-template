@@ -2,7 +2,7 @@ package org.gfinnovation.dealsafe._shared.modules.application;
 
 import org.gfinnovation.dealsafe._shared.modules.application.interfaces.GenericService;
 import org.gfinnovation.dealsafe._shared.modules.domain.GenericBusinessClass;
-import org.gfinnovation.dealsafe._shared.modules.domain.repository.GenericBusinessRepository;
+import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.interfaces.GenericBusinessRepository;
 import org.gfinnovation.dealsafe.exception.models.layered.ServiceException;
 
 import java.util.List;
@@ -21,13 +21,13 @@ import java.util.concurrent.CompletableFuture;
  * @since 30/10/2024
  */
 
-public abstract class GenericDomainServiceImpl
+public abstract class GenericServiceImpl
         <E extends GenericBusinessClass, R extends GenericBusinessRepository<E>>
         extends GenericAuthDomainServiceImpl
         implements GenericService<E> {
     protected final R repository;
 
-    protected GenericDomainServiceImpl(R repository) {
+    protected GenericServiceImpl(R repository) {
         this.repository = repository;
     }
 

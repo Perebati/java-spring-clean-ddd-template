@@ -2,16 +2,16 @@ package org.gfinnovation.dealsafe.modules.tree.comparison.application.service;
 
 import jakarta.validation.ValidationException;
 import org.apache.coyote.BadRequestException;
-import org.gfinnovation.dealsafe._shared.modules.application.GenericDomainServiceImpl;
+import org.gfinnovation.dealsafe._shared.modules.application.GenericServiceImpl;
 import org.gfinnovation.dealsafe.exception.models.layered.FactoryException;
 import org.gfinnovation.dealsafe.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.exception.models.layered.ServiceException;
+import org.gfinnovation.dealsafe.modules.tree.comparison.application.service.interfaces.ComparisonSingularService;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.factory.interfaces.ComparisonFactory;
 import org.gfinnovation.dealsafe.modules.tree.comparison.infrastructure.repository.interfaces.ComparisonSingularRepository;
-import org.gfinnovation.dealsafe.modules.tree.comparison.application.service.interfaces.ComparisonSingularDomainService;
-import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTree;
 import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeBlockService;
+import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTree;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,14 +27,14 @@ import java.util.UUID;
  */
 
 @Service
-class ComparisonSingularDomainServiceImpl
-        extends GenericDomainServiceImpl<ComparisonSingular, ComparisonSingularRepository>
-        implements ComparisonSingularDomainService {
+class ComparisonSingularServiceImpl
+        extends GenericServiceImpl<ComparisonSingular, ComparisonSingularRepository>
+        implements ComparisonSingularService {
     private final NodeTreeBlockService nodeTreeBlockService;
     private final ComparisonFactory comparisonOperationFactory;
 
     @Autowired
-    public ComparisonSingularDomainServiceImpl(
+    public ComparisonSingularServiceImpl(
             NodeTreeBlockService nodeTreeBlockService,
             ComparisonSingularRepository comparisonSingularRepository,
             ComparisonFactory comparisonOperationFactory
@@ -61,7 +61,10 @@ class ComparisonSingularDomainServiceImpl
      * @since 30/10/2024
      */
     @Override
-    public ComparisonSingular create(ComparisonSingular.ComparisonSingularTypeEnum type, String jsonPath, String variable, UUID node_id) throws ServiceException, BadRequestException {
+    public ComparisonSingular create(
+            ComparisonSingular.ComparisonSingularTypeEnum type,
+            String jsonPath, String variable,
+            UUID node_id) throws ServiceException, BadRequestException {
         try {
             NodeTree<?> parent = this.nodeTreeBlockService.read(node_id);
             ComparisonSingular newOperation = this.comparisonOperationFactory.produce(type, jsonPath, variable, parent);

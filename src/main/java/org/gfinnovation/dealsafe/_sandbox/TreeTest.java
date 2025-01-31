@@ -2,12 +2,12 @@ package org.gfinnovation.dealsafe._sandbox;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.gfinnovation.dealsafe.modules.tree.root.domain.valueobjects.PredefinedTypeEnum;
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeCreationDTO;
-import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTree;
 import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeBlockService;
-import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeStatic;
+import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTree;
 import org.gfinnovation.dealsafe.modules.tree.root.application.service.interfaces.RootTreeStaticService;
+import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeStatic;
+import org.gfinnovation.dealsafe.modules.tree.root.domain.valueobjects.PredefinedTypeEnum;
 import org.slf4j.MDC;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

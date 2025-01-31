@@ -6,14 +6,14 @@ import org.gfinnovation.dealsafe.exception.models.layered.FactoryException;
 import org.gfinnovation.dealsafe.exception.models.layered.RepositoryEntityNotFoundException;
 import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.InputService;
 import org.gfinnovation.dealsafe.modules.input.domain.InputEntity;
-import org.gfinnovation.dealsafe.modules.tree.root.domain.valueobjects.PredefinedTypeEnum;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonMulti;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.factory.interfaces.ComparisonFactory;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
+import org.gfinnovation.dealsafe.modules.tree.root.application.service.interfaces.RootTreeService;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeDynamic;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeStatic;
-import org.gfinnovation.dealsafe.modules.tree.root.application.service.interfaces.RootTreeService;
+import org.gfinnovation.dealsafe.modules.tree.root.domain.valueobjects.PredefinedTypeEnum;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

@@ -16,7 +16,8 @@ import java.util.List;
                 @Index(name = "idx_tree_node_if_id", columnList = "id")
         }
 )
-public class NodeTreeIfEntity extends NodeTreeEntity {
+public class NodeTreeIfEntity
+        extends NodeTreeEntity {
     @OneToMany
     @JoinTable(
             name = "_relation_if_x_cond",

@@ -18,7 +18,8 @@ import org.gfinnovation.dealsafe._shared.modules.infrastructure.GenericBusinessE
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "type", length = 3, discriminatorType = DiscriminatorType.STRING)
 @Table(name = "tree")
-public class NodeEntity extends GenericBusinessEntity {
+public class NodeEntity
+        extends GenericBusinessEntity {
     public final static String DISCRIMINATOR_ROOT = "RT";
     public final static String DISCRIMINATOR_NODE = "ND";
     public final static String DISCRIMINATOR_DYNAMIC = "DY";

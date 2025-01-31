@@ -24,7 +24,8 @@ import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTree;
 @Getter
 @Setter
 @ToString
-public class ComparisonSingular extends NodeTree<JsonNode> {
+public class ComparisonSingular
+        extends NodeTree<JsonNode> {
     private ComparisonSingularTypeEnum comparisonTypeEnum;
     private String jsonVariablePath;
     private String expectedVar;

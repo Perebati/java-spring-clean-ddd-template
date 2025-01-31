@@ -1,15 +1,15 @@
 package org.gfinnovation.dealsafe.modules.tree.node.application.service;
 
-import org.gfinnovation.dealsafe._shared.modules.application.GenericDomainServiceImpl;
+import org.gfinnovation.dealsafe._shared.modules.application.GenericServiceImpl;
 import org.gfinnovation.dealsafe.exception.models.layered.ServiceException;
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeCreationDTO;
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeCreationIfDTO;
 import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeBlockService;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
-import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.repository.interfaces.NodeRepository;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeBlock;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeIf;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.factory.interfaces.NodeTreeFactory;
+import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.repository.interfaces.NodeRepository;
 import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.repository.interfaces.NodeTreeBlockRepository;
 import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.repository.interfaces.NodeTreeIfRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 class NodeTreeBlockServiceImpl
-        extends GenericDomainServiceImpl<NodeTreeBlock, NodeTreeBlockRepository>
+        extends GenericServiceImpl<NodeTreeBlock, NodeTreeBlockRepository>
         implements NodeTreeBlockService {
     private final NodeTreeFactory nodeTreeFactory;
     private final NodeRepository nodeRepository;

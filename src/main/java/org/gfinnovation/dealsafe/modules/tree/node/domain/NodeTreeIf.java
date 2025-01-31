@@ -20,7 +20,8 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class NodeTreeIf extends NodeTree<Object> {
+public class NodeTreeIf
+        extends NodeTree<Object> {
     private final List<NodeTree<?>> conditionalNodes = new ArrayList<>();
     private final List<NodeTree<?>> thenNodes = new ArrayList<>();
     private final List<NodeTree<?>> elseNodes = new ArrayList<>();

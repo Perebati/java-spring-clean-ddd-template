@@ -1,4 +1,4 @@
-package org.gfinnovation.dealsafe._shared.modules.domain.repository;
+package org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.interfaces;
 
 import org.gfinnovation.dealsafe._shared.modules.domain.GenericClass;
 import org.gfinnovation.dealsafe.exception.models.layered.RepositoryException;

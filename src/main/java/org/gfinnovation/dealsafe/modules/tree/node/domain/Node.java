@@ -17,7 +17,9 @@ import org.gfinnovation.dealsafe._shared.modules.domain.GenericBusinessClass;
 @Setter
 @ToString
 @EqualsAndHashCode(callSuper = true)
-public class Node<T> extends GenericBusinessClass implements NodeTraversal<T> {
+public class Node<T>
+        extends GenericBusinessClass
+        implements NodeTraversal<T> {
     private NodeType nodeType;
 
     @Override

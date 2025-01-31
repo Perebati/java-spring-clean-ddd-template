@@ -2,8 +2,8 @@ package org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.ap
 
 import org.gfinnovation.dealsafe._shared.modules.application.interfaces.UseCase;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.application.response.CompanyListData;
-import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.domain.CompanyList;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.application.service.interfaces.CompanyListService;
+import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.domain.CompanyList;
 import org.springframework.stereotype.Component;
 
 @Component

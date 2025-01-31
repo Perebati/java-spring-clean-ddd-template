@@ -23,7 +23,7 @@ import java.util.*;
  * @since 06/11/2024
  */
 
-public class GenericBusinessJpaRepositoryImpl<S extends GenericBusinessEntity> {
+public abstract class GenericBusinessJpaRepositoryImpl<S extends GenericBusinessEntity> {
 
     @PersistenceContext
     private EntityManager entityManager;

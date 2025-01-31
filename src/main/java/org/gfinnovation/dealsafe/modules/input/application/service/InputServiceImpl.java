@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe.modules.input.application.service;
 
-import org.gfinnovation.dealsafe._shared.modules.application.GenericDomainServiceImpl;
+import org.gfinnovation.dealsafe._shared.modules.application.GenericServiceImpl;
 import org.gfinnovation.dealsafe.exception.models.layered.ServiceException;
 import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.InputService;
 import org.gfinnovation.dealsafe.modules.input.domain.InputEntity;
@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 class InputServiceImpl
-        extends GenericDomainServiceImpl<InputEntity, InputRepository>
+        extends GenericServiceImpl<InputEntity, InputRepository>
         implements InputService {
     private final InputFactory inputFactory;
     private final InputRepository inputRepository;

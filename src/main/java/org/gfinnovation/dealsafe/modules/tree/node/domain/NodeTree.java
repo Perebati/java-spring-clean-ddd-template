@@ -23,7 +23,8 @@ import java.util.UUID;
 @Setter
 @ToString
 @EqualsAndHashCode(callSuper = true)
-public class NodeTree<T> extends Node<T> {
+public class NodeTree<T>
+        extends Node<T> {
     private UUID parentId;
     private ParentType parentType;
 

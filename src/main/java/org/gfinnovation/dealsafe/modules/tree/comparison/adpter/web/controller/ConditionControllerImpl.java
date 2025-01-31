@@ -2,10 +2,10 @@ package org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.controller;
 
 import org.apache.coyote.BadRequestException;
 import org.gfinnovation.dealsafe.exception.models.layered.DomainException;
-import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonCreationDTO;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.controller.interfaces.ConditionController;
+import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonCreationDTO;
+import org.gfinnovation.dealsafe.modules.tree.comparison.application.service.interfaces.ComparisonSingularService;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
-import org.gfinnovation.dealsafe.modules.tree.comparison.application.service.interfaces.ComparisonSingularDomainService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,14 +18,15 @@ import org.springframework.stereotype.Controller;
  */
 @Controller
 class ConditionControllerImpl implements ConditionController {
-    private final ComparisonSingularDomainService operationService;
+    private final ComparisonSingularService operationService;
 
-    public ConditionControllerImpl(ComparisonSingularDomainService operationService) {
+    public ConditionControllerImpl(ComparisonSingularService operationService) {
         this.operationService = operationService;
     }
 
     @Override
-    public ResponseEntity<ComparisonSingular> createOperation(ComparisonCreationDTO request) throws DomainException, BadRequestException {
+    public ResponseEntity<ComparisonSingular> createOperation(
+            ComparisonCreationDTO request) throws DomainException, BadRequestException {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(
                     this.operationService.create(

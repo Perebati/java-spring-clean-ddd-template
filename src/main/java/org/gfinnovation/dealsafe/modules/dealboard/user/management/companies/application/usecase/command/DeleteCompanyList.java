@@ -2,10 +2,12 @@ package org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.ap
 
 import org.gfinnovation.dealsafe._shared.modules.application.interfaces.UseCase;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.application.service.interfaces.CompanyListService;
+import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
-public class DeleteCompanyList implements UseCase<UUID, Void>{
+@Component
+public class DeleteCompanyList implements UseCase<UUID, Void> {
     private final CompanyListService companyListService;
 
     public DeleteCompanyList(CompanyListService companyListService) {
