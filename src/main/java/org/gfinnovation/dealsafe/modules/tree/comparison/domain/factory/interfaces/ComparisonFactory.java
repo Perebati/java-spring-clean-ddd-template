@@ -29,5 +29,4 @@ public interface ComparisonFactory {
             Node<?> parent
     ) throws FactoryException, BadRequestException;
 
-    ;
 }

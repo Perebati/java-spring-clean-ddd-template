@@ -12,6 +12,6 @@ import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.NodeTreeBloc
  * @since 30/10/2024
  */
 
-public interface NodeTreeBlockService extends GenericService<NodeTreeBlock> {
+public interface NodeTreeBlockDomainService extends GenericService<NodeTreeBlock> {
     NodeTreeBlock create(NodeCreationDTO nodeCreationDTO) throws ServiceException;
 }

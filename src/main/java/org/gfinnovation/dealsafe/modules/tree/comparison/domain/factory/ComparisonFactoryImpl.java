@@ -13,7 +13,7 @@ import org.gfinnovation.dealsafe.modules.tree.comparison.domain.factory.interfac
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.Node;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.RootTreeDynamic;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.RootTreeStatic;
-import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.service.interfaces.RootTreeService;
+import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.service.interfaces.RootTreeDomainService;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -29,11 +29,11 @@ import java.util.List;
 
 @Component
 public class ComparisonFactoryImpl implements ComparisonFactory {
-    private final RootTreeService rootTreeService;
+    private final RootTreeDomainService rootTreeService;
     private final InputService inputService;
 
     public ComparisonFactoryImpl(
-            RootTreeService rootTreeService,
+            RootTreeDomainService rootTreeService,
             InputService inputService
     ) {
         this.rootTreeService = rootTreeService;

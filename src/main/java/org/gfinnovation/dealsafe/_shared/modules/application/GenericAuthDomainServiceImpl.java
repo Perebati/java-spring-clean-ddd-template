@@ -1,24 +1,12 @@
 package org.gfinnovation.dealsafe._shared.modules.application;
 
-import lombok.RequiredArgsConstructor;
 import org.apache.coyote.BadRequestException;
 import org.gfinnovation.dealsafe.exception.models.layered.ServiceAuthenticationException;
 import org.slf4j.MDC;
 
 import java.util.UUID;
 
-/**
- * Every single factory that is not linked to authentication entities should extend
- * from this.
- *
- * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
- * @class GenericBusinessFactory
- * @since 30/10/2024
- */
-
-@RequiredArgsConstructor
-public class GenericServiceImpl {
+public abstract class GenericAuthDomainServiceImpl {
     protected UUID getUserId() throws BadRequestException {
         try {
             String userIdStr = MDC.get("userId");

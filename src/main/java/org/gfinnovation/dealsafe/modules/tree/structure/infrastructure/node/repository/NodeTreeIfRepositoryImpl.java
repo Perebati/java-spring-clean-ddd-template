@@ -18,6 +18,7 @@ import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.repository.R
 import org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.node.NodeTreeIfEntity;
 import org.gfinnovation.dealsafe.modules.tree.structure.infrastructure.node.mapper.NodeTreeIfMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Component;
 
@@ -27,7 +28,13 @@ class NodeTreeIfRepositoryImpl extends GenericBusinessRepositoryImpl<NodeTreeIf,
     private final RootTreeDynamicRepository rootTreeDynamicRepository;
     private final RootTreeStaticRepository rootTreeStaticRepository;
     private final RootTreeRepository rootTreeRepository;
-    private final NodeTreeBlockRepository nodeTreeBlockRepository;
+
+    /*
+    TODO: Verificar dependencia circular.
+     */
+    @Lazy
+    @Autowired
+    private NodeTreeBlockRepository nodeTreeBlockRepository;
 
     @Autowired
     NodeTreeIfRepositoryImpl(
@@ -35,14 +42,12 @@ class NodeTreeIfRepositoryImpl extends GenericBusinessRepositoryImpl<NodeTreeIf,
             EntityManager entityManager,
             RootTreeDynamicRepository rootTreeDynamicRepository,
             RootTreeStaticRepository rootTreeStaticRepository,
-            RootTreeRepository rootTreeRepository,
-            NodeTreeBlockRepository nodeTreeBlockRepository
+            RootTreeRepository rootTreeRepository
     ) {
         super(mapper, new SimpleJpaRepository<>(NodeTreeIfEntity.class, entityManager), NodeTreeIfEntity.class);
         this.rootTreeDynamicRepository = rootTreeDynamicRepository;
         this.rootTreeStaticRepository = rootTreeStaticRepository;
         this.rootTreeRepository = rootTreeRepository;
-        this.nodeTreeBlockRepository = nodeTreeBlockRepository;
     }
 
     @Transactional

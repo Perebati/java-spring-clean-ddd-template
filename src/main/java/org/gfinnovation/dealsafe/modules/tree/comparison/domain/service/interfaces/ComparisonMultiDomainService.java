@@ -3,5 +3,5 @@ package org.gfinnovation.dealsafe.modules.tree.comparison.domain.service.interfa
 import org.gfinnovation.dealsafe._shared.modules.application.interfaces.GenericService;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonMulti;
 
-public interface ComparisonMultiService extends GenericService<ComparisonMulti> {
+public interface ComparisonMultiDomainService extends GenericService<ComparisonMulti> {
 }

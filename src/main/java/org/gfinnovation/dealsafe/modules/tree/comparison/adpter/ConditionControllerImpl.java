@@ -5,7 +5,7 @@ import org.gfinnovation.dealsafe.exception.models.layered.DomainException;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.dto.request.ComparisonCreationDTO;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.interfaces.ConditionController;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
-import org.gfinnovation.dealsafe.modules.tree.comparison.domain.service.interfaces.ComparisonSingularService;
+import org.gfinnovation.dealsafe.modules.tree.comparison.domain.service.interfaces.ComparisonSingularDomainService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,9 +18,9 @@ import org.springframework.stereotype.Controller;
  */
 @Controller
 class ConditionControllerImpl implements ConditionController {
-    private final ComparisonSingularService operationService;
+    private final ComparisonSingularDomainService operationService;
 
-    public ConditionControllerImpl(ComparisonSingularService operationService) {
+    public ConditionControllerImpl(ComparisonSingularDomainService operationService) {
         this.operationService = operationService;
     }
 

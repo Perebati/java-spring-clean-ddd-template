@@ -5,10 +5,12 @@ import org.gfinnovation.dealsafe.modules.tree.structure.adapter.dto.request.Node
 import org.gfinnovation.dealsafe.modules.tree.structure.adapter.dto.request.RootCreationDynamicInputDTO;
 import org.gfinnovation.dealsafe.modules.tree.structure.adapter.dto.request.RootCreationPredefinedInputDTO;
 import org.gfinnovation.dealsafe.modules.tree.structure.adapter.interfaces.TreeController;
-import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.service.interfaces.NodeTreeBlockService;
+import org.gfinnovation.dealsafe.modules.tree.structure.domain.node.service.interfaces.NodeTreeBlockDomainService;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.RootTreeDynamic;
 import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.RootTreeStatic;
-import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.service.interfaces.RootTreeService;
+import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.service.interfaces.RootTreeDomainService;
+import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.service.interfaces.RootTreeDynamicDomainService;
+import org.gfinnovation.dealsafe.modules.tree.structure.domain.root.service.interfaces.RootTreeStaticDomainService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -25,19 +27,24 @@ import java.util.concurrent.CompletableFuture;
 
 @Controller
 class TreeControllerImpl implements TreeController {
-    private final RootTreeService rootTreeService;
-    private final NodeTreeBlockService nodeTreeBlockService;
+    private final NodeTreeBlockDomainService nodeTreeBlockDomainService;
+    private final RootTreeStaticDomainService rootTreeStaticDomainService;
+    private final RootTreeDynamicDomainService rootTreeDynamicDomainService;
 
-    TreeControllerImpl(RootTreeService rootTreeService, NodeTreeBlockService nodeTreeBlockService) {
-        this.rootTreeService = rootTreeService;
-        this.nodeTreeBlockService = nodeTreeBlockService;
+    TreeControllerImpl(
+                       NodeTreeBlockDomainService nodeTreeBlockDomainService,
+                       RootTreeStaticDomainService rootTreeStaticDomainService,
+                       RootTreeDynamicDomainService rootTreeDynamicDomainService) {
+        this.nodeTreeBlockDomainService = nodeTreeBlockDomainService;
+        this.rootTreeStaticDomainService = rootTreeStaticDomainService;
+        this.rootTreeDynamicDomainService = rootTreeDynamicDomainService;
     }
 
     @Override
     public ResponseEntity<RootTreeStatic> createRootPredefined(@RequestBody RootCreationPredefinedInputDTO request) throws DomainException {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(
-                    this.rootTreeService.create(
+                    this.rootTreeStaticDomainService.create(
                             request.name(),
                             request.type()
                     ));
@@ -52,7 +59,7 @@ class TreeControllerImpl implements TreeController {
     public ResponseEntity<CompletableFuture<RootTreeDynamic>> createRootPredefined(RootCreationDynamicInputDTO request) throws DomainException {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(
-                    this.rootTreeService.create(
+                    this.rootTreeDynamicDomainService.create(
                             request.name(),
                             request.dynamicInput_id()
                     ));
@@ -66,7 +73,7 @@ class TreeControllerImpl implements TreeController {
     @Override
     public ResponseEntity<Void> createNode(NodeCreationDTO request) throws DomainException {
         try {
-            this.nodeTreeBlockService.create(
+            this.nodeTreeBlockDomainService.create(
                     request
             );
             return new ResponseEntity<>(HttpStatus.CREATED);

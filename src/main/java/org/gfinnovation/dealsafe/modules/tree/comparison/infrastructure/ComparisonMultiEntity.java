@@ -30,6 +30,6 @@ public class ComparisonMultiEntity extends NodeTreeEntity {
 
     public enum ComparisonMultiTypeEnum {
         CONTAINS,
-        NOT_CONTAINS;
+        NOT_CONTAINS
     }
 }
