@@ -51,5 +51,5 @@ public interface RootTreeController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PostMapping("/root/dynamic-input")
-    ResponseEntity<CompletableFuture<RootTreeDynamic>> createRootPredefined(@RequestBody RootCreationDynamicInputDTO request) throws DomainException, BadRequestException;
+    ResponseEntity<CompletableFuture<RootTreeDynamic>> createRootDynamic(@RequestBody RootCreationDynamicInputDTO request) throws DomainException, BadRequestException;
 }

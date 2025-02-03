@@ -51,7 +51,7 @@ class RootTreeControllerImpl implements RootTreeController {
     }
 
     @Override
-    public ResponseEntity<CompletableFuture<RootTreeDynamic>> createRootPredefined(
+    public ResponseEntity<CompletableFuture<RootTreeDynamic>> createRootDynamic(
             RootCreationDynamicInputDTO request) throws DomainException {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(

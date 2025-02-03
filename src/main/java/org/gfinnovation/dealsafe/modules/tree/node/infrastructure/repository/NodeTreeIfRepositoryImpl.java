@@ -86,4 +86,32 @@ class NodeTreeIfRepositoryImpl
             throw new RepositoryException("Ocorreu um erro ao criar um novo nó.", e);
         }
     }
+
+    @Transactional
+    public NodeTreeIf createIfNode(
+            NodeTreeIf newNode,
+            NodeTreeIf parent,
+            NodeTreeIf.SetNode position,
+            RepositoryAuth auth
+    ) throws RepositoryException {
+        try {
+            NodeTreeIf createdNodeEntity = this.createSync(newNode, auth);
+            switch (position) {
+                case NodeTreeIf.SetNode.CONDITIONAL:
+                    parent.addConditionalNode(createdNodeEntity);
+
+                case NodeTreeIf.SetNode.THEN:
+                    parent.addThenNode(createdNodeEntity);
+
+                case NodeTreeIf.SetNode.ELSE:
+                    parent.addElseNode(createdNodeEntity);
+            }
+            this.updateSync(parent, auth);
+            return this.read(createdNodeEntity.getId(), auth);
+        } catch (RepositoryException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new RepositoryException("Ocorreu um erro ao criar um novo nó.", e);
+        }
+    }
 }

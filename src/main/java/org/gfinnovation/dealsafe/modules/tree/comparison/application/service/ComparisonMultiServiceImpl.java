@@ -35,8 +35,10 @@ class ComparisonMultiServiceImpl
 
     public ComparisonMulti create(
             ComparisonMulti.ComparisonMultiTypeEnum type,
-            String jsonPath, List<String> variables,
-            UUID node_id) throws ServiceException, BadRequestException {
+            String jsonPath,
+            List<String> variables,
+            UUID node_id
+    ) throws ServiceException, BadRequestException {
         try {
             NodeTree<?> parent = this.nodeTreeBlockService.read(node_id);
             ComparisonMulti newOperation = this.comparisonOperationFactory.produce(type, jsonPath, variables, parent);

@@ -1,5 +1,6 @@
 package org.gfinnovation.dealsafe.modules.tree.node.infrastructure.mapper;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import org.gfinnovation.dealsafe._shared.modules.domain.GenericClass;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.GenericEntity;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.mapper.GenericBusinessMapper;
@@ -20,7 +21,8 @@ import org.mapstruct.Named;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public interface NodeTreeMapper<E extends GenericClass, S extends GenericEntity> extends GenericBusinessMapper<E, S> {
+public interface NodeTreeMapper<E extends GenericClass, S extends GenericEntity>
+        extends GenericBusinessMapper<E, S> {
     ComparisonMulti toComparisonMulti(ComparisonMultiEntity entity);
 
     ComparisonSingular toComparisonSingular(ComparisonSingularEntity entity);
@@ -31,7 +33,7 @@ public interface NodeTreeMapper<E extends GenericClass, S extends GenericEntity>
 
     NodeTreeAction toNodeTreeAction(NodeTreeActionEntity entity);
 
-    default NodeTree<?> toEntity(NodeTreeEntity entity) {
+    default NodeTree<JsonNode> toEntity(NodeTreeEntity entity) {
         return switch (entity) {
             case null -> null;
             case ComparisonMultiEntity comparisonMultiEntity -> toComparisonMulti(comparisonMultiEntity);
@@ -44,7 +46,7 @@ public interface NodeTreeMapper<E extends GenericClass, S extends GenericEntity>
     }
 
     @Named("mapNodes")
-    default List<NodeTree<?>> mapNodes(List<NodeTreeEntity> entities) {
+    default List<NodeTree<JsonNode>> mapNodes(List<NodeTreeEntity> entities) {
         if (entities == null) {
             return null;
         }

@@ -63,7 +63,8 @@ class ComparisonSingularServiceImpl
     @Override
     public ComparisonSingular create(
             ComparisonSingular.ComparisonSingularTypeEnum type,
-            String jsonPath, String variable,
+            String jsonPath,
+            String variable,
             UUID node_id) throws ServiceException, BadRequestException {
         try {
             NodeTree<?> parent = this.nodeTreeBlockService.read(node_id);

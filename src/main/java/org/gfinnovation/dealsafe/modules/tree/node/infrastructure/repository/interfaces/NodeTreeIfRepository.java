@@ -12,4 +12,11 @@ public interface NodeTreeIfRepository extends GenericBusinessRepository<NodeTree
             Node<?> parent,
             RepositoryAuth auth
     ) throws RepositoryException;
+
+    NodeTreeIf createIfNode(
+            NodeTreeIf newNode,
+            NodeTreeIf parent,
+            NodeTreeIf.SetNode position,
+            RepositoryAuth auth
+    ) throws RepositoryException;
 }

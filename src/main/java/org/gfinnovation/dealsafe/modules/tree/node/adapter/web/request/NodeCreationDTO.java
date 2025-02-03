@@ -9,5 +9,5 @@ import java.util.UUID;
  * @since 04/11/2024
  */
 
-public record NodeCreationDTO(String name, UUID parent_id) {
-}
+public record NodeCreationDTO(String name,
+                              UUID parent_id) {}
