@@ -1,5 +1,6 @@
 package org.gfinnovation.dealsafe.modules.tree.root.domain;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,7 +24,7 @@ import java.util.LinkedList;
 @Setter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class RootTreeStatic extends RootTree<Object> {
+public class RootTreeStatic extends RootTree<JsonNode> {
     private PredefinedTypeEnum input_type;
 
     @Default
@@ -38,14 +39,17 @@ public class RootTreeStatic extends RootTree<Object> {
     public RootTreeStatic(
             String name,
             PredefinedTypeEnum type,
-            LinkedList<NodeTree<?>> nodes
+            LinkedList<NodeTree<JsonNode>> nodes
     ) {
         super(name, NodeType.ROOT_STATIC, nodes);
         this.input_type = type;
     }
 
     @Override
-    public boolean traverse(Object inputData) {
-        return false;
+    public boolean traverse(JsonNode inputData) {
+        for(NodeTree<JsonNode> node : getNodes()) {
+            if(!node.traverse(inputData)) return false;
+        }
+        return true;
     }
 }

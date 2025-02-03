@@ -21,6 +21,8 @@ import java.util.concurrent.CompletableFuture;
  * @since 30/10/2024
  */
 
+
+//TODO: Segregar commands de queries. Definir commands como protected e Query como public.
 public abstract class GenericServiceImpl
         <E extends GenericBusinessClass, R extends GenericBusinessRepository<E>>
         extends GenericAuthDomainServiceImpl

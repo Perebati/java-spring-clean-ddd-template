@@ -1,5 +1,6 @@
 package org.gfinnovation.dealsafe.modules.tree.root.domain;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,7 +24,7 @@ import java.util.UUID;
 @Setter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class RootTreeDynamic extends RootTree<Object> {
+public class RootTreeDynamic extends RootTree<JsonNode> {
     private UUID dynamicInputId;
 
     @Default
@@ -38,14 +39,17 @@ public class RootTreeDynamic extends RootTree<Object> {
     public RootTreeDynamic(
             String name,
             UUID dynamicInputId,
-            LinkedList<NodeTree<?>> nodes
+            LinkedList<NodeTree<JsonNode>> nodes
     ) {
         super(name, NodeType.ROOT_STATIC, nodes);
         this.dynamicInputId = dynamicInputId;
     }
 
     @Override
-    public boolean traverse(Object inputData) {
-        return false;
+    public boolean traverse(JsonNode inputData) {
+        for(NodeTree<JsonNode> node : getNodes()) {
+            if(!node.traverse(inputData)) return false;
+        }
+        return true;
     }
 }

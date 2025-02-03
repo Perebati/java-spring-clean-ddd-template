@@ -18,7 +18,7 @@ import java.util.List;
 )
 public class NodeTreeIfEntity
         extends NodeTreeEntity {
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.REMOVE, CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JoinTable(
             name = "_relation_if_x_cond",
             joinColumns = @JoinColumn(name = "if_id"),
@@ -27,7 +27,7 @@ public class NodeTreeIfEntity
     @OrderColumn(name = "condition_order")
     private List<NodeTreeEntity> conditionalNodes;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.REMOVE, CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JoinTable(
             name = "_relation_if_x_then",
             joinColumns = @JoinColumn(name = "if_id"),
@@ -36,7 +36,7 @@ public class NodeTreeIfEntity
     @OrderColumn(name = "then_order")
     private List<NodeTreeEntity> thenNodes;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.REMOVE, CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JoinTable(
             name = "_relation_if_x_else",
             joinColumns = @JoinColumn(name = "if_id"),

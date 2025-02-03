@@ -1,5 +1,6 @@
 package org.gfinnovation.dealsafe.modules.tree.node.domain;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,10 +22,10 @@ import java.util.List;
 @Setter
 @ToString
 public class NodeTreeIf
-        extends NodeTree<Object> {
-    private final List<NodeTree<?>> conditionalNodes = new ArrayList<>();
-    private final List<NodeTree<?>> thenNodes = new ArrayList<>();
-    private final List<NodeTree<?>> elseNodes = new ArrayList<>();
+        extends NodeTree<JsonNode> {
+    private final List<NodeTree<JsonNode>> conditionalNodes = new ArrayList<>();
+    private final List<NodeTree<JsonNode>> thenNodes = new ArrayList<>();
+    private final List<NodeTree<JsonNode>> elseNodes = new ArrayList<>();
 
     @Default
     public NodeTreeIf(
@@ -33,24 +34,39 @@ public class NodeTreeIf
         super(NodeType.NODE_IF, parentNode);
     }
 
-    public void addConditionalNode(NodeTree<?> node) {
+    public void addConditionalNode(NodeTree<JsonNode> node) {
         conditionalNodes.add(node);
     }
 
-    public void addThenNode(NodeTree<?> node) {
+    public void addThenNode(NodeTree<JsonNode> node) {
         thenNodes.add(node);
     }
 
-    public void addElseNode(NodeTree<?> node) {
+    public void addElseNode(NodeTree<JsonNode> node) {
         elseNodes.add(node);
-    }
-
-    @Override
-    public boolean traverse(Object inputData) {
-        return false;
     }
 
     public enum SetNode {
         CONDITIONAL, THEN, ELSE
+    }
+
+    @Override
+    public boolean traverse(JsonNode inputData) {
+        for(NodeTree<JsonNode> node : getConditionalNodes()) {
+            if(!node.traverse(inputData)){
+                for (NodeTree<JsonNode> elseNode : elseNodes) {
+                    if(!elseNode.traverse(inputData)){
+                        return false;
+                    }
+                }
+            }else{
+                for (NodeTree<JsonNode> thenNode : thenNodes) {
+                    if(!thenNode.traverse(inputData)){
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 }

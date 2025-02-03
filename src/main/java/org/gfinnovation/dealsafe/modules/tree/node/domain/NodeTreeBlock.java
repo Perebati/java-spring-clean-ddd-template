@@ -1,5 +1,6 @@
 package org.gfinnovation.dealsafe.modules.tree.node.domain;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,9 +21,9 @@ import java.util.List;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 public class NodeTreeBlock
-        extends NodeTree<Object> {
+        extends NodeTree<JsonNode> {
     private String name;
-    private List<NodeTree<?>> nodes = new ArrayList<>();
+    private List<NodeTree<JsonNode>> nodes = new ArrayList<>();
 
     @Default
     public NodeTreeBlock(
@@ -36,14 +37,14 @@ public class NodeTreeBlock
     public NodeTreeBlock(
             String name,
             Node<?> parentNode,
-            List<NodeTree<?>> nodes
+            List<NodeTree<JsonNode>> nodes
     ) {
         super(NodeType.NODE_BLOCK, parentNode);
         this.name = name;
         this.nodes = nodes;
     }
 
-    public void addNode(NodeTree<?> node) {
+    public void addNode(NodeTree<JsonNode> node) {
         try {
             this.nodes.add(node);
             node.setParent(this);
@@ -51,9 +52,11 @@ public class NodeTreeBlock
             throw new RuntimeException("Error adding node to branch");
         }
     }
-
     @Override
-    public boolean traverse(Object inputData) {
-        return false;
+    public boolean traverse(JsonNode inputData) {
+        for(NodeTree<JsonNode> node : getNodes()) {
+            if(!node.traverse(inputData)) return false;
+        }
+        return true;
     }
 }

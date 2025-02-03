@@ -1,4 +1,4 @@
-package org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request;
+package org.gfinnovation.dealsafe.modules.tree.root.adapter.web.request;
 
 import org.gfinnovation.dealsafe.modules.tree.root.domain.valueobjects.PredefinedTypeEnum;
 

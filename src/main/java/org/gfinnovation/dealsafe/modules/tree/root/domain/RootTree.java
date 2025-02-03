@@ -1,5 +1,6 @@
 package org.gfinnovation.dealsafe.modules.tree.root.domain;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,7 +28,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class RootTree<T> extends Node<T> {
     private String name;
-    private List<NodeTree<?>> nodes = new ArrayList<>();
+    private List<NodeTree<JsonNode>> nodes = new ArrayList<>();
 
     @Default
     public RootTree(
@@ -41,14 +42,14 @@ public class RootTree<T> extends Node<T> {
     public RootTree(
             String name,
             NodeType nodeType,
-            LinkedList<NodeTree<?>> nodes
+            LinkedList<NodeTree<JsonNode>> nodes
     ) {
         setName(name);
         setNodeType(nodeType);
         this.nodes = nodes;
     }
 
-    public void addNode(NodeTree<?> node) {
+    public void addNode(NodeTree<JsonNode> node) {
         try {
             this.nodes.add(node);
             node.setParent(this);
@@ -57,8 +58,7 @@ public class RootTree<T> extends Node<T> {
         }
     }
 
-    @Override
-    public boolean traverse(Object inputData) {
+    public boolean traverse(JsonNode inputData) {
         return false;
     }
 }

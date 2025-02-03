@@ -13,7 +13,7 @@ import java.util.List;
 @Entity
 @EqualsAndHashCode(callSuper = true)
 @DiscriminatorValue(NodeEntity.DISCRIMINATOR_NODE)
-@Table(name = "dealboard_blacklist")
+@Table(name = "dealboard_companyList")
 public class CompanyListEntity extends GenericBusinessEntity {
     @Column(name = "name")
     private String name;

@@ -26,7 +26,7 @@ import java.util.List;
         }
 )
 public class RootTreeEntity extends NodeEntity {
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.REMOVE, CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JoinTable(
             name = "_relation_root_x_node",
             joinColumns = @JoinColumn(name = "root_id"),

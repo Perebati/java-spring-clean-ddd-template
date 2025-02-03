@@ -1,11 +1,9 @@
-package org.gfinnovation.dealsafe.modules.tree.node.adapter.web.controller;
+package org.gfinnovation.dealsafe.modules.tree.root.adapter.web.controller;
 
 import org.gfinnovation.dealsafe.exception.models.layered.DomainException;
-import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.controller.interfaces.TreeController;
-import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeCreationDTO;
-import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.RootCreationDynamicInputDTO;
-import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.RootCreationPredefinedInputDTO;
-import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeBlockService;
+import org.gfinnovation.dealsafe.modules.tree.root.adapter.web.controller.interfaces.RootTreeController;
+import org.gfinnovation.dealsafe.modules.tree.root.adapter.web.request.RootCreationDynamicInputDTO;
+import org.gfinnovation.dealsafe.modules.tree.root.adapter.web.request.RootCreationPredefinedInputDTO;
 import org.gfinnovation.dealsafe.modules.tree.root.application.service.interfaces.RootTreeDynamicService;
 import org.gfinnovation.dealsafe.modules.tree.root.application.service.interfaces.RootTreeStaticService;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeDynamic;
@@ -25,16 +23,13 @@ import java.util.concurrent.CompletableFuture;
  */
 
 @Controller
-class TreeControllerImpl implements TreeController {
-    private final NodeTreeBlockService nodeTreeBlockService;
+class RootTreeControllerImpl implements RootTreeController {
     private final RootTreeStaticService rootTreeStaticService;
     private final RootTreeDynamicService rootTreeDynamicService;
 
-    TreeControllerImpl(
-            NodeTreeBlockService nodeTreeBlockService,
+    RootTreeControllerImpl(
             RootTreeStaticService rootTreeStaticService,
             RootTreeDynamicService rootTreeDynamicService) {
-        this.nodeTreeBlockService = nodeTreeBlockService;
         this.rootTreeStaticService = rootTreeStaticService;
         this.rootTreeDynamicService = rootTreeDynamicService;
     }
@@ -68,22 +63,6 @@ class TreeControllerImpl implements TreeController {
             throw e;
         } catch (Exception e) {
             throw new DomainException("Controller: Unexpected error in dynamic root creation.");
-        }
-    }
-
-    @Override
-    public ResponseEntity<Void> createNode(
-            NodeCreationDTO request
-    ) throws DomainException {
-        try {
-            this.nodeTreeBlockService.create(
-                    request
-            );
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        } catch (DomainException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new DomainException("Controller: Unexpected error in node creation.");
         }
     }
 }

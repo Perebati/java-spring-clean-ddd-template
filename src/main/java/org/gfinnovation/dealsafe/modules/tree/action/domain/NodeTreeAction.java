@@ -1,5 +1,6 @@
 package org.gfinnovation.dealsafe.modules.tree.action.domain;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
@@ -16,7 +17,7 @@ import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTree;
 @EqualsAndHashCode(callSuper = true)
 @Getter
 @ToString
-public class NodeTreeAction extends NodeTree<Object> {
+public class NodeTreeAction extends NodeTree<JsonNode> {
     ActionEnum actionType;
 
     public NodeTreeAction(
@@ -28,8 +29,8 @@ public class NodeTreeAction extends NodeTree<Object> {
     }
 
     @Override
-    public boolean traverse(Object inputData) {
-        return false;
+    public boolean traverse(JsonNode inputData) {
+        return true;
     }
 
     public enum SortType {

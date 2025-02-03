@@ -28,7 +28,7 @@ public class NodeTreeBlockEntity
     @Column(name = "name")
     private String name;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.REMOVE, CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JoinTable(
             name = "_relation_node_x_node",
             joinColumns = @JoinColumn(name = "parent_id"),
