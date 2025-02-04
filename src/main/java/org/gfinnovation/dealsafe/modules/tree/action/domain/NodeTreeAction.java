@@ -36,5 +36,4 @@ public class NodeTreeAction extends NodeTree<JsonNode> {
     public enum SortType {
         NAME, ACTION_TYPE
     }
-
 }

@@ -3,9 +3,8 @@ package org.gfinnovation.dealsafe.modules.tree.comparison.application.service.in
 import org.apache.coyote.BadRequestException;
 import org.gfinnovation.dealsafe._shared.modules.application.interfaces.GenericService;
 import org.gfinnovation.dealsafe.exception.models.layered.ServiceException;
+import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonSingularRecord;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
-
-import java.util.UUID;
 
 /**
  * @author Lucas Batista Pereira
@@ -14,5 +13,7 @@ import java.util.UUID;
  * @since 30/10/2024
  */
 public interface ComparisonSingularService extends GenericService<ComparisonSingular> {
-    ComparisonSingular create(ComparisonSingular.ComparisonSingularTypeEnum type, String jsonPath, String variable, UUID node_id) throws ServiceException, BadRequestException;
+    ComparisonSingular create(
+            ComparisonSingularRecord input
+    ) throws ServiceException, BadRequestException;
 }

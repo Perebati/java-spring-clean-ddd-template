@@ -6,20 +6,12 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.validation.constraints.NotNull;
 import org.gfinnovation.dealsafe._shared.modules.application.RepositoryAuth;
-import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.GenericBusinessRepositoryImpl;
 import org.gfinnovation.dealsafe.exception.models.layered.RepositoryEntityNotFoundException;
 import org.gfinnovation.dealsafe.exception.models.layered.RepositoryException;
-import org.gfinnovation.dealsafe.exception.models.layered.ServiceException;
-import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTree;
-import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeDynamic;
-import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeStatic;
-import org.gfinnovation.dealsafe.modules.tree.root.infrastructure.RootTreeEntity;
-import org.gfinnovation.dealsafe.modules.tree.root.infrastructure.mapper.RootTreeMapper;
 import org.gfinnovation.dealsafe.modules.tree.root.infrastructure.repository.interfaces.RootTreeDynamicRepository;
 import org.gfinnovation.dealsafe.modules.tree.root.infrastructure.repository.interfaces.RootTreeRepository;
 import org.gfinnovation.dealsafe.modules.tree.root.infrastructure.repository.interfaces.RootTreeStaticRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.nio.ByteBuffer;
@@ -35,7 +27,6 @@ import java.util.UUID;
 
 @Repository
 class RootTreeRepositoryImpl
-        extends GenericBusinessRepositoryImpl<RootTree<?>, RootTreeEntity>
         implements RootTreeRepository {
     private final RootTreeDynamicRepository rootTreeDynamicRepository;
     private final RootTreeStaticRepository rootTreeStaticRepository;
@@ -45,12 +36,9 @@ class RootTreeRepositoryImpl
 
     @Autowired
     RootTreeRepositoryImpl(
-            RootTreeMapper mapper,
-            EntityManager entityManager,
             RootTreeDynamicRepository rootTreeDynamicRepository,
             RootTreeStaticRepository rootTreeStaticRepository
     ) {
-        super(mapper, new SimpleJpaRepository<>(RootTreeEntity.class, entityManager), RootTreeEntity.class);
         this.rootTreeDynamicRepository = rootTreeDynamicRepository;
         this.rootTreeStaticRepository = rootTreeStaticRepository;
     }
@@ -78,21 +66,6 @@ class RootTreeRepositoryImpl
         }
     }
 
-    @Override
-    public RootTree updateGenericRootSync(@NotNull RootTree entity, @NotNull RepositoryAuth auth) throws RepositoryException, IllegalArgumentException {
-        try {
-            if (entity instanceof RootTreeDynamic dynamicRoot) {
-                return this.rootTreeDynamicRepository.updateSync(dynamicRoot, auth);
-            } else if (entity instanceof RootTreeStatic staticRoot) {
-                return this.rootTreeStaticRepository.updateSync(staticRoot, auth);
-            } else {
-                throw new IllegalArgumentException("Unexpected RootTree type: " + entity.getClass().getName());
-            }
-        } catch (Exception e) {
-            throw new ServiceException("Unexpected error during update of RootTree. ERROR_CODE: PATCH-01", e);
-        }
-    }
-
     /**
      * The goal of this method is to find the root node
      * that originate the tree where the given node(id) exists.
@@ -102,7 +75,6 @@ class RootTreeRepositoryImpl
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
-
     @Override
     public Optional<UUID> findRootIdByNodeId(UUID node_id) {
         String sql = """

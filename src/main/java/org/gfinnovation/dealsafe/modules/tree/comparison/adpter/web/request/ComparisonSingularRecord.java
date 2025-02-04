@@ -1,6 +1,7 @@
 package org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request;
 
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
+import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeIf;
 
 import java.util.UUID;
 
@@ -13,4 +14,6 @@ import java.util.UUID;
 public record ComparisonSingularRecord(ComparisonSingular.ComparisonSingularTypeEnum type,
                                        String jsonPath,
                                        String variable,
-                                       UUID nodeId) {}
+                                       UUID parentId,
+                                       NodeTreeIf.SetNode position) {
+}

@@ -19,8 +19,8 @@ import java.util.Map;
 
 /**
  * This class stores the structure of a dynamic input.
- * It also has methods that can validade an operation by
- * checking if the comparison field existis in the dynamic input.
+ * It also has methods that can validate an operation by
+ * checking if the comparison field exists in the dynamic input.
  *
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1

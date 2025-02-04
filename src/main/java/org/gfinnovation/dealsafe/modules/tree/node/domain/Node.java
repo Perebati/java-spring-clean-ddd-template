@@ -12,7 +12,6 @@ import org.gfinnovation.dealsafe._shared.modules.domain.GenericBusinessClass;
  * @class Node
  * @since 24/01/2025
  */
-
 @Getter
 @Setter
 @ToString

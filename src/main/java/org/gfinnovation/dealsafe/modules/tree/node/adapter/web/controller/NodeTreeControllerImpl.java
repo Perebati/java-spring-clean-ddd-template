@@ -4,7 +4,6 @@ import org.apache.coyote.BadRequestException;
 import org.gfinnovation.dealsafe.exception.models.layered.DomainException;
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.controller.interfaces.NodeTreeController;
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeCreationDTO;
-import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeCreationIfDTO;
 import org.gfinnovation.dealsafe.modules.tree.node.application.usecase.command.*;
 import org.gfinnovation.dealsafe.modules.tree.node.application.usecase.query.ReadNodeBlock;
 import org.gfinnovation.dealsafe.modules.tree.node.application.usecase.query.ReadNodeIf;
@@ -26,9 +25,7 @@ import java.util.UUID;
 @Controller
 class NodeTreeControllerImpl implements NodeTreeController {
     private final CreateNodeBlock createNodeBlock;
-    private final CreateNodeBlockIf createNodeBlockIf;
     private final CreateNodeIf createNodeIf;
-    private final CreateNodeIfIf createNodeIfIf;
     private final DeleteNodeBlock deleteNodeBlock;
     private final DeleteNodeif deleteNodeif;
     private final UpdateNodeBlock updateNodeBlock;
@@ -39,9 +36,7 @@ class NodeTreeControllerImpl implements NodeTreeController {
     @Autowired
     NodeTreeControllerImpl(
             CreateNodeBlock createNodeBlock,
-            CreateNodeBlockIf createNodeBlockIf,
             CreateNodeIf createNodeIf,
-            CreateNodeIfIf createNodeIfIf,
             DeleteNodeBlock deleteNodeBlock,
             DeleteNodeif deleteNodeif,
             UpdateNodeBlock updateNodeBlock,
@@ -50,9 +45,7 @@ class NodeTreeControllerImpl implements NodeTreeController {
             ReadNodeIf readNodeIf
     ) {
         this.createNodeBlock = createNodeBlock;
-        this.createNodeBlockIf = createNodeBlockIf;
         this.createNodeIf = createNodeIf;
-        this.createNodeIfIf = createNodeIfIf;
         this.deleteNodeBlock = deleteNodeBlock;
         this.deleteNodeif = deleteNodeif;
         this.updateNodeBlock = updateNodeBlock;
@@ -68,21 +61,10 @@ class NodeTreeControllerImpl implements NodeTreeController {
         return ResponseEntity.ok().build();
     }
 
-    @Override
-    public ResponseEntity<Void> createNodeBlockIf(NodeCreationIfDTO request) throws DomainException, BadRequestException {
-        this.createNodeBlockIf.execute(request);
-        return ResponseEntity.ok().build();
-    }
 
     @Override
     public ResponseEntity<Void> createNodeIf(NodeCreationDTO request) throws DomainException, BadRequestException {
         this.createNodeIf.execute(request);
-        return ResponseEntity.ok().build();
-    }
-
-    @Override
-    public ResponseEntity<Void> createNodeIfIf(NodeCreationIfDTO request) throws DomainException, BadRequestException {
-        this.createNodeIfIf.execute(request);
         return ResponseEntity.ok().build();
     }
 

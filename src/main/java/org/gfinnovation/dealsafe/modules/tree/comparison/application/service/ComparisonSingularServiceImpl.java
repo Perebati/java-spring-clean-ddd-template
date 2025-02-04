@@ -1,21 +1,18 @@
 package org.gfinnovation.dealsafe.modules.tree.comparison.application.service;
 
-import jakarta.validation.ValidationException;
 import org.apache.coyote.BadRequestException;
 import org.gfinnovation.dealsafe._shared.modules.application.GenericServiceImpl;
-import org.gfinnovation.dealsafe.exception.models.layered.FactoryException;
-import org.gfinnovation.dealsafe.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.exception.models.layered.ServiceException;
+import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonSingularRecord;
 import org.gfinnovation.dealsafe.modules.tree.comparison.application.service.interfaces.ComparisonSingularService;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.factory.interfaces.ComparisonFactory;
 import org.gfinnovation.dealsafe.modules.tree.comparison.infrastructure.repository.interfaces.ComparisonSingularRepository;
-import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeBlockService;
-import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTree;
+import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
+import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.repository.interfaces.NodeRepository;
+import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.repository.interfaces.NodeTreeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.UUID;
 
 /**
  * Handles comparisons operations.
@@ -30,46 +27,31 @@ import java.util.UUID;
 class ComparisonSingularServiceImpl
         extends GenericServiceImpl<ComparisonSingular, ComparisonSingularRepository>
         implements ComparisonSingularService {
-    private final NodeTreeBlockService nodeTreeBlockService;
     private final ComparisonFactory comparisonOperationFactory;
+    private final NodeRepository nodeRepository;
+    private final NodeTreeRepository<ComparisonSingular> comparisonSingularRepository;
 
     @Autowired
     public ComparisonSingularServiceImpl(
-            NodeTreeBlockService nodeTreeBlockService,
             ComparisonSingularRepository comparisonSingularRepository,
-            ComparisonFactory comparisonOperationFactory
+            ComparisonFactory comparisonOperationFactory,
+            NodeRepository nodeRepository,
+            NodeTreeRepository<ComparisonSingular> comparisonSingularRepository1
     ) {
         super(comparisonSingularRepository);
-        this.nodeTreeBlockService = nodeTreeBlockService;
         this.comparisonOperationFactory = comparisonOperationFactory;
+        this.nodeRepository = nodeRepository;
+        this.comparisonSingularRepository = comparisonSingularRepository1;
     }
 
-    /**
-     * Creates a comparison operation.
-     *
-     * @param type     Type of comparison.
-     * @param jsonPath Path to the compared variable.
-     * @param variable Variable to compare.
-     * @param node_id  Parent node.
-     * @return Comparison
-     * @throws ServiceException    Thrown when an error occurred on business level.
-     * @throws FactoryException    Thrown when an error occurred on factory level.
-     * @throws ValidationException Thrown when an error occurred on factory level.
-     * @throws RepositoryException Thrown when an error occurred on repository level.
-     * @throws BadRequestException Thrown when user input is not correct.
-     * @author Lucas Batista Pereira
-     * @since 30/10/2024
-     */
     @Override
     public ComparisonSingular create(
-            ComparisonSingular.ComparisonSingularTypeEnum type,
-            String jsonPath,
-            String variable,
-            UUID node_id) throws ServiceException, BadRequestException {
+            ComparisonSingularRecord input
+    ) throws ServiceException, BadRequestException {
         try {
-            NodeTree<?> parent = this.nodeTreeBlockService.read(node_id);
-            ComparisonSingular newOperation = this.comparisonOperationFactory.produce(type, jsonPath, variable, parent);
-            return this.repository.createSingComparison(newOperation, parent, getRepositoryAuth());
+            Node<?> parent = this.nodeRepository.read(input.parentId(), getRepositoryAuth());
+            ComparisonSingular newOperation = this.comparisonOperationFactory.produce(input.type(), input.jsonPath(), input.variable(), parent);
+            return this.comparisonSingularRepository.createNode(newOperation, parent, input.position(), getRepositoryAuth());
         } catch (BadRequestException | ServiceException e) {
             throw e;
         } catch (Exception e) {

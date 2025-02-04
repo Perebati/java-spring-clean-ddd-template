@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe.modules.tree.comparison.application.usecase.command;
 
 import org.apache.coyote.BadRequestException;
-import org.gfinnovation.dealsafe._shared.modules.application.interfaces.UseCase;
+import org.gfinnovation.dealsafe._shared.modules.application.UseCase;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonSingularRecord;
 import org.gfinnovation.dealsafe.modules.tree.comparison.application.service.interfaces.ComparisonSingularService;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
@@ -18,6 +18,6 @@ public class CreateComparisonSingular implements UseCase<ComparisonSingularRecor
 
     @Override
     public ComparisonSingular execute(ComparisonSingularRecord input) throws BadRequestException {
-        return this.comparisonSingularService.create(input.type(), input.jsonPath(), input.variable(), input.nodeId());
+        return this.comparisonSingularService.create(input);
     }
 }

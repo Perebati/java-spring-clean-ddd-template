@@ -43,5 +43,3 @@ public interface InputController {
     @GetMapping()
     ResponseEntity<InputEntity> readInput(UUID id) throws DomainException, BadRequestException;
 }
-
-

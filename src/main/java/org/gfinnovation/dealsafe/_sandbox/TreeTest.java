@@ -2,9 +2,7 @@ package org.gfinnovation.dealsafe._sandbox;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeCreationDTO;
 import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeBlockService;
-import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTree;
 import org.gfinnovation.dealsafe.modules.tree.root.application.service.interfaces.RootTreeStaticService;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeStatic;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.valueobjects.PredefinedTypeEnum;
@@ -38,11 +36,11 @@ public class TreeTest {
 
             RootTreeStatic createdRoot = this.rootTreeStaticService.create("ROOT Teste", PredefinedTypeEnum.TESTE);
 
-            NodeTree<?> node1 = this.nodeTreeBlockService.create(new NodeCreationDTO("NODE 1", createdRoot.getId()));
-
-            NodeTree<?> node2 = this.nodeTreeBlockService.create(new NodeCreationDTO("NODE 3", createdRoot.getId()));
-
-            NodeTree<?> createdNode2 = this.nodeTreeBlockService.create(new NodeCreationDTO("NODE 2", node1.getId()));
+//            NodeTree<?> node1 = this.nodeTreeBlockService.create(new NodeCreationDTO("NODE 1", createdRoot.getId()));
+//
+//            NodeTree<?> node2 = this.nodeTreeBlockService.create(new NodeCreationDTO("NODE 3", createdRoot.getId()));
+//
+//            NodeTree<?> createdNode2 = this.nodeTreeBlockService.create(new NodeCreationDTO("NODE 2", node1.getId()));
 
             createdRoot = this.rootTreeStaticService.read(createdRoot.getId());
 

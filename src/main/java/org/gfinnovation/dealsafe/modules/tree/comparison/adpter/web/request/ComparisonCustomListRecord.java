@@ -1,10 +1,11 @@
 package org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request;
 
-import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonMulti;
+import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeIf;
 
 import java.util.UUID;
 
-public record ComparisonCustomListRecord(ComparisonMulti.ComparisonMultiTypeEnum type,
-                                         String jsonPath,
+public record ComparisonCustomListRecord(String jsonPath,
                                          UUID comparisonListId,
-                                         UUID nodeId) {}
+                                         UUID parentId,
+                                         NodeTreeIf.SetNode position) {
+}

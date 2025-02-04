@@ -2,9 +2,7 @@ package org.gfinnovation.dealsafe.modules.tree.root.infrastructure.repository.in
 
 import jakarta.validation.constraints.NotNull;
 import org.gfinnovation.dealsafe._shared.modules.application.RepositoryAuth;
-import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.interfaces.GenericBusinessRepository;
 import org.gfinnovation.dealsafe.exception.models.layered.RepositoryException;
-import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTree;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -16,10 +14,8 @@ import java.util.UUID;
  * @since 30/10/2024
  */
 
-public interface RootTreeRepository extends GenericBusinessRepository<RootTree<?>> {
+public interface RootTreeRepository {
     Object readGenericRoot(@NotNull UUID id, @NotNull RepositoryAuth auth) throws RepositoryException;
-
-    RootTree<?> updateGenericRootSync(@NotNull RootTree<?> entity, @NotNull RepositoryAuth auth) throws RepositoryException, IllegalArgumentException;
 
     Optional<UUID> findRootIdByNodeId(UUID nodeId);
 }

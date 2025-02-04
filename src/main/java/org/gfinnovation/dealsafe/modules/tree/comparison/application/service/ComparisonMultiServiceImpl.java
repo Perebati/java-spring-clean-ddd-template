@@ -3,46 +3,45 @@ package org.gfinnovation.dealsafe.modules.tree.comparison.application.service;
 import org.apache.coyote.BadRequestException;
 import org.gfinnovation.dealsafe._shared.modules.application.GenericServiceImpl;
 import org.gfinnovation.dealsafe.exception.models.layered.ServiceException;
+import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonMultiRecord;
 import org.gfinnovation.dealsafe.modules.tree.comparison.application.service.interfaces.ComparisonMultiService;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonMulti;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.factory.interfaces.ComparisonFactory;
 import org.gfinnovation.dealsafe.modules.tree.comparison.infrastructure.repository.interfaces.ComparisonMultiRepository;
-import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeBlockService;
-import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTree;
+import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
+import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.repository.interfaces.NodeRepository;
+import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.repository.interfaces.NodeTreeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.UUID;
 
 @Service
 class ComparisonMultiServiceImpl
         extends GenericServiceImpl<ComparisonMulti, ComparisonMultiRepository>
         implements ComparisonMultiService {
-    private final NodeTreeBlockService nodeTreeBlockService;
     private final ComparisonFactory comparisonOperationFactory;
+    private final NodeRepository nodeRepository;
+    private final NodeTreeRepository<ComparisonMulti> nodeTreeRepository;
 
     @Autowired
     public ComparisonMultiServiceImpl(
-            NodeTreeBlockService nodeTreeBlockService,
             ComparisonMultiRepository comparisonMultiRepository,
-            ComparisonFactory comparisonOperationFactory
+            ComparisonFactory comparisonOperationFactory,
+            NodeRepository nodeRepository,
+            NodeTreeRepository<ComparisonMulti> nodeTreeRepository
     ) {
         super(comparisonMultiRepository);
-        this.nodeTreeBlockService = nodeTreeBlockService;
         this.comparisonOperationFactory = comparisonOperationFactory;
+        this.nodeRepository = nodeRepository;
+        this.nodeTreeRepository = nodeTreeRepository;
     }
 
     public ComparisonMulti create(
-            ComparisonMulti.ComparisonMultiTypeEnum type,
-            String jsonPath,
-            List<String> variables,
-            UUID node_id
+            ComparisonMultiRecord input
     ) throws ServiceException, BadRequestException {
         try {
-            NodeTree<?> parent = this.nodeTreeBlockService.read(node_id);
-            ComparisonMulti newOperation = this.comparisonOperationFactory.produce(type, jsonPath, variables, parent);
-            return this.repository.createMultiComparison(newOperation, parent, getRepositoryAuth());
+            Node<?> parent = this.nodeRepository.read(input.parentId(), getRepositoryAuth());
+            ComparisonMulti newOperation = this.comparisonOperationFactory.produce(input.type(), input.jsonPath(), input.variables(), parent);
+            return this.nodeTreeRepository.createNode(newOperation, parent, input.position(), getRepositoryAuth());
         } catch (BadRequestException | ServiceException e) {
             throw e;
         } catch (Exception e) {

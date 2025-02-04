@@ -8,7 +8,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.coyote.BadRequestException;
 import org.gfinnovation.dealsafe.exception.models.layered.DomainException;
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeCreationDTO;
-import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeCreationIfDTO;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeBlock;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeIf;
 import org.springframework.http.ResponseEntity;
@@ -39,17 +38,6 @@ public interface NodeTreeController {
     @PostMapping("/node-block")
     ResponseEntity<Void> createNodeBlock(NodeCreationDTO request) throws DomainException, BadRequestException;
 
-    @Operation(
-            summary = "Cadastro de nó block na árvore",
-            description = "Registra um novo nó bloco. Parent_id deve ser uma referencia para um nó IF, " +
-                    "também deve ter o indicativo de posição na requisição.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Nó criado com sucesso!"),
-            @ApiResponse(responseCode = "400", description = "Requisição inválida"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
-    })
-    @PostMapping("/node-block-if")
-    ResponseEntity<Void> createNodeBlockIf(NodeCreationIfDTO request) throws DomainException, BadRequestException;
 
     @Operation(
             summary = "Cadastro de nó IF na árvore",
@@ -62,17 +50,6 @@ public interface NodeTreeController {
     @PostMapping("/node-if")
     ResponseEntity<Void> createNodeIf (NodeCreationDTO request) throws DomainException, BadRequestException;
 
-    @Operation(
-            summary = "Cadastro de nó IF na árvore",
-            description = "Registra um novo nó bloco. Parent_id deve ser uma referencia para um nó IF, " +
-                    "também deve ter o indicativo de posição na requisição.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Nó criado com sucesso!"),
-            @ApiResponse(responseCode = "400", description = "Requisição inválida"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
-    })
-    @PostMapping("/node-if-if")
-    ResponseEntity<Void> createNodeIfIf (NodeCreationIfDTO request) throws DomainException, BadRequestException;
 
     @Operation(
             summary = "Leitura de nó block na árvore",

@@ -8,17 +8,10 @@ import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.mapper.NodeMap
 import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.repository.interfaces.NodeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-/**
- * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
- * @class NodeRepositoryImpl
- * @since 24/01/2025
- */
-
-@Component
-public class NodeRepositoryImpl
+@Repository
+class NodeRepositoryImpl
         extends GenericBusinessRepositoryImpl<Node<Object>, NodeEntity>
         implements NodeRepository {
 

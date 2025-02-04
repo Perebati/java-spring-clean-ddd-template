@@ -33,10 +33,7 @@ class ComparisonControllerImpl implements ComparisonController {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(
                     this.operationService.create(
-                            request.type(),
-                            request.jsonPath(),
-                            request.variable(),
-                            request.nodeId()
+                            request
                     ));
         } catch (DomainException | BadRequestException e) {
             throw e;
@@ -46,17 +43,17 @@ class ComparisonControllerImpl implements ComparisonController {
     }
 
     @Override
-    public ResponseEntity<ComparisonMulti> createMultiComparison(ComparisonMultiRecord request) throws DomainException, BadRequestException {
+    public ResponseEntity<ComparisonMulti> createMultiComparison(ComparisonMultiRecord request) throws DomainException {
         return null;
     }
 
     @Override
-    public ResponseEntity<ComparisonSingular> createBlackListComparison(ComparisonCustomListRecord request) throws DomainException, BadRequestException {
+    public ResponseEntity<ComparisonSingular> createBlackListComparison(ComparisonCustomListRecord request) throws DomainException {
         return null;
     }
 
     @Override
-    public ResponseEntity<ComparisonSingular> createWhiteListComparison(ComparisonCustomListRecord request) throws DomainException, BadRequestException {
+    public ResponseEntity<ComparisonSingular> createWhiteListComparison(ComparisonCustomListRecord request) throws DomainException {
         return null;
     }
 }

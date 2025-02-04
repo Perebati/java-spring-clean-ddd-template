@@ -1,10 +1,7 @@
 package org.gfinnovation.dealsafe.modules.tree.comparison.infrastructure.repository.interfaces;
 
-import org.gfinnovation.dealsafe._shared.modules.application.RepositoryAuth;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.interfaces.GenericBusinessRepository;
-import org.gfinnovation.dealsafe.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
-import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
 
 /**
  * @author Lucas Batista Pereira
@@ -13,10 +10,4 @@ import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
  * @since 30/10/2024
  */
 public interface ComparisonSingularRepository extends GenericBusinessRepository<ComparisonSingular> {
-    ComparisonSingular createSingComparison(
-            ComparisonSingular newNode,
-            Node<?> parent,
-            RepositoryAuth auth
-    ) throws RepositoryException;
-
 }
