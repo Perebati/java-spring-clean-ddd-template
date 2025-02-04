@@ -1,33 +1,32 @@
 server:
-  port: 8080
+  port: ${SERVER_PORT}
   servlet:
-    context-path: /api
+    context-path: ${SERVER_SERVLET_CONTEXT_PATH}
 
 spring:
   application:
-    name: dealsafe
+    name: ${SPRING_APPLICATION_NAME}
   datasource:
-    url: jdbc:postgresql://localhost:5432/motorRegra?createDatabaseIfNotExist=true&useSSL=false
-    username: postgres
-    password: postgres
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
     driverClassName: org.postgresql.Driver
   jpa:
+    hibernate:
+      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO}
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-        default_schema: public
-    hibernate:
-      ddl-auto: update
+        dialect: ${SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT}
+        default_schema: ${SPRING_JPA_PROPERTIES_HIBERNATE_DEFAULT_SCHEMA}
 
 jwt:
-  publicKey: ${PUBLIC_KEY}
-  privateKey: ${PRIVATE_KEY}
-
+  publicKey: ${JWT_PUBLIC_KEY}
+  privateKey: ${JWT_PRIVATE_KEY}
   data:
     mongodb:
-      host: localhost
-      port: 27017
-      database: dealsafe_logs
-      username: mongoadmin
-      password: secret
-      authentication-database: admin
+      host: ${JWT_DATA_MONGODB_HOST}
+      port: ${JWT_DATA_MONGODB_PORT}
+      database: ${JWT_DATA_MONGODB_DATABASE}
+      username: ${JWT_DATA_MONGODB_USERNAME}
+      password: ${JWT_DATA_MONGODB_PASSWORD}
+      authentication-database: ${JWT_DATA_MONGODB_AUTHENTICATION_DATABASE}
