@@ -28,7 +28,7 @@ import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequestMapping("tree")
-@Tag(name = "Árvore")
+@Tag(name = "Árvore - Raiz")
 @SecurityRequirement(name = "BearerAuth")
 public interface RootTreeController {
     @Operation(

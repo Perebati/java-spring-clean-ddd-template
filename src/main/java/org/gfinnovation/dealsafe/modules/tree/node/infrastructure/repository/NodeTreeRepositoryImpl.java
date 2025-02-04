@@ -78,9 +78,7 @@ class NodeTreeRepositoryImpl
                 return parent_block;
 
             case Node.NodeType.NODE_IF:
-                NodeTreeBlock parent_if = this.nodeTreeBlockRepository.read(parent.getId(), auth);
-                parent_if.addNode(createdEntity);
-                return parent_if;
+                return this.nodeTreeIfRepository.read(parent.getId(), auth);
 
             default:
                 throw new RepositoryException("Can't read node of type: " + parent.getNodeType());
@@ -121,17 +119,18 @@ class NodeTreeRepositoryImpl
     ) throws RepositoryException {
         try {
             switch (position) {
-                case CONDITIONAL:
+                case NodeTreeIf.SetNode.CONDITIONAL:
                     parent.addConditionalNode(createdNodeEntity);
-
-                case THEN:
-                    parent.addThenNode(createdNodeEntity);
-
-                case ELSE:
-                    parent.addElseNode(createdNodeEntity);
-
+                    break;
+                case NodeTreeIf.SetNode.THEN:
                 case null:
                     parent.addThenNode(createdNodeEntity);
+                    break;
+                case NodeTreeIf.SetNode.ELSE:
+                    parent.addElseNode(createdNodeEntity);
+                    break;
+                default:
+                    break;
             }
         } catch (RepositoryException e) {
             throw e;

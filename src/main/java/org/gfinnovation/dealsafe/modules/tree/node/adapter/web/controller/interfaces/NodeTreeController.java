@@ -24,7 +24,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("tree")
-@Tag(name = "Árvore")
+@Tag(name = "Árvore - Nó")
 @SecurityRequirement(name = "BearerAuth")
 public interface NodeTreeController {
     @Operation(
@@ -36,7 +36,7 @@ public interface NodeTreeController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PostMapping("/node-block")
-    ResponseEntity<Void> createNodeBlock(NodeCreationDTO request) throws DomainException, BadRequestException;
+    ResponseEntity<Void> createNodeBlock(@RequestBody NodeCreationDTO request) throws DomainException, BadRequestException;
 
 
     @Operation(
@@ -48,7 +48,7 @@ public interface NodeTreeController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PostMapping("/node-if")
-    ResponseEntity<Void> createNodeIf (NodeCreationDTO request) throws DomainException, BadRequestException;
+    ResponseEntity<Void> createNodeIf (@RequestBody NodeCreationDTO request) throws DomainException, BadRequestException;
 
 
     @Operation(
@@ -60,7 +60,7 @@ public interface NodeTreeController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @GetMapping("/node-block")
-    ResponseEntity<NodeTreeBlock> readNodeBlock (UUID request) throws DomainException, BadRequestException;
+    ResponseEntity<NodeTreeBlock> readNodeBlock (@RequestParam UUID request) throws DomainException, BadRequestException;
 
     @Operation(
             summary = "Leitura de nó IF na árvore",
@@ -71,7 +71,7 @@ public interface NodeTreeController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @GetMapping("/node-if")
-    ResponseEntity<NodeTreeIf> readNodeIf (UUID request) throws DomainException, BadRequestException;
+    ResponseEntity<NodeTreeIf> readNodeIf (@RequestParam UUID request) throws DomainException, BadRequestException;
 
     @Operation(
             summary = "Update de nó block na árvore",
@@ -82,7 +82,7 @@ public interface NodeTreeController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PutMapping("/node-block")
-    ResponseEntity<NodeTreeBlock> updateNodeBlock (NodeTreeBlock request) throws DomainException, BadRequestException;
+    ResponseEntity<NodeTreeBlock> updateNodeBlock (@RequestBody NodeTreeBlock request) throws DomainException, BadRequestException;
 
     @Operation(
             summary = "Update de nó block na árvore",
@@ -93,7 +93,7 @@ public interface NodeTreeController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PutMapping("/node-if")
-    ResponseEntity<NodeTreeIf> updateNodeIf (NodeTreeIf request) throws DomainException, BadRequestException;
+    ResponseEntity<NodeTreeIf> updateNodeIf (@RequestBody NodeTreeIf request) throws DomainException, BadRequestException;
 
     @Operation(
             summary = "Deleta de nó block na árvore",
@@ -104,7 +104,7 @@ public interface NodeTreeController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @DeleteMapping("/node-block")
-    ResponseEntity<Void> deleteNodeBlock (UUID request) throws DomainException, BadRequestException;
+    ResponseEntity<Void> deleteNodeBlock (@RequestParam UUID request) throws DomainException, BadRequestException;
 
     @Operation(
             summary = "Deleta de nó IF na árvore",
@@ -115,5 +115,5 @@ public interface NodeTreeController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @DeleteMapping("/node-if")
-    ResponseEntity<Void> deleteNodeIf (UUID request) throws DomainException, BadRequestException;
+    ResponseEntity<Void> deleteNodeIf (@RequestParam UUID request) throws DomainException, BadRequestException;
 }

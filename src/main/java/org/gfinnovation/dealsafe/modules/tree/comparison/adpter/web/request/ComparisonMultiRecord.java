@@ -2,13 +2,14 @@ package org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request;
 
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonMulti;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeIf;
+import org.springframework.lang.NonNull;
 
 import java.util.List;
 import java.util.UUID;
 
-public record ComparisonMultiRecord(ComparisonMulti.ComparisonMultiTypeEnum type,
-                                    String jsonPath,
-                                    List<String> variables,
-                                    UUID parentId,
+public record ComparisonMultiRecord(@NonNull ComparisonMulti.ComparisonMultiTypeEnum type,
+                                    @NonNull String jsonPath,
+                                    @NonNull List<String> variables,
+                                    @NonNull UUID parentId,
                                     NodeTreeIf.SetNode position) {
 }

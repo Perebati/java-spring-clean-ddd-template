@@ -22,7 +22,8 @@ import org.springframework.context.annotation.Configuration;
         tags = {
                 @Tag(name = "Input", description = "Operações relacionadas a criação de inputs para árvores de validação."),
                 @Tag(name = "Dealboard", description = "Rotas de integração com o Dealboard."),
-                @Tag(name = "Árvore", description = "Operações sobre a árvore de validação."),
+                @Tag(name = "Árvore - Nó", description = "Operações de CRUD sobre os nós da árvore de validação."),
+                @Tag(name = "Árvore - Raiz", description = "Operações de CRUD sobre a raiz da árvore de validação."),
                 @Tag(name = "Operação", description = "Operação sobre a criação de condicionais na árvore de validação."),
                 @Tag(name = "Engine", description = "Operação de validação do json através da árvore de validação."),
                 @Tag(name = "Teste", description = "Teste")

@@ -1,6 +1,7 @@
 package org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request;
 
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeIf;
+import org.springframework.lang.NonNull;
 
 import java.util.UUID;
 
@@ -11,7 +12,7 @@ import java.util.UUID;
  * @since 04/11/2024
  */
 
-public record NodeCreationDTO(String name,
-                              UUID parent_id,
+public record NodeCreationDTO(@NonNull String name,
+                              @NonNull UUID parent_id,
                               NodeTreeIf.SetNode position) {
 }

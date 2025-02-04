@@ -34,16 +34,17 @@ public class NodeTree<T>
             Node<?> parentNode
     ) {
         setNodeType(nodeType);
-        this.parentId = parentNode.getId();
         setParent(parentNode);
     }
 
     public void setParent(Node<?> parent) {
-        this.parentId = parent.getId();
-        if (parent instanceof RootTree)
-            this.parentType = ParentType.ROOT;
-        else
-            this.parentType = ParentType.NODE;
+        if (parent == null) {
+            this.parentId = null;
+            this.parentType = null;
+        } else {
+            this.parentId = parent.getId();
+            this.parentType = (parent instanceof RootTree) ? ParentType.ROOT : ParentType.NODE;
+        }
     }
 
     @Override

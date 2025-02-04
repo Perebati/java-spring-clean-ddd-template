@@ -2,6 +2,7 @@ package org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request;
 
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeIf;
+import org.springframework.lang.NonNull;
 
 import java.util.UUID;
 
@@ -11,9 +12,9 @@ import java.util.UUID;
  * @record ComparisonCreationDTO
  * @since 04/11/2024
  */
-public record ComparisonSingularRecord(ComparisonSingular.ComparisonSingularTypeEnum type,
-                                       String jsonPath,
-                                       String variable,
-                                       UUID parentId,
+public record ComparisonSingularRecord(@NonNull ComparisonSingular.ComparisonSingularTypeEnum type,
+                                       @NonNull String jsonPath,
+                                       @NonNull String variable,
+                                       @NonNull UUID parentId,
                                        NodeTreeIf.SetNode position) {
 }
