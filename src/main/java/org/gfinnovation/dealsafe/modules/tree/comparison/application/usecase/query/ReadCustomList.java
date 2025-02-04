@@ -1,0 +1,31 @@
+package org.gfinnovation.dealsafe.modules.tree.comparison.application.usecase.query;
+
+import org.apache.coyote.BadRequestException;
+import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.application.service.interfaces.CompanyListService;
+import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.domain.CompanyList;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.UUID;
+
+@Component
+public class ReadCustomList {
+    private static CompanyListService staticCompanyListService;
+
+    @Autowired
+    public ReadCustomList(CompanyListService companyListService) {
+        staticCompanyListService = companyListService;
+    }
+
+    public static List<String> execute(UUID input) throws BadRequestException {
+        if (staticCompanyListService == null) {
+            throw new IllegalStateException(
+                    "staticCompanyListService was not initialized in Spring!"
+            );
+        }
+
+        CompanyList comparisonMulti = staticCompanyListService.read(input);
+        return comparisonMulti.getCnpjs();
+    }
+}

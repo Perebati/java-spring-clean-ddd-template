@@ -1,0 +1,72 @@
+package org.gfinnovation.dealsafe.modules.tree.comparison.domain;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import org.gfinnovation.dealsafe._shared.utils.annotations.Default;
+import org.gfinnovation.dealsafe.modules.tree.comparison.application.usecase.query.ReadCustomList;
+import org.gfinnovation.dealsafe.modules.tree.comparison.domain.service.multi.ComparisonMultiOperation;
+import org.gfinnovation.dealsafe.modules.tree.comparison.domain.service.multi.types.ContainsOperation;
+import org.gfinnovation.dealsafe.modules.tree.comparison.domain.service.multi.types.NotContainsOperation;
+import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
+import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTree;
+
+import java.util.List;
+import java.util.UUID;
+
+@EqualsAndHashCode(callSuper = true)
+@Getter
+@Setter
+@ToString
+public class ComparisonCustomList
+        extends NodeTree<JsonNode> {
+    private ComparisonCustomList.ComparisonCustomListEnum comparisonTypeEnum;
+    private String jsonVariablePath;
+    private UUID customListId;
+
+    @Default
+    public ComparisonCustomList(
+            ComparisonCustomList.ComparisonCustomListEnum comparisonTypeEnum,
+            String jsonPath,
+            UUID customListId,
+            Node<?> parentNode
+    ) {
+        super(NodeType.CONDITIONAL_COMPARISON_MULTIPLE, parentNode);
+        this.comparisonTypeEnum = comparisonTypeEnum;
+        this.jsonVariablePath = jsonPath;
+        this.customListId = customListId;
+    }
+
+    @Override
+    public boolean traverse(JsonNode data) {
+        try {
+            String inputData = data.get(this.jsonVariablePath).asText();
+            ComparisonMultiOperation comparisonOperation =
+                    this.comparisonTypeEnum.createOperationInstance();
+
+            List<String> cnpjs = ReadCustomList.execute(this.customListId);
+
+            return comparisonOperation.doOperation(inputData, cnpjs);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    @Getter
+    public enum ComparisonCustomListEnum {
+        CONTAINS(ContainsOperation.class),
+        NOT_CONTAINS(NotContainsOperation.class);
+
+        private final Class<? extends ComparisonMultiOperation> operationClass;
+
+        ComparisonCustomListEnum(Class<? extends ComparisonMultiOperation> operationClass) {
+            this.operationClass = operationClass;
+        }
+
+        public ComparisonMultiOperation createOperationInstance() throws Exception {
+            return operationClass.getDeclaredConstructor().newInstance();
+        }
+    }
+}

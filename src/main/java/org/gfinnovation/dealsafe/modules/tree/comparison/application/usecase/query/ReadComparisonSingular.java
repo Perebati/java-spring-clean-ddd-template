@@ -1,23 +1,23 @@
-package org.gfinnovation.dealsafe.modules.tree.comparison.application.usecase.command;
+package org.gfinnovation.dealsafe.modules.tree.comparison.application.usecase.query;
 
 import org.apache.coyote.BadRequestException;
 import org.gfinnovation.dealsafe._shared.modules.application.usecase.UseCase;
-import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonSingularRecord;
 import org.gfinnovation.dealsafe.modules.tree.comparison.application.service.interfaces.ComparisonSingularService;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
-public class CreateComparisonSingular extends UseCase<ComparisonSingularRecord, ComparisonSingular> {
+public class ReadComparisonSingular extends UseCase<UUID, ComparisonSingular> {
     private final ComparisonSingularService comparisonSingularService;
 
-
-    public CreateComparisonSingular(ComparisonSingularService comparisonSingularService) {
+    public ReadComparisonSingular(ComparisonSingularService comparisonSingularService) {
         this.comparisonSingularService = comparisonSingularService;
     }
 
     @Override
-    public ComparisonSingular execute(ComparisonSingularRecord input) throws BadRequestException {
-        return this.comparisonSingularService.create(input);
+    public ComparisonSingular execute(UUID input) throws BadRequestException {
+        return comparisonSingularService.read(input);
     }
 }

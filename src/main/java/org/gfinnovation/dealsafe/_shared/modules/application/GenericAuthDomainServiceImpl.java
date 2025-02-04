@@ -1,6 +1,7 @@
 package org.gfinnovation.dealsafe._shared.modules.application;
 
 import org.apache.coyote.BadRequestException;
+import org.gfinnovation.dealsafe._shared.modules.infrastructure.RepositoryAuth;
 import org.gfinnovation.dealsafe.exception.models.layered.ServiceAuthenticationException;
 import org.slf4j.MDC;
 

@@ -2,7 +2,7 @@ package brokentests;
 
 import jakarta.annotation.PostConstruct;
 import org.apache.coyote.BadRequestException;
-import org.gfinnovation.dealsafe._shared.modules.application.RepositoryAuth;
+import org.gfinnovation.dealsafe._shared.modules.infrastructure.RepositoryAuth;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.interfaces.GenericBusinessRepository;
 import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
 import org.gfinnovation.dealsafe.authentication.company.entity.CompanyEntity;

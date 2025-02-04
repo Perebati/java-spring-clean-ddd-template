@@ -6,6 +6,7 @@ import org.gfinnovation.dealsafe.exception.models.layered.FactoryException;
 import org.gfinnovation.dealsafe.exception.models.layered.RepositoryEntityNotFoundException;
 import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.InputService;
 import org.gfinnovation.dealsafe.modules.input.domain.InputEntity;
+import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonCustomList;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonMulti;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.factory.interfaces.ComparisonFactory;
@@ -17,6 +18,7 @@ import org.gfinnovation.dealsafe.modules.tree.root.domain.valueobjects.Predefine
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Handles Comparisons creation.
@@ -97,27 +99,46 @@ public class ComparisonFactoryImpl implements ComparisonFactory {
             Node<?> parent
     ) throws FactoryException, BadRequestException {
         try {
-            Object rootTreeEntity = this.rootTreeService
-                    .readGenericRoot(this.rootTreeService
-                            .findRootIdByNodeId(parent.getId())
-                            .orElseThrow(() -> new RepositoryEntityNotFoundException("Factory: Root parent not found!")));
-            if (rootTreeEntity instanceof RootTreeStatic) {
-                PredefinedTypeEnum predefinedTypeEnum = ((RootTreeStatic) rootTreeEntity).getInput_type();
-                try {
-                    predefinedTypeEnum.validateJsonPath(predefinedTypeEnum, jsonVariablePath);
-                } catch (NoSuchFieldException e) {
-                    throw new BadRequestException("Factory: field not found: " + e.getMessage());
-                }
-            } else if (rootTreeEntity instanceof RootTreeDynamic) {
-                InputEntity inputEntity = this.inputService.read(((RootTreeDynamic) rootTreeEntity).getDynamicInputId());
-                for (String variable : expectedVars) inputEntity.validateJsonPathAndType(jsonVariablePath, variable);
-            }
-
+            validateComparison(jsonVariablePath, parent);
             return new ComparisonMulti(comparisonTypeEnum, jsonVariablePath, expectedVars, parent);
         } catch (BadRequestException | RepositoryEntityNotFoundException e) {
             throw new FactoryException(e.getMessage());
         } catch (Exception e) {
             throw new FactoryException("Factory: Something went wrong creating a comparison operation.", e);
+        }
+    }
+
+    public ComparisonCustomList produce(
+            ComparisonCustomList.ComparisonCustomListEnum type,
+            String jsonPath,
+            UUID variable,
+            Node<?> parent
+    ) throws FactoryException, BadRequestException {
+        try {
+            validateComparison(jsonPath, parent);
+            return new ComparisonCustomList(type, jsonPath, variable, parent);
+        } catch (BadRequestException | RepositoryEntityNotFoundException e) {
+            throw new FactoryException(e.getMessage());
+        } catch (Exception e) {
+            throw new FactoryException("Factory: Something went wrong creating a comparison operation.", e);
+        }
+    }
+
+    private void validateComparison(String jsonPath, Node<?> parent) throws BadRequestException {
+        Object rootTreeEntity = this.rootTreeService
+                .readGenericRoot(this.rootTreeService
+                        .findRootIdByNodeId(parent.getId())
+                        .orElseThrow(() -> new RepositoryEntityNotFoundException("Factory: Root parent not found!")));
+        if (rootTreeEntity instanceof RootTreeStatic) {
+            PredefinedTypeEnum predefinedTypeEnum = ((RootTreeStatic) rootTreeEntity).getInput_type();
+            try {
+                predefinedTypeEnum.validateJsonPath(predefinedTypeEnum, jsonPath);
+            } catch (NoSuchFieldException e) {
+                throw new BadRequestException("Factory: field not found: " + e.getMessage());
+            }
+        } else if (rootTreeEntity instanceof RootTreeDynamic) {
+            InputEntity inputEntity = this.inputService.read(((RootTreeDynamic) rootTreeEntity).getDynamicInputId());
+            inputEntity.validateJsonPath(jsonPath);
         }
     }
 }

@@ -6,9 +6,16 @@ import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.controller.i
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonCustomListRecord;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonMultiRecord;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonSingularRecord;
-import org.gfinnovation.dealsafe.modules.tree.comparison.application.service.interfaces.ComparisonSingularService;
+import org.gfinnovation.dealsafe.modules.tree.comparison.application.usecase.command.CreateComparisonBlackList;
+import org.gfinnovation.dealsafe.modules.tree.comparison.application.usecase.command.CreateComparisonMulti;
+import org.gfinnovation.dealsafe.modules.tree.comparison.application.usecase.command.CreateComparisonSingular;
+import org.gfinnovation.dealsafe.modules.tree.comparison.application.usecase.command.CreateComparisonWhiteList;
+import org.gfinnovation.dealsafe.modules.tree.comparison.application.usecase.query.ReadComparisonMulti;
+import org.gfinnovation.dealsafe.modules.tree.comparison.application.usecase.query.ReadComparisonSingular;
+import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonCustomList;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonMulti;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -21,18 +28,35 @@ import org.springframework.stereotype.Controller;
  */
 @Controller
 class ComparisonControllerImpl implements ComparisonController {
-    private final ComparisonSingularService operationService;
+    private final CreateComparisonBlackList createComparisonBlackList;
+    private final CreateComparisonSingular createComparisonSingular;
+    private final CreateComparisonMulti createComparisonMulti;
+    private final CreateComparisonWhiteList createComparisonWhiteList;
+    private final ReadComparisonSingular readComparisonSingular;
+    private final ReadComparisonMulti readComparisonMulti;
 
-    public ComparisonControllerImpl(ComparisonSingularService operationService) {
-        this.operationService = operationService;
+    @Autowired
+    ComparisonControllerImpl(CreateComparisonBlackList createComparisonBlackList,
+                             CreateComparisonSingular createComparisonSingular,
+                             CreateComparisonMulti createComparisonMulti,
+                             CreateComparisonWhiteList createComparisonWhiteList,
+                             ReadComparisonSingular readComparisonSingular,
+                             ReadComparisonMulti readComparisonMulti) {
+        this.createComparisonBlackList = createComparisonBlackList;
+        this.createComparisonSingular = createComparisonSingular;
+        this.createComparisonMulti = createComparisonMulti;
+        this.createComparisonWhiteList = createComparisonWhiteList;
+        this.readComparisonSingular = readComparisonSingular;
+        this.readComparisonMulti = readComparisonMulti;
     }
+
 
     @Override
     public ResponseEntity<ComparisonSingular> createSingularComparison(
             ComparisonSingularRecord request) throws DomainException, BadRequestException {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(
-                    this.operationService.create(
+                    this.createComparisonSingular.execute(
                             request
                     ));
         } catch (DomainException | BadRequestException e) {
@@ -43,17 +67,47 @@ class ComparisonControllerImpl implements ComparisonController {
     }
 
     @Override
-    public ResponseEntity<ComparisonMulti> createMultiComparison(ComparisonMultiRecord request) throws DomainException {
-        return null;
+    public ResponseEntity<ComparisonMulti> createMultiComparison(
+            ComparisonMultiRecord request) throws DomainException, BadRequestException {
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED).body(
+                    this.createComparisonMulti.execute(
+                            request
+                    ));
+        } catch (DomainException | BadRequestException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new DomainException("Controller: Unexpected error in operation creation.");
+        }
     }
 
     @Override
-    public ResponseEntity<ComparisonSingular> createBlackListComparison(ComparisonCustomListRecord request) throws DomainException {
-        return null;
+    public ResponseEntity<ComparisonCustomList> createBlackListComparison(
+            ComparisonCustomListRecord request) throws DomainException {
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED).body(
+                    this.createComparisonBlackList.execute(
+                            request
+                    ));
+        } catch (DomainException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new DomainException("Controller: Unexpected error in operation creation.");
+        }
     }
 
     @Override
-    public ResponseEntity<ComparisonSingular> createWhiteListComparison(ComparisonCustomListRecord request) throws DomainException {
-        return null;
-    }
+    public ResponseEntity<ComparisonCustomList> createWhiteListComparison(
+            ComparisonCustomListRecord request) throws DomainException {
+            try {
+                return ResponseEntity.status(HttpStatus.CREATED).body(
+                        this.createComparisonWhiteList.execute(
+                                request
+                        ));
+            } catch (DomainException e) {
+                throw e;
+            } catch (Exception e) {
+                throw new DomainException("Controller: Unexpected error in operation creation.");
+            }
+        }
 }

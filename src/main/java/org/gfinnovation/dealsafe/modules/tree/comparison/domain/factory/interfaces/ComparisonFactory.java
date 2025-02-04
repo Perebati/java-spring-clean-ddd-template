@@ -2,11 +2,13 @@ package org.gfinnovation.dealsafe.modules.tree.comparison.domain.factory.interfa
 
 import org.apache.coyote.BadRequestException;
 import org.gfinnovation.dealsafe.exception.models.layered.FactoryException;
+import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonCustomList;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonMulti;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author Lucas Batista Pereira
@@ -29,4 +31,10 @@ public interface ComparisonFactory {
             Node<?> parent
     ) throws FactoryException, BadRequestException;
 
+    ComparisonCustomList produce(
+            ComparisonCustomList.ComparisonCustomListEnum type,
+            String jsonPath,
+            UUID variable,
+            Node<?> parent
+    ) throws FactoryException, BadRequestException;
 }

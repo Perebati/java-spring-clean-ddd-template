@@ -1,4 +1,23 @@
 package org.gfinnovation.dealsafe.modules.tree.comparison.application.usecase.query;
 
-public class ReadComparisonMulti {
+import org.apache.coyote.BadRequestException;
+import org.gfinnovation.dealsafe._shared.modules.application.usecase.UseCase;
+import org.gfinnovation.dealsafe.modules.tree.comparison.application.service.interfaces.ComparisonMultiService;
+import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonMulti;
+import org.springframework.stereotype.Component;
+
+import java.util.UUID;
+
+@Component
+public class ReadComparisonMulti extends UseCase<UUID, ComparisonMulti> {
+    private final ComparisonMultiService comparisonMultiService;
+
+    public ReadComparisonMulti(ComparisonMultiService comparisonMultiService) {
+        this.comparisonMultiService = comparisonMultiService;
+    }
+
+    @Override
+    public ComparisonMulti execute(UUID input) throws BadRequestException {
+        return comparisonMultiService.read(input);
+    }
 }

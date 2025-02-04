@@ -3,7 +3,7 @@ package org.gfinnovation.dealsafe.modules.tree.node.infrastructure.repository;
 import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-import org.gfinnovation.dealsafe._shared.modules.application.RepositoryAuth;
+import org.gfinnovation.dealsafe._shared.modules.infrastructure.RepositoryAuth;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.interfaces.GenericBusinessRepository;
 import org.gfinnovation.dealsafe.exception.models.layered.RepositoryException;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
@@ -37,7 +37,6 @@ class NodeTreeRepositoryImpl
     private final RootTreeDynamicRepository rootTreeDynamicRepository;
     private final NodeTreeBlockRepository nodeTreeBlockRepository;
     private final NodeTreeIfRepository nodeTreeIfRepository;
-
 
     @Transactional
     public T createNode(T newNode, Node<?> parent, NodeTreeIf.SetNode nodeSet, RepositoryAuth auth) throws RepositoryException {

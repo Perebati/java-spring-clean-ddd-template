@@ -1,4 +1,4 @@
-package org.gfinnovation.dealsafe._shared.modules.application;
+package org.gfinnovation.dealsafe._shared.modules.infrastructure;
 
 import jakarta.validation.constraints.NotNull;
 

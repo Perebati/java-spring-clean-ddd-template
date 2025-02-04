@@ -27,7 +27,7 @@ class NodeTreeControllerImpl implements NodeTreeController {
     private final CreateNodeBlock createNodeBlock;
     private final CreateNodeIf createNodeIf;
     private final DeleteNodeBlock deleteNodeBlock;
-    private final DeleteNodeif deleteNodeif;
+    private final DeleteNodeIf deleteNodeif;
     private final UpdateNodeBlock updateNodeBlock;
     private final UpdateNodeIf updateNodeIf;
     private final ReadNodeBlock readNodeBlock;
@@ -38,7 +38,7 @@ class NodeTreeControllerImpl implements NodeTreeController {
             CreateNodeBlock createNodeBlock,
             CreateNodeIf createNodeIf,
             DeleteNodeBlock deleteNodeBlock,
-            DeleteNodeif deleteNodeif,
+            DeleteNodeIf deleteNodeif,
             UpdateNodeBlock updateNodeBlock,
             UpdateNodeIf updateNodeIf,
             ReadNodeBlock readNodeBlock,
@@ -54,13 +54,11 @@ class NodeTreeControllerImpl implements NodeTreeController {
         this.readNodeIf = readNodeIf;
     }
 
-
     @Override
     public ResponseEntity<Void> createNodeBlock(NodeCreationDTO request) throws DomainException, BadRequestException {
         this.createNodeBlock.execute(request);
         return ResponseEntity.ok().build();
     }
-
 
     @Override
     public ResponseEntity<Void> createNodeIf(NodeCreationDTO request) throws DomainException, BadRequestException {
@@ -90,11 +88,13 @@ class NodeTreeControllerImpl implements NodeTreeController {
 
     @Override
     public ResponseEntity<Void> deleteNodeBlock(UUID request) throws DomainException, BadRequestException {
-        return ResponseEntity.ok(this.deleteNodeBlock.execute(request));
+        this.deleteNodeBlock.execute(request);
+        return ResponseEntity.ok().build();
     }
 
     @Override
     public ResponseEntity<Void> deleteNodeIf(UUID request) throws DomainException, BadRequestException {
-        return ResponseEntity.ok(this.deleteNodeif.execute(request));
+        this.deleteNodeif.execute(request);
+        return ResponseEntity.ok().build();
     }
 }

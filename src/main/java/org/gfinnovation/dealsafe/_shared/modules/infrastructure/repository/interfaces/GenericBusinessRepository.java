@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.interfaces;
 
 import jakarta.annotation.Nonnull;
-import org.gfinnovation.dealsafe._shared.modules.application.RepositoryAuth;
+import org.gfinnovation.dealsafe._shared.modules.infrastructure.RepositoryAuth;
 import org.gfinnovation.dealsafe._shared.modules.domain.GenericClass;
 import org.gfinnovation.dealsafe.exception.models.layered.RepositoryException;
 import org.springframework.data.domain.Page;

@@ -1,12 +1,12 @@
 package org.gfinnovation.dealsafe.modules.tree.node.application.usecase.command;
 
-import org.gfinnovation.dealsafe._shared.modules.application.UseCase;
+import org.gfinnovation.dealsafe._shared.modules.application.usecase.UseCase;
 import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeBlockService;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeBlock;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UpdateNodeBlock implements UseCase<NodeTreeBlock, NodeTreeBlock> {
+public class UpdateNodeBlock extends UseCase<NodeTreeBlock, NodeTreeBlock> {
     private final NodeTreeBlockService nodeTreeBlockService;
 
     public UpdateNodeBlock(NodeTreeBlockService nodeTreeBlockService) {

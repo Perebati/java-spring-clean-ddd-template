@@ -1,12 +1,12 @@
 package org.gfinnovation.dealsafe.modules.tree.node.application.usecase.command;
 
-import org.gfinnovation.dealsafe._shared.modules.application.UseCase;
+import org.gfinnovation.dealsafe._shared.modules.application.usecase.UseCase;
 import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeIfService;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeIf;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UpdateNodeIf implements UseCase<NodeTreeIf, NodeTreeIf> {
+public class UpdateNodeIf extends UseCase<NodeTreeIf, NodeTreeIf> {
     private final NodeTreeIfService nodeTreeIfService;
 
     public UpdateNodeIf(NodeTreeIfService nodeTreeIfService) {

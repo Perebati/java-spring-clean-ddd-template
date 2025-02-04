@@ -105,7 +105,7 @@ public class InputEntity extends GenericBusinessClass {
         return "Unknown";
     }
 
-    public void validateJsonPathAndType(String jsonPath, Object variable) {
+    public void validateJsonPath(String jsonPath) {
         if (jsonPath.startsWith("/")) jsonPath = jsonPath.replaceFirst("^[/.]", "");
 
         jsonPath = jsonPath.replaceAll("/", ".");
@@ -113,6 +113,10 @@ public class InputEntity extends GenericBusinessClass {
         if (!fields.containsKey(jsonPath)) {
             throw new IllegalArgumentException("Specified path does not exist: " + jsonPath);
         }
+    }
+
+    public void validateJsonPathAndType(String jsonPath, Object variable) {
+       this.validateJsonPath(jsonPath);
 
         String expectedType = fields.get(jsonPath).toString();
 

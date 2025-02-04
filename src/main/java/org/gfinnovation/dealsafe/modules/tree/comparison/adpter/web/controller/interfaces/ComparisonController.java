@@ -10,6 +10,7 @@ import org.gfinnovation.dealsafe.exception.models.layered.DomainException;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonCustomListRecord;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonMultiRecord;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonSingularRecord;
+import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonCustomList;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonMulti;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
 import org.springframework.http.ResponseEntity;
@@ -60,7 +61,7 @@ public interface ComparisonController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PostMapping("comparison-black-list")
-    ResponseEntity<ComparisonSingular> createBlackListComparison(@RequestBody ComparisonCustomListRecord request)
+    ResponseEntity<ComparisonCustomList> createBlackListComparison(@RequestBody ComparisonCustomListRecord request)
             throws DomainException, BadRequestException;
 
     @Operation(summary = "Cadastro de uma operação de WhiteList",
@@ -71,6 +72,6 @@ public interface ComparisonController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PostMapping("comparison-white-list")
-    ResponseEntity<ComparisonSingular> createWhiteListComparison(@RequestBody ComparisonCustomListRecord request)
+    ResponseEntity<ComparisonCustomList> createWhiteListComparison(@RequestBody ComparisonCustomListRecord request)
             throws DomainException, BadRequestException;
 }

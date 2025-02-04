@@ -1,22 +1,21 @@
 package org.gfinnovation.dealsafe.modules.tree.node.application.usecase.command;
 
-import org.gfinnovation.dealsafe._shared.modules.application.UseCase;
+import org.gfinnovation.dealsafe._shared.modules.application.usecase.NullOutputUseCase;
 import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeIfService;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
 @Component
-public class DeleteNodeif implements UseCase<UUID, Void> {
+public class DeleteNodeIf extends NullOutputUseCase<UUID> {
     private final NodeTreeIfService nodeTreeIfService;
 
-    public DeleteNodeif(NodeTreeIfService nodeTreeIfService) {
+    public DeleteNodeIf(NodeTreeIfService nodeTreeIfService) {
         this.nodeTreeIfService = nodeTreeIfService;
     }
 
     @Override
-    public Void execute(UUID input) {
+    public void execute(UUID input) {
         this.nodeTreeIfService.deleteSync(input);
-        return null;
     }
 }

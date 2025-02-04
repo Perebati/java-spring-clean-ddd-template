@@ -1,46 +1,33 @@
 package org.gfinnovation.dealsafe.modules.tree.comparison.application.usecase.command;
 
 import jakarta.transaction.Transactional;
-import org.gfinnovation.dealsafe._shared.modules.application.UseCase;
-import org.gfinnovation.dealsafe.exception.models.layered.DomainException;
-import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.application.service.interfaces.CompanyListService;
-import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.domain.CompanyList;
+import org.apache.coyote.BadRequestException;
+import org.gfinnovation.dealsafe._shared.modules.application.usecase.UseCase;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonCustomListRecord;
-import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonMultiRecord;
-import org.gfinnovation.dealsafe.modules.tree.comparison.application.service.interfaces.ComparisonMultiService;
-import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonMulti;
+import org.gfinnovation.dealsafe.modules.tree.comparison.application.service.interfaces.ComparisonCustomListService;
+import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonCustomList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CreateComparisonBlackList implements UseCase<ComparisonCustomListRecord, ComparisonMulti> {
-    private final ComparisonMultiService comparisonMultiService;
-    private final CompanyListService companyListService;
-
+public class CreateComparisonBlackList extends UseCase<ComparisonCustomListRecord, ComparisonCustomList> {
+    private final ComparisonCustomListService comparisonCustomListService;
     @Autowired
     public CreateComparisonBlackList(
-            ComparisonMultiService comparisonMultiService,
-            CompanyListService companyListService
+            ComparisonCustomListService comparisonCustomListService
     ) {
-        this.comparisonMultiService = comparisonMultiService;
-        this.companyListService = companyListService;
+        this.comparisonCustomListService = comparisonCustomListService;
     }
 
     @Override
     @Transactional
-    public ComparisonMulti execute(ComparisonCustomListRecord input) {
-        try{
-            CompanyList companyList = this.companyListService.read(input.comparisonListId());
-            return this.comparisonMultiService.create(
-                new ComparisonMultiRecord(
-                        ComparisonMulti.ComparisonMultiTypeEnum.NOT_CONTAINS,
-                        input.jsonPath(),
-                        companyList.getCnpjs(),
-                        input.parentId(),
-                        input.position()
-                ));
-        } catch (Exception e) {
-            throw new DomainException("Ocorreu um erro inesperado ao criar uma comparação usando BlackList");
-        }
+    public ComparisonCustomList execute(ComparisonCustomListRecord input) throws BadRequestException {
+        return this.comparisonCustomListService.create(
+                ComparisonCustomList.ComparisonCustomListEnum.NOT_CONTAINS,
+                input.jsonPath(),
+                input.comparisonListId(),
+                input.parentId(),
+                input.position()
+        );
     }
 }

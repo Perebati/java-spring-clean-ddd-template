@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe.modules.tree.node.application.usecase.query;
 
-import org.gfinnovation.dealsafe._shared.modules.application.UseCase;
+import org.gfinnovation.dealsafe._shared.modules.application.usecase.UseCase;
 import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeBlockService;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeBlock;
 import org.springframework.stereotype.Component;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.UUID;
 
 @Component
-public class ReadNodeBlock implements UseCase<UUID, NodeTreeBlock> {
+public class ReadNodeBlock extends UseCase<UUID, NodeTreeBlock> {
     private final NodeTreeBlockService nodeTreeBlockService;
 
     public ReadNodeBlock(NodeTreeBlockService nodeTreeBlockService) {
