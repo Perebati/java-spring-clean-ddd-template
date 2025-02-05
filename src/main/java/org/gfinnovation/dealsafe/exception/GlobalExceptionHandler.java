@@ -71,7 +71,7 @@ public class GlobalExceptionHandler {
 
         logger.error(ex.getCause().getMessage());
 
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong.");
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong. Error is likely unmapped, please contact support.");
     }
 
     private ErrorLogSchema buildErrorLog(Exception ex) {

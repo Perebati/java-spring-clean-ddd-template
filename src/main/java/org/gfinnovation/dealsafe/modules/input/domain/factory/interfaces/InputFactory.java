@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe.modules.input.domain.factory.interfaces;
 
 import org.gfinnovation.dealsafe.exception.models.layered.FactoryException;
-import org.gfinnovation.dealsafe.modules.input.domain.InputEntity;
+import org.gfinnovation.dealsafe.modules.input.domain.Input;
 
 /**
  * @author Lucas Batista Pereira
@@ -11,5 +11,5 @@ import org.gfinnovation.dealsafe.modules.input.domain.InputEntity;
  */
 
 public interface InputFactory {
-    InputEntity produce(String name, String json) throws FactoryException;
+    Input produce(String name, String json) throws FactoryException;
 }

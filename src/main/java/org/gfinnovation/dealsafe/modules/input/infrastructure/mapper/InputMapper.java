@@ -1,8 +1,8 @@
 package org.gfinnovation.dealsafe.modules.input.infrastructure.mapper;
 
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.mapper.GenericBusinessMapper;
-import org.gfinnovation.dealsafe.modules.input.domain.InputEntity;
-import org.gfinnovation.dealsafe.modules.input.infrastructure.InputSchema;
+import org.gfinnovation.dealsafe.modules.input.domain.Input;
+import org.gfinnovation.dealsafe.modules.input.infrastructure.InputEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.ReportingPolicy;
@@ -20,5 +20,5 @@ import org.springframework.context.annotation.Primary;
         unmappedTargetPolicy = ReportingPolicy.IGNORE
 )
 @Primary
-public interface InputMapper extends GenericBusinessMapper<InputEntity, InputSchema> {
+public interface InputMapper extends GenericBusinessMapper<Input, InputEntity> {
 }

@@ -2,8 +2,8 @@ package org.gfinnovation.dealsafe.modules.input.infrastructure.repository;
 
 import jakarta.persistence.EntityManager;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.GenericBusinessRepositoryImpl;
-import org.gfinnovation.dealsafe.modules.input.domain.InputEntity;
-import org.gfinnovation.dealsafe.modules.input.infrastructure.InputSchema;
+import org.gfinnovation.dealsafe.modules.input.domain.Input;
+import org.gfinnovation.dealsafe.modules.input.infrastructure.InputEntity;
 import org.gfinnovation.dealsafe.modules.input.infrastructure.mapper.InputMapper;
 import org.gfinnovation.dealsafe.modules.input.infrastructure.repository.interfaces.InputRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +20,13 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 class InputRepositoryImpl
-        extends GenericBusinessRepositoryImpl<InputEntity, InputSchema>
+        extends GenericBusinessRepositoryImpl<Input, InputEntity>
         implements InputRepository {
 
     @Autowired
     InputRepositoryImpl(
             InputMapper mapper,
             EntityManager entityManager) {
-        super(mapper, new SimpleJpaRepository<>(InputSchema.class, entityManager), InputSchema.class);
+        super(mapper, new SimpleJpaRepository<>(InputEntity.class, entityManager), InputEntity.class);
     }
 }

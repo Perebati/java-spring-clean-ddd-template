@@ -4,7 +4,7 @@ import org.apache.coyote.BadRequestException;
 import org.gfinnovation.dealsafe.exception.models.layered.DomainException;
 import org.gfinnovation.dealsafe.modules.input.adapter.web.controller.interfaces.InputController;
 import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.InputService;
-import org.gfinnovation.dealsafe.modules.input.domain.InputEntity;
+import org.gfinnovation.dealsafe.modules.input.domain.Input;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -29,7 +29,7 @@ class InputControllerImpl implements InputController {
     }
 
     @Override
-    public ResponseEntity<InputEntity> createInput(@RequestParam String name, @RequestBody String json) throws DomainException, BadRequestException {
+    public ResponseEntity<Input> createInput(@RequestParam String name, @RequestBody String json) throws DomainException, BadRequestException {
         try {
             if (name == null || name.isEmpty() || json == null || json.isEmpty()) {
                 throw new BadRequestException("'name' and/or 'json' fields can't be null!");
@@ -44,7 +44,7 @@ class InputControllerImpl implements InputController {
     }
 
     @Override
-    public ResponseEntity<InputEntity> readInput(UUID id) throws DomainException, BadRequestException {
+    public ResponseEntity<Input> readInput(UUID id) throws DomainException, BadRequestException {
         try {
             if (id == null) {
                 throw new BadRequestException("input id can't be null!");

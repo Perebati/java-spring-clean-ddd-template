@@ -2,9 +2,9 @@ package org.gfinnovation.dealsafe._shared.modules.infrastructure.repository;
 
 import jakarta.annotation.Nonnull;
 import jakarta.transaction.Transactional;
-import org.gfinnovation.dealsafe._shared.modules.infrastructure.RepositoryAuth;
 import org.gfinnovation.dealsafe._shared.modules.domain.GenericBusinessClass;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.GenericBusinessEntity;
+import org.gfinnovation.dealsafe._shared.modules.infrastructure.RepositoryAuth;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.mapper.GenericBusinessMapper;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.components.GenericBusinessJpaRepositoryImpl;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.interfaces.GenericBusinessRepository;
@@ -203,7 +203,6 @@ public abstract class GenericBusinessRepositoryImpl
      * @since 06/11/2024
      */
     @Override
-    @Transactional
     public E read(
             @Nonnull UUID id,
             @Nonnull RepositoryAuth auth) throws RepositoryException {

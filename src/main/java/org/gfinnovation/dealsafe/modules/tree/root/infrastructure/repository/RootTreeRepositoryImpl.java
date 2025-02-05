@@ -6,12 +6,18 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.validation.constraints.NotNull;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.RepositoryAuth;
+import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.GenericBusinessRepositoryImpl;
 import org.gfinnovation.dealsafe.exception.models.layered.RepositoryEntityNotFoundException;
 import org.gfinnovation.dealsafe.exception.models.layered.RepositoryException;
+import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
+import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTree;
+import org.gfinnovation.dealsafe.modules.tree.root.infrastructure.RootTreeEntity;
+import org.gfinnovation.dealsafe.modules.tree.root.infrastructure.mapper.RootTreeMapper;
 import org.gfinnovation.dealsafe.modules.tree.root.infrastructure.repository.interfaces.RootTreeDynamicRepository;
 import org.gfinnovation.dealsafe.modules.tree.root.infrastructure.repository.interfaces.RootTreeRepository;
 import org.gfinnovation.dealsafe.modules.tree.root.infrastructure.repository.interfaces.RootTreeStaticRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.nio.ByteBuffer;
@@ -27,6 +33,7 @@ import java.util.UUID;
 
 @Repository
 class RootTreeRepositoryImpl
+        extends GenericBusinessRepositoryImpl<RootTree<?>, RootTreeEntity>
         implements RootTreeRepository {
     private final RootTreeDynamicRepository rootTreeDynamicRepository;
     private final RootTreeStaticRepository rootTreeStaticRepository;
@@ -36,9 +43,12 @@ class RootTreeRepositoryImpl
 
     @Autowired
     RootTreeRepositoryImpl(
+            RootTreeMapper mapper,
+            EntityManager entityManager,
             RootTreeDynamicRepository rootTreeDynamicRepository,
             RootTreeStaticRepository rootTreeStaticRepository
     ) {
+        super(mapper, new SimpleJpaRepository<>(RootTreeEntity.class, entityManager), RootTreeEntity.class);
         this.rootTreeDynamicRepository = rootTreeDynamicRepository;
         this.rootTreeStaticRepository = rootTreeStaticRepository;
     }
@@ -54,12 +64,11 @@ class RootTreeRepositoryImpl
     @Override
     public Object readGenericRoot(@NotNull UUID id, @NotNull RepositoryAuth auth) throws RepositoryException {
         try {
-            return this.rootTreeStaticRepository.read(id, auth);
-        } catch (RepositoryEntityNotFoundException e1) {
-            try {
+            RootTree<?> rootTree = this.read(id, auth);
+            if (rootTree.getNodeType().equals(Node.NodeType.ROOT_DYNAMIC)) {
                 return this.rootTreeDynamicRepository.read(id, auth);
-            } catch (RepositoryEntityNotFoundException e2) {
-                return Optional.empty();
+            } else {
+                return this.rootTreeStaticRepository.read(id, auth);
             }
         } catch (Exception e) {
             throw new RepositoryException("Something went wrong reading a root.", e);

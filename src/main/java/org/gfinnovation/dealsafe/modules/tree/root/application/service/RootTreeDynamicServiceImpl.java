@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 
 @Service
 public class RootTreeDynamicServiceImpl
@@ -42,10 +41,10 @@ public class RootTreeDynamicServiceImpl
      * @throws RepositoryException Thrown when an error occurs on repository level.
      */
     @Override
-    public CompletableFuture<RootTreeDynamic> create(String name, UUID dynamic_input) throws ServiceException {
+    public RootTreeDynamic create(String name, UUID dynamic_input) throws ServiceException {
         try {
             return this.repository
-                    .createAsync(rootTreeFactory
+                    .createSync(rootTreeFactory
                             .produce(
                                     name,
                                     dynamic_input

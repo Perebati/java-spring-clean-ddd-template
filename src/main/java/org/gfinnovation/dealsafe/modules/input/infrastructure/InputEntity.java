@@ -22,7 +22,7 @@ import java.util.HashMap;
 @Entity
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "dynamic_input")
-public class InputSchema extends GenericBusinessEntity {
+public class InputEntity extends GenericBusinessEntity {
 
     @Column(name = "name", nullable = false)
     private String name;

@@ -13,8 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.concurrent.CompletableFuture;
-
 /**
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
@@ -51,7 +49,7 @@ class RootTreeControllerImpl implements RootTreeController {
     }
 
     @Override
-    public ResponseEntity<CompletableFuture<RootTreeDynamic>> createRootDynamic(
+    public ResponseEntity<RootTreeDynamic> createRootDynamic(
             RootCreationDynamicInputDTO request) throws DomainException {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(

@@ -7,7 +7,7 @@ import org.gfinnovation.dealsafe.authentication.company.business.interfaces.Comp
 import org.gfinnovation.dealsafe.authentication.company.entity.CompanyEntity;
 import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
 import org.gfinnovation.dealsafe.authentication.user.entity.UserEntity;
-import org.gfinnovation.dealsafe.modules.input.domain.InputEntity;
+import org.gfinnovation.dealsafe.modules.input.domain.Input;
 import org.gfinnovation.dealsafe.modules.input.domain.factory.interfaces.InputFactory;
 import org.gfinnovation.dealsafe.modules.input.infrastructure.repository.interfaces.InputRepository;
 import org.gfinnovation.dealsafe.tests._shared.GenericBusinessRepositoryTest;
@@ -27,7 +27,7 @@ import java.util.UUID;
  */
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
-public class InputRepositoryTest extends GenericBusinessRepositoryTest<InputEntity> {
+public class InputRepositoryTest extends GenericBusinessRepositoryTest<Input> {
     String json = """
             {
               "nome": "João",
@@ -72,7 +72,7 @@ public class InputRepositoryTest extends GenericBusinessRepositoryTest<InputEnti
     }
 
     @Override
-    protected InputEntity createEntity() {
+    protected Input createEntity() {
         return this.inputFactory.produce("Input Teste", json);
     }
 

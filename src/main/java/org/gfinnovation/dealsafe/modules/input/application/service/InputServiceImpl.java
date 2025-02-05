@@ -3,7 +3,7 @@ package org.gfinnovation.dealsafe.modules.input.application.service;
 import org.gfinnovation.dealsafe._shared.modules.application.GenericServiceImpl;
 import org.gfinnovation.dealsafe.exception.models.layered.ServiceException;
 import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.InputService;
-import org.gfinnovation.dealsafe.modules.input.domain.InputEntity;
+import org.gfinnovation.dealsafe.modules.input.domain.Input;
 import org.gfinnovation.dealsafe.modules.input.domain.factory.interfaces.InputFactory;
 import org.gfinnovation.dealsafe.modules.input.infrastructure.repository.interfaces.InputRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 class InputServiceImpl
-        extends GenericServiceImpl<InputEntity, InputRepository>
+        extends GenericServiceImpl<Input, InputRepository>
         implements InputService {
     private final InputFactory inputFactory;
     private final InputRepository inputRepository;
@@ -49,7 +49,7 @@ class InputServiceImpl
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
-    public InputEntity create(
+    public Input create(
             String name,
             String json
     ) throws ServiceException {

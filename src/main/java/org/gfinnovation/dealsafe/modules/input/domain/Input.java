@@ -33,7 +33,7 @@ import java.util.Map;
 @Setter
 @ToString
 @Validated
-public class InputEntity extends GenericBusinessClass {
+public class Input extends GenericBusinessClass {
     @NotNull(message = "O nome do input não pode ser nulo.")
     @Size(min = 4, max = 100, message = "O nome do input deve ter entre 1 e 100 caracteres.")
     private String name;
@@ -41,7 +41,7 @@ public class InputEntity extends GenericBusinessClass {
     private HashMap<String, Object> fields = new HashMap<>();
 
     @Default
-    public InputEntity(
+    public Input(
             @NotNull @Size(min = 1) String name,
             @NotNull @Size(min = 1) HashMap<String, Object> fields
     ) {
@@ -49,7 +49,7 @@ public class InputEntity extends GenericBusinessClass {
         this.fields = fields;
     }
 
-    public InputEntity(
+    public Input(
             @NotNull @Size(min = 4) String name,
             @NotNull @Size(min = 4) String json
     ) {
@@ -105,6 +105,7 @@ public class InputEntity extends GenericBusinessClass {
         return "Unknown";
     }
 
+    //TODO: Estes dois métodos precisam de reajustes
     public void validateJsonPath(String jsonPath) {
         if (jsonPath.startsWith("/")) jsonPath = jsonPath.replaceFirst("^[/.]", "");
 
@@ -116,7 +117,11 @@ public class InputEntity extends GenericBusinessClass {
     }
 
     public void validateJsonPathAndType(String jsonPath, Object variable) {
-       this.validateJsonPath(jsonPath);
+        if (jsonPath.startsWith("/")) jsonPath = jsonPath.replaceFirst("^[/.]", "");
+
+        jsonPath = jsonPath.replaceAll("/", ".");
+
+        this.validateJsonPath(jsonPath);
 
         String expectedType = fields.get(jsonPath).toString();
 

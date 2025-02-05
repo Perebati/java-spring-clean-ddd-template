@@ -6,7 +6,7 @@ import org.gfinnovation.dealsafe._shared.utils.converter.PathNormalizer;
 import org.gfinnovation.dealsafe.exception.models.layered.FactoryException;
 import org.gfinnovation.dealsafe.exception.models.layered.RepositoryEntityNotFoundException;
 import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.InputService;
-import org.gfinnovation.dealsafe.modules.input.domain.InputEntity;
+import org.gfinnovation.dealsafe.modules.input.domain.Input;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonCustomList;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonMulti;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
@@ -84,8 +84,8 @@ public class ComparisonFactoryImpl implements ComparisonFactory {
                     throw new BadRequestException("Factory: field not found: " + e.getMessage());
                 }
             } else if (rootTreeEntity instanceof RootTreeDynamic) {
-                InputEntity inputEntity = this.inputService.read(((RootTreeDynamic) rootTreeEntity).getDynamicInputId());
-                inputEntity.validateJsonPathAndType(jsonPath, variable);
+                Input input = this.inputService.read(((RootTreeDynamic) rootTreeEntity).getDynamicInputId());
+                input.validateJsonPathAndType(jsonPath, variable);
             }
 
             return new ComparisonSingular(type, jsonPath, variable, parent);
@@ -145,8 +145,8 @@ public class ComparisonFactoryImpl implements ComparisonFactory {
                 throw new BadRequestException("Factory: field not found: " + e.getMessage());
             }
         } else if (rootTreeEntity instanceof RootTreeDynamic) {
-            InputEntity inputEntity = this.inputService.read(((RootTreeDynamic) rootTreeEntity).getDynamicInputId());
-            inputEntity.validateJsonPath(jsonPath);
+            Input input = this.inputService.read(((RootTreeDynamic) rootTreeEntity).getDynamicInputId());
+            input.validateJsonPath(jsonPath);
         }
     }
 }

@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.concurrent.CompletableFuture;
-
 /**
  * @author Lucas Batista Pereira
  * @version DealSafe_alpha_v1
@@ -51,5 +49,5 @@ public interface RootTreeController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PostMapping("/root/dynamic-input")
-    ResponseEntity<CompletableFuture<RootTreeDynamic>> createRootDynamic(@RequestBody RootCreationDynamicInputDTO request) throws DomainException, BadRequestException;
+    ResponseEntity<RootTreeDynamic> createRootDynamic(@RequestBody RootCreationDynamicInputDTO request) throws DomainException, BadRequestException;
 }

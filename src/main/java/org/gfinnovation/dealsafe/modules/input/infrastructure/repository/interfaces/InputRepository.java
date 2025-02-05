@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe.modules.input.infrastructure.repository.interfaces;
 
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.interfaces.GenericBusinessRepository;
-import org.gfinnovation.dealsafe.modules.input.domain.InputEntity;
+import org.gfinnovation.dealsafe.modules.input.domain.Input;
 
 /**
  * @author Lucas Batista Pereira
@@ -10,5 +10,5 @@ import org.gfinnovation.dealsafe.modules.input.domain.InputEntity;
  * @since 30/10/2024
  */
 
-public interface InputRepository extends GenericBusinessRepository<InputEntity> {
+public interface InputRepository extends GenericBusinessRepository<Input> {
 }

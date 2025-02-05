@@ -6,6 +6,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.application.service.interfaces.CompanyListService;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.domain.CompanyList;
+import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.InputService;
+import org.gfinnovation.dealsafe.modules.input.domain.Input;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonMultiRecord;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonSingularRecord;
 import org.gfinnovation.dealsafe.modules.tree.comparison.application.service.interfaces.ComparisonCustomListService;
@@ -19,9 +21,9 @@ import org.gfinnovation.dealsafe.modules.tree.node.application.service.interface
 import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeIfService;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTree;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeIf;
+import org.gfinnovation.dealsafe.modules.tree.root.application.service.interfaces.RootTreeDynamicService;
 import org.gfinnovation.dealsafe.modules.tree.root.application.service.interfaces.RootTreeStaticService;
-import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeStatic;
-import org.gfinnovation.dealsafe.modules.tree.root.domain.valueobjects.PredefinedTypeEnum;
+import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeDynamic;
 import org.slf4j.MDC;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,6 +50,8 @@ public class TreeTest {
     private final ComparisonMultiService comparisonMultiService;
     private final ComparisonCustomListService comparisonCustomListService;
     private final CompanyListService companyListService;
+    private final InputService inputService;
+    private final RootTreeDynamicService rootTreeDynamic;
 
     @PostMapping("tree2")
     public boolean testeTree2() throws RuntimeException {
@@ -74,7 +78,9 @@ public class TreeTest {
             MDC.put("whitelabelId", UUID.randomUUID().toString());
             MDC.put("requestId", UUID.randomUUID().toString());
 
-            RootTreeStatic createdRoot = this.rootTreeStaticService.create("ROOT Teste", PredefinedTypeEnum.TESTE);
+            Input input = this.inputService.create("Example", json);
+
+            RootTreeDynamic createdRoot = this.rootTreeDynamic.create("ROOT Teste", input.getId());
 
             NodeTree<?> node1 = this.nodeTreeBlockService.create(new NodeCreationDTO("NODE 1", createdRoot.getId(), null));
 
@@ -139,7 +145,7 @@ public class TreeTest {
             JsonNode jsonNode = mapper.readTree(json);
 
 
-            createdRoot = this.rootTreeStaticService.read(createdRoot.getId());
+            createdRoot = this.rootTreeDynamic.read(createdRoot.getId());
 
             return createdRoot.traverse(jsonNode);
         } catch (Exception e) {

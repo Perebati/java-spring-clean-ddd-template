@@ -6,10 +6,9 @@ import org.gfinnovation.dealsafe.exception.models.layered.ServiceException;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeDynamic;
 
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 
 public interface RootTreeDynamicService extends GenericService<RootTreeDynamic> {
-    CompletableFuture<RootTreeDynamic> create(
+    RootTreeDynamic create(
             String name,
             UUID dynamic_input
     ) throws ServiceException, ValidationException;
