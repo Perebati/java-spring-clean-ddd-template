@@ -6,8 +6,10 @@ import org.gfinnovation.dealsafe._shared.modules.infrastructure.GenericEntity;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.mapper.GenericBusinessMapper;
 import org.gfinnovation.dealsafe.modules.tree.action.domain.NodeTreeAction;
 import org.gfinnovation.dealsafe.modules.tree.action.infrastructure.NodeTreeActionEntity;
+import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonCustomList;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonMulti;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
+import org.gfinnovation.dealsafe.modules.tree.comparison.infrastructure.ComparisonCustomListEntity;
 import org.gfinnovation.dealsafe.modules.tree.comparison.infrastructure.ComparisonMultiEntity;
 import org.gfinnovation.dealsafe.modules.tree.comparison.infrastructure.ComparisonSingularEntity;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTree;
@@ -27,6 +29,8 @@ public interface NodeTreeMapper<E extends GenericClass, S extends GenericEntity>
 
     ComparisonSingular toComparisonSingular(ComparisonSingularEntity entity);
 
+    ComparisonCustomList toComparisonCustomList(ComparisonCustomListEntity entity);
+
     NodeTreeIf toNodeTreeIf(NodeTreeIfEntity entity);
 
     NodeTreeBlock toNodeTreeBlock(NodeTreeBlockEntity entity);
@@ -38,6 +42,7 @@ public interface NodeTreeMapper<E extends GenericClass, S extends GenericEntity>
             case null -> null;
             case ComparisonMultiEntity comparisonMultiEntity -> toComparisonMulti(comparisonMultiEntity);
             case ComparisonSingularEntity comparisonSingularEntity -> toComparisonSingular(comparisonSingularEntity);
+            case ComparisonCustomListEntity comparisonCustomListEntity -> toComparisonCustomList(comparisonCustomListEntity);
             case NodeTreeIfEntity nodeTreeIfEntity -> toNodeTreeIf(nodeTreeIfEntity);
             case NodeTreeBlockEntity nodeTreeBlockEntity -> toNodeTreeBlock(nodeTreeBlockEntity);
             case NodeTreeActionEntity nodeTreeActionEntity -> toNodeTreeAction(nodeTreeActionEntity);

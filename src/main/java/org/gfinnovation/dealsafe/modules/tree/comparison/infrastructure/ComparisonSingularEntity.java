@@ -3,6 +3,7 @@ package org.gfinnovation.dealsafe.modules.tree.comparison.infrastructure;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.NodeEntity;
 import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.NodeTreeEntity;
 
 /**
@@ -14,10 +15,11 @@ import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.NodeTreeEntity
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
+@DiscriminatorValue(NodeEntity.DISCRIMINATOR_COMPARISON_SINGULAR)
 @Table(name = "tree_root_node_condition_comparison_singular")
 public class ComparisonSingularEntity extends NodeTreeEntity {
     @Enumerated(EnumType.STRING)
-    @Column(name = "comparisonType", nullable = false)
+    @Column(name = "comparison_type", nullable = false)
     private ComparisonSingularEntityTypeEnum comparisonTypeEnum;
 
     @Column(name = "json_variable_path", nullable = false)

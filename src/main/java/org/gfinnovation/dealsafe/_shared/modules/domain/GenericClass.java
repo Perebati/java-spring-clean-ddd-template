@@ -1,5 +1,6 @@
 package org.gfinnovation.dealsafe._shared.modules.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -19,8 +20,16 @@ import java.util.UUID;
 @Data
 public abstract class GenericClass {
     private UUID id;
+
+    @JsonIgnore
     private LocalDateTime createdAt;
+
+    @JsonIgnore
     private LocalDateTime updatedAt;
+
+    @JsonIgnore
     private LocalDateTime deletedAt;
+
+    @JsonIgnore
     private boolean deleted;
 }

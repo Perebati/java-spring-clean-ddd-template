@@ -3,6 +3,7 @@ package org.gfinnovation.dealsafe.modules.tree.comparison.infrastructure;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.NodeEntity;
 import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.NodeTreeEntity;
 
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.List;
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
+@DiscriminatorValue(NodeEntity.DISCRIMINATOR_COMPARISON_MULTI)
 @Table(name = "tree_root_node_condition_comparison_multi")
 public class ComparisonMultiEntity extends NodeTreeEntity {
     @Enumerated(EnumType.STRING)

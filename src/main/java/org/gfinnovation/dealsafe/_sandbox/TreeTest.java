@@ -1,7 +1,19 @@
 package org.gfinnovation.dealsafe._sandbox;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.application.service.interfaces.CompanyListService;
+import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.domain.CompanyList;
+import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonMultiRecord;
+import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonSingularRecord;
+import org.gfinnovation.dealsafe.modules.tree.comparison.application.service.interfaces.ComparisonCustomListService;
+import org.gfinnovation.dealsafe.modules.tree.comparison.application.service.interfaces.ComparisonMultiService;
+import org.gfinnovation.dealsafe.modules.tree.comparison.application.service.interfaces.ComparisonSingularService;
+import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonCustomList;
+import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonMulti;
+import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeCreationDTO;
 import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeBlockService;
 import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeIfService;
@@ -15,6 +27,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -31,10 +44,32 @@ public class TreeTest {
     private final NodeTreeBlockService nodeTreeBlockService;
     private final RootTreeStaticService rootTreeStaticService;
     private final NodeTreeIfService nodeTreeIfService;
+    private final ComparisonSingularService comparisonSingularService;
+    private final ComparisonMultiService comparisonMultiService;
+    private final ComparisonCustomListService comparisonCustomListService;
+    private final CompanyListService companyListService;
 
     @PostMapping("tree2")
     public boolean testeTree2() throws RuntimeException {
         try {
+
+            String json = """
+                {
+                  "nome": "João",
+                  "idade": 30,
+                  "CPF": 11330176651,
+                  "endereco": {
+                    "rua": "Rua A",
+                    "bairro": "Centro"
+                  },
+                  "telefone": ["123456789", "987654321"],
+                  "teste": {
+                      "teste":{
+                          "teste": "teste"
+                      }
+                   }
+                }
+                """;
             MDC.put("userId", UUID.randomUUID().toString());
             MDC.put("whitelabelId", UUID.randomUUID().toString());
             MDC.put("requestId", UUID.randomUUID().toString());
@@ -57,8 +92,40 @@ public class TreeTest {
 
             NodeTree<?> nodeIf3 = this.nodeTreeIfService.create(new NodeCreationDTO("NODE IF 3", nodeIf1.getId(), null));
 
+            ComparisonSingular comparisonSingular = this.comparisonSingularService.create(new ComparisonSingularRecord(
+                   ComparisonSingular.ComparisonSingularTypeEnum.DIFFERENT,
+                   "CPF",
+                    "11330176650",
+                    nodeIf3.getParentId(),
+                    NodeTreeIf.SetNode.CONDITIONAL
+            ));
+
+            ComparisonMulti comparisonMulti = this.comparisonMultiService.create(new ComparisonMultiRecord(
+                    ComparisonMulti.ComparisonMultiTypeEnum.NOT_CONTAINS,
+                    "CPF",
+                    List.of("11330176650"),
+                    nodeIf3.getParentId(),
+                    NodeTreeIf.SetNode.CONDITIONAL
+            ));
+
+            CompanyList companyList = this.companyListService.createCompanyList(
+                    "Dealboard",
+                    List.of("11330176650"));
+
+            ComparisonCustomList comparisonCustomList = this.comparisonCustomListService.create(
+                    ComparisonCustomList.ComparisonCustomListEnum.NOT_CONTAINS,
+                    "CPF",
+                    companyList.getId(),
+                    nodeIf3.getParentId(),
+                    NodeTreeIf.SetNode.CONDITIONAL
+            );
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode jsonNode = mapper.readTree(json);
+
 
             createdRoot = this.rootTreeStaticService.read(createdRoot.getId());
+
+            createdRoot.traverse(jsonNode);
 
             return true;
         } catch (Exception e) {

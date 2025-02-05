@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.gfinnovation.dealsafe._shared.utils.annotations.Default;
-import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTree;
 
 import java.util.UUID;
 
@@ -43,17 +42,18 @@ public class NodeTree<T>
             this.parentType = null;
         } else {
             this.parentId = parent.getId();
-            this.parentType = (parent instanceof RootTree) ? ParentType.ROOT : ParentType.NODE;
+            if (parent.getNodeType().equals(NodeType.ROOT_STATIC) ||
+                    parent.getNodeType().equals(NodeType.ROOT_DYNAMIC)) {
+                this.parentType = ParentType.ROOT;
+            } else {
+                this.parentType = ParentType.NODE;
+            }
         }
     }
 
     @Override
     public boolean traverse(T inputData) {
         return false;
-    }
-
-    public enum SortField {
-        NAME
     }
 
     public enum ParentType {

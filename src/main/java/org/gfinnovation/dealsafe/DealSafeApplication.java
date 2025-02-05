@@ -7,6 +7,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 /*
 TODO: Verificar a visibilidade de todas as classes criadas recentemente.
 TODO: Adicionar comentários.
+TODO: Os erros do Dealsafe não estão sendo disparados da maneira correta.
  */
 @SpringBootApplication
 @EnableAsync

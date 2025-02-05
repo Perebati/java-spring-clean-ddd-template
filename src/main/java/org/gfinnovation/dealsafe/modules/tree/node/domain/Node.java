@@ -21,7 +21,6 @@ public class Node<T>
         implements NodeTraversal<T> {
     private NodeType nodeType;
 
-    @Override
     public boolean traverse(T inputData) {
         return false;
     }
@@ -35,5 +34,6 @@ public class Node<T>
         ROOT_DYNAMIC,
         CONDITIONAL_COMPARISON_SINGULAR,
         CONDITIONAL_COMPARISON_MULTIPLE,
+        CONDITIONAL_COMPARISON_CUSTOM
     }
 }

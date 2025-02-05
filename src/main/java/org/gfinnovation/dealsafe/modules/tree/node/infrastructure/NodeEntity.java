@@ -25,9 +25,11 @@ public class NodeEntity
     public final static String DISCRIMINATOR_DYNAMIC = "DY";
     public final static String DISCRIMINATOR_STATIC = "ST";
     public final static String DISCRIMINATOR_ACTION = "AC";
-    public final static String DISCRIMINATOR_CONDITION = "CD";
     public final static String DISCRIMINATOR_BLOCK = "BL";
     public final static String DISCRIMINATOR_IF = "IF";
+    public final static String DISCRIMINATOR_COMPARISON_SINGULAR = "CS";
+    public final static String DISCRIMINATOR_COMPARISON_MULTI = "CM";
+    public final static String DISCRIMINATOR_COMPARISON_CUSTOM = "CC";
 
     @Enumerated(EnumType.STRING)
     @Column(name = "node_type")
@@ -42,5 +44,6 @@ public class NodeEntity
         ROOT_DYNAMIC,
         CONDITIONAL_COMPARISON_SINGULAR,
         CONDITIONAL_COMPARISON_MULTIPLE,
+        CONDITIONAL_COMPARISON_CUSTOM,
     }
 }

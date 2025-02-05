@@ -84,7 +84,7 @@ class RootTreeRepositoryImpl
                         n.parent_id,
                         n.parent_type
                     FROM
-                        tree_root_node n
+                        tree_node n
                     WHERE
                         n.id = :nodeId
                     UNION ALL
@@ -95,7 +95,7 @@ class RootTreeRepositoryImpl
                     FROM
                         hierarchy h
                     JOIN
-                        tree_root_node n2 ON n2.id = h.parent_id
+                        tree_node n2 ON n2.id = h.parent_id
                     WHERE
                         h.parent_type = 'NODE' AND h.parent_id IS NOT NULL
                 )

@@ -22,18 +22,18 @@ import java.util.UUID;
 @ToString
 public class ComparisonCustomList
         extends NodeTree<JsonNode> {
-    private ComparisonCustomList.ComparisonCustomListEnum comparisonTypeEnum;
+    private ComparisonCustomListEnum comparisonTypeEnum;
     private String jsonVariablePath;
     private UUID customListId;
 
     @Default
     public ComparisonCustomList(
-            ComparisonCustomList.ComparisonCustomListEnum comparisonTypeEnum,
+            ComparisonCustomListEnum comparisonTypeEnum,
             String jsonPath,
             UUID customListId,
             Node<?> parentNode
     ) {
-        super(NodeType.CONDITIONAL_COMPARISON_MULTIPLE, parentNode);
+        super(NodeType.CONDITIONAL_COMPARISON_CUSTOM, parentNode);
         this.comparisonTypeEnum = comparisonTypeEnum;
         this.jsonVariablePath = jsonPath;
         this.customListId = customListId;

@@ -58,7 +58,8 @@ public class RootTree<T> extends Node<T> {
         }
     }
 
-    public boolean traverse(JsonNode inputData) {
+    @Override
+    public boolean traverse(T inputData) {
         return false;
     }
 }

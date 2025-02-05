@@ -3,6 +3,7 @@ package org.gfinnovation.dealsafe.modules.tree.node.infrastructure.repository.fa
 import lombok.AllArgsConstructor;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.interfaces.GenericBusinessRepository;
 import org.gfinnovation.dealsafe.modules.tree.action.domain.NodeTreeActionRepository;
+import org.gfinnovation.dealsafe.modules.tree.comparison.infrastructure.repository.interfaces.ComparisonCustomListRepository;
 import org.gfinnovation.dealsafe.modules.tree.comparison.infrastructure.repository.interfaces.ComparisonMultiRepository;
 import org.gfinnovation.dealsafe.modules.tree.comparison.infrastructure.repository.interfaces.ComparisonSingularRepository;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
@@ -19,6 +20,7 @@ class NodeTreeRepositoryFactoryImpl implements NodeTreeRepositoryFactory {
     private final NodeTreeActionRepository nodeTreeActionRepository;
     private final ComparisonMultiRepository comparisonMultiRepository;
     private final ComparisonSingularRepository comparisonSingularRepository;
+    private final ComparisonCustomListRepository comparisonCustomListRepository;
 
     @SuppressWarnings("unchecked")
     public <T extends Node<?>> GenericBusinessRepository<T> getRepositoryForNode(T node) {
@@ -30,7 +32,9 @@ class NodeTreeRepositoryFactoryImpl implements NodeTreeRepositoryFactory {
                     (GenericBusinessRepository<T>) comparisonSingularRepository;
             case Node.NodeType.CONDITIONAL_COMPARISON_MULTIPLE ->
                     (GenericBusinessRepository<T>) comparisonMultiRepository;
-            default -> throw new IllegalArgumentException("NodeType não suportado: " + node.getNodeType());
+            case Node.NodeType.CONDITIONAL_COMPARISON_CUSTOM ->
+                    (GenericBusinessRepository<T>) comparisonCustomListRepository;
+            default -> throw new IllegalArgumentException("Unsupported node type: " + node.getNodeType());
         };
     }
 }

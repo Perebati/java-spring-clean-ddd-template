@@ -52,5 +52,4 @@ class RootTreeStaticServiceImpl
             throw new ServiceException("Business: Something went wrong creating a static root.", e);
         }
     }
-
 }
