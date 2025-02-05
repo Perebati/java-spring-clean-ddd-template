@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.controller;
 
-import org.apache.coyote.BadRequestException;
-import org.gfinnovation.dealsafe.exception.models.layered.DomainException;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
+import org.gfinnovation.dealsafe.exception.models.AdapterException;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.controller.interfaces.ComparisonController;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonCustomListRecord;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonMultiRecord;
@@ -10,8 +10,6 @@ import org.gfinnovation.dealsafe.modules.tree.comparison.application.usecase.com
 import org.gfinnovation.dealsafe.modules.tree.comparison.application.usecase.command.CreateComparisonMulti;
 import org.gfinnovation.dealsafe.modules.tree.comparison.application.usecase.command.CreateComparisonSingular;
 import org.gfinnovation.dealsafe.modules.tree.comparison.application.usecase.command.CreateComparisonWhiteList;
-import org.gfinnovation.dealsafe.modules.tree.comparison.application.usecase.query.ReadComparisonMulti;
-import org.gfinnovation.dealsafe.modules.tree.comparison.application.usecase.query.ReadComparisonSingular;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonCustomList;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonMulti;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
@@ -32,82 +30,77 @@ class ComparisonControllerImpl implements ComparisonController {
     private final CreateComparisonSingular createComparisonSingular;
     private final CreateComparisonMulti createComparisonMulti;
     private final CreateComparisonWhiteList createComparisonWhiteList;
-    private final ReadComparisonSingular readComparisonSingular;
-    private final ReadComparisonMulti readComparisonMulti;
 
     @Autowired
     ComparisonControllerImpl(CreateComparisonBlackList createComparisonBlackList,
                              CreateComparisonSingular createComparisonSingular,
                              CreateComparisonMulti createComparisonMulti,
-                             CreateComparisonWhiteList createComparisonWhiteList,
-                             ReadComparisonSingular readComparisonSingular,
-                             ReadComparisonMulti readComparisonMulti) {
+                             CreateComparisonWhiteList createComparisonWhiteList
+    ) {
         this.createComparisonBlackList = createComparisonBlackList;
         this.createComparisonSingular = createComparisonSingular;
         this.createComparisonMulti = createComparisonMulti;
         this.createComparisonWhiteList = createComparisonWhiteList;
-        this.readComparisonSingular = readComparisonSingular;
-        this.readComparisonMulti = readComparisonMulti;
     }
 
 
     @Override
     public ResponseEntity<ComparisonSingular> createSingularComparison(
-            ComparisonSingularRecord request) throws DomainException, BadRequestException {
+            ComparisonSingularRecord request) throws SystemGlobalException {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(
                     this.createComparisonSingular.execute(
                             request
                     ));
-        } catch (DomainException | BadRequestException e) {
+        } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new DomainException("Controller: Unexpected error in operation creation.");
+            throw new AdapterException("Controller: Unexpected error in operation creation.");
         }
     }
 
     @Override
     public ResponseEntity<ComparisonMulti> createMultiComparison(
-            ComparisonMultiRecord request) throws DomainException, BadRequestException {
+            ComparisonMultiRecord request) throws SystemGlobalException {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(
                     this.createComparisonMulti.execute(
                             request
                     ));
-        } catch (DomainException | BadRequestException e) {
+        } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new DomainException("Controller: Unexpected error in operation creation.");
+            throw new AdapterException("Controller: Unexpected error in operation creation.");
         }
     }
 
     @Override
     public ResponseEntity<ComparisonCustomList> createBlackListComparison(
-            ComparisonCustomListRecord request) throws DomainException {
+            ComparisonCustomListRecord request) throws SystemGlobalException {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(
                     this.createComparisonBlackList.execute(
                             request
                     ));
-        } catch (DomainException e) {
+        } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new DomainException("Controller: Unexpected error in operation creation.");
+            throw new AdapterException("Controller: Unexpected error in operation creation.");
         }
     }
 
     @Override
     public ResponseEntity<ComparisonCustomList> createWhiteListComparison(
-            ComparisonCustomListRecord request) throws DomainException {
+            ComparisonCustomListRecord request) throws SystemGlobalException {
             try {
                 return ResponseEntity.status(HttpStatus.CREATED).body(
                         this.createComparisonWhiteList.execute(
                                 request
                         ));
-            } catch (DomainException e) {
+            } catch (SystemGlobalException e) {
                 throw e;
             } catch (Exception e) {
-                throw new DomainException("Controller: Unexpected error in operation creation.");
+                throw new AdapterException("Controller: Unexpected error in operation creation.");
             }
         }
 }

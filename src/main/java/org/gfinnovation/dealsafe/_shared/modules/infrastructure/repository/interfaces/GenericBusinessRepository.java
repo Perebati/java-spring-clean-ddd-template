@@ -1,9 +1,9 @@
 package org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.interfaces;
 
 import jakarta.annotation.Nonnull;
-import org.gfinnovation.dealsafe._shared.modules.infrastructure.RepositoryAuth;
 import org.gfinnovation.dealsafe._shared.modules.domain.GenericClass;
-import org.gfinnovation.dealsafe.exception.models.layered.RepositoryException;
+import org.gfinnovation.dealsafe._shared.modules.infrastructure.RepositoryAuth;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
@@ -26,27 +26,27 @@ import java.util.concurrent.CompletableFuture;
 
 public interface GenericBusinessRepository<E extends GenericClass> {
 
-    CompletableFuture<E> createAsync(@Nonnull E entity, @Nonnull RepositoryAuth auth) throws RepositoryException;
+    E create(@Nonnull E entity, @Nonnull RepositoryAuth auth) throws SystemGlobalException;
 
-    E createSync(@Nonnull E entity, @Nonnull RepositoryAuth auth) throws RepositoryException;
+    E read(@Nonnull UUID id, @Nonnull RepositoryAuth auth) throws SystemGlobalException;
 
-    E read(@Nonnull UUID id, @Nonnull RepositoryAuth auth) throws RepositoryException;
+    E update(@Nonnull E entity, @Nonnull RepositoryAuth auth) throws SystemGlobalException;
 
-    CompletableFuture<E> updateAsync(@Nonnull E entity, @Nonnull RepositoryAuth auth) throws RepositoryException;
+    void delete(@Nonnull UUID id, @Nonnull RepositoryAuth auth) throws SystemGlobalException;
 
-    E updateSync(@Nonnull E entity, @Nonnull RepositoryAuth auth) throws RepositoryException;
+    Optional<List<E>> findAll(@Nonnull RepositoryAuth auth) throws SystemGlobalException;
 
-    void deleteAsync(@Nonnull UUID id, @Nonnull RepositoryAuth auth) throws RepositoryException;
+    Page<E> findAllPaginated(@Nonnull PageRequest pageRequest, @Nonnull RepositoryAuth auth) throws SystemGlobalException;
 
-    void deleteSync(@Nonnull UUID id, @Nonnull RepositoryAuth auth) throws RepositoryException;
+    Optional<List<E>> findAllByIds(@Nonnull List<UUID> ids, @Nonnull RepositoryAuth auth) throws SystemGlobalException;
 
-    Optional<List<E>> findAll(@Nonnull RepositoryAuth auth) throws RepositoryException;
+    void check(@Nonnull UUID id, @Nonnull RepositoryAuth auth) throws SystemGlobalException;
 
-    Page<E> findAllPaginated(@Nonnull PageRequest pageRequest, @Nonnull RepositoryAuth auth) throws RepositoryException;
+    void checkAll(@Nonnull Set<UUID> ids, @Nonnull RepositoryAuth auth) throws SystemGlobalException;
 
-    Optional<List<E>> findAllByIds(@Nonnull List<UUID> ids, @Nonnull RepositoryAuth auth) throws RepositoryException;
+    CompletableFuture<E> createAsync(@Nonnull E entity, @Nonnull RepositoryAuth auth) throws SystemGlobalException;
 
-    void check(@Nonnull UUID id, @Nonnull RepositoryAuth auth) throws RepositoryException;
+    CompletableFuture<E> updateAsync(@Nonnull E entity, @Nonnull RepositoryAuth auth) throws SystemGlobalException;
 
-    void checkAll(@Nonnull Set<UUID> ids, @Nonnull RepositoryAuth auth) throws RepositoryException;
+    void deleteAsync(@Nonnull UUID id, @Nonnull RepositoryAuth auth) throws SystemGlobalException;
 }

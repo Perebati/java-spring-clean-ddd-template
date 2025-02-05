@@ -1,7 +1,6 @@
 package org.gfinnovation.dealsafe.modules.tree.comparison.domain.factory.interfaces;
 
-import org.apache.coyote.BadRequestException;
-import org.gfinnovation.dealsafe.exception.models.layered.FactoryException;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonCustomList;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonMulti;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
@@ -22,19 +21,19 @@ public interface ComparisonFactory {
             ComparisonSingular.ComparisonSingularTypeEnum type,
             String jsonPath, String variable,
             Node<?> parent
-    ) throws FactoryException, BadRequestException;
+    ) throws SystemGlobalException;
 
     ComparisonMulti produce(
             ComparisonMulti.ComparisonMultiTypeEnum comparisonTypeEnum,
             String jsonVariablePath,
             List<String> expectedVars,
             Node<?> parent
-    ) throws FactoryException, BadRequestException;
+    ) throws SystemGlobalException;
 
     ComparisonCustomList produce(
             ComparisonCustomList.ComparisonCustomListEnum type,
             String jsonPath,
             UUID variable,
             Node<?> parent
-    ) throws FactoryException, BadRequestException;
+    ) throws SystemGlobalException;
 }

@@ -1,8 +1,8 @@
 package org.gfinnovation.dealsafe.modules.tree.comparison.application.service;
 
-import org.apache.coyote.BadRequestException;
 import org.gfinnovation.dealsafe._shared.modules.application.GenericServiceImpl;
-import org.gfinnovation.dealsafe.exception.models.layered.ServiceException;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
+import org.gfinnovation.dealsafe.exception.models.ApplicationException;
 import org.gfinnovation.dealsafe.modules.tree.comparison.application.service.interfaces.ComparisonCustomListService;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonCustomList;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.factory.interfaces.ComparisonFactory;
@@ -42,15 +42,15 @@ class ComparisonCustomListServiceImpl
             UUID customListId,
             UUID parentId,
             NodeTreeIf.SetNode position
-    ) throws ServiceException, BadRequestException {
+    ) throws SystemGlobalException {
         try {
             Node<?> parent = this.nodeRepository.read(parentId, getRepositoryAuth());
             ComparisonCustomList newOperation = this.comparisonFactory.produce(type, jsonPath, customListId, parent);
             return this.nodeTreeRepository.createNode(newOperation, parent, position, getRepositoryAuth());
-        } catch (BadRequestException | ServiceException e) {
+        } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ServiceException("Business: Something went wrong creating a comparison operation.", e);
+            throw new ApplicationException("Business: Something went wrong creating a comparison operation.");
         }
     }
 }

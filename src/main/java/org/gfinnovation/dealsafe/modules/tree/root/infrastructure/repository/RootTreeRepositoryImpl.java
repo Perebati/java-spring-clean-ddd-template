@@ -7,8 +7,8 @@ import jakarta.persistence.Query;
 import jakarta.validation.constraints.NotNull;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.RepositoryAuth;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.GenericBusinessRepositoryImpl;
-import org.gfinnovation.dealsafe.exception.models.layered.RepositoryEntityNotFoundException;
-import org.gfinnovation.dealsafe.exception.models.layered.RepositoryException;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
+import org.gfinnovation.dealsafe.exception.models.InfrastructureException;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTree;
 import org.gfinnovation.dealsafe.modules.tree.root.infrastructure.RootTreeEntity;
@@ -56,13 +56,12 @@ class RootTreeRepositoryImpl
     /**
      * @param id Identification of given root.
      * @return Object
-     * @throws RepositoryException               Thrown when an error occur on Repository Level.
-     * @throws RepositoryEntityNotFoundException Thrown when an error occur on Repository Level.
+     * @throws InfrastructureException               Thrown when an error occur on Repository Level.
      * @author Lucas Batista Pereira
      * @since 08/11/2024
      */
     @Override
-    public Object readGenericRoot(@NotNull UUID id, @NotNull RepositoryAuth auth) throws RepositoryException {
+    public Object readGenericRoot(@NotNull UUID id, @NotNull RepositoryAuth auth) throws SystemGlobalException {
         try {
             RootTree<?> rootTree = this.read(id, auth);
             if (rootTree.getNodeType().equals(Node.NodeType.ROOT_DYNAMIC)) {
@@ -71,7 +70,7 @@ class RootTreeRepositoryImpl
                 return this.rootTreeStaticRepository.read(id, auth);
             }
         } catch (Exception e) {
-            throw new RepositoryException("Something went wrong reading a root.", e);
+            throw new InfrastructureException("Something went wrong reading a root.");
         }
     }
 
@@ -85,9 +84,11 @@ class RootTreeRepositoryImpl
      * @since 30/10/2024
      */
     @Override
-    public Optional<UUID> findRootIdByNodeId(UUID node_id) {
-        String sql = """
-                WITH RECURSIVE hierarchy AS (
+    public Optional<UUID> findRootIdByNodeId(UUID node_id) throws SystemGlobalException {
+        try {
+            String sql = """
+                
+                    WITH RECURSIVE hierarchy AS (
                     SELECT
                         n.id AS node_id,
                         n.parent_id,
@@ -117,31 +118,34 @@ class RootTreeRepositoryImpl
                 LIMIT 1
                 """;
 
-        Query query = entityManager.createNativeQuery(sql);
-        query.setParameter("nodeId", node_id);
+            Query query = entityManager.createNativeQuery(sql);
+            query.setParameter("nodeId", node_id);
 
-        try {
-            Object result = query.getSingleResult();
-            UUID rootId = null;
+            try {
+                Object result = query.getSingleResult();
+                UUID rootId = null;
 
-            if (result != null) {
-                if (result instanceof UUID) {
-                    rootId = (UUID) result;
-                } else if (result instanceof String) {
-                    rootId = UUID.fromString((String) result);
-                } else if (result instanceof byte[]) {
-                    ByteBuffer bb = ByteBuffer.wrap((byte[]) result);
-                    long high = bb.getLong();
-                    long low = bb.getLong();
-                    rootId = new UUID(high, low);
-                } else {
-                    throw new IllegalArgumentException("Tipo de resultado inesperado: " + result.getClass());
+                if (result != null) {
+                    if (result instanceof UUID) {
+                        rootId = (UUID) result;
+                    } else if (result instanceof String) {
+                        rootId = UUID.fromString((String) result);
+                    } else if (result instanceof byte[]) {
+                        ByteBuffer bb = ByteBuffer.wrap((byte[]) result);
+                        long high = bb.getLong();
+                        long low = bb.getLong();
+                        rootId = new UUID(high, low);
+                    } else {
+                        throw new IllegalArgumentException("Tipo de resultado inesperado: " + result.getClass());
+                    }
                 }
-            }
 
-            return Optional.ofNullable(rootId);
-        } catch (NoResultException e) {
-            return Optional.empty();
+                return Optional.ofNullable(rootId);
+            } catch (NoResultException e) {
+                return Optional.empty();
+            }
+        }catch (Exception e) {
+            throw new InfrastructureException("An error occurred when searching for a root id.");
         }
     }
 }

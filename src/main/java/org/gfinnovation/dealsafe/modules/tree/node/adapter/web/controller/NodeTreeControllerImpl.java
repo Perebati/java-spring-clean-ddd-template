@@ -1,7 +1,6 @@
 package org.gfinnovation.dealsafe.modules.tree.node.adapter.web.controller;
 
-import org.apache.coyote.BadRequestException;
-import org.gfinnovation.dealsafe.exception.models.layered.DomainException;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.controller.interfaces.NodeTreeController;
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeCreationDTO;
 import org.gfinnovation.dealsafe.modules.tree.node.application.usecase.command.*;
@@ -55,45 +54,45 @@ class NodeTreeControllerImpl implements NodeTreeController {
     }
 
     @Override
-    public ResponseEntity<Void> createNodeBlock(NodeCreationDTO request) throws DomainException, BadRequestException {
+    public ResponseEntity<Void> createNodeBlock(NodeCreationDTO request) throws SystemGlobalException {
         this.createNodeBlock.execute(request);
         return ResponseEntity.ok().build();
     }
 
     @Override
-    public ResponseEntity<Void> createNodeIf(NodeCreationDTO request) throws DomainException, BadRequestException {
+    public ResponseEntity<Void> createNodeIf(NodeCreationDTO request) throws SystemGlobalException {
         this.createNodeIf.execute(request);
         return ResponseEntity.ok().build();
     }
 
     @Override
-    public ResponseEntity<NodeTreeBlock> readNodeBlock(UUID request) throws DomainException, BadRequestException {
+    public ResponseEntity<NodeTreeBlock> readNodeBlock(UUID request) throws SystemGlobalException {
         return ResponseEntity.ok(this.readNodeBlock.execute(request));
     }
 
     @Override
-    public ResponseEntity<NodeTreeIf> readNodeIf(UUID request) throws DomainException, BadRequestException {
+    public ResponseEntity<NodeTreeIf> readNodeIf(UUID request) throws SystemGlobalException {
         return ResponseEntity.ok(this.readNodeIf.execute(request));
     }
 
     @Override
-    public ResponseEntity<NodeTreeBlock> updateNodeBlock(NodeTreeBlock request) throws DomainException, BadRequestException {
+    public ResponseEntity<NodeTreeBlock> updateNodeBlock(NodeTreeBlock request) throws SystemGlobalException {
         return ResponseEntity.ok(this.updateNodeBlock.execute(request));
     }
 
     @Override
-    public ResponseEntity<NodeTreeIf> updateNodeIf(NodeTreeIf request) throws DomainException, BadRequestException {
+    public ResponseEntity<NodeTreeIf> updateNodeIf(NodeTreeIf request) throws SystemGlobalException {
         return ResponseEntity.ok(this.updateNodeIf.execute(request));
     }
 
     @Override
-    public ResponseEntity<Void> deleteNodeBlock(UUID request) throws DomainException, BadRequestException {
+    public ResponseEntity<Void> deleteNodeBlock(UUID request) throws SystemGlobalException {
         this.deleteNodeBlock.execute(request);
         return ResponseEntity.ok().build();
     }
 
     @Override
-    public ResponseEntity<Void> deleteNodeIf(UUID request) throws DomainException, BadRequestException {
+    public ResponseEntity<Void> deleteNodeIf(UUID request) throws SystemGlobalException {
         this.deleteNodeif.execute(request);
         return ResponseEntity.ok().build();
     }

@@ -5,8 +5,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.apache.coyote.BadRequestException;
-import org.gfinnovation.dealsafe.exception.models.layered.DomainException;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.modules.input.domain.Input;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +31,7 @@ public interface InputController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PostMapping()
-    ResponseEntity<Input> createInput(@RequestParam String name, @RequestBody String json) throws DomainException, BadRequestException;
+    ResponseEntity<Input> createInput(@RequestParam String name, @RequestBody String json) throws SystemGlobalException;
 
     @Operation(summary = "Busca um input dinâmico", description = "Busca um input no sistema.")
     @ApiResponses(value = {
@@ -41,5 +40,5 @@ public interface InputController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @GetMapping()
-    ResponseEntity<Input> readInput(UUID id) throws DomainException, BadRequestException;
+    ResponseEntity<Input> readInput(UUID id) throws SystemGlobalException;
 }

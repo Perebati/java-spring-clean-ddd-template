@@ -1,6 +1,7 @@
 package org.gfinnovation.dealsafe.modules.tree.root.domain.valueobjects;
 
 import lombok.Getter;
+import org.gfinnovation.dealsafe.exception.models.FailedRequestException;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.valueobjects.predefined.PredefinedInputExampleEntity;
 
 import java.lang.reflect.Field;
@@ -26,11 +27,11 @@ public enum PredefinedTypeEnum {
         this.clazz = clazz;
     }
 
-    private static Field getFieldOrThrow(Class<?> clazz, String fieldName) throws NoSuchFieldException {
+    private static Field getFieldOrThrow(Class<?> clazz, String fieldName) throws FailedRequestException {
         try {
             return clazz.getDeclaredField(fieldName);
         } catch (NoSuchFieldException e) {
-            throw new NoSuchFieldException("Campo '" + fieldName + "' não encontrado na classe " + clazz.getSimpleName());
+            throw new FailedRequestException("Field '" + fieldName + "' not found in class " + clazz.getSimpleName());
         }
     }
 

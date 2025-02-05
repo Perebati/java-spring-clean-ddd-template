@@ -24,9 +24,9 @@ jwt:
   privateKey: ${JWT_PRIVATE_KEY}
   data:
     mongodb:
-      host: ${JWT_DATA_MONGODB_HOST}
-      port: ${JWT_DATA_MONGODB_PORT}
-      database: ${JWT_DATA_MONGODB_DATABASE}
-      username: ${JWT_DATA_MONGODB_USERNAME}
-      password: ${JWT_DATA_MONGODB_PASSWORD}
-      authentication-database: ${JWT_DATA_MONGODB_AUTHENTICATION_DATABASE}
+      host: ${DATA_MONGODB_HOST}
+      port: ${DATA_MONGODB_PORT}
+      database: ${DATA_MONGODB_DATABASE}
+      username: ${DATA_MONGODB_USERNAME}
+      password: ${DATA_MONGODB_PASSWORD}
+      authentication-database: ${DATA_MONGODB_AUTHENTICATION_DATABASE}

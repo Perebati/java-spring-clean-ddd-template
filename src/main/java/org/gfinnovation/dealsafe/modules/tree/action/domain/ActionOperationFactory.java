@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe.modules.tree.action.domain;
 
-import org.gfinnovation.dealsafe.exception.models.layered.FactoryException;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 
 /**
  * @author Lucas Batista Pereira
@@ -10,5 +10,5 @@ import org.gfinnovation.dealsafe.exception.models.layered.FactoryException;
  */
 
 public interface ActionOperationFactory {
-    ActionOperation produce(String url, String message) throws FactoryException;
+    ActionOperation produce(String url, String message) throws SystemGlobalException;
 }

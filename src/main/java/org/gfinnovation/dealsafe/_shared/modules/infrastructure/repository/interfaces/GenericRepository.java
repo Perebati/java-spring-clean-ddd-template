@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.interfaces;
 
 import org.gfinnovation.dealsafe._shared.modules.domain.GenericClass;
-import org.gfinnovation.dealsafe.exception.models.layered.RepositoryException;
+import org.gfinnovation.dealsafe.exception.models.InfrastructureException;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,19 +21,19 @@ import java.util.UUID;
 
 public interface GenericRepository<E extends GenericClass> {
 
-    E create(E entity) throws RepositoryException;
+    E create(E entity) throws InfrastructureException;
 
-    Optional<E> read(UUID id) throws RepositoryException;
+    Optional<E> read(UUID id) throws InfrastructureException;
 
-    E update(E entity) throws RepositoryException;
+    E update(E entity) throws InfrastructureException;
 
-    void delete(UUID id) throws RepositoryException;
+    void delete(UUID id) throws InfrastructureException;
 
-    Optional<List<E>> findAll() throws RepositoryException;
+    Optional<List<E>> findAll() throws InfrastructureException;
 
-    Optional<List<E>> findAllByIds(List<UUID> ids) throws RepositoryException;
+    Optional<List<E>> findAllByIds(List<UUID> ids) throws InfrastructureException;
 
-    void check(UUID id) throws RepositoryException;
+    void check(UUID id) throws InfrastructureException;
 
-    void checkAll(Set<UUID> ids) throws RepositoryException;
+    void checkAll(Set<UUID> ids) throws InfrastructureException;
 }

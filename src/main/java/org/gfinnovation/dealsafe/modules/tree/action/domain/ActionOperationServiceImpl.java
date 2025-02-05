@@ -1,7 +1,8 @@
 package org.gfinnovation.dealsafe.modules.tree.action.domain;
 
 import org.gfinnovation.dealsafe._shared.modules.application.GenericServiceImpl;
-import org.gfinnovation.dealsafe.exception.models.layered.ServiceException;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
+import org.gfinnovation.dealsafe.exception.models.ApplicationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,13 +36,18 @@ public class ActionOperationServiceImpl
      * @param message      Message given.
      * @param operation_id Parent operation.
      * @return ActionOperation
-     * @throws ServiceException When an error occurs on business level.
+     * @throws ApplicationException When an error occurs on business level.
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
 
     @Override
-    public ActionOperation create(UUID user_id, UUID company_id, String url, String message, UUID operation_id) throws ServiceException {
+    public ActionOperation create(UUID user_id,
+                                  UUID company_id,
+                                  String url,
+                                  String message,
+                                  UUID operation_id)
+            throws SystemGlobalException {
         try {
 //            Comparison operation = this.comparisonOperationBusiness.read(operation_id);
 //            ActionOperation newOperationAction = this.actionOperationFactory.produce(url, message);
@@ -49,10 +55,10 @@ public class ActionOperationServiceImpl
 //            this.comparisonOperationBusiness.updateSync(operation);
 //            return newOperationAction;
             return null;
-        } catch (ServiceException e) {
+        } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ServiceException("Business: Something went wrong checking an action operation.", e);
+            throw new ApplicationException("Business: Something went wrong checking an action operation.");
         }
     }
 }

@@ -3,7 +3,8 @@ package org.gfinnovation.dealsafe._shared.modules.application;
 import org.gfinnovation.dealsafe._shared.modules.application.interfaces.GenericService;
 import org.gfinnovation.dealsafe._shared.modules.domain.GenericBusinessClass;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.interfaces.GenericBusinessRepository;
-import org.gfinnovation.dealsafe.exception.models.layered.ServiceException;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
+import org.gfinnovation.dealsafe.exception.models.ApplicationException;
 
 import java.util.List;
 import java.util.Optional;
@@ -33,93 +34,93 @@ public abstract class GenericServiceImpl
         this.repository = repository;
     }
 
-    public E read(UUID id) throws ServiceException {
+    public E read(UUID id) throws SystemGlobalException {
         try {
             return this.repository.read(id, getRepositoryAuth());
-        } catch (ServiceException e) {
+        } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ServiceException("Business: Something went wrong reading an entity.", e);
+            throw new ApplicationException("Business: Something went wrong reading an entity.");
         }
     }
 
-    public CompletableFuture<E> updateAsync(E entity) throws ServiceException {
+    public CompletableFuture<E> updateAsync(E entity) throws SystemGlobalException {
         try {
             return this.repository.updateAsync(entity, getRepositoryAuth());
-        } catch (ServiceException e) {
+        } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ServiceException("Business: Something went wrong async updating an entity.", e);
+            throw new ApplicationException("Business: Something went wrong async updating an entity.");
         }
     }
 
-    public E updateSync(E entity) throws ServiceException {
+    public E updateSync(E entity) throws SystemGlobalException {
         try {
-            return this.repository.updateSync(entity, getRepositoryAuth());
-        } catch (ServiceException e) {
+            return this.repository.update(entity, getRepositoryAuth());
+        } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ServiceException("Business: Something went wrong updating an entity.", e);
+            throw new ApplicationException("Business: Something went wrong updating an entity.");
         }
     }
 
-    public void deleteAsync(UUID id) throws ServiceException {
+    public void deleteAsync(UUID id) throws SystemGlobalException {
         try {
             this.repository.deleteAsync(id, getRepositoryAuth());
-        } catch (ServiceException e) {
+        } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ServiceException("Business: Something went wrong async deleting an entity.", e);
+            throw new ApplicationException("Business: Something went wrong async deleting an entity.");
         }
     }
 
-    public void deleteSync(UUID id) throws ServiceException {
+    public void deleteSync(UUID id) throws SystemGlobalException {
         try {
-            this.repository.deleteSync(id, getRepositoryAuth());
-        } catch (ServiceException e) {
+            this.repository.delete(id, getRepositoryAuth());
+        } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ServiceException("Business: Something went wrong deleting an entity.", e);
+            throw new ApplicationException("Business: Something went wrong deleting an entity.");
         }
     }
 
-    public Optional<List<E>> readAll() throws ServiceException {
+    public Optional<List<E>> readAll() throws SystemGlobalException {
         try {
             return this.repository.findAll(getRepositoryAuth());
-        } catch (ServiceException e) {
+        } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ServiceException("Business: Something went wrong reading all entities.", e);
+            throw new ApplicationException("Business: Something went wrong reading all entities.");
         }
     }
 
-    public Optional<List<E>> readAllByIds(List<UUID> ids) throws ServiceException {
+    public Optional<List<E>> readAllByIds(List<UUID> ids) throws SystemGlobalException {
         try {
             return this.repository.findAllByIds(ids, getRepositoryAuth());
-        } catch (ServiceException e) {
+        } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ServiceException("Business: Something went wrong reading all entities by id.", e);
+            throw new ApplicationException("Business: Something went wrong reading all entities by id.");
         }
     }
 
-    public void check(UUID id) throws ServiceException {
+    public void check(UUID id) throws SystemGlobalException {
         try {
             this.repository.check(id, getRepositoryAuth());
-        } catch (ServiceException e) {
+        } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ServiceException("Business: Something went wrong checking an entity.", e);
+            throw new ApplicationException("Business: Something went wrong checking an entity.");
         }
     }
 
-    public void checkAll(Set<UUID> ids) throws ServiceException {
+    public void checkAll(Set<UUID> ids) throws SystemGlobalException {
         try {
             this.repository.checkAll(ids, getRepositoryAuth());
-        } catch (ServiceException e) {
+        } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ServiceException("Business: Something went wrong checking all entities by ids.", e);
+            throw new ApplicationException("Business: Something went wrong checking all entities by ids.");
         }
     }
 }

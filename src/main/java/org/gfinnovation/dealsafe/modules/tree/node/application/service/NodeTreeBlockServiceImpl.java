@@ -1,7 +1,8 @@
 package org.gfinnovation.dealsafe.modules.tree.node.application.service;
 
 import org.gfinnovation.dealsafe._shared.modules.application.GenericServiceImpl;
-import org.gfinnovation.dealsafe.exception.models.layered.ServiceException;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
+import org.gfinnovation.dealsafe.exception.models.ApplicationException;
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeCreationDTO;
 import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeBlockService;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
@@ -50,20 +51,20 @@ class NodeTreeBlockServiceImpl
      * Every Node needs a parent, in this case the parent can be either an RootNode or a common Node.
      * ParentId can either belong to a Root or a Node, this method supports both.
      *
-     * @throws ServiceException Thrown when an error occurs on business level.
+     * @throws ApplicationException Thrown when an error occurs on business level.
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
 
-    public NodeTreeBlock create(NodeCreationDTO nodeCreationDTO) throws ServiceException {
+    public NodeTreeBlock create(NodeCreationDTO nodeCreationDTO) throws SystemGlobalException {
         try {
             Node<?> parent = this.nodeRepository.read(nodeCreationDTO.parent_id(), getRepositoryAuth());
             NodeTreeBlock newNode = this.nodeTreeFactory.produceBlock(nodeCreationDTO.name(), parent);
             return this.read(this.nodeTreeRepository.createNode(newNode, parent, nodeCreationDTO.position(), getRepositoryAuth()).getId());
-        } catch (ServiceException e) {
+        } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ServiceException("Business: Something went wrong checking a node.", e);
+            throw new ApplicationException("Business: Something went wrong checking a node.");
         }
     }
 }

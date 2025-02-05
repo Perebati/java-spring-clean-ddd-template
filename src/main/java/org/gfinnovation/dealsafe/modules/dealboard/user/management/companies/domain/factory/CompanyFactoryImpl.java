@@ -1,6 +1,7 @@
 package org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.domain.factory;
 
-import org.gfinnovation.dealsafe.exception.models.layered.FactoryException;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
+import org.gfinnovation.dealsafe.exception.models.DomainException;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.domain.CompanyList;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.domain.factory.interfaces.CompanyListFactory;
 import org.springframework.stereotype.Component;
@@ -9,19 +10,21 @@ import java.util.List;
 
 @Component
 class CompanyFactoryImpl implements CompanyListFactory {
-    public CompanyList produce(String name, List<String> cnpjs) throws FactoryException {
+    @Override
+    public CompanyList produce(String name, List<String> cnpjs) throws SystemGlobalException {
         try {
             return new CompanyList(name, cnpjs);
         } catch (Exception e) {
-            throw new FactoryException("Factory: Something went wrong creating a company list.", e);
+            throw new DomainException("Factory: Something went wrong creating a company list.");
         }
     }
 
-    public CompanyList produce(String name) throws FactoryException {
+    @Override
+    public CompanyList produce(String name) throws SystemGlobalException {
         try {
             return new CompanyList(name);
         } catch (Exception e) {
-            throw new FactoryException("Factory: Something went wrong creating a company list.", e);
+            throw new DomainException("Factory: Something went wrong creating a company list.");
         }
     }
 }

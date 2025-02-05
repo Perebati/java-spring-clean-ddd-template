@@ -1,7 +1,8 @@
 package org.gfinnovation.dealsafe.modules.tree.node.application.service;
 
 import org.gfinnovation.dealsafe._shared.modules.application.GenericServiceImpl;
-import org.gfinnovation.dealsafe.exception.models.layered.ServiceException;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
+import org.gfinnovation.dealsafe.exception.models.ApplicationException;
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeCreationDTO;
 import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeIfService;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
@@ -34,15 +35,15 @@ class NodeTreeIfServiceImpl
         this.nodeRepository = nodeRepository;
     }
 
-    public NodeTreeIf create(NodeCreationDTO nodeCreationDTO) throws ServiceException {
+    public NodeTreeIf create(NodeCreationDTO nodeCreationDTO) throws SystemGlobalException {
         try {
             Node<?> parent = this.nodeRepository.read(nodeCreationDTO.parent_id(), getRepositoryAuth());
             NodeTreeIf newNode = this.nodeTreeFactory.produceIf(parent);
             return this.read(this.nodeTreeRepository.createNode(newNode, parent, nodeCreationDTO.position(), getRepositoryAuth()).getId());
-        } catch (ServiceException e) {
+        } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ServiceException("Business: Something went wrong checking a node.", e);
+            throw new ApplicationException("Business: Something went wrong checking a node.");
         }
     }
 }

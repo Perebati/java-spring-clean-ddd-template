@@ -10,7 +10,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.gfinnovation.dealsafe._shared.modules.domain.GenericBusinessClass;
 import org.gfinnovation.dealsafe._shared.utils.annotations.Default;
-import org.gfinnovation.dealsafe.exception.models.layered.ServiceException;
+import org.gfinnovation.dealsafe.exception.models.ApplicationException;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.HashMap;
@@ -60,7 +60,7 @@ public class Input extends GenericBusinessClass {
 
     private void validate() {
         if (this.name == null || this.name.length() < 4 || this.name.length() > 100) {
-            throw new ServiceException("O nome do input deve ter entre 4 e 100 caracteres.");
+            throw new ApplicationException("O nome do input deve ter entre 4 e 100 caracteres.");
         }
     }
 

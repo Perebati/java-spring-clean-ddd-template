@@ -5,8 +5,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.apache.coyote.BadRequestException;
-import org.gfinnovation.dealsafe.exception.models.layered.DomainException;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonCustomListRecord;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonMultiRecord;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonSingularRecord;
@@ -40,7 +39,7 @@ public interface ComparisonController {
     })
     @PostMapping("comparison-singular")
     ResponseEntity<ComparisonSingular> createSingularComparison(@RequestBody ComparisonSingularRecord request)
-            throws DomainException, BadRequestException;
+            throws SystemGlobalException;
 
     @Operation(summary = "Cadastro de uma operação de comparação multípla",
             description = "Registra uma nova operação de comparação no sistema.")
@@ -51,7 +50,7 @@ public interface ComparisonController {
     })
     @PostMapping("comparison-multi")
     ResponseEntity<ComparisonMulti> createMultiComparison(@RequestBody ComparisonMultiRecord request)
-            throws DomainException, BadRequestException;
+            throws SystemGlobalException;
 
     @Operation(summary = "Cadastro de uma operação de BlackList",
             description = "Registra uma nova operação de Blacklist no sistema.")
@@ -62,7 +61,7 @@ public interface ComparisonController {
     })
     @PostMapping("comparison-black-list")
     ResponseEntity<ComparisonCustomList> createBlackListComparison(@RequestBody ComparisonCustomListRecord request)
-            throws DomainException, BadRequestException;
+            throws SystemGlobalException;
 
     @Operation(summary = "Cadastro de uma operação de WhiteList",
             description = "Registra uma nova operação de WhiteList no sistema.")
@@ -73,5 +72,5 @@ public interface ComparisonController {
     })
     @PostMapping("comparison-white-list")
     ResponseEntity<ComparisonCustomList> createWhiteListComparison(@RequestBody ComparisonCustomListRecord request)
-            throws DomainException, BadRequestException;
+            throws SystemGlobalException;
 }

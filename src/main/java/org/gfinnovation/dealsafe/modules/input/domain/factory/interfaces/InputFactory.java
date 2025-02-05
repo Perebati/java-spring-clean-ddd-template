@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe.modules.input.domain.factory.interfaces;
 
-import org.gfinnovation.dealsafe.exception.models.layered.FactoryException;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.modules.input.domain.Input;
 
 /**
@@ -11,5 +11,5 @@ import org.gfinnovation.dealsafe.modules.input.domain.Input;
  */
 
 public interface InputFactory {
-    Input produce(String name, String json) throws FactoryException;
+    Input produce(String name, String json) throws SystemGlobalException;
 }

@@ -1,8 +1,8 @@
 package org.gfinnovation.dealsafe.modules.tree.comparison.application.service;
 
-import org.apache.coyote.BadRequestException;
 import org.gfinnovation.dealsafe._shared.modules.application.GenericServiceImpl;
-import org.gfinnovation.dealsafe.exception.models.layered.ServiceException;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
+import org.gfinnovation.dealsafe.exception.models.ApplicationException;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonSingularRecord;
 import org.gfinnovation.dealsafe.modules.tree.comparison.application.service.interfaces.ComparisonSingularService;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
@@ -47,15 +47,15 @@ class ComparisonSingularServiceImpl
     @Override
     public ComparisonSingular create(
             ComparisonSingularRecord input
-    ) throws ServiceException, BadRequestException {
+    ) throws SystemGlobalException {
         try {
             Node<?> parent = this.nodeRepository.read(input.parentId(), getRepositoryAuth());
             ComparisonSingular newOperation = this.comparisonOperationFactory.produce(input.type(), input.jsonPath(), input.variable(), parent);
             return this.comparisonSingularRepository.createNode(newOperation, parent, input.position(), getRepositoryAuth());
-        } catch (BadRequestException | ServiceException e) {
+        } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ServiceException("Business: Something went wrong creating a comparison operation.", e);
+            throw new ApplicationException("Business: Something went wrong creating a comparison operation.");
         }
     }
 }

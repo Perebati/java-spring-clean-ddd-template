@@ -1,7 +1,8 @@
 package org.gfinnovation.dealsafe.modules.input.adapter.web.controller;
 
 import org.apache.coyote.BadRequestException;
-import org.gfinnovation.dealsafe.exception.models.layered.DomainException;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
+import org.gfinnovation.dealsafe.exception.models.AdapterException;
 import org.gfinnovation.dealsafe.modules.input.adapter.web.controller.interfaces.InputController;
 import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.InputService;
 import org.gfinnovation.dealsafe.modules.input.domain.Input;
@@ -29,31 +30,31 @@ class InputControllerImpl implements InputController {
     }
 
     @Override
-    public ResponseEntity<Input> createInput(@RequestParam String name, @RequestBody String json) throws DomainException, BadRequestException {
+    public ResponseEntity<Input> createInput(@RequestParam String name, @RequestBody String json) throws SystemGlobalException {
         try {
             if (name == null || name.isEmpty() || json == null || json.isEmpty()) {
                 throw new BadRequestException("'name' and/or 'json' fields can't be null!");
             }
             return ResponseEntity.status(HttpStatus.CREATED).body(this.inputService.create(name, json));
 
-        } catch (DomainException | BadRequestException e) {
+        } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new DomainException("Controller: Unexpected error in input creation.");
+            throw new AdapterException("Controller: Unexpected error in input creation.");
         }
     }
 
     @Override
-    public ResponseEntity<Input> readInput(UUID id) throws DomainException, BadRequestException {
+    public ResponseEntity<Input> readInput(UUID id) throws SystemGlobalException {
         try {
             if (id == null) {
                 throw new BadRequestException("input id can't be null!");
             }
             return ResponseEntity.status(HttpStatus.OK).body(this.inputService.read(id));
-        } catch (DomainException | BadRequestException e) {
+        } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new DomainException("Controller: Unexpected error in input reading.");
+            throw new AdapterException("Controller: Unexpected error in input reading.");
         }
     }
 }

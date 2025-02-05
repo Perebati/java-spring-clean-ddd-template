@@ -2,9 +2,10 @@ package org.gfinnovation.dealsafe.modules.tree.comparison.domain.factory;
 
 import jakarta.validation.ValidationException;
 import org.apache.coyote.BadRequestException;
+import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.exception.EntityNotFound;
 import org.gfinnovation.dealsafe._shared.utils.converter.PathNormalizer;
-import org.gfinnovation.dealsafe.exception.models.layered.FactoryException;
-import org.gfinnovation.dealsafe.exception.models.layered.RepositoryEntityNotFoundException;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
+import org.gfinnovation.dealsafe.exception.models.DomainException;
 import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.InputService;
 import org.gfinnovation.dealsafe.modules.input.domain.Input;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonCustomList;
@@ -54,9 +55,6 @@ public class ComparisonFactoryImpl implements ComparisonFactory {
      * @param variable Variable value.
      * @param parent   Parent node.
      * @return Comparison
-     * @throws FactoryException                  Thrown when something wrong happened on factory layer.
-     * @throws BadRequestException               Thrown when there's something wrong in user input.
-     * @throws RepositoryEntityNotFoundException Thrown when something wrong happened on reading entities.
      * @throws ValidationException               Thrown when something wrong happened on factory layer.
      * @author Lucas Batista Pereira
      * @since 30/10/2024
@@ -67,14 +65,14 @@ public class ComparisonFactoryImpl implements ComparisonFactory {
             String jsonPath,
             String variable,
             Node<?> parent
-    ) throws FactoryException, BadRequestException {
+    ) throws SystemGlobalException {
         try {
             jsonPath = PathNormalizer.normalizePath(jsonPath);
 
             Object rootTreeEntity = this.rootTreeService
                     .readGenericRoot(this.rootTreeService
                             .findRootIdByNodeId(parent.getId())
-                            .orElseThrow(() -> new RepositoryEntityNotFoundException("Factory: Root parent not found!")));
+                            .orElseThrow(() -> new EntityNotFound("Factory: Root parent not found!")));
 
             if (rootTreeEntity instanceof RootTreeStatic) {
                 PredefinedTypeEnum predefinedTypeEnum = ((RootTreeStatic) rootTreeEntity).getInput_type();
@@ -89,10 +87,10 @@ public class ComparisonFactoryImpl implements ComparisonFactory {
             }
 
             return new ComparisonSingular(type, jsonPath, variable, parent);
-        } catch (BadRequestException | RepositoryEntityNotFoundException e) {
-            throw new FactoryException(e.getMessage());
+        } catch (SystemGlobalException e) {
+            throw e;
         } catch (Exception e) {
-            throw new FactoryException("Factory: Something went wrong creating a comparison operation.", e);
+            throw new DomainException("Factory: Something went wrong creating a comparison operation.");
         }
     }
 
@@ -101,16 +99,16 @@ public class ComparisonFactoryImpl implements ComparisonFactory {
             String jsonVariablePath,
             List<String> expectedVars,
             Node<?> parent
-    ) throws FactoryException, BadRequestException {
+    ) throws SystemGlobalException {
         try {
             jsonVariablePath = PathNormalizer.normalizePath(jsonVariablePath);
 
             validateComparison(jsonVariablePath, parent);
             return new ComparisonMulti(comparisonTypeEnum, jsonVariablePath, expectedVars, parent);
-        } catch (BadRequestException | RepositoryEntityNotFoundException e) {
-            throw new FactoryException(e.getMessage());
+        } catch (SystemGlobalException e) {
+            throw e;
         } catch (Exception e) {
-            throw new FactoryException("Factory: Something went wrong creating a comparison operation.", e);
+            throw new DomainException("Factory: Something went wrong creating a comparison operation.");
         }
     }
 
@@ -119,16 +117,16 @@ public class ComparisonFactoryImpl implements ComparisonFactory {
             String jsonPath,
             UUID variable,
             Node<?> parent
-    ) throws FactoryException, BadRequestException {
+    ) throws SystemGlobalException {
         try {
             jsonPath = PathNormalizer.normalizePath(jsonPath);
 
             validateComparison(jsonPath, parent);
             return new ComparisonCustomList(type, jsonPath, variable, parent);
-        } catch (BadRequestException | RepositoryEntityNotFoundException e) {
-            throw new FactoryException(e.getMessage());
+        } catch (SystemGlobalException e) {
+            throw e;
         } catch (Exception e) {
-            throw new FactoryException("Factory: Something went wrong creating a comparison operation.", e);
+            throw new DomainException("Factory: Something went wrong creating a comparison operation.");
         }
     }
 
@@ -136,7 +134,7 @@ public class ComparisonFactoryImpl implements ComparisonFactory {
         Object rootTreeEntity = this.rootTreeService
                 .readGenericRoot(this.rootTreeService
                         .findRootIdByNodeId(parent.getId())
-                        .orElseThrow(() -> new RepositoryEntityNotFoundException("Factory: Root parent not found!")));
+                        .orElseThrow(() -> new EntityNotFound("Factory: Root parent not found!")));
         if (rootTreeEntity instanceof RootTreeStatic) {
             PredefinedTypeEnum predefinedTypeEnum = ((RootTreeStatic) rootTreeEntity).getInput_type();
             try {

@@ -1,6 +1,7 @@
 package org.gfinnovation.dealsafe.modules.tree.root.adapter.web.controller;
 
-import org.gfinnovation.dealsafe.exception.models.layered.DomainException;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
+import org.gfinnovation.dealsafe.exception.models.AdapterException;
 import org.gfinnovation.dealsafe.modules.tree.root.adapter.web.controller.interfaces.RootTreeController;
 import org.gfinnovation.dealsafe.modules.tree.root.adapter.web.request.RootCreationDynamicInputDTO;
 import org.gfinnovation.dealsafe.modules.tree.root.adapter.web.request.RootCreationPredefinedInputDTO;
@@ -34,33 +35,33 @@ class RootTreeControllerImpl implements RootTreeController {
 
     @Override
     public ResponseEntity<RootTreeStatic> createRootPredefined(
-            @RequestBody RootCreationPredefinedInputDTO request) throws DomainException {
+            @RequestBody RootCreationPredefinedInputDTO request) throws SystemGlobalException {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(
                     this.rootTreeStaticService.create(
                             request.name(),
                             request.type()
                     ));
-        } catch (DomainException e) {
+        } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new DomainException("Controller: Unexpected error in static root creation.");
+            throw new AdapterException("Controller: Unexpected error in static root creation.");
         }
     }
 
     @Override
     public ResponseEntity<RootTreeDynamic> createRootDynamic(
-            RootCreationDynamicInputDTO request) throws DomainException {
+            RootCreationDynamicInputDTO request) throws SystemGlobalException {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(
                     this.rootTreeDynamicService.create(
                             request.name(),
                             request.dynamicInput_id()
                     ));
-        } catch (DomainException e) {
+        } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new DomainException("Controller: Unexpected error in dynamic root creation.");
+            throw new AdapterException("Controller: Unexpected error in dynamic root creation.");
         }
     }
 }

@@ -5,7 +5,8 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.RepositoryAuth;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.interfaces.GenericBusinessRepository;
-import org.gfinnovation.dealsafe.exception.models.layered.RepositoryException;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
+import org.gfinnovation.dealsafe.exception.models.InfrastructureException;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTree;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeBlock;
@@ -39,11 +40,11 @@ class NodeTreeRepositoryImpl
     private final NodeTreeIfRepository nodeTreeIfRepository;
 
     @Transactional
-    public T createNode(T newNode, Node<?> parent, NodeTreeIf.SetNode nodeSet, RepositoryAuth auth) throws RepositoryException {
+    public T createNode(T newNode, Node<?> parent, NodeTreeIf.SetNode nodeSet, RepositoryAuth auth) throws SystemGlobalException {
         try {
             GenericBusinessRepository<T> nodeRepo = nodeRepositoryFactory.getRepositoryForNode(newNode);
 
-            T createdNodeEntity = nodeRepo.createSync(newNode, auth);
+            T createdNodeEntity = nodeRepo.create(newNode, auth);
 
             Node<?> parentEntity = this.readParent(parent, auth, createdNodeEntity);
 
@@ -56,11 +57,11 @@ class NodeTreeRepositoryImpl
             }
             return nodeRepo.read(createdNodeEntity.getId(), auth);
         } catch (Exception e) {
-            throw new RepositoryException("An error has occurred setting up a new node.", e);
+            throw new InfrastructureException("An error has occurred setting up a new node.");
         }
     }
 
-    private Node<?> readParent(Node<?> parent, RepositoryAuth auth, T createdEntity) throws RepositoryException {
+    private Node<?> readParent(Node<?> parent, RepositoryAuth auth, T createdEntity) throws InfrastructureException {
         switch (parent.getNodeType()) {
             case Node.NodeType.ROOT_STATIC:
                 RootTreeStatic parent_static = this.rootTreeStaticRepository.read(parent.getId(), auth);
@@ -81,34 +82,34 @@ class NodeTreeRepositoryImpl
                 return this.nodeTreeIfRepository.read(parent.getId(), auth);
 
             default:
-                throw new RepositoryException("Can't read node of type: " + parent.getNodeType());
+                throw new InfrastructureException("Can't read node of type: " + parent.getNodeType());
         }
     }
 
-    private void updateParent(Node<?> parentEntity, RepositoryAuth auth) throws RepositoryException {
+    private void updateParent(Node<?> parentEntity, RepositoryAuth auth) throws InfrastructureException {
         switch (parentEntity.getNodeType()) {
             case Node.NodeType.ROOT_STATIC:
                 RootTreeStatic parentStatic = (RootTreeStatic) parentEntity;
-                this.rootTreeStaticRepository.updateSync(parentStatic, auth);
+                this.rootTreeStaticRepository.update(parentStatic, auth);
                 break;
 
             case Node.NodeType.ROOT_DYNAMIC:
                 RootTreeDynamic parentDynamic = (RootTreeDynamic) parentEntity;
-                this.rootTreeDynamicRepository.updateSync(parentDynamic, auth);
+                this.rootTreeDynamicRepository.update(parentDynamic, auth);
                 break;
 
             case Node.NodeType.NODE_BLOCK:
                 NodeTreeBlock parentBlock = (NodeTreeBlock) parentEntity;
-                this.nodeTreeBlockRepository.updateSync(parentBlock, auth);
+                this.nodeTreeBlockRepository.update(parentBlock, auth);
                 break;
 
             case Node.NodeType.NODE_IF:
                 NodeTreeIf parentIf = (NodeTreeIf) parentEntity;
-                this.nodeTreeIfRepository.updateSync(parentIf, auth);
+                this.nodeTreeIfRepository.update(parentIf, auth);
                 break;
 
             default:
-                throw new RepositoryException("Can't update a node of type: " + parentEntity.getNodeType());
+                throw new InfrastructureException("Can't update a node of type: " + parentEntity.getNodeType());
         }
     }
 
@@ -116,7 +117,7 @@ class NodeTreeRepositoryImpl
             T createdNodeEntity,
             NodeTreeIf parent,
             NodeTreeIf.SetNode position
-    ) throws RepositoryException {
+    ) throws InfrastructureException {
         try {
             switch (position) {
                 case NodeTreeIf.SetNode.CONDITIONAL:
@@ -132,10 +133,8 @@ class NodeTreeRepositoryImpl
                 default:
                     break;
             }
-        } catch (RepositoryException e) {
-            throw e;
         } catch (Exception e) {
-            throw new RepositoryException("An error has occurred when inserting a node inside an if node.", e);
+            throw new InfrastructureException("An error has occurred when inserting a node inside an if node.");
         }
     }
 }

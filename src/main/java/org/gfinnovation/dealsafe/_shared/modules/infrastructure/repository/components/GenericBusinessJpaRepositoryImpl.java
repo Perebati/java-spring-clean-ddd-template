@@ -4,7 +4,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.*;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.GenericBusinessEntity;
-import org.gfinnovation.dealsafe.exception.models.layered.RepositoryException;
+import org.gfinnovation.dealsafe.exception.models.InfrastructureException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -55,7 +55,7 @@ public abstract class GenericBusinessJpaRepositoryImpl<S extends GenericBusiness
 
             return entityManager.createQuery(query).getResultStream().findFirst();
         } catch (Exception e) {
-            throw new RepositoryException("Error while trying to find entity by id.");
+            throw new InfrastructureException("Error while trying to find entity by id.");
         }
     }
 

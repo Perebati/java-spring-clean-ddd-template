@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.adapter.web.request.CompanyListData;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.domain.CompanyList;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,7 @@ public interface CompanyListController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PostMapping("company-list")
-    ResponseEntity<CompanyList> createList(@RequestBody CompanyListData companyListData);
+    ResponseEntity<CompanyList> createList(@RequestBody CompanyListData companyListData) throws SystemGlobalException;
 
     @Operation(summary = "Realiza a leitura de um lista de empresas",
             description = "Necessita do id da lista de empresas.")
@@ -36,7 +37,7 @@ public interface CompanyListController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @GetMapping("company-list")
-    ResponseEntity<CompanyList> readList(@RequestParam UUID company_list);
+    ResponseEntity<CompanyList> readList(@RequestParam UUID company_list) throws SystemGlobalException;
 
     @Operation(summary = "Realiza a leitura de todas as listas de empresas")
     @ApiResponses(value = {
@@ -45,7 +46,7 @@ public interface CompanyListController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @GetMapping("company-list/getAll")
-    ResponseEntity<List<CompanyList>> realAllList();
+    ResponseEntity<List<CompanyList>> realAllList() throws SystemGlobalException;
 
     @Operation(summary = "Atualiza um objeto de lista de empresas", description = "Necessita do objeto a ser atualizado.")
     @ApiResponses(value = {
@@ -54,7 +55,7 @@ public interface CompanyListController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PutMapping("company-list")
-    ResponseEntity<CompanyList> updateList(@RequestBody CompanyList companyList);
+    ResponseEntity<CompanyList> updateList(@RequestBody CompanyList companyList) throws SystemGlobalException;
 
     @Operation(summary = "Deleta uma lista de empresas baseado no id!",
             description = "Necessita do id da lista de empresas.")
@@ -64,5 +65,5 @@ public interface CompanyListController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @DeleteMapping("company-list")
-    ResponseEntity<Void> deleteList(@RequestParam UUID company_list);
+    ResponseEntity<Void> deleteList(@RequestParam UUID company_list) throws SystemGlobalException;
 }

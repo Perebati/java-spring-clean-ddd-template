@@ -1,4 +1,6 @@
-package org.gfinnovation.dealsafe.exception.models.layered;
+package org.gfinnovation.dealsafe.exception.models;
+
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 
 /**
  * RepositoryException is for general use, throw it when you not sure
@@ -9,12 +11,8 @@ package org.gfinnovation.dealsafe.exception.models.layered;
  * @class RepositoryException
  * @since 30/10/2024
  */
-public class RepositoryException extends ServiceException {
-    public RepositoryException(String message) {
+public class InfrastructureException extends SystemGlobalException {
+    public InfrastructureException(String message) {
         super(message);
-    }
-
-    public RepositoryException(String message, Throwable cause) {
-        super(message, cause);
     }
 }

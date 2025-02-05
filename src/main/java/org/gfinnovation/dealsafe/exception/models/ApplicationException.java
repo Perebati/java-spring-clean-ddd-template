@@ -1,4 +1,6 @@
-package org.gfinnovation.dealsafe.exception.models.layered;
+package org.gfinnovation.dealsafe.exception.models;
+
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 
 /**
  * ServiceException is for general use, throw it when you not sure
@@ -9,12 +11,8 @@ package org.gfinnovation.dealsafe.exception.models.layered;
  * @class ServiceException
  * @since 30/10/2024
  */
-public class ServiceException extends DomainException {
-    public ServiceException(String message) {
+public class ApplicationException extends SystemGlobalException {
+    public ApplicationException(String message) {
         super(message);
-    }
-
-    public ServiceException(String message, Throwable cause) {
-        super(message, cause);
     }
 }

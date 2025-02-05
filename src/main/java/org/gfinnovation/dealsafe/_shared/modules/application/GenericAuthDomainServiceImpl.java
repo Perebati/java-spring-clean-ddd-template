@@ -2,13 +2,15 @@ package org.gfinnovation.dealsafe._shared.modules.application;
 
 import org.apache.coyote.BadRequestException;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.RepositoryAuth;
-import org.gfinnovation.dealsafe.exception.models.layered.ServiceAuthenticationException;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
+import org.gfinnovation.dealsafe.exception.models.ApplicationException;
+import org.gfinnovation.dealsafe.exception.models.FailedRequestException;
 import org.slf4j.MDC;
 
 import java.util.UUID;
 
 public abstract class GenericAuthDomainServiceImpl {
-    protected UUID getUserId() throws BadRequestException {
+    protected UUID getUserId() throws SystemGlobalException {
         try {
             String userIdStr = MDC.get("userId");
 
@@ -17,16 +19,14 @@ public abstract class GenericAuthDomainServiceImpl {
             }
 
             return UUID.fromString(userIdStr);
-        } catch (BadRequestException e) {
-            throw e;
-        } catch (IllegalArgumentException e) {
-            throw new BadRequestException("Invalid userId format!", e);
+        } catch (BadRequestException | IllegalArgumentException e) {
+            throw new FailedRequestException("Invalid userId format!");
         } catch (Exception e) {
-            throw new ServiceAuthenticationException("Something went wrong checking for user business info.", e);
+            throw new ApplicationException("Something went wrong checking for user business info.");
         }
     }
 
-    protected UUID getWhitelabelId() throws BadRequestException {
+    protected UUID getWhitelabelId() throws SystemGlobalException {
         try {
             String userIdStr = MDC.get("whitelabelId");
 
@@ -35,23 +35,21 @@ public abstract class GenericAuthDomainServiceImpl {
             }
 
             return UUID.fromString(userIdStr);
-        } catch (BadRequestException e) {
-            throw e;
-        } catch (IllegalArgumentException e) {
-            throw new BadRequestException("Invalid whitelabelId format!", e);
+        } catch (BadRequestException | IllegalArgumentException e) {
+            throw new FailedRequestException("Invalid whitelabelId format!");
         } catch (Exception e) {
-            throw new ServiceAuthenticationException("Something went wrong checking for whitelabel business info.", e);
+            throw new ApplicationException("Something went wrong checking for whitelabel business info.");
         }
     }
 
-    protected UUID getRequestId() {
+    protected UUID getRequestId() throws SystemGlobalException {
         try {
             String requestIdStr = MDC.get("requestId");
             return UUID.fromString(requestIdStr);
         } catch (IllegalArgumentException e) {
-            throw new ServiceAuthenticationException("Invalid request ID format.", e);
+            throw new FailedRequestException("Invalid request ID format.");
         } catch (Exception e) {
-            throw new ServiceAuthenticationException("Something went wrong checking for web request info.", e);
+            throw new ApplicationException("Something went wrong checking for web request info.");
         }
     }
 

@@ -2,9 +2,9 @@ package org.gfinnovation.dealsafe.modules.tree.root.application.service;
 
 import jakarta.validation.ValidationException;
 import org.gfinnovation.dealsafe._shared.modules.application.GenericServiceImpl;
-import org.gfinnovation.dealsafe.exception.models.layered.FactoryException;
-import org.gfinnovation.dealsafe.exception.models.layered.RepositoryException;
-import org.gfinnovation.dealsafe.exception.models.layered.ServiceException;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
+import org.gfinnovation.dealsafe.exception.models.InfrastructureException;
+import org.gfinnovation.dealsafe.exception.models.ApplicationException;
 import org.gfinnovation.dealsafe.modules.tree.root.application.service.interfaces.RootTreeDynamicService;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeDynamic;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.factory.interfaces.RootTreeFactory;
@@ -35,24 +35,23 @@ public class RootTreeDynamicServiceImpl
      * @param name          Name of given root node.
      * @param dynamic_input Identification of referenced dynamic input.
      * @return RootTreeDynamic
-     * @throws ServiceException    Thrown when an error occurs on business level.
-     * @throws FactoryException    Thrown when an error occurs on factory level.
+     * @throws ApplicationException    Thrown when an error occurs on business level.
      * @throws ValidationException Thrown when an error occurs on factory level.
-     * @throws RepositoryException Thrown when an error occurs on repository level.
+     * @throws InfrastructureException Thrown when an error occurs on repository level.
      */
     @Override
-    public RootTreeDynamic create(String name, UUID dynamic_input) throws ServiceException {
+    public RootTreeDynamic create(String name, UUID dynamic_input) throws SystemGlobalException {
         try {
             return this.repository
-                    .createSync(rootTreeFactory
+                    .create(rootTreeFactory
                             .produce(
                                     name,
                                     dynamic_input
                             ), getRepositoryAuth());
-        } catch (ServiceException e) {
+        } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ServiceException("Business: Something went wrong creating a dynamic root.", e);
+            throw new ApplicationException("Business: Something went wrong creating a dynamic root.");
         }
     }
 }

@@ -1,7 +1,8 @@
 package org.gfinnovation.dealsafe.modules.input.application.service;
 
 import org.gfinnovation.dealsafe._shared.modules.application.GenericServiceImpl;
-import org.gfinnovation.dealsafe.exception.models.layered.ServiceException;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
+import org.gfinnovation.dealsafe.exception.models.ApplicationException;
 import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.InputService;
 import org.gfinnovation.dealsafe.modules.input.domain.Input;
 import org.gfinnovation.dealsafe.modules.input.domain.factory.interfaces.InputFactory;
@@ -45,22 +46,22 @@ class InputServiceImpl
      * @param name Name of given input.
      * @param json Example of json to map.
      * @return InputEntity
-     * @throws ServiceException Thrown when ac error occurred on business level.
+     * @throws ApplicationException Thrown when ac error occurred on business level.
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
     public Input create(
             String name,
             String json
-    ) throws ServiceException {
+    ) throws SystemGlobalException {
         try {
-            return this.inputRepository.createSync(
+            return this.inputRepository.create(
                     this.inputFactory.produce(name, json),
                     getRepositoryAuth());
-        } catch (ServiceException e) {
+        } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ServiceException("Business: Something went wrong creating an input.", e);
+            throw new ApplicationException("Business: Something went wrong creating an input.");
         }
     }
 }

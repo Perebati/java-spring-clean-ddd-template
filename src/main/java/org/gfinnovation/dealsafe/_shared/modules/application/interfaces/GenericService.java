@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe._shared.modules.application.interfaces;
 
 import org.gfinnovation.dealsafe._shared.modules.domain.GenericClass;
-import org.gfinnovation.dealsafe.exception.models.layered.ServiceException;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,21 +20,21 @@ import java.util.concurrent.CompletableFuture;
  */
 
 public interface GenericService<E extends GenericClass> {
-    E read(UUID id) throws ServiceException;
+    E read(UUID id) throws SystemGlobalException;
 
-    CompletableFuture<E> updateAsync(E entity) throws ServiceException;
+    CompletableFuture<E> updateAsync(E entity) throws SystemGlobalException;
 
-    E updateSync(E entity) throws ServiceException;
+    E updateSync(E entity) throws SystemGlobalException;
 
-    void deleteSync(UUID id) throws ServiceException;
+    void deleteSync(UUID id) throws SystemGlobalException;
 
-    void deleteAsync(UUID id) throws ServiceException;
+    void deleteAsync(UUID id) throws SystemGlobalException;
 
-    Optional<List<E>> readAll() throws ServiceException;
+    Optional<List<E>> readAll() throws SystemGlobalException;
 
-    Optional<List<E>> readAllByIds(List<UUID> ids) throws ServiceException;
+    Optional<List<E>> readAllByIds(List<UUID> ids) throws SystemGlobalException;
 
-    void check(UUID id) throws ServiceException;
+    void check(UUID id) throws SystemGlobalException;
 
-    void checkAll(Set<UUID> ids) throws ServiceException;
+    void checkAll(Set<UUID> ids) throws SystemGlobalException;
 }

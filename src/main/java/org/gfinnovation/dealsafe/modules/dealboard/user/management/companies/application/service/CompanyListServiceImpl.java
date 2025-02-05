@@ -1,7 +1,8 @@
 package org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.application.service;
 
 import org.gfinnovation.dealsafe._shared.modules.application.GenericServiceImpl;
-import org.gfinnovation.dealsafe.exception.models.layered.ServiceException;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
+import org.gfinnovation.dealsafe.exception.models.ApplicationException;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.application.service.interfaces.CompanyListService;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.domain.CompanyList;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.domain.factory.interfaces.CompanyListFactory;
@@ -23,17 +24,18 @@ class CompanyListServiceImpl
         this.companyListFactory = companyListFactory;
     }
 
-    public CompanyList createCompanyList(String name, List<String> cnpjs) {
+    @Override
+    public CompanyList createCompanyList(String name, List<String> cnpjs) throws SystemGlobalException {
         try {
             if (cnpjs != null && !cnpjs.isEmpty()) {
-                return this.repository.createSync(this.companyListFactory.produce(name, cnpjs), getRepositoryAuth());
+                return this.repository.create(this.companyListFactory.produce(name, cnpjs), getRepositoryAuth());
             } else {
-                return this.repository.createSync(this.companyListFactory.produce(name), getRepositoryAuth());
+                return this.repository.create(this.companyListFactory.produce(name), getRepositoryAuth());
             }
-        } catch (ServiceException e) {
+        } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ServiceException("Business: Something went wrong creating a company list.", e);
+            throw new ApplicationException("Business: Something went wrong creating a company list.");
         }
     }
 }

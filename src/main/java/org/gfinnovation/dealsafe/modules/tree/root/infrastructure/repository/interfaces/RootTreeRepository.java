@@ -2,7 +2,7 @@ package org.gfinnovation.dealsafe.modules.tree.root.infrastructure.repository.in
 
 import jakarta.validation.constraints.NotNull;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.RepositoryAuth;
-import org.gfinnovation.dealsafe.exception.models.layered.RepositoryException;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -15,7 +15,7 @@ import java.util.UUID;
  */
 
 public interface RootTreeRepository {
-    Object readGenericRoot(@NotNull UUID id, @NotNull RepositoryAuth auth) throws RepositoryException;
+    Object readGenericRoot(@NotNull UUID id, @NotNull RepositoryAuth auth) throws SystemGlobalException;
 
-    Optional<UUID> findRootIdByNodeId(UUID nodeId);
+    Optional<UUID> findRootIdByNodeId(UUID nodeId) throws SystemGlobalException;
 }

@@ -1,11 +1,9 @@
 package org.gfinnovation.dealsafe.exception;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.BadRequestException;
 import org.gfinnovation.dealsafe.configuration.logging.LogService;
 import org.gfinnovation.dealsafe.configuration.logging.infrastrutcture.ErrorLogSchema;
-import org.gfinnovation.dealsafe.exception.models.layered.DomainException;
-import org.gfinnovation.dealsafe.exception.models.layered.ServiceException;
+import org.gfinnovation.dealsafe.exception.models.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
-import javax.naming.AuthenticationException;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.stream.Collectors;
@@ -37,8 +34,8 @@ public class GlobalExceptionHandler {
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
     private final LogService logService;
 
-    @ExceptionHandler(DomainException.class)
-    public ResponseEntity<Object> handleBusinessException(ServiceException ex, WebRequest request) {
+    @ExceptionHandler(AdapterException.class)
+    public ResponseEntity<Object> handleAdaptionException(ApplicationException ex, WebRequest request) {
         ErrorLogSchema errorLog = buildErrorLog(ex);
         logService.saveErrorLogAsync(errorLog);
 
@@ -46,22 +43,40 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
     }
 
-    @ExceptionHandler(BadRequestException.class)
-    public ResponseEntity<Object> handleBadRequestException(ServiceException ex, WebRequest request) {
+    @ExceptionHandler(ApplicationException.class)
+    public ResponseEntity<Object> handleApplicationException(ApplicationException ex, WebRequest request) {
+        ErrorLogSchema errorLog = buildErrorLog(ex);
+        logService.saveErrorLogAsync(errorLog);
+
+        logger.error(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(DomainException.class)
+    public ResponseEntity<Object> handleDomainException(ApplicationException ex, WebRequest request) {
+        ErrorLogSchema errorLog = buildErrorLog(ex);
+        logService.saveErrorLogAsync(errorLog);
+
+        logger.error(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(InfrastructureException.class)
+    public ResponseEntity<Object> handleInfraException(ApplicationException ex, WebRequest request) {
+        ErrorLogSchema errorLog = buildErrorLog(ex);
+        logService.saveErrorLogAsync(errorLog);
+
+        logger.error(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(FailedRequestException.class)
+    public ResponseEntity<Object> handleBadRequestException(ApplicationException ex, WebRequest request) {
         ErrorLogSchema errorLog = buildErrorLog(ex);
         logService.saveErrorLogAsync(errorLog);
 
         logger.error(ex.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
-    }
-
-    @ExceptionHandler(AuthenticationException.class)
-    public ResponseEntity<Object> handleAuthenticationException(ServiceException ex, WebRequest request) {
-        ErrorLogSchema errorLog = buildErrorLog(ex);
-        logService.saveErrorLogAsync(errorLog);
-
-        logger.error(ex.getMessage());
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ex.getMessage());
     }
 
     @ExceptionHandler(Exception.class)
@@ -94,4 +109,3 @@ public class GlobalExceptionHandler {
                 .collect(Collectors.joining("\n"));
     }
 }
-

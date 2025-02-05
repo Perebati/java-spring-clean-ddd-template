@@ -1,8 +1,9 @@
 package org.gfinnovation.dealsafe.modules.tree.root.application.service;
 
 import org.gfinnovation.dealsafe._shared.modules.application.GenericAuthDomainServiceImpl;
-import org.gfinnovation.dealsafe.exception.models.layered.RepositoryException;
-import org.gfinnovation.dealsafe.exception.models.layered.ServiceException;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
+import org.gfinnovation.dealsafe.exception.models.InfrastructureException;
+import org.gfinnovation.dealsafe.exception.models.ApplicationException;
 import org.gfinnovation.dealsafe.modules.tree.root.application.service.interfaces.RootTreeService;
 import org.gfinnovation.dealsafe.modules.tree.root.infrastructure.repository.interfaces.RootTreeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,18 +43,18 @@ class RootTreeServiceImpl
      *
      * @param id RootId of given root.
      * @return Object(RootTree)
-     * @throws RepositoryException Thrown when an error occur on Repository level.
+     * @throws InfrastructureException Thrown when an error occur on Repository level.
      * @author Lucas Batista Pereira
      * @since 08/11/2024
      */
     @Override
-    public Object readGenericRoot(UUID id) throws ServiceException {
+    public Object readGenericRoot(UUID id) throws SystemGlobalException {
         try {
             return this.rootTreeRepository.readGenericRoot(id, getRepositoryAuth());
-        } catch (ServiceException e) {
+        } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ServiceException("Business: something went wrong reading a generic root.", e);
+            throw new ApplicationException("Business: something went wrong reading a generic root.");
         }
     }
 
@@ -66,13 +67,13 @@ class RootTreeServiceImpl
      * @since 08/11/2024
      */
     @Override
-    public Optional<UUID> findRootIdByNodeId(UUID node_id) throws ServiceException {
+    public Optional<UUID> findRootIdByNodeId(UUID node_id) throws SystemGlobalException {
         try {
             return this.rootTreeRepository.findRootIdByNodeId(node_id);
-        } catch (ServiceException e) {
+        } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ServiceException("Business: Something went wrong find a root by node id.", e);
+            throw new ApplicationException("Business: Something went wrong find a root by node id.");
         }
     }
 }

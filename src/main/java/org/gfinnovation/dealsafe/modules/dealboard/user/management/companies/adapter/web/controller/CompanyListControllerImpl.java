@@ -1,6 +1,7 @@
 package org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.adapter.web.controller;
 
-import org.gfinnovation.dealsafe.exception.models.layered.DomainException;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
+import org.gfinnovation.dealsafe.exception.models.AdapterException;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.adapter.web.controller.interfaces.CompanyListController;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.adapter.web.request.CompanyListData;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.application.usecase.command.CreateCompanyList;
@@ -38,57 +39,57 @@ public class CompanyListControllerImpl implements CompanyListController {
     }
 
     @Override
-    public ResponseEntity<CompanyList> createList(@NonNull CompanyListData companyListData) throws DomainException {
+    public ResponseEntity<CompanyList> createList(@NonNull CompanyListData companyListData) throws SystemGlobalException {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(this.createCompanyList.execute(companyListData));
-        } catch (DomainException e) {
+        } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new DomainException("Controller: Unexpected error in company list creation.");
+            throw new AdapterException("Controller: Unexpected error in company list creation.");
         }
     }
 
     @Override
-    public ResponseEntity<CompanyList> readList(@NonNull UUID company_list) {
+    public ResponseEntity<CompanyList> readList(@NonNull UUID company_list) throws SystemGlobalException {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(this.readCompanyList.execute(company_list));
-        } catch (DomainException e) {
+        } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new DomainException("Controller: Unexpected error in company list reading.");
+            throw new AdapterException("Controller: Unexpected error in company list reading.");
         }
     }
 
     @Override
-    public ResponseEntity<List<CompanyList>> realAllList() {
+    public ResponseEntity<List<CompanyList>> realAllList() throws SystemGlobalException {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(this.readAllCompanyList.execute(null));
-        } catch (DomainException e) {
+        } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new DomainException("Controller: Unexpected error in company list reading.");
+            throw new AdapterException("Controller: Unexpected error in company list reading.");
         }
     }
 
     @Override
-    public ResponseEntity<CompanyList> updateList(@NonNull CompanyList companyList) {
+    public ResponseEntity<CompanyList> updateList(@NonNull CompanyList companyList) throws SystemGlobalException {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(this.updateCompanyList.execute(companyList));
-        } catch (DomainException e) {
+        } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new DomainException("Controller: Unexpected error in company list updating.");
+            throw new AdapterException("Controller: Unexpected error in company list updating.");
         }
     }
 
     @Override
-    public ResponseEntity<Void> deleteList(@NonNull UUID company_list) {
+    public ResponseEntity<Void> deleteList(@NonNull UUID company_list) throws SystemGlobalException {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(this.deleteCompanyList.execute(company_list));
-        } catch (DomainException e) {
+        } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new DomainException("Controller: Unexpected error in company list deleting.");
+            throw new AdapterException("Controller: Unexpected error in company list deleting.");
         }
     }
 }

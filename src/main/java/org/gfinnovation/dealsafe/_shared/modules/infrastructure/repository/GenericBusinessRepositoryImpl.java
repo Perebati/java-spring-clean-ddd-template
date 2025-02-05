@@ -7,9 +7,9 @@ import org.gfinnovation.dealsafe._shared.modules.infrastructure.GenericBusinessE
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.RepositoryAuth;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.mapper.GenericBusinessMapper;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.components.GenericBusinessJpaRepositoryImpl;
+import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.exception.EntityNotFound;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.interfaces.GenericBusinessRepository;
-import org.gfinnovation.dealsafe.exception.models.layered.RepositoryEntityNotFoundException;
-import org.gfinnovation.dealsafe.exception.models.layered.RepositoryException;
+import org.gfinnovation.dealsafe.exception.models.InfrastructureException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,89 +80,6 @@ public abstract class GenericBusinessRepositoryImpl
     }
 
     /*
-            --------------     Async Operations     --------------
-     */
-
-    /**
-     * In the future, creation will be done on a remote database using
-     * kafka queues, that's why it needs to be async.
-     *
-     * @param entity Entity that extends GenericBusinessClass
-     * @return CompletableFuture<E>
-     * @throws RepositoryException Thrown when an unexpected database error occurs.
-     * @author Lucas Batista Pereira
-     * @since 06/11/2024
-     */
-    @Override
-    @Async
-    @Transactional
-    public CompletableFuture<E> createAsync(
-            @Nonnull E entity,
-            @Nonnull RepositoryAuth auth) throws RepositoryException {
-        try {
-            S schema = mapper.toSchemaForCreate(entity);
-            setCommonFields(schema, auth);
-            S savedSchema = jpaRepository.save(schema);
-            logger.info("A new {} was created in the system! (Async)", entity.getClass().getSimpleName());
-            return CompletableFuture.completedFuture(mapper.toEntity(savedSchema));
-        } catch (Exception e) {
-            logger.error("Failed to save entity: {}", entity, e);
-            throw new RepositoryException("Repository: Failed to async save entity", e);
-        }
-    }
-
-    /**
-     * Update a schema based on an entity.
-     *
-     * @param entity Entity to be updated.
-     * @return CompletableFuture<E>
-     * @throws RepositoryException Thrown when an unexpected database error occurs.
-     * @author Lucas Batista Pereira
-     * @since 06/11/2024
-     */
-    @Override
-    @Async
-    @Transactional
-    public CompletableFuture<E> updateAsync(
-            @Nonnull E entity,
-            @Nonnull RepositoryAuth auth) throws RepositoryException {
-        try {
-            S existingSchema = this.readInternal(entity.getId(), auth);
-            mapper.updateEntityFromDomain(existingSchema, entity);
-            existingSchema.setUpdatedAt(LocalDateTime.now());
-            S savedSchema = jpaRepository.save(existingSchema);
-            logger.info("An existing entity of class {} is being updated in the system! (Async)",
-                    entity.getClass().getSimpleName());
-            return CompletableFuture.completedFuture(mapper.toEntity(savedSchema));
-        } catch (Exception e) {
-            logger.error("Failed to update entity: {}", entity, e);
-            throw new RepositoryException("Repository: Failed to async update entity", e);
-        }
-    }
-
-    /**
-     * Soft delete an entity.
-     *
-     * @param id Reference for entity to be deleted.
-     * @throws RepositoryException Thrown when an unexpected database error occurs.
-     * @author Lucas Batista Pereira
-     * @since 06/11/2024
-     */
-    @Override
-    @Async
-    @Transactional
-    public void deleteAsync(
-            @Nonnull UUID id,
-            @Nonnull RepositoryAuth auth) throws RepositoryException {
-        try {
-            delete(id, auth);
-        } catch (Exception e) {
-            logger.error("Failed to delete entity with id: {}", id, e);
-            throw new RepositoryException("Repository: Failed to async delete entity", e);
-        }
-    }
-
-    /*
             --------------     Sync Operations     --------------
      */
 
@@ -171,15 +88,15 @@ public abstract class GenericBusinessRepositoryImpl
      *
      * @param entity Entity that extends GenericBusinessClass
      * @return CompletableFuture<E>
-     * @throws RepositoryException Thrown when an unexpected database error occurs.
+     * @throws InfrastructureException Thrown when an unexpected database error occurs.
      * @author Lucas Batista Pereira
      * @since 06/11/2024
      */
     @Override
     @Transactional
-    public E createSync(
+    public E create(
             @Nonnull E entity,
-            @Nonnull RepositoryAuth auth) throws RepositoryException {
+            @Nonnull RepositoryAuth auth) throws InfrastructureException {
         try {
             S schema = mapper.toSchemaForCreate(entity);
             setCommonFields(schema, auth);
@@ -188,7 +105,7 @@ public abstract class GenericBusinessRepositoryImpl
             return mapper.toEntity(savedSchema);
         } catch (Exception e) {
             logger.error("Failed to save entity: {}", entity, e);
-            throw new RepositoryException("Repository: Failed to save entity", e);
+            throw new InfrastructureException("Repository: Failed to save entity");
         }
     }
 
@@ -197,24 +114,23 @@ public abstract class GenericBusinessRepositoryImpl
      *
      * @param id Reference entity id.
      * @return Entity
-     * @throws RepositoryException               Thrown when an unexpected database error occurs.
-     * @throws RepositoryEntityNotFoundException Thrown when an entity is not found!
+     * @throws InfrastructureException               Thrown when an unexpected database error occurs.
      * @author Lucas Batista Pereira
      * @since 06/11/2024
      */
     @Override
     public E read(
             @Nonnull UUID id,
-            @Nonnull RepositoryAuth auth) throws RepositoryException {
+            @Nonnull RepositoryAuth auth) throws InfrastructureException {
         try {
             S result = this.findById(id, auth.whitelabelId(), entityClass)
-                    .orElseThrow(() -> new RepositoryException("Entity not found with id: " + id));
+                    .orElseThrow(() -> new InfrastructureException("Entity not found with id: " + id));
             return mapper.toEntity(result);
-        } catch (RepositoryException e) {
+        } catch (InfrastructureException e) {
             throw e;
         } catch (Exception e) {
             logger.error("Failed to retrieve entity with id: {}", id, e);
-            throw new RepositoryException("Repository: Failed to retrieve data", e);
+            throw new InfrastructureException("Repository: Failed to retrieve data");
         }
     }
 
@@ -224,22 +140,20 @@ public abstract class GenericBusinessRepositoryImpl
      *
      * @param id Reference entity id.
      * @return Schema
-     * @throws RepositoryException               Thrown when an unexpected database error occurs.
-     * @throws RepositoryEntityNotFoundException Thrown when an entity is not found!
+     * @throws InfrastructureException               Thrown when an unexpected database error occurs.
      * @author Lucas Batista Pereira
      * @since 06/11/2024
      */
     protected S readInternal(
             UUID id,
-            RepositoryAuth auth) throws RepositoryException {
+            RepositoryAuth auth) throws InfrastructureException {
         try {
             return this.findById(id, auth.whitelabelId(), entityClass)
                     .orElseThrow(() ->
-                            new RepositoryEntityNotFoundException
-                                    ("Repository: Entity not found or already deleted with id: " + id));
+                            new EntityNotFound("Entity not found with id: " + id));
         } catch (Exception e) {
             logger.error("Failed to retrieve entity with id: {}", id, e);
-            throw new RepositoryException("Repository: Failed to retrieve data", e);
+            throw new InfrastructureException("Repository: Failed to retrieve data");
         }
     }
 
@@ -248,15 +162,15 @@ public abstract class GenericBusinessRepositoryImpl
      *
      * @param entity Entity to be updated.
      * @return CompletableFuture<E>
-     * @throws RepositoryException Thrown when an unexpected database error occurs.
+     * @throws InfrastructureException Thrown when an unexpected database error occurs.
      * @author Lucas Batista Pereira
      * @since 06/11/2024
      */
     @Override
     @Transactional
-    public E updateSync(
+    public E update(
             @Nonnull E entity,
-            @Nonnull RepositoryAuth auth) throws RepositoryException {
+            @Nonnull RepositoryAuth auth) throws InfrastructureException {
         try {
             S existingSchema = this.readInternal(entity.getId(), auth);
             mapper.updateEntityFromDomain(existingSchema, entity);
@@ -267,7 +181,7 @@ public abstract class GenericBusinessRepositoryImpl
             return mapper.toEntity(savedSchema);
         } catch (Exception e) {
             logger.error("Failed to update entity: {}", entity, e);
-            throw new RepositoryException("Repository: Failed to update entity", e);
+            throw new InfrastructureException("Repository: Failed to update entity");
         }
     }
 
@@ -275,23 +189,23 @@ public abstract class GenericBusinessRepositoryImpl
      * Sync version of delete method.
      *
      * @param id Reference for entity to be deleted.
-     * @throws RepositoryException Thrown when an unexpected database error occurs.
+     * @throws InfrastructureException Thrown when an unexpected database error occurs.
      * @author Lucas Batista Pereira
      * @since 06/11/2024
      */
     @Override
-    public void deleteSync(
+    public void delete(
             @Nonnull UUID id,
-            @Nonnull RepositoryAuth auth) throws RepositoryException {
+            @Nonnull RepositoryAuth auth) throws InfrastructureException {
         try {
-            this.delete(id, auth);
+            this.deleteInternal(id, auth);
         } catch (Exception e) {
             logger.error("Failed to delete entity with id: {}", id, e);
-            throw new RepositoryException("Repository: Failed to delete entity", e);
+            throw new InfrastructureException("Repository: Failed to delete entity");
         }
     }
 
-    protected void delete(
+    protected void deleteInternal(
             UUID id,
             RepositoryAuth auth) {
         S schema = this.readInternal(id, auth);
@@ -307,13 +221,13 @@ public abstract class GenericBusinessRepositoryImpl
      * Find all entities of given entity class.
      *
      * @return Optional<List < E>>
-     * @throws RepositoryException Thrown when an unexpected database error occurs.
+     * @throws InfrastructureException Thrown when an unexpected database error occurs.
      * @author Lucas Batista Pereira
      * @since 06/11/2024
      */
     @Override
     public Optional<List<E>> findAll(
-            @Nonnull RepositoryAuth auth) throws RepositoryException {
+            @Nonnull RepositoryAuth auth) throws InfrastructureException {
         try {
             List<S> schemas = this.findAll(auth.userId(), auth.whitelabelId(), entityClass);
             List<E> entities = schemas.stream()
@@ -323,7 +237,7 @@ public abstract class GenericBusinessRepositoryImpl
         } catch (Exception e) {
             logger.error("Failed to find all entities for userId: {} and whitelabelId: {}",
                     auth.userId(), auth.whitelabelId(), e);
-            throw new RepositoryException("Repository: Failed to find all entities", e);
+            throw new InfrastructureException("Repository: Failed to find all entities");
         }
     }
 
@@ -332,14 +246,14 @@ public abstract class GenericBusinessRepositoryImpl
      *
      * @param ids Reference ids for reading.
      * @return Optional<List < E>>
-     * @throws RepositoryException Thrown when an unexpected database error occurs.
+     * @throws InfrastructureException Thrown when an unexpected database error occurs.
      * @author Lucas Batista Pereira
      * @since 06/11/2024
      */
     @Override
     public Optional<List<E>> findAllByIds(
             @Nonnull List<UUID> ids,
-            @Nonnull RepositoryAuth auth) throws RepositoryException {
+            @Nonnull RepositoryAuth auth) throws InfrastructureException {
         try {
             Set<UUID> idSet = new HashSet<>(ids);
             List<S> schemas = this.findAllByIds(auth.userId(), auth.whitelabelId(), idSet, entityClass);
@@ -349,7 +263,7 @@ public abstract class GenericBusinessRepositoryImpl
             return entities.isEmpty() ? Optional.empty() : Optional.of(entities);
         } catch (Exception e) {
             logger.error("Failed to find entities by IDs: {}", ids, e);
-            throw new RepositoryException("Repository: Failed to find entities by IDs", e);
+            throw new InfrastructureException("Repository: Failed to find entities by IDs");
         }
     }
 
@@ -357,14 +271,14 @@ public abstract class GenericBusinessRepositoryImpl
      * Check the existence of an entity given its id.
      *
      * @param id Reference id for checking.
-     * @throws RepositoryException Thrown when an unexpected database error occurs.
+     * @throws InfrastructureException Thrown when an unexpected database error occurs.
      * @author Lucas Batista Pereira
      * @since 06/11/2024
      */
     @Override
     public void check(
             @Nonnull UUID id,
-            @Nonnull RepositoryAuth auth) throws RepositoryException {
+            @Nonnull RepositoryAuth auth) throws InfrastructureException {
         this.readInternal(id, auth);
     }
 
@@ -372,19 +286,19 @@ public abstract class GenericBusinessRepositoryImpl
      * Check the existence of all entities given its ids.
      *
      * @param ids Reference ids for checking.
-     * @throws RepositoryException Thrown when an unexpected database error occurs.
+     * @throws InfrastructureException Thrown when an unexpected database error occurs.
      * @author Lucas Batista Pereira
      * @since 06/11/2024
      */
     @Override
     public void checkAll(
             @Nonnull Set<UUID> ids,
-            @Nonnull RepositoryAuth auth) throws RepositoryException {
+            @Nonnull RepositoryAuth auth) throws InfrastructureException {
         List<S> schemas = this.findAllByIds(auth.userId(), auth.whitelabelId(), ids, entityClass);
         if (schemas.size() != ids.size()) {
             Set<UUID> foundIds = schemas.stream().map(S::getId).collect(Collectors.toSet());
             Set<UUID> missingIds = ids.stream().filter(id -> !foundIds.contains(id)).collect(Collectors.toSet());
-            throw new RepositoryEntityNotFoundException
+            throw new EntityNotFound
                     ("Repository: Entities not found or already deleted for IDs: " + missingIds);
         }
     }
@@ -394,18 +308,101 @@ public abstract class GenericBusinessRepositoryImpl
      *
      * @param pageRequest PageRequest object.
      * @return Page<E>
-     * @throws RepositoryException Thrown when an unexpected database error occurs.
+     * @throws InfrastructureException Thrown when an unexpected database error occurs.
      * @since 06/11/2024
      */
     public Page<E> findAllPaginated(
             @Nonnull PageRequest pageRequest,
-            @Nonnull RepositoryAuth auth) throws RepositoryException {
+            @Nonnull RepositoryAuth auth) throws InfrastructureException {
         try {
             return this.findAllPaginated(auth.userId(), auth.whitelabelId(), pageRequest, entityClass)
                     .map(mapper::toEntity);
         } catch (Exception e) {
             logger.error("Failed to find entities paginated");
-            throw new RepositoryException("Repository: Failed to find entities by IDs", e);
+            throw new InfrastructureException("Repository: Failed to find entities by IDs");
+        }
+    }
+
+    /*
+            --------------     Async Operations     --------------
+     */
+
+    /**
+     * In the future, creation will be done on a remote database using
+     * kafka queues, that's why it needs to be async.
+     *
+     * @param entity Entity that extends GenericBusinessClass
+     * @return CompletableFuture<E>
+     * @throws InfrastructureException Thrown when an unexpected database error occurs.
+     * @author Lucas Batista Pereira
+     * @since 06/11/2024
+     */
+    @Override
+    @Async
+    @Transactional
+    public CompletableFuture<E> createAsync(
+            @Nonnull E entity,
+            @Nonnull RepositoryAuth auth) throws InfrastructureException {
+        try {
+            S schema = mapper.toSchemaForCreate(entity);
+            setCommonFields(schema, auth);
+            S savedSchema = jpaRepository.save(schema);
+            logger.info("A new {} was created in the system! (Async)", entity.getClass().getSimpleName());
+            return CompletableFuture.completedFuture(mapper.toEntity(savedSchema));
+        } catch (Exception e) {
+            logger.error("Failed to save entity: {}", entity, e);
+            throw new InfrastructureException("Repository: Failed to async save entity");
+        }
+    }
+
+    /**
+     * Update a schema based on an entity.
+     *
+     * @param entity Entity to be updated.
+     * @return CompletableFuture<E>
+     * @throws InfrastructureException Thrown when an unexpected database error occurs.
+     * @author Lucas Batista Pereira
+     * @since 06/11/2024
+     */
+    @Override
+    @Async
+    @Transactional
+    public CompletableFuture<E> updateAsync(
+            @Nonnull E entity,
+            @Nonnull RepositoryAuth auth) throws InfrastructureException {
+        try {
+            S existingSchema = this.readInternal(entity.getId(), auth);
+            mapper.updateEntityFromDomain(existingSchema, entity);
+            existingSchema.setUpdatedAt(LocalDateTime.now());
+            S savedSchema = jpaRepository.save(existingSchema);
+            logger.info("An existing entity of class {} is being updated in the system! (Async)",
+                    entity.getClass().getSimpleName());
+            return CompletableFuture.completedFuture(mapper.toEntity(savedSchema));
+        } catch (Exception e) {
+            logger.error("Failed to update entity: {}", entity, e);
+            throw new InfrastructureException("Repository: Failed to async update entity");
+        }
+    }
+
+    /**
+     * Soft delete an entity.
+     *
+     * @param id Reference for entity to be deleted.
+     * @throws InfrastructureException Thrown when an unexpected database error occurs.
+     * @author Lucas Batista Pereira
+     * @since 06/11/2024
+     */
+    @Override
+    @Async
+    @Transactional
+    public void deleteAsync(
+            @Nonnull UUID id,
+            @Nonnull RepositoryAuth auth) throws InfrastructureException {
+        try {
+            delete(id, auth);
+        } catch (Exception e) {
+            logger.error("Failed to delete entity with id: {}", id, e);
+            throw new InfrastructureException("Repository: Failed to async delete entity");
         }
     }
 }

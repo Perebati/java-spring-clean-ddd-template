@@ -1,7 +1,8 @@
 package org.gfinnovation.dealsafe.modules.tree.action.domain;
 
 import jakarta.validation.ValidationException;
-import org.gfinnovation.dealsafe.exception.models.layered.FactoryException;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
+import org.gfinnovation.dealsafe.exception.models.DomainException;
 import org.springframework.stereotype.Component;
 
 /**
@@ -23,17 +24,17 @@ public class ActionOperationFactoryImpl implements ActionOperationFactory {
      * @param url     Message webhook.
      * @param message Message itself.
      * @return ActionOperation
-     * @throws FactoryException    Thrown when something wrong happened on factory layer.
+     * @throws DomainException    Thrown when something wrong happened on factory layer.
      * @throws ValidationException Thrown when something wrong happened on factory layer.
      * @author Lucas Batista Pereira
      * @since 30/10/2024
      */
 
-    public ActionOperation produce(String url, String message) throws FactoryException {
+    public ActionOperation produce(String url, String message) throws SystemGlobalException {
         try {
             return new ActionOperation(url, message);
         } catch (Exception e) {
-            throw new FactoryException("Factory: Something went wrong creating an action operation.", e);
+            throw new DomainException("Factory: Something went wrong creating an action operation.");
         }
     }
 }
