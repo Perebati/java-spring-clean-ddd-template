@@ -40,7 +40,7 @@ public class ComparisonMulti
     @Override
     public boolean traverse(JsonNode data) {
         try {
-            String inputData = data.get(this.getJsonVariablePath()).asText();
+            String inputData = data.at(this.getJsonVariablePath()).asText();
 
             ComparisonMultiTypeEnum comparisonTypeEnum = this.getComparisonTypeEnum();
             ComparisonMultiOperation comparisonOperation = comparisonTypeEnum.createOperationInstance();

@@ -46,7 +46,7 @@ public class ComparisonSingular
     @Override
     public boolean traverse(JsonNode data) {
         try {
-            String inputData = data.get(this.getJsonVariablePath()).asText();
+            String inputData = data.at(this.jsonVariablePath).asText();
 
             ComparisonSingularTypeEnum comparisonTypeEnum = this.getComparisonTypeEnum();
             ComparisonSingularOperation comparisonOperation = comparisonTypeEnum.createOperationInstance();

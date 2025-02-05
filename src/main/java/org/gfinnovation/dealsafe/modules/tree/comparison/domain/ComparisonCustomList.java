@@ -42,7 +42,7 @@ public class ComparisonCustomList
     @Override
     public boolean traverse(JsonNode data) {
         try {
-            String inputData = data.get(this.jsonVariablePath).asText();
+            String inputData = data.at(this.jsonVariablePath).asText();
             ComparisonMultiOperation comparisonOperation =
                     this.comparisonTypeEnum.createOperationInstance();
 

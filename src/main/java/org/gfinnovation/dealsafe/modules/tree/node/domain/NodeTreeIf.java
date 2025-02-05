@@ -52,21 +52,26 @@ public class NodeTreeIf
 
     @Override
     public boolean traverse(JsonNode inputData) {
+        boolean flag = true;
         for(NodeTree<JsonNode> node : getConditionalNodes()) {
-            if(!node.traverse(inputData)){
+            if (!node.traverse(inputData)) {
+                flag = false;
+                break;
+            }
+        }
+        if (flag) {
+            for (NodeTree<JsonNode> thenNode : thenNodes) {
+                if (!thenNode.traverse(inputData)) {
+                    return false;
+                }
+            }
+        } else {
                 for (NodeTree<JsonNode> elseNode : elseNodes) {
                     if(!elseNode.traverse(inputData)){
                         return false;
                     }
                 }
-            }else{
-                for (NodeTree<JsonNode> thenNode : thenNodes) {
-                    if(!thenNode.traverse(inputData)){
-                        return false;
-                    }
-                }
             }
-        }
         return true;
     }
 }

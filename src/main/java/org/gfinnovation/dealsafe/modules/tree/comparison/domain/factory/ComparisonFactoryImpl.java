@@ -2,6 +2,7 @@ package org.gfinnovation.dealsafe.modules.tree.comparison.domain.factory;
 
 import jakarta.validation.ValidationException;
 import org.apache.coyote.BadRequestException;
+import org.gfinnovation.dealsafe._shared.utils.converter.PathNormalizer;
 import org.gfinnovation.dealsafe.exception.models.layered.FactoryException;
 import org.gfinnovation.dealsafe.exception.models.layered.RepositoryEntityNotFoundException;
 import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.InputService;
@@ -68,10 +69,13 @@ public class ComparisonFactoryImpl implements ComparisonFactory {
             Node<?> parent
     ) throws FactoryException, BadRequestException {
         try {
+            jsonPath = PathNormalizer.normalizePath(jsonPath);
+
             Object rootTreeEntity = this.rootTreeService
                     .readGenericRoot(this.rootTreeService
                             .findRootIdByNodeId(parent.getId())
                             .orElseThrow(() -> new RepositoryEntityNotFoundException("Factory: Root parent not found!")));
+
             if (rootTreeEntity instanceof RootTreeStatic) {
                 PredefinedTypeEnum predefinedTypeEnum = ((RootTreeStatic) rootTreeEntity).getInput_type();
                 try {
@@ -99,6 +103,8 @@ public class ComparisonFactoryImpl implements ComparisonFactory {
             Node<?> parent
     ) throws FactoryException, BadRequestException {
         try {
+            jsonVariablePath = PathNormalizer.normalizePath(jsonVariablePath);
+
             validateComparison(jsonVariablePath, parent);
             return new ComparisonMulti(comparisonTypeEnum, jsonVariablePath, expectedVars, parent);
         } catch (BadRequestException | RepositoryEntityNotFoundException e) {
@@ -115,6 +121,8 @@ public class ComparisonFactoryImpl implements ComparisonFactory {
             Node<?> parent
     ) throws FactoryException, BadRequestException {
         try {
+            jsonPath = PathNormalizer.normalizePath(jsonPath);
+
             validateComparison(jsonPath, parent);
             return new ComparisonCustomList(type, jsonPath, variable, parent);
         } catch (BadRequestException | RepositoryEntityNotFoundException e) {

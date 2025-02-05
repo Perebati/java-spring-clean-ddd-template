@@ -57,7 +57,7 @@ public class TreeTest {
                 {
                   "nome": "João",
                   "idade": 30,
-                  "CPF": 11330176651,
+                  "CPF": 11330176650,
                   "endereco": {
                     "rua": "Rua A",
                     "bairro": "Centro"
@@ -93,16 +93,32 @@ public class TreeTest {
             NodeTree<?> nodeIf3 = this.nodeTreeIfService.create(new NodeCreationDTO("NODE IF 3", nodeIf1.getId(), null));
 
             ComparisonSingular comparisonSingular = this.comparisonSingularService.create(new ComparisonSingularRecord(
-                   ComparisonSingular.ComparisonSingularTypeEnum.DIFFERENT,
-                   "CPF",
-                    "11330176650",
+                   ComparisonSingular.ComparisonSingularTypeEnum.EQUAL,
+                   "endereco$bairro@",
+                    "Centro",
+                    nodeIf3.getParentId(),
+                    NodeTreeIf.SetNode.CONDITIONAL
+            ));
+
+            ComparisonSingular comparisonSingular2 = this.comparisonSingularService.create(new ComparisonSingularRecord(
+                    ComparisonSingular.ComparisonSingularTypeEnum.EQUAL,
+                    ".endereco*bairro/",
+                    "Centro",
+                    nodeIf3.getParentId(),
+                    NodeTreeIf.SetNode.CONDITIONAL
+            ));
+
+            ComparisonSingular comparisonSingular3 = this.comparisonSingularService.create(new ComparisonSingularRecord(
+                    ComparisonSingular.ComparisonSingularTypeEnum.EQUAL,
+                    "/endereco.bairro$",
+                    "Centro",
                     nodeIf3.getParentId(),
                     NodeTreeIf.SetNode.CONDITIONAL
             ));
 
             ComparisonMulti comparisonMulti = this.comparisonMultiService.create(new ComparisonMultiRecord(
                     ComparisonMulti.ComparisonMultiTypeEnum.NOT_CONTAINS,
-                    "CPF",
+                    ".CPF/",
                     List.of("11330176650"),
                     nodeIf3.getParentId(),
                     NodeTreeIf.SetNode.CONDITIONAL
@@ -114,10 +130,10 @@ public class TreeTest {
 
             ComparisonCustomList comparisonCustomList = this.comparisonCustomListService.create(
                     ComparisonCustomList.ComparisonCustomListEnum.NOT_CONTAINS,
-                    "CPF",
+                    "/CPF",
                     companyList.getId(),
                     nodeIf3.getParentId(),
-                    NodeTreeIf.SetNode.CONDITIONAL
+                    NodeTreeIf.SetNode.ELSE
             );
             ObjectMapper mapper = new ObjectMapper();
             JsonNode jsonNode = mapper.readTree(json);
@@ -125,11 +141,9 @@ public class TreeTest {
 
             createdRoot = this.rootTreeStaticService.read(createdRoot.getId());
 
-            createdRoot.traverse(jsonNode);
-
-            return true;
+            return createdRoot.traverse(jsonNode);
         } catch (Exception e) {
-            return false;
+            throw new RuntimeException(e);
         }
     }
 }
