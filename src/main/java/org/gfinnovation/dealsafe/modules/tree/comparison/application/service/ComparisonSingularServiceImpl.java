@@ -55,7 +55,7 @@ class ComparisonSingularServiceImpl
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ApplicationException("Business: Something went wrong creating a comparison operation.");
+            throw new ApplicationException("Something went wrong creating a comparison operation.");
         }
     }
 }

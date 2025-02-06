@@ -45,7 +45,7 @@ class RootTreeControllerImpl implements RootTreeController {
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new AdapterException("Controller: Unexpected error in static root creation.");
+            throw new AdapterException("Unexpected error in static root creation.");
         }
     }
 
@@ -61,7 +61,7 @@ class RootTreeControllerImpl implements RootTreeController {
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new AdapterException("Controller: Unexpected error in dynamic root creation.");
+            throw new AdapterException("Unexpected error in dynamic root creation.");
         }
     }
 }

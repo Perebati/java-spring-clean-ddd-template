@@ -105,7 +105,7 @@ public abstract class GenericBusinessRepositoryImpl
             return mapper.toEntity(savedSchema);
         } catch (Exception e) {
             logger.error("Failed to save entity: {}", entity, e);
-            throw new InfrastructureException("Repository: Failed to save entity");
+            throw new InfrastructureException("Failed to save entity");
         }
     }
 
@@ -130,7 +130,7 @@ public abstract class GenericBusinessRepositoryImpl
             throw e;
         } catch (Exception e) {
             logger.error("Failed to retrieve entity with id: {}", id, e);
-            throw new InfrastructureException("Repository: Failed to retrieve data");
+            throw new InfrastructureException("Failed to retrieve data");
         }
     }
 
@@ -153,7 +153,7 @@ public abstract class GenericBusinessRepositoryImpl
                             new EntityNotFound("Entity not found with id: " + id));
         } catch (Exception e) {
             logger.error("Failed to retrieve entity with id: {}", id, e);
-            throw new InfrastructureException("Repository: Failed to retrieve data");
+            throw new InfrastructureException("Failed to retrieve data");
         }
     }
 
@@ -181,7 +181,7 @@ public abstract class GenericBusinessRepositoryImpl
             return mapper.toEntity(savedSchema);
         } catch (Exception e) {
             logger.error("Failed to update entity: {}", entity, e);
-            throw new InfrastructureException("Repository: Failed to update entity");
+            throw new InfrastructureException("Failed to update entity");
         }
     }
 
@@ -201,7 +201,7 @@ public abstract class GenericBusinessRepositoryImpl
             this.deleteInternal(id, auth);
         } catch (Exception e) {
             logger.error("Failed to delete entity with id: {}", id, e);
-            throw new InfrastructureException("Repository: Failed to delete entity");
+            throw new InfrastructureException("Failed to delete entity");
         }
     }
 
@@ -237,7 +237,7 @@ public abstract class GenericBusinessRepositoryImpl
         } catch (Exception e) {
             logger.error("Failed to find all entities for userId: {} and whitelabelId: {}",
                     auth.userId(), auth.whitelabelId(), e);
-            throw new InfrastructureException("Repository: Failed to find all entities");
+            throw new InfrastructureException("Failed to find all entities");
         }
     }
 
@@ -263,7 +263,7 @@ public abstract class GenericBusinessRepositoryImpl
             return entities.isEmpty() ? Optional.empty() : Optional.of(entities);
         } catch (Exception e) {
             logger.error("Failed to find entities by IDs: {}", ids, e);
-            throw new InfrastructureException("Repository: Failed to find entities by IDs");
+            throw new InfrastructureException("Failed to find entities by IDs");
         }
     }
 
@@ -299,7 +299,7 @@ public abstract class GenericBusinessRepositoryImpl
             Set<UUID> foundIds = schemas.stream().map(S::getId).collect(Collectors.toSet());
             Set<UUID> missingIds = ids.stream().filter(id -> !foundIds.contains(id)).collect(Collectors.toSet());
             throw new EntityNotFound
-                    ("Repository: Entities not found or already deleted for IDs: " + missingIds);
+                    ("Entities not found or already deleted for IDs: " + missingIds);
         }
     }
 
@@ -319,7 +319,7 @@ public abstract class GenericBusinessRepositoryImpl
                     .map(mapper::toEntity);
         } catch (Exception e) {
             logger.error("Failed to find entities paginated");
-            throw new InfrastructureException("Repository: Failed to find entities by IDs");
+            throw new InfrastructureException("Failed to find entities by IDs");
         }
     }
 
@@ -351,7 +351,7 @@ public abstract class GenericBusinessRepositoryImpl
             return CompletableFuture.completedFuture(mapper.toEntity(savedSchema));
         } catch (Exception e) {
             logger.error("Failed to save entity: {}", entity, e);
-            throw new InfrastructureException("Repository: Failed to async save entity");
+            throw new InfrastructureException("Failed to async save entity");
         }
     }
 
@@ -380,7 +380,7 @@ public abstract class GenericBusinessRepositoryImpl
             return CompletableFuture.completedFuture(mapper.toEntity(savedSchema));
         } catch (Exception e) {
             logger.error("Failed to update entity: {}", entity, e);
-            throw new InfrastructureException("Repository: Failed to async update entity");
+            throw new InfrastructureException("Failed to async update entity");
         }
     }
 
@@ -402,7 +402,7 @@ public abstract class GenericBusinessRepositoryImpl
             delete(id, auth);
         } catch (Exception e) {
             logger.error("Failed to delete entity with id: {}", id, e);
-            throw new InfrastructureException("Repository: Failed to async delete entity");
+            throw new InfrastructureException("Failed to async delete entity");
         }
     }
 }

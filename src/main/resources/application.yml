@@ -18,10 +18,6 @@ spring:
       hibernate:
         dialect: ${SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT}
         default_schema: ${SPRING_JPA_PROPERTIES_HIBERNATE_DEFAULT_SCHEMA}
-
-jwt:
-  publicKey: ${JWT_PUBLIC_KEY}
-  privateKey: ${JWT_PRIVATE_KEY}
   data:
     mongodb:
       host: ${DATA_MONGODB_HOST}
@@ -30,3 +26,7 @@ jwt:
       username: ${DATA_MONGODB_USERNAME}
       password: ${DATA_MONGODB_PASSWORD}
       authentication-database: ${DATA_MONGODB_AUTHENTICATION_DATABASE}
+
+jwt:
+  publicKey: ${JWT_PUBLIC_KEY}
+  privateKey: ${JWT_PRIVATE_KEY}

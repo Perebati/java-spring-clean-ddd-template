@@ -35,7 +35,7 @@ public class GlobalExceptionHandler {
     private final LogService logService;
 
     @ExceptionHandler(AdapterException.class)
-    public ResponseEntity<Object> handleAdaptionException(ApplicationException ex, WebRequest request) {
+    public ResponseEntity<Object> handleAdapterException(AdapterException ex, WebRequest request) {
         ErrorLogSchema errorLog = buildErrorLog(ex);
         logService.saveErrorLogAsync(errorLog);
 
@@ -53,7 +53,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(DomainException.class)
-    public ResponseEntity<Object> handleDomainException(ApplicationException ex, WebRequest request) {
+    public ResponseEntity<Object> handleDomainException(DomainException ex, WebRequest request) {
         ErrorLogSchema errorLog = buildErrorLog(ex);
         logService.saveErrorLogAsync(errorLog);
 
@@ -62,7 +62,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(InfrastructureException.class)
-    public ResponseEntity<Object> handleInfraException(ApplicationException ex, WebRequest request) {
+    public ResponseEntity<Object> handleInfraException(InfrastructureException ex, WebRequest request) {
         ErrorLogSchema errorLog = buildErrorLog(ex);
         logService.saveErrorLogAsync(errorLog);
 
@@ -71,7 +71,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(FailedRequestException.class)
-    public ResponseEntity<Object> handleBadRequestException(ApplicationException ex, WebRequest request) {
+    public ResponseEntity<Object> handleBadRequestException(FailedRequestException ex, WebRequest request) {
         ErrorLogSchema errorLog = buildErrorLog(ex);
         logService.saveErrorLogAsync(errorLog);
 

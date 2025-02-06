@@ -3,6 +3,7 @@ package org.gfinnovation.dealsafe.configuration.security;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.gfinnovation.dealsafe.configuration.logging.LogService;
@@ -17,6 +18,8 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.security.KeyFactory;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 import java.util.Date;
@@ -81,10 +84,10 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
         } catch (ExpiredJwtException ex) {
             sendErrorResponse(response, HttpServletResponse.SC_UNAUTHORIZED, "Expired JWT token.");
-        } catch (JwtException ex) {
+        } catch (JwtException | ServletException | NoSuchAlgorithmException | InvalidKeySpecException ex) {
             sendErrorResponse(response, HttpServletResponse.SC_UNAUTHORIZED, "Invalid JWT token.");
-        } catch (Exception ex) {
-            sendErrorResponse(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error validating JWT token.");
+        }catch (Exception ex) {
+            sendErrorResponse(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal Server Error.");
         } finally {
             MDC.clear();
         }
@@ -114,7 +117,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         return UUID.randomUUID().toString();
     }
 
-    private Key getPublicKeyFromString(String base64PublicKey) throws Exception {
+    private Key getPublicKeyFromString(String base64PublicKey) throws NoSuchAlgorithmException, InvalidKeySpecException {
         byte[] keyBytes = Base64.getDecoder().decode(base64PublicKey);
         X509EncodedKeySpec keySpec = new X509EncodedKeySpec(keyBytes);
         KeyFactory keyFactory = KeyFactory.getInstance("RSA");

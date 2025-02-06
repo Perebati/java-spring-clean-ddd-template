@@ -64,7 +64,7 @@ class NodeTreeBlockServiceImpl
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ApplicationException("Business: Something went wrong checking a node.");
+            throw new ApplicationException("Something went wrong checking a node.");
         }
     }
 }

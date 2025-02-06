@@ -40,7 +40,7 @@ public abstract class GenericServiceImpl
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ApplicationException("Business: Something went wrong reading an entity.");
+            throw new ApplicationException("Something went wrong reading an entity.");
         }
     }
 
@@ -50,7 +50,7 @@ public abstract class GenericServiceImpl
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ApplicationException("Business: Something went wrong async updating an entity.");
+            throw new ApplicationException("Something went wrong async updating an entity.");
         }
     }
 
@@ -60,7 +60,7 @@ public abstract class GenericServiceImpl
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ApplicationException("Business: Something went wrong updating an entity.");
+            throw new ApplicationException("Something went wrong updating an entity.");
         }
     }
 
@@ -70,7 +70,7 @@ public abstract class GenericServiceImpl
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ApplicationException("Business: Something went wrong async deleting an entity.");
+            throw new ApplicationException("Something went wrong async deleting an entity.");
         }
     }
 
@@ -80,7 +80,7 @@ public abstract class GenericServiceImpl
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ApplicationException("Business: Something went wrong deleting an entity.");
+            throw new ApplicationException("Something went wrong deleting an entity.");
         }
     }
 
@@ -90,7 +90,7 @@ public abstract class GenericServiceImpl
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ApplicationException("Business: Something went wrong reading all entities.");
+            throw new ApplicationException("Something went wrong reading all entities.");
         }
     }
 
@@ -100,7 +100,7 @@ public abstract class GenericServiceImpl
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ApplicationException("Business: Something went wrong reading all entities by id.");
+            throw new ApplicationException("Something went wrong reading all entities by id.");
         }
     }
 
@@ -110,7 +110,7 @@ public abstract class GenericServiceImpl
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ApplicationException("Business: Something went wrong checking an entity.");
+            throw new ApplicationException("Something went wrong checking an entity.");
         }
     }
 
@@ -120,7 +120,7 @@ public abstract class GenericServiceImpl
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ApplicationException("Business: Something went wrong checking all entities by ids.");
+            throw new ApplicationException("Something went wrong checking all entities by ids.");
         }
     }
 }

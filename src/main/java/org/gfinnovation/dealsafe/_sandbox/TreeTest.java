@@ -1,9 +1,12 @@
 package org.gfinnovation.dealsafe._sandbox;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
+import org.gfinnovation.dealsafe.exception.models.AdapterException;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.application.service.interfaces.CompanyListService;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.domain.CompanyList;
 import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.InputService;
@@ -54,7 +57,7 @@ public class TreeTest {
     private final RootTreeDynamicService rootTreeDynamic;
 
     @PostMapping("tree2")
-    public boolean testeTree2() throws RuntimeException {
+    public boolean testeTree2() throws RuntimeException, JsonProcessingException {
         try {
 
             String json = """
@@ -147,9 +150,11 @@ public class TreeTest {
 
             createdRoot = this.rootTreeDynamic.read(createdRoot.getId());
 
-            return createdRoot.traverse(jsonNode);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            createdRoot.traverse(jsonNode);
+
+            throw new AdapterException("sxfsdf");
+        } catch (SystemGlobalException e) {
+            throw e;
         }
     }
 }

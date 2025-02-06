@@ -136,7 +136,7 @@ class RootTreeRepositoryImpl
                         long low = bb.getLong();
                         rootId = new UUID(high, low);
                     } else {
-                        throw new IllegalArgumentException("Tipo de resultado inesperado: " + result.getClass());
+                        throw new IllegalArgumentException("Unexpected node type: " + result.getClass());
                     }
                 }
 

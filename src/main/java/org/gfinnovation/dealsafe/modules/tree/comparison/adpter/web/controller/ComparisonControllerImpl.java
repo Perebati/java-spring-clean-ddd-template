@@ -55,7 +55,7 @@ class ComparisonControllerImpl implements ComparisonController {
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new AdapterException("Controller: Unexpected error in operation creation.");
+            throw new AdapterException("Unexpected error in operation creation.");
         }
     }
 
@@ -70,7 +70,7 @@ class ComparisonControllerImpl implements ComparisonController {
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new AdapterException("Controller: Unexpected error in operation creation.");
+            throw new AdapterException("Unexpected error in operation creation.");
         }
     }
 
@@ -85,7 +85,7 @@ class ComparisonControllerImpl implements ComparisonController {
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new AdapterException("Controller: Unexpected error in operation creation.");
+            throw new AdapterException("Unexpected error in operation creation.");
         }
     }
 
@@ -100,7 +100,7 @@ class ComparisonControllerImpl implements ComparisonController {
             } catch (SystemGlobalException e) {
                 throw e;
             } catch (Exception e) {
-                throw new AdapterException("Controller: Unexpected error in operation creation.");
+                throw new AdapterException("Unexpected error in operation creation.");
             }
         }
 }

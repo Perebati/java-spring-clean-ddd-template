@@ -49,7 +49,7 @@ class RootTreeStaticServiceImpl
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ApplicationException("Business: Something went wrong creating a static root.");
+            throw new ApplicationException("Something went wrong creating a static root.");
         }
     }
 }

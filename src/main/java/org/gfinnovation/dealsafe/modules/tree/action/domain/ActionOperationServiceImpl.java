@@ -58,7 +58,7 @@ public class ActionOperationServiceImpl
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ApplicationException("Business: Something went wrong checking an action operation.");
+            throw new ApplicationException("Something went wrong checking an action operation.");
         }
     }
 }
