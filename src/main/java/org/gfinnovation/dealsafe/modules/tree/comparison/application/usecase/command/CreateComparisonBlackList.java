@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class CreateComparisonBlackList extends UseCase<ComparisonCustomListRecord, ComparisonCustomList> {
     private final ComparisonCustomListService comparisonCustomListService;
+
     @Autowired
     public CreateComparisonBlackList(
             ComparisonCustomListService comparisonCustomListService

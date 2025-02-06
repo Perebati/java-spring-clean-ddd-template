@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.modules.input.domain.Input;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -31,7 +32,8 @@ public interface InputController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PostMapping()
-    ResponseEntity<Input> createInput(@RequestParam String name, @RequestBody String json) throws SystemGlobalException;
+    ResponseEntity<Input> createInput(@NonNull @RequestParam String name,
+                                      @NonNull @RequestBody String json) throws SystemGlobalException;
 
     @Operation(summary = "Busca um input dinâmico", description = "Busca um input no sistema.")
     @ApiResponses(value = {
@@ -40,5 +42,5 @@ public interface InputController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @GetMapping()
-    ResponseEntity<Input> readInput(UUID id) throws SystemGlobalException;
+    ResponseEntity<Input> readInput(@NonNull UUID id) throws SystemGlobalException;
 }

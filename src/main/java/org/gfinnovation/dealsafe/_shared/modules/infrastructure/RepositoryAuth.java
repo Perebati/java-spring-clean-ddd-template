@@ -11,4 +11,5 @@ import java.util.UUID;
  * @since 08/11/2024
  */
 
-public record RepositoryAuth(@NotNull UUID userId, @NotNull UUID whitelabelId, @NotNull UUID requestId) {}
+public record RepositoryAuth(@NotNull UUID userId, @NotNull UUID whitelabelId, @NotNull UUID requestId) {
+}

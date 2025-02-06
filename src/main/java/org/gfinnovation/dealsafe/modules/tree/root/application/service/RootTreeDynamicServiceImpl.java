@@ -3,8 +3,8 @@ package org.gfinnovation.dealsafe.modules.tree.root.application.service;
 import jakarta.validation.ValidationException;
 import org.gfinnovation.dealsafe._shared.modules.application.GenericServiceImpl;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
-import org.gfinnovation.dealsafe.exception.models.InfrastructureException;
 import org.gfinnovation.dealsafe.exception.models.ApplicationException;
+import org.gfinnovation.dealsafe.exception.models.InfrastructureException;
 import org.gfinnovation.dealsafe.modules.tree.root.application.service.interfaces.RootTreeDynamicService;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeDynamic;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.factory.interfaces.RootTreeFactory;
@@ -36,7 +36,7 @@ public class RootTreeDynamicServiceImpl
      * @param dynamic_input Identification of referenced dynamic input.
      * @return RootTreeDynamic
      * @throws ApplicationException    Thrown when an error occurs on business level.
-     * @throws ValidationException Thrown when an error occurs on factory level.
+     * @throws ValidationException     Thrown when an error occurs on factory level.
      * @throws InfrastructureException Thrown when an error occurs on repository level.
      */
     @Override

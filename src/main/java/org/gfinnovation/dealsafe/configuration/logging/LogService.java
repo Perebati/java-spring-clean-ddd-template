@@ -6,6 +6,7 @@ import org.gfinnovation.dealsafe.configuration.logging.infrastrutcture.RequestLo
 import org.gfinnovation.dealsafe.configuration.logging.infrastrutcture.repository.ErrorLogRepository;
 import org.gfinnovation.dealsafe.configuration.logging.infrastrutcture.repository.MethodCallLogRepository;
 import org.gfinnovation.dealsafe.configuration.logging.infrastrutcture.repository.RequestLogRepository;
+import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,7 @@ import java.util.concurrent.CompletableFuture;
  * @since 30/10/2024
  */
 @Service
+@Profile({"dev", "prod"})
 public class LogService {
     private final MethodCallLogRepository methodCallLogRepository;
     private final ErrorLogRepository errorLogRepository;

@@ -16,6 +16,7 @@ import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingul
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
 
 /**
@@ -46,7 +47,7 @@ class ComparisonControllerImpl implements ComparisonController {
 
     @Override
     public ResponseEntity<ComparisonSingular> createSingularComparison(
-            ComparisonSingularRecord request) throws SystemGlobalException {
+            @NonNull ComparisonSingularRecord request) throws SystemGlobalException {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(
                     this.createComparisonSingular.execute(
@@ -61,7 +62,7 @@ class ComparisonControllerImpl implements ComparisonController {
 
     @Override
     public ResponseEntity<ComparisonMulti> createMultiComparison(
-            ComparisonMultiRecord request) throws SystemGlobalException {
+            @NonNull ComparisonMultiRecord request) throws SystemGlobalException {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(
                     this.createComparisonMulti.execute(
@@ -76,7 +77,7 @@ class ComparisonControllerImpl implements ComparisonController {
 
     @Override
     public ResponseEntity<ComparisonCustomList> createBlackListComparison(
-            ComparisonCustomListRecord request) throws SystemGlobalException {
+            @NonNull ComparisonCustomListRecord request) throws SystemGlobalException {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(
                     this.createComparisonBlackList.execute(
@@ -91,16 +92,16 @@ class ComparisonControllerImpl implements ComparisonController {
 
     @Override
     public ResponseEntity<ComparisonCustomList> createWhiteListComparison(
-            ComparisonCustomListRecord request) throws SystemGlobalException {
-            try {
-                return ResponseEntity.status(HttpStatus.CREATED).body(
-                        this.createComparisonWhiteList.execute(
-                                request
-                        ));
-            } catch (SystemGlobalException e) {
-                throw e;
-            } catch (Exception e) {
-                throw new AdapterException("Unexpected error in operation creation.");
-            }
+            @NonNull ComparisonCustomListRecord request) throws SystemGlobalException {
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED).body(
+                    this.createComparisonWhiteList.execute(
+                            request
+                    ));
+        } catch (SystemGlobalException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new AdapterException("Unexpected error in operation creation.");
         }
+    }
 }

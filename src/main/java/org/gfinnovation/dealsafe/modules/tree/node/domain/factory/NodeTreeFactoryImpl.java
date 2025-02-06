@@ -34,7 +34,7 @@ class NodeTreeFactoryImpl implements NodeTreeFactory {
         try {
             return new NodeTreeBlock(name, nodeParent);
         } catch (Exception e) {
-            throw new DomainException("Factory: Something went wrong creating a node.");
+            throw new DomainException("Something went wrong creating a node.");
         }
     }
 
@@ -42,7 +42,7 @@ class NodeTreeFactoryImpl implements NodeTreeFactory {
         try {
             return new NodeTreeIf(nodeParent);
         } catch (Exception e) {
-            throw new DomainException("Factory: Something went wrong creating a node.");
+            throw new DomainException("Something went wrong creating a node.");
         }
     }
 }

@@ -2,8 +2,8 @@ package org.gfinnovation.dealsafe.modules.tree.root.application.service;
 
 import org.gfinnovation.dealsafe._shared.modules.application.GenericAuthDomainServiceImpl;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
-import org.gfinnovation.dealsafe.exception.models.InfrastructureException;
 import org.gfinnovation.dealsafe.exception.models.ApplicationException;
+import org.gfinnovation.dealsafe.exception.models.InfrastructureException;
 import org.gfinnovation.dealsafe.modules.tree.root.application.service.interfaces.RootTreeService;
 import org.gfinnovation.dealsafe.modules.tree.root.infrastructure.repository.interfaces.RootTreeRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -13,6 +13,7 @@ import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonCustom
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonMulti;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,7 +39,7 @@ public interface ComparisonController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PostMapping("comparison-singular")
-    ResponseEntity<ComparisonSingular> createSingularComparison(@RequestBody ComparisonSingularRecord request)
+    ResponseEntity<ComparisonSingular> createSingularComparison(@NonNull @RequestBody ComparisonSingularRecord request)
             throws SystemGlobalException;
 
     @Operation(summary = "Cadastro de uma operação de comparação multípla",
@@ -49,7 +50,7 @@ public interface ComparisonController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PostMapping("comparison-multi")
-    ResponseEntity<ComparisonMulti> createMultiComparison(@RequestBody ComparisonMultiRecord request)
+    ResponseEntity<ComparisonMulti> createMultiComparison(@NonNull @RequestBody ComparisonMultiRecord request)
             throws SystemGlobalException;
 
     @Operation(summary = "Cadastro de uma operação de BlackList",
@@ -60,7 +61,7 @@ public interface ComparisonController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PostMapping("comparison-black-list")
-    ResponseEntity<ComparisonCustomList> createBlackListComparison(@RequestBody ComparisonCustomListRecord request)
+    ResponseEntity<ComparisonCustomList> createBlackListComparison(@NonNull @RequestBody ComparisonCustomListRecord request)
             throws SystemGlobalException;
 
     @Operation(summary = "Cadastro de uma operação de WhiteList",
@@ -71,6 +72,6 @@ public interface ComparisonController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PostMapping("comparison-white-list")
-    ResponseEntity<ComparisonCustomList> createWhiteListComparison(@RequestBody ComparisonCustomListRecord request)
+    ResponseEntity<ComparisonCustomList> createWhiteListComparison(@NonNull @RequestBody ComparisonCustomListRecord request)
             throws SystemGlobalException;
 }

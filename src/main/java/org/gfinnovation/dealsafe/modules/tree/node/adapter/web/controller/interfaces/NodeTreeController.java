@@ -10,6 +10,7 @@ import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeCreat
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeBlock;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeIf;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -35,7 +36,7 @@ public interface NodeTreeController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PostMapping("/node-block")
-    ResponseEntity<Void> createNodeBlock(@RequestBody NodeCreationDTO request) throws SystemGlobalException;
+    ResponseEntity<Void> createNodeBlock(@NonNull @RequestBody NodeCreationDTO request) throws SystemGlobalException;
 
 
     @Operation(
@@ -47,7 +48,7 @@ public interface NodeTreeController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PostMapping("/node-if")
-    ResponseEntity<Void> createNodeIf (@RequestBody NodeCreationDTO request) throws SystemGlobalException;
+    ResponseEntity<Void> createNodeIf(@NonNull @RequestBody NodeCreationDTO request) throws SystemGlobalException;
 
 
     @Operation(
@@ -59,7 +60,7 @@ public interface NodeTreeController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @GetMapping("/node-block")
-    ResponseEntity<NodeTreeBlock> readNodeBlock (@RequestParam UUID request) throws SystemGlobalException;
+    ResponseEntity<NodeTreeBlock> readNodeBlock(@NonNull @RequestParam UUID request) throws SystemGlobalException;
 
     @Operation(
             summary = "Leitura de nó IF na árvore",
@@ -70,7 +71,7 @@ public interface NodeTreeController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @GetMapping("/node-if")
-    ResponseEntity<NodeTreeIf> readNodeIf (@RequestParam UUID request) throws SystemGlobalException;
+    ResponseEntity<NodeTreeIf> readNodeIf(@NonNull @RequestParam UUID request) throws SystemGlobalException;
 
     @Operation(
             summary = "Update de nó block na árvore",
@@ -81,7 +82,7 @@ public interface NodeTreeController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PutMapping("/node-block")
-    ResponseEntity<NodeTreeBlock> updateNodeBlock (@RequestBody NodeTreeBlock request) throws SystemGlobalException;
+    ResponseEntity<NodeTreeBlock> updateNodeBlock(@NonNull @RequestBody NodeTreeBlock request) throws SystemGlobalException;
 
     @Operation(
             summary = "Update de nó block na árvore",
@@ -92,7 +93,7 @@ public interface NodeTreeController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PutMapping("/node-if")
-    ResponseEntity<NodeTreeIf> updateNodeIf (@RequestBody NodeTreeIf request) throws SystemGlobalException;
+    ResponseEntity<NodeTreeIf> updateNodeIf(@NonNull @RequestBody NodeTreeIf request) throws SystemGlobalException;
 
     @Operation(
             summary = "Deleta de nó block na árvore",
@@ -103,7 +104,7 @@ public interface NodeTreeController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @DeleteMapping("/node-block")
-    ResponseEntity<Void> deleteNodeBlock (@RequestParam UUID request) throws SystemGlobalException;
+    ResponseEntity<Void> deleteNodeBlock(@NonNull @RequestParam UUID request) throws SystemGlobalException;
 
     @Operation(
             summary = "Deleta de nó IF na árvore",
@@ -114,5 +115,5 @@ public interface NodeTreeController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @DeleteMapping("/node-if")
-    ResponseEntity<Void> deleteNodeIf (@RequestParam UUID request) throws SystemGlobalException;
+    ResponseEntity<Void> deleteNodeIf(@NonNull @RequestParam UUID request) throws SystemGlobalException;
 }

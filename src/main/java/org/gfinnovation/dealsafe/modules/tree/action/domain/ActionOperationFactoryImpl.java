@@ -24,7 +24,7 @@ public class ActionOperationFactoryImpl implements ActionOperationFactory {
      * @param url     Message webhook.
      * @param message Message itself.
      * @return ActionOperation
-     * @throws DomainException    Thrown when something wrong happened on factory layer.
+     * @throws DomainException     Thrown when something wrong happened on factory layer.
      * @throws ValidationException Thrown when something wrong happened on factory layer.
      * @author Lucas Batista Pereira
      * @since 30/10/2024
@@ -34,7 +34,7 @@ public class ActionOperationFactoryImpl implements ActionOperationFactory {
         try {
             return new ActionOperation(url, message);
         } catch (Exception e) {
-            throw new DomainException("Factory: Something went wrong creating an action operation.");
+            throw new DomainException("Something went wrong creating an action operation.");
         }
     }
 }

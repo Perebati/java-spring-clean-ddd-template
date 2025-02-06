@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.gfinnovation.dealsafe._shared.utils.annotations.Default;
+import org.gfinnovation.dealsafe.exception.models.DomainException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,13 +50,14 @@ public class NodeTreeBlock
             this.nodes.add(node);
             node.setParent(this);
         } catch (Exception e) {
-            throw new RuntimeException("Error adding node to branch");
+            throw new DomainException("Error adding node to branch");
         }
     }
+
     @Override
     public boolean traverse(JsonNode inputData) {
-        for(NodeTree<JsonNode> node : getNodes()) {
-            if(!node.traverse(inputData)) return false;
+        for (NodeTree<JsonNode> node : getNodes()) {
+            if (!node.traverse(inputData)) return false;
         }
         return true;
     }

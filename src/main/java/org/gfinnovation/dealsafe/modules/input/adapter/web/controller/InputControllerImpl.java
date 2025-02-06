@@ -1,6 +1,5 @@
 package org.gfinnovation.dealsafe.modules.input.adapter.web.controller;
 
-import org.apache.coyote.BadRequestException;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.AdapterException;
 import org.gfinnovation.dealsafe.modules.input.adapter.web.controller.interfaces.InputController;
@@ -8,6 +7,7 @@ import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.In
 import org.gfinnovation.dealsafe.modules.input.domain.Input;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,11 +30,9 @@ class InputControllerImpl implements InputController {
     }
 
     @Override
-    public ResponseEntity<Input> createInput(@RequestParam String name, @RequestBody String json) throws SystemGlobalException {
+    public ResponseEntity<Input> createInput(@NonNull @RequestParam String name,
+                                             @NonNull @RequestBody String json) throws SystemGlobalException {
         try {
-            if (name == null || name.isEmpty() || json == null || json.isEmpty()) {
-                throw new BadRequestException("'name' and/or 'json' fields can't be null!");
-            }
             return ResponseEntity.status(HttpStatus.CREATED).body(this.inputService.create(name, json));
 
         } catch (SystemGlobalException e) {
@@ -45,11 +43,8 @@ class InputControllerImpl implements InputController {
     }
 
     @Override
-    public ResponseEntity<Input> readInput(UUID id) throws SystemGlobalException {
+    public ResponseEntity<Input> readInput(@NonNull UUID id) throws SystemGlobalException {
         try {
-            if (id == null) {
-                throw new BadRequestException("input id can't be null!");
-            }
             return ResponseEntity.status(HttpStatus.OK).body(this.inputService.read(id));
         } catch (SystemGlobalException e) {
             throw e;

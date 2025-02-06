@@ -44,7 +44,7 @@ class RootTreeFactoryImpl implements RootTreeFactory {
             this.inputService.check(dynamic_input);
             return new RootTreeDynamic(name, dynamic_input);
         } catch (Exception e) {
-            throw new DomainException("Factory: Something went wrong creating a dynamic root node.");
+            throw new DomainException("Something went wrong creating a dynamic root node.");
         }
     }
 
@@ -54,7 +54,7 @@ class RootTreeFactoryImpl implements RootTreeFactory {
      * @param name         Name of the given root.
      * @param static_input Type of the predefined input entity.
      * @return RootTreeStatic
-     * @throws DomainException    Thrown when an error on factory level occurs.
+     * @throws DomainException     Thrown when an error on factory level occurs.
      * @throws ValidationException Thrown when an error on factory level occurs.
      * @author Lucas Batista Pereira
      * @since 30/10/2024
@@ -64,7 +64,7 @@ class RootTreeFactoryImpl implements RootTreeFactory {
         try {
             return new RootTreeStatic(name, static_input);
         } catch (Exception e) {
-            throw new DomainException("Factory: Something went wrong creating a predefined root node.");
+            throw new DomainException("Something went wrong creating a predefined root node.");
         }
     }
 }

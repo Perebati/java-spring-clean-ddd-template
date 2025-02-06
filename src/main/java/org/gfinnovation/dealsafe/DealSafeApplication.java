@@ -7,7 +7,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 /*
 TODO: Verificar a visibilidade de todas as classes criadas recentemente.
 TODO: Adicionar comentários.
-TODO: MongoDb está bugado
+TODO: Documentar melhor a API. Definir quais argumentos são obrigatórios ou não. Dar exemplos de input e output. Fazer uso de PathVariable.
  */
 @SpringBootApplication
 @EnableAsync

@@ -73,17 +73,22 @@ public abstract class GenericBusinessJpaRepositoryImpl<S extends GenericBusiness
             UUID userId,
             UUID companyId,
             Class<S> entityClass) {
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<S> query = cb.createQuery(entityClass);
-        Root<S> root = query.from(entityClass);
+        try {
 
-        Predicate userIdPredicate = cb.equal(root.get("userId"), userId);
-        Predicate companyIdPredicate = cb.equal(root.get("whitelabelId"), companyId);
-        Predicate notDeletedPredicate = cb.isFalse(root.get("deleted"));
+            CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+            CriteriaQuery<S> query = cb.createQuery(entityClass);
+            Root<S> root = query.from(entityClass);
 
-        query.select(root).where(cb.and(userIdPredicate, companyIdPredicate, notDeletedPredicate));
+            Predicate userIdPredicate = cb.equal(root.get("userId"), userId);
+            Predicate companyIdPredicate = cb.equal(root.get("whitelabelId"), companyId);
+            Predicate notDeletedPredicate = cb.isFalse(root.get("deleted"));
 
-        return entityManager.createQuery(query).getResultList();
+            query.select(root).where(cb.and(userIdPredicate, companyIdPredicate, notDeletedPredicate));
+
+            return entityManager.createQuery(query).getResultList();
+        } catch (Exception e) {
+            throw new InfrastructureException("Error while trying to find all entities by id.");
+        }
     }
 
     /**
@@ -103,21 +108,25 @@ public abstract class GenericBusinessJpaRepositoryImpl<S extends GenericBusiness
             Set<UUID> ids,
             Class<S> entityClass
     ) {
-        if (ids == null || ids.isEmpty()) {
-            return List.of();
+        try {
+            if (ids == null || ids.isEmpty()) {
+                return List.of();
+            }
+            CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+            CriteriaQuery<S> query = cb.createQuery(entityClass);
+            Root<S> root = query.from(entityClass);
+
+            Predicate userIdPredicate = cb.equal(root.get("userId"), userId);
+            Predicate companyIdPredicate = cb.equal(root.get("whitelabelId"), companyId);
+            Predicate idsPredicate = root.get("id").in(ids);
+            Predicate notDeletedPredicate = cb.isFalse(root.get("deleted"));
+
+            query.select(root).where(cb.and(userIdPredicate, companyIdPredicate, idsPredicate, notDeletedPredicate));
+
+            return entityManager.createQuery(query).getResultList();
+        } catch (Exception e) {
+            throw new InfrastructureException("Error while trying to find all entities by ids.");
         }
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<S> query = cb.createQuery(entityClass);
-        Root<S> root = query.from(entityClass);
-
-        Predicate userIdPredicate = cb.equal(root.get("userId"), userId);
-        Predicate companyIdPredicate = cb.equal(root.get("whitelabelId"), companyId);
-        Predicate idsPredicate = root.get("id").in(ids);
-        Predicate notDeletedPredicate = cb.isFalse(root.get("deleted"));
-
-        query.select(root).where(cb.and(userIdPredicate, companyIdPredicate, idsPredicate, notDeletedPredicate));
-
-        return entityManager.createQuery(query).getResultList();
     }
 
     /**
@@ -136,42 +145,46 @@ public abstract class GenericBusinessJpaRepositoryImpl<S extends GenericBusiness
             UUID companyId,
             PageRequest pageable,
             Class<S> entityClass) {
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<S> query = cb.createQuery(entityClass);
-        Root<S> root = query.from(entityClass);
+        try {
+            CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+            CriteriaQuery<S> query = cb.createQuery(entityClass);
+            Root<S> root = query.from(entityClass);
 
-        Predicate userIdPredicate = cb.equal(root.get("userId"), userId);
-        Predicate companyIdPredicate = cb.equal(root.get("whitelabelId"), companyId);
-        Predicate notDeletedPredicate = cb.isFalse(root.get("deleted"));
+            Predicate userIdPredicate = cb.equal(root.get("userId"), userId);
+            Predicate companyIdPredicate = cb.equal(root.get("whitelabelId"), companyId);
+            Predicate notDeletedPredicate = cb.isFalse(root.get("deleted"));
 
-        query.select(root).where(cb.and(userIdPredicate, companyIdPredicate, notDeletedPredicate));
+            query.select(root).where(cb.and(userIdPredicate, companyIdPredicate, notDeletedPredicate));
 
-        pageable.getSort();
-        List<Order> orders = new ArrayList<>();
-        for (Sort.Order sortOrder : pageable.getSort()) {
-            Order order = sortOrder.isAscending()
-                    ? cb.asc(root.get(sortOrder.getProperty()))
-                    : cb.desc(root.get(sortOrder.getProperty()));
-            orders.add(order);
+            pageable.getSort();
+            List<Order> orders = new ArrayList<>();
+            for (Sort.Order sortOrder : pageable.getSort()) {
+                Order order = sortOrder.isAscending()
+                        ? cb.asc(root.get(sortOrder.getProperty()))
+                        : cb.desc(root.get(sortOrder.getProperty()));
+                orders.add(order);
+            }
+            query.orderBy(orders);
+
+            CriteriaQuery<Long> countQuery = cb.createQuery(Long.class);
+            Root<S> countRoot = countQuery.from(entityClass);
+            countQuery.select(cb.count(countRoot));
+            countQuery.where(cb.and(
+                    cb.equal(countRoot.get("userId"), userId),
+                    cb.equal(countRoot.get("whitelabelId"), companyId),
+                    cb.isFalse(countRoot.get("deleted"))
+            ));
+
+            Long totalCount = entityManager.createQuery(countQuery).getSingleResult();
+
+            List<S> content = entityManager.createQuery(query)
+                    .setFirstResult((int) (pageable.getOffset()))
+                    .setMaxResults(pageable.getPageSize())
+                    .getResultList();
+
+            return new PageImpl<>(content, pageable, totalCount);
+        } catch (Exception e) {
+            throw new InfrastructureException("Error while trying to find all entities by id (paginated).");
         }
-        query.orderBy(orders);
-
-        CriteriaQuery<Long> countQuery = cb.createQuery(Long.class);
-        Root<S> countRoot = countQuery.from(entityClass);
-        countQuery.select(cb.count(countRoot));
-        countQuery.where(cb.and(
-                cb.equal(countRoot.get("userId"), userId),
-                cb.equal(countRoot.get("whitelabelId"), companyId),
-                cb.isFalse(countRoot.get("deleted"))
-        ));
-
-        Long totalCount = entityManager.createQuery(countQuery).getSingleResult();
-
-        List<S> content = entityManager.createQuery(query)
-                .setFirstResult((int) (pageable.getOffset()))
-                .setMaxResults(pageable.getPageSize())
-                .getResultList();
-
-        return new PageImpl<>(content, pageable, totalCount);
     }
 }

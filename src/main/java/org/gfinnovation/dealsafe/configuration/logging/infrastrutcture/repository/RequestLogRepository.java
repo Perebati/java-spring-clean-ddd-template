@@ -1,6 +1,7 @@
 package org.gfinnovation.dealsafe.configuration.logging.infrastrutcture.repository;
 
 import org.gfinnovation.dealsafe.configuration.logging.infrastrutcture.RequestLogSchema;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 /**
@@ -9,5 +10,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  * @interface RequestLogRepository
  * @since 30/10/2024
  */
+@Profile({"dev", "prod"})
 public interface RequestLogRepository extends MongoRepository<RequestLogSchema, String> {
 }

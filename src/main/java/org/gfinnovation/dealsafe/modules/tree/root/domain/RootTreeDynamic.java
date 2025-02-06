@@ -47,8 +47,8 @@ public class RootTreeDynamic extends RootTree<JsonNode> {
 
     @Override
     public boolean traverse(JsonNode inputData) {
-        for(NodeTree<JsonNode> node : getNodes()) {
-            if(!node.traverse(inputData)) return false;
+        for (NodeTree<JsonNode> node : getNodes()) {
+            if (!node.traverse(inputData)) return false;
         }
         return true;
     }

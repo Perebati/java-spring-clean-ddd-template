@@ -114,7 +114,7 @@ public abstract class GenericBusinessRepositoryImpl
      *
      * @param id Reference entity id.
      * @return Entity
-     * @throws InfrastructureException               Thrown when an unexpected database error occurs.
+     * @throws InfrastructureException Thrown when an unexpected database error occurs.
      * @author Lucas Batista Pereira
      * @since 06/11/2024
      */
@@ -140,7 +140,7 @@ public abstract class GenericBusinessRepositoryImpl
      *
      * @param id Reference entity id.
      * @return Schema
-     * @throws InfrastructureException               Thrown when an unexpected database error occurs.
+     * @throws InfrastructureException Thrown when an unexpected database error occurs.
      * @author Lucas Batista Pereira
      * @since 06/11/2024
      */
@@ -194,6 +194,7 @@ public abstract class GenericBusinessRepositoryImpl
      * @since 06/11/2024
      */
     @Override
+    @Transactional
     public void delete(
             @Nonnull UUID id,
             @Nonnull RepositoryAuth auth) throws InfrastructureException {

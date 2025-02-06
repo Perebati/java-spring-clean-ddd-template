@@ -10,6 +10,7 @@ import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeBlock;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeIf;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
 
 import java.util.UUID;
@@ -54,45 +55,45 @@ class NodeTreeControllerImpl implements NodeTreeController {
     }
 
     @Override
-    public ResponseEntity<Void> createNodeBlock(NodeCreationDTO request) throws SystemGlobalException {
+    public ResponseEntity<Void> createNodeBlock(@NonNull NodeCreationDTO request) throws SystemGlobalException {
         this.createNodeBlock.execute(request);
         return ResponseEntity.ok().build();
     }
 
     @Override
-    public ResponseEntity<Void> createNodeIf(NodeCreationDTO request) throws SystemGlobalException {
+    public ResponseEntity<Void> createNodeIf(@NonNull NodeCreationDTO request) throws SystemGlobalException {
         this.createNodeIf.execute(request);
         return ResponseEntity.ok().build();
     }
 
     @Override
-    public ResponseEntity<NodeTreeBlock> readNodeBlock(UUID request) throws SystemGlobalException {
+    public ResponseEntity<NodeTreeBlock> readNodeBlock(@NonNull UUID request) throws SystemGlobalException {
         return ResponseEntity.ok(this.readNodeBlock.execute(request));
     }
 
     @Override
-    public ResponseEntity<NodeTreeIf> readNodeIf(UUID request) throws SystemGlobalException {
+    public ResponseEntity<NodeTreeIf> readNodeIf(@NonNull UUID request) throws SystemGlobalException {
         return ResponseEntity.ok(this.readNodeIf.execute(request));
     }
 
     @Override
-    public ResponseEntity<NodeTreeBlock> updateNodeBlock(NodeTreeBlock request) throws SystemGlobalException {
+    public ResponseEntity<NodeTreeBlock> updateNodeBlock(@NonNull NodeTreeBlock request) throws SystemGlobalException {
         return ResponseEntity.ok(this.updateNodeBlock.execute(request));
     }
 
     @Override
-    public ResponseEntity<NodeTreeIf> updateNodeIf(NodeTreeIf request) throws SystemGlobalException {
+    public ResponseEntity<NodeTreeIf> updateNodeIf(@NonNull NodeTreeIf request) throws SystemGlobalException {
         return ResponseEntity.ok(this.updateNodeIf.execute(request));
     }
 
     @Override
-    public ResponseEntity<Void> deleteNodeBlock(UUID request) throws SystemGlobalException {
+    public ResponseEntity<Void> deleteNodeBlock(@NonNull UUID request) throws SystemGlobalException {
         this.deleteNodeBlock.execute(request);
         return ResponseEntity.ok().build();
     }
 
     @Override
-    public ResponseEntity<Void> deleteNodeIf(UUID request) throws SystemGlobalException {
+    public ResponseEntity<Void> deleteNodeIf(@NonNull UUID request) throws SystemGlobalException {
         this.deleteNodeif.execute(request);
         return ResponseEntity.ok().build();
     }

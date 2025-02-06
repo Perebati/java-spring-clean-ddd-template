@@ -2,8 +2,8 @@ package org.gfinnovation.dealsafe.tests._shared;
 
 import jakarta.transaction.Transactional;
 import org.apache.coyote.BadRequestException;
-import org.gfinnovation.dealsafe._shared.modules.infrastructure.RepositoryAuth;
 import org.gfinnovation.dealsafe._shared.modules.domain.GenericClass;
+import org.gfinnovation.dealsafe._shared.modules.infrastructure.RepositoryAuth;
 import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.interfaces.GenericBusinessRepository;
 import org.gfinnovation.dealsafe.exception.models.InfrastructureException;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -33,47 +34,60 @@ public abstract class GenericBusinessRepositoryTest<
 
     protected abstract GenericBusinessRepository<E> createRepository();
 
-    protected abstract RepositoryAuth createRepositoryAuth() throws BadRequestException;
 
     @BeforeEach
-    public void setUp() throws BadRequestException {
+    public void setUp() {
         repository = createRepository();
-        repositoryAuth = createRepositoryAuth();
+        repositoryAuth = new RepositoryAuth(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID());
     }
 
     @Test
     @Transactional
-    public void testCreate() throws Exception {
-        E entity = createEntity();
-        E createdEntity = repository.create(entity, repositoryAuth);
+    public void testCreate(){
+        try {
+            E entity = createEntity();
+            E createdEntity = repository.create(entity, repositoryAuth);
 
-        assertNotNull(createdEntity.getId(), "A entidade criada deveria ter um ID gerado.");
-        assertNotNull(createdEntity.getCreatedAt(), "A entidade criada deveria ter a data de criação definida.");
+            assertNotNull(createdEntity.getId(), "A entidade criada deveria ter um ID gerado.");
+            assertNotNull(createdEntity.getCreatedAt(), "A entidade criada deveria ter a data de criação definida.");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
     @Transactional
-    public void testRead() throws Exception {
+    public void testRead(){
+        try {
         E entity = createEntity();
         E createdEntity = repository.create(entity, repositoryAuth);
         E readEntity = repository.read(createdEntity.getId(), repositoryAuth);
 
         assertEquals(createdEntity.getId(), readEntity.getId(), "O ID da entidade lida deveria corresponder ao ID da entidade criada.");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
     @Transactional
-    public void testReadDeleted() throws Exception {
+    public void testReadDeleted(){
+        try {
+
         E entity = createEntity();
         E createdEntity = repository.create(entity, repositoryAuth);
         repository.delete(createdEntity.getId(), repositoryAuth);
 
         assertThrows(InfrastructureException.class, () -> repository.read(createdEntity.getId(), repositoryAuth));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
     @Transactional
-    public void testUpdate() throws Exception {
+    public void testUpdate(){
+        try {
         E entity = createEntity();
         E createdEntity = repository.create(entity, repositoryAuth);
 
@@ -81,32 +95,44 @@ public abstract class GenericBusinessRepositoryTest<
 
         assertNotNull(updatedEntity.getId(), "O ID da entidade atualizada não deve ser nulo.");
         assertNotEquals(createdEntity.getUpdatedAt(), updatedEntity.getUpdatedAt(), "A data de atualização deveria ser alterada.");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
     @Transactional
-    public void testUpdateDeleted() throws Exception {
+    public void testUpdateDeleted(){
+        try {
         E entity = createEntity();
         E createdEntity = repository.create(entity, repositoryAuth);
         repository.delete(createdEntity.getId(), repositoryAuth);
 
         Exception exception = assertThrows(RuntimeException.class, () -> repository.update(createdEntity, repositoryAuth));
         assertNotNull(exception, "Deveria ser lançada uma exceção ao tentar atualizar uma entidade deletada.");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
     @Transactional
-    public void testDelete() throws Exception {
+    public void testDelete(){
+        try {
         E entity = createEntity();
         E createdEntity = repository.create(entity, repositoryAuth);
         repository.delete(createdEntity.getId(), repositoryAuth);
 
         assertThrows(InfrastructureException.class, () -> repository.read(createdEntity.getId(), repositoryAuth));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
     @Transactional
-    public void testFindAllAfterDelete() throws Exception {
+    public void testFindAllAfterDelete(){
+        try {
         E entity = createEntity();
         E createdEntity = repository.create(entity, repositoryAuth);
 
@@ -114,11 +140,15 @@ public abstract class GenericBusinessRepositoryTest<
         Optional<List<E>> allEntities = repository.findAll(repositoryAuth);
 
         assertTrue(allEntities.isEmpty(), "Deveria retornar uma lista de vazia.");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
     @Transactional
-    public void testFindAll() throws Exception {
+    public void testFindAll(){
+        try {
         E entity = createEntity();
         repository.create(entity, repositoryAuth);
 
@@ -126,5 +156,8 @@ public abstract class GenericBusinessRepositoryTest<
 
         assertTrue(allEntities.isPresent(), "A busca por todas as entidades não deveria retornar nulo.");
         assertFalse(allEntities.get().isEmpty(), "A lista de entidades não deve estar vazia.");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

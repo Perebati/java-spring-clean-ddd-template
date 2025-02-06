@@ -56,7 +56,7 @@ class RootTreeRepositoryImpl
     /**
      * @param id Identification of given root.
      * @return Object
-     * @throws InfrastructureException               Thrown when an error occur on Repository Level.
+     * @throws InfrastructureException Thrown when an error occur on Repository Level.
      * @author Lucas Batista Pereira
      * @since 08/11/2024
      */
@@ -87,36 +87,36 @@ class RootTreeRepositoryImpl
     public Optional<UUID> findRootIdByNodeId(UUID node_id) throws SystemGlobalException {
         try {
             String sql = """
-                
-                    WITH RECURSIVE hierarchy AS (
+                    
+                        WITH RECURSIVE hierarchy AS (
+                        SELECT
+                            n.id AS node_id,
+                            n.parent_id,
+                            n.parent_type
+                        FROM
+                            tree_node n
+                        WHERE
+                            n.id = :nodeId
+                        UNION ALL
+                        SELECT
+                            n2.id AS node_id,
+                            n2.parent_id,
+                            n2.parent_type
+                        FROM
+                            hierarchy h
+                        JOIN
+                            tree_node n2 ON n2.id = h.parent_id
+                        WHERE
+                            h.parent_type = 'NODE' AND h.parent_id IS NOT NULL
+                    )
                     SELECT
-                        n.id AS node_id,
-                        n.parent_id,
-                        n.parent_type
-                    FROM
-                        tree_node n
-                    WHERE
-                        n.id = :nodeId
-                    UNION ALL
-                    SELECT
-                        n2.id AS node_id,
-                        n2.parent_id,
-                        n2.parent_type
+                        h.parent_id AS root_id
                     FROM
                         hierarchy h
-                    JOIN
-                        tree_node n2 ON n2.id = h.parent_id
                     WHERE
-                        h.parent_type = 'NODE' AND h.parent_id IS NOT NULL
-                )
-                SELECT
-                    h.parent_id AS root_id
-                FROM
-                    hierarchy h
-                WHERE
-                    h.parent_type = 'ROOT'
-                LIMIT 1
-                """;
+                        h.parent_type = 'ROOT'
+                    LIMIT 1
+                    """;
 
             Query query = entityManager.createNativeQuery(sql);
             query.setParameter("nodeId", node_id);
@@ -126,17 +126,16 @@ class RootTreeRepositoryImpl
                 UUID rootId = null;
 
                 if (result != null) {
-                    if (result instanceof UUID) {
-                        rootId = (UUID) result;
-                    } else if (result instanceof String) {
-                        rootId = UUID.fromString((String) result);
-                    } else if (result instanceof byte[]) {
-                        ByteBuffer bb = ByteBuffer.wrap((byte[]) result);
-                        long high = bb.getLong();
-                        long low = bb.getLong();
-                        rootId = new UUID(high, low);
-                    } else {
-                        throw new IllegalArgumentException("Unexpected node type: " + result.getClass());
+                    switch (result) {
+                        case UUID uuid -> rootId = uuid;
+                        case String s -> rootId = UUID.fromString(s);
+                        case byte[] bytes -> {
+                            ByteBuffer bb = ByteBuffer.wrap(bytes);
+                            long high = bb.getLong();
+                            long low = bb.getLong();
+                            rootId = new UUID(high, low);
+                        }
+                        default -> throw new IllegalArgumentException("Unexpected node type: " + result.getClass());
                     }
                 }
 
@@ -144,7 +143,7 @@ class RootTreeRepositoryImpl
             } catch (NoResultException e) {
                 return Optional.empty();
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new InfrastructureException("An error occurred when searching for a root id.");
         }
     }

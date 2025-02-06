@@ -61,22 +61,22 @@ public class TreeTest {
         try {
 
             String json = """
-                {
-                  "nome": "João",
-                  "idade": 30,
-                  "CPF": 11330176650,
-                  "endereco": {
-                    "rua": "Rua A",
-                    "bairro": "Centro"
-                  },
-                  "telefone": ["123456789", "987654321"],
-                  "teste": {
-                      "teste":{
-                          "teste": "teste"
-                      }
-                   }
-                }
-                """;
+                    {
+                      "nome": "João",
+                      "idade": 30,
+                      "CPF": 11330176650,
+                      "endereco": {
+                        "rua": "Rua A",
+                        "bairro": "Centro"
+                      },
+                      "telefone": ["123456789", "987654321"],
+                      "teste": {
+                          "teste":{
+                              "teste": "teste"
+                          }
+                       }
+                    }
+                    """;
             MDC.put("userId", UUID.randomUUID().toString());
             MDC.put("whitelabelId", UUID.randomUUID().toString());
             MDC.put("requestId", UUID.randomUUID().toString());
@@ -102,8 +102,8 @@ public class TreeTest {
             NodeTree<?> nodeIf3 = this.nodeTreeIfService.create(new NodeCreationDTO("NODE IF 3", nodeIf1.getId(), null));
 
             ComparisonSingular comparisonSingular = this.comparisonSingularService.create(new ComparisonSingularRecord(
-                   ComparisonSingular.ComparisonSingularTypeEnum.EQUAL,
-                   "endereco$bairro@",
+                    ComparisonSingular.ComparisonSingularTypeEnum.EQUAL,
+                    "endereco$bairro@",
                     "Centro",
                     nodeIf3.getParentId(),
                     NodeTreeIf.SetNode.CONDITIONAL

@@ -9,4 +9,5 @@ import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.inter
  * @since 22/01/2025
  */
 
-public interface NodeTreeActionRepository extends GenericBusinessRepository<NodeTreeAction> {}
+public interface NodeTreeActionRepository extends GenericBusinessRepository<NodeTreeAction> {
+}

@@ -42,7 +42,8 @@ public interface NodeTreeMapper<E extends GenericClass, S extends GenericEntity>
             case null -> null;
             case ComparisonMultiEntity comparisonMultiEntity -> toComparisonMulti(comparisonMultiEntity);
             case ComparisonSingularEntity comparisonSingularEntity -> toComparisonSingular(comparisonSingularEntity);
-            case ComparisonCustomListEntity comparisonCustomListEntity -> toComparisonCustomList(comparisonCustomListEntity);
+            case ComparisonCustomListEntity comparisonCustomListEntity ->
+                    toComparisonCustomList(comparisonCustomListEntity);
             case NodeTreeIfEntity nodeTreeIfEntity -> toNodeTreeIf(nodeTreeIfEntity);
             case NodeTreeBlockEntity nodeTreeBlockEntity -> toNodeTreeBlock(nodeTreeBlockEntity);
             case NodeTreeActionEntity nodeTreeActionEntity -> toNodeTreeAction(nodeTreeActionEntity);

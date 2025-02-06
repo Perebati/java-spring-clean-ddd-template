@@ -10,6 +10,7 @@ import org.gfinnovation.dealsafe.configuration.logging.LogService;
 import org.gfinnovation.dealsafe.configuration.logging.infrastrutcture.RequestLogSchema;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -26,6 +27,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @Component
+@Profile({"dev", "prod"})
 public class JwtTokenFilter extends OncePerRequestFilter {
 
     private final LogService logService;
@@ -86,7 +88,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             sendErrorResponse(response, HttpServletResponse.SC_UNAUTHORIZED, "Expired JWT token.");
         } catch (JwtException | ServletException | NoSuchAlgorithmException | InvalidKeySpecException ex) {
             sendErrorResponse(response, HttpServletResponse.SC_UNAUTHORIZED, "Invalid JWT token.");
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             sendErrorResponse(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal Server Error.");
         } finally {
             MDC.clear();

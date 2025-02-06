@@ -46,14 +46,10 @@ public class NodeTreeIf
         elseNodes.add(node);
     }
 
-    public enum SetNode {
-        CONDITIONAL, THEN, ELSE
-    }
-
     @Override
     public boolean traverse(JsonNode inputData) {
         boolean flag = true;
-        for(NodeTree<JsonNode> node : getConditionalNodes()) {
+        for (NodeTree<JsonNode> node : getConditionalNodes()) {
             if (!node.traverse(inputData)) {
                 flag = false;
                 break;
@@ -66,12 +62,16 @@ public class NodeTreeIf
                 }
             }
         } else {
-                for (NodeTree<JsonNode> elseNode : elseNodes) {
-                    if(!elseNode.traverse(inputData)){
-                        return false;
-                    }
+            for (NodeTree<JsonNode> elseNode : elseNodes) {
+                if (!elseNode.traverse(inputData)) {
+                    return false;
                 }
             }
+        }
         return true;
+    }
+
+    public enum SetNode {
+        CONDITIONAL, THEN, ELSE
     }
 }

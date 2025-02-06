@@ -5,7 +5,7 @@ server:
 
 spring:
   application:
-    name: ${SPRING_APPLICATION_NAME}
+    name: Dealsafe
   datasource:
     url: ${SPRING_DATASOURCE_URL}
     username: ${SPRING_DATASOURCE_USERNAME}

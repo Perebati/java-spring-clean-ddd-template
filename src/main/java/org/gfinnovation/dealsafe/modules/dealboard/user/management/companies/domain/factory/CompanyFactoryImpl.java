@@ -15,7 +15,7 @@ class CompanyFactoryImpl implements CompanyListFactory {
         try {
             return new CompanyList(name, cnpjs);
         } catch (Exception e) {
-            throw new DomainException("Factory: Something went wrong creating a company list.");
+            throw new DomainException("Something went wrong creating a company list.");
         }
     }
 
@@ -24,7 +24,7 @@ class CompanyFactoryImpl implements CompanyListFactory {
         try {
             return new CompanyList(name);
         } catch (Exception e) {
-            throw new DomainException("Factory: Something went wrong creating a company list.");
+            throw new DomainException("Something went wrong creating a company list.");
         }
     }
 }

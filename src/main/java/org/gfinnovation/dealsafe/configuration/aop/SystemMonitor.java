@@ -6,6 +6,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.gfinnovation.dealsafe.configuration.logging.LogService;
 import org.gfinnovation.dealsafe.configuration.logging.infrastrutcture.MethodCallLogSchema;
 import org.slf4j.MDC;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import javax.naming.AuthenticationException;
@@ -24,6 +25,7 @@ import java.util.Date;
  */
 @Aspect
 @Component
+@Profile({"dev", "prod"})
 public class SystemMonitor {
 
     private final LogService logService;

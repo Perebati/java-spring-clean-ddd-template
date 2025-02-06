@@ -1,12 +1,5 @@
-package brokentests;
+package org.gfinnovation.dealsafe.tests.repository;
 
-import jakarta.annotation.PostConstruct;
-import org.apache.coyote.BadRequestException;
-import org.gfinnovation.dealsafe._shared.modules.infrastructure.RepositoryAuth;
-import org.gfinnovation.dealsafe.authentication.company.business.interfaces.CompanyBusiness;
-import org.gfinnovation.dealsafe.authentication.company.entity.CompanyEntity;
-import org.gfinnovation.dealsafe.authentication.user.business.interfaces.UserBusiness;
-import org.gfinnovation.dealsafe.authentication.user.entity.UserEntity;
 import org.gfinnovation.dealsafe.modules.input.domain.Input;
 import org.gfinnovation.dealsafe.modules.input.domain.factory.interfaces.InputFactory;
 import org.gfinnovation.dealsafe.modules.input.infrastructure.repository.interfaces.InputRepository;
@@ -14,10 +7,8 @@ import org.gfinnovation.dealsafe.tests._shared.GenericBusinessRepositoryTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
 
 /**
  * @author Lucas Batista Pereira
@@ -26,8 +17,10 @@ import java.util.UUID;
  * @since 30/10/2024
  */
 @SpringBootTest
+@ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
 public class InputRepositoryTest extends GenericBusinessRepositoryTest<Input> {
+
     String json = """
             {
               "nome": "João",
@@ -46,34 +39,14 @@ public class InputRepositoryTest extends GenericBusinessRepositoryTest<Input> {
             """;
 
     @Autowired
-    private UserBusiness userBusiness;
-
-    @Autowired
-    private CompanyBusiness companyBusiness;
-
-    @Autowired
     private InputRepository inputRepository;
 
     @Autowired
     private InputFactory inputFactory;
 
-    private Map.Entry<UserEntity, CompanyEntity> auth;
-
-    @PostConstruct
-    public void init() throws BadRequestException {
-        UserEntity userTest = this.userBusiness.create("Taba Júnior");
-        CompanyEntity companyTest = this.companyBusiness.create("Taba Júnior", Set.of(userTest.getId()));
-        this.auth = Map.entry(userTest, companyTest);
-    }
-
-    @Override
-    protected RepositoryAuth createRepositoryAuth() {
-        return new RepositoryAuth(auth.getKey().getId(), auth.getValue().getId(), UUID.randomUUID());
-    }
-
     @Override
     protected Input createEntity() {
-        return this.inputFactory.produce("Input Teste", json);
+        return this.inputFactory.produce("TestInputH2", json);
     }
 
     @Override

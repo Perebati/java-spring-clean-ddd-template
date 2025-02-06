@@ -11,6 +11,7 @@ import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeDynamic;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeStatic;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -35,7 +36,7 @@ class RootTreeControllerImpl implements RootTreeController {
 
     @Override
     public ResponseEntity<RootTreeStatic> createRootPredefined(
-            @RequestBody RootCreationPredefinedInputDTO request) throws SystemGlobalException {
+            @NonNull @RequestBody RootCreationPredefinedInputDTO request) throws SystemGlobalException {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(
                     this.rootTreeStaticService.create(
@@ -51,7 +52,7 @@ class RootTreeControllerImpl implements RootTreeController {
 
     @Override
     public ResponseEntity<RootTreeDynamic> createRootDynamic(
-            RootCreationDynamicInputDTO request) throws SystemGlobalException {
+            @NonNull @RequestBody RootCreationDynamicInputDTO request) throws SystemGlobalException {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(
                     this.rootTreeDynamicService.create(

@@ -1,5 +1,7 @@
 package org.gfinnovation.dealsafe.modules.tree.root.adapter.web.request;
 
+import org.springframework.lang.NonNull;
+
 import java.util.UUID;
 
 /**
@@ -9,5 +11,7 @@ import java.util.UUID;
  * @since 04/11/2024
  */
 
-public record RootCreationDynamicInputDTO(String name, UUID dynamicInput_id) {
+public record RootCreationDynamicInputDTO(
+        @NonNull String name,
+        @NonNull UUID dynamicInput_id) {
 }
