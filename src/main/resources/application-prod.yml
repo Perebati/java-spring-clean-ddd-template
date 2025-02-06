@@ -26,6 +26,11 @@ spring:
       username: ${DATA_MONGODB_USERNAME}
       password: ${DATA_MONGODB_PASSWORD}
       authentication-database: ${DATA_MONGODB_AUTHENTICATION_DATABASE}
+  neo4j:
+    uri: ${DATA_NEO4J_URI}
+    authentication:
+      username: ${DATA_NEO4J_USER}
+      password: ${DATA_NEO4J_PASSWORD}
 
 jwt:
   publicKey: ${JWT_PUBLIC_KEY}

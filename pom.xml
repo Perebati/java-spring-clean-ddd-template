@@ -42,6 +42,7 @@
         <spring.security.version>6.3.3</spring.security.version>
         <jjwt.version>0.11.5</jjwt.version>
         <neo4j.driver.version>5.22.0</neo4j.driver.version>
+        <spring.data.neo4j.version>7.4.2</spring.data.neo4j.version>
 
         <!-- Plugin version -->
         <maven.compiler.plugin.version>3.13.0</maven.compiler.plugin.version>
@@ -223,6 +224,11 @@
             <groupId>org.neo4j.driver</groupId>
             <artifactId>neo4j-java-driver</artifactId>
             <version>${neo4j.driver.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-neo4j</artifactId>
+            <version>${spring.data.neo4j.version}</version>
         </dependency>
     </dependencies>
 

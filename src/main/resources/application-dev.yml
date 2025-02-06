@@ -18,6 +18,12 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         default_schema: public
+  neo4j:
+    uri: neo4j://localhost:7999
+    authentication:
+      username: neo4j
+      password: password
+
   data:
     mongodb:
       host: localhost

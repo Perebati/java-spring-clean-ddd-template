@@ -1,4 +1,4 @@
-package org.gfinnovation.dealsafe.configuration.jpa;
+package org.gfinnovation.dealsafe.configuration.data;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
