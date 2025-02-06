@@ -12,11 +12,10 @@ import java.lang.reflect.Field;
  * fields in the predefined object.
  *
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @class PredefinedTypeEnum
- * @since 30/10/2024
+ * @since v1.0 (30/11/2024)
  */
-
 @Getter
 public enum PredefinedTypeEnum {
     TESTE(PredefinedInputExampleEntity.class);
@@ -42,7 +41,7 @@ public enum PredefinedTypeEnum {
      * @param jsonPath           Path to a variable.
      * @throws NoSuchFieldException Thrown when a path doesn't match the input.
      * @author Lucas Batista Pereira
-     * @since 30/10/2024
+     * @since v1.0 (30/11/2024)
      */
 
     public void validateJsonPath(PredefinedTypeEnum predefinedTypeEnum, String jsonPath) throws NoSuchFieldException {

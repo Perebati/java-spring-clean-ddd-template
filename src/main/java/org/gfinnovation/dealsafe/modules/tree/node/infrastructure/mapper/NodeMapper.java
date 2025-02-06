@@ -10,8 +10,8 @@ import org.springframework.context.annotation.Primary;
 
 /**
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
- * @interface NodeMapper
+ * @version v1.0
+ * @class NodeMapper
  * @since 24/01/2025
  */
 @Mapper(

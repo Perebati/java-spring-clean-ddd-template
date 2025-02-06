@@ -15,11 +15,10 @@ import java.util.UUID;
  * Maps Root attributes if the input of the validation tree is dynamic.
  *
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @class RootTreeDynamic
- * @since 30/10/2024
+ * @since v1.0 (30/11/2024)
  */
-
 @Getter
 @Setter
 @ToString(callSuper = true)

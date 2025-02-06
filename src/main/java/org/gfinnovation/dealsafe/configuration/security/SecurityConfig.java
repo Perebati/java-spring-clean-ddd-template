@@ -13,7 +13,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * Only used for test authentication.
  *
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @class SecurityConfig
  * @since 01/11/2024
  */

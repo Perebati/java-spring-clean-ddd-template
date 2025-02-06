@@ -12,9 +12,9 @@ import java.util.Queue;
  * This engine run through the validation tree making operations based on the input tree.
  *
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @class Engine
- * @since 30/10/2024
+ * @since v1.0 (30/11/2024)
  */
 
 @Component
@@ -32,7 +32,7 @@ public class Engine {
      * @throws IllegalAccessException    Thrown when an internal Java error occurs.
      * @throws InstantiationException    Thrown when is not possible to get a class via a name of type String.
      * @author Lucas Batista Pereira
-     * @since 30/10/2024
+     * @since v1.0 (30/11/2024)
      */
 
     public boolean bfsValidation(JsonNode root, JsonNode objectToValidate) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException {

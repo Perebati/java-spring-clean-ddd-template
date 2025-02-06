@@ -10,9 +10,9 @@ import java.util.Date;
  * This class maps what it gets saved.
  *
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @class RequestLogSchema
- * @since 30/10/2024
+ * @since v1.0 (30/11/2024)
  */
 @Data
 @Document("request_log")

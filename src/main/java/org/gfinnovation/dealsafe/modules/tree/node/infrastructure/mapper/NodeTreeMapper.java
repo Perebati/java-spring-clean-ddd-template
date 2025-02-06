@@ -23,6 +23,12 @@ import org.mapstruct.Named;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * @author Lucas Batista Pereira
+ * @version v1.1
+ * @class NodeTreeMapper
+ * @since v1.0 (06/02/2025)
+ */
 public interface NodeTreeMapper<E extends GenericClass, S extends GenericEntity>
         extends GenericBusinessMapper<E, S> {
     ComparisonMulti toComparisonMulti(ComparisonMultiEntity entity);

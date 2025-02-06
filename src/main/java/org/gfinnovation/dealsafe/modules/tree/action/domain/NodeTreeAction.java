@@ -9,7 +9,7 @@ import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTree;
 
 /**
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @class NodeTreeAction
  * @since 17/01/2025
  */

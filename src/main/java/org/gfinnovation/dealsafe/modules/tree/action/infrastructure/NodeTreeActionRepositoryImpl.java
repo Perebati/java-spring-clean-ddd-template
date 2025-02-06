@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 /**
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @class NodeTreeActionRepositoryImpl
  * @since 22/01/2025
  */

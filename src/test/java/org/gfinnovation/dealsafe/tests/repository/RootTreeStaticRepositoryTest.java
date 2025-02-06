@@ -5,6 +5,7 @@ import org.gfinnovation.dealsafe.modules.tree.root.domain.factory.interfaces.Roo
 import org.gfinnovation.dealsafe.modules.tree.root.domain.valueobjects.PredefinedTypeEnum;
 import org.gfinnovation.dealsafe.modules.tree.root.infrastructure.repository.interfaces.RootTreeStaticRepository;
 import org.gfinnovation.dealsafe.tests._shared.GenericBusinessRepositoryTest;
+import org.junit.jupiter.api.DisplayName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,13 +13,14 @@ import org.springframework.test.context.ActiveProfiles;
 
 /**
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @class RootTreeRepositoryTest
- * @since 30/10/2024
+ * @since v1.0 (30/11/2024)
  */
 @SpringBootTest
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
+@DisplayName("Repository test for RootTree Static")
 public class RootTreeStaticRepositoryTest extends GenericBusinessRepositoryTest<RootTreeStatic> {
     @Autowired
     private RootTreeFactory rootTreeFactory;

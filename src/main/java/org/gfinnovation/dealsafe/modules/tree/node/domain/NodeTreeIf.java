@@ -12,11 +12,10 @@ import java.util.List;
 
 /**
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @class NodeTreeIf
  * @since 16/01/2025
  */
-
 @EqualsAndHashCode(callSuper = true)
 @Getter
 @Setter

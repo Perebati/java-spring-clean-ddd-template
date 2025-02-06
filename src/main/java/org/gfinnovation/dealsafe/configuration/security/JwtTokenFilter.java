@@ -23,6 +23,12 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.UUID;
 
+/**
+ * @author Lucas Batista Pereira
+ * @version v2.0
+ * @class JwtTokenFilter
+ * @since v2.0 (06/02/2025)
+ */
 @Component
 @Profile({"dev", "prod"})
 public class JwtTokenFilter extends OncePerRequestFilter {

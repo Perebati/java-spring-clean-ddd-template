@@ -11,9 +11,9 @@ import org.springframework.stereotype.Component;
  * Standard entity factory.
  *
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @class InputFactoryImpl
- * @since 30/10/2024
+ * @since v1.0 (30/11/2024)
  */
 
 @Component

@@ -4,9 +4,9 @@ import org.gfinnovation.dealsafe.modules.tree.comparison.domain.service.singular
 
 /**
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @class IsMoreThanOperation
- * @since 30/10/2024
+ * @since v1.0 (30/11/2024)
  */
 public class IsMoreThanOperation extends ComparisonSingularOperation {
     @Override

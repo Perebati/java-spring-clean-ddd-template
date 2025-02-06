@@ -6,11 +6,10 @@ import lombok.Data;
  * An example of what a predefined input can be.
  *
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @class PredefinedInputExampleEntity
- * @since 30/10/2024
+ * @since v1.0 (30/11/2024)
  */
-
 @Data
 public class PredefinedInputExampleEntity {
     private String CPF;

@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @class NodeTreeBlock
  * @since 17/01/2025
  */

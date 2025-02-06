@@ -6,6 +6,12 @@ import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
+/**
+ * @author Lucas Batista Pereira
+ * @version v1.1
+ * @class DeleteNodeBlock
+ * @since v1.0 (06/02/2025)
+ */
 @Component
 public class DeleteNodeBlock extends NullOutputUseCase<UUID> {
     private final NodeTreeBlockService blockService;
@@ -16,6 +22,6 @@ public class DeleteNodeBlock extends NullOutputUseCase<UUID> {
 
     @Override
     public void execute(UUID input) {
-        this.blockService.deleteSync(input);
+        this.blockService.delete(input);
     }
 }

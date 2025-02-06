@@ -19,11 +19,10 @@ import java.util.concurrent.CompletableFuture;
  * gets saved on a relational database, that being Postgres.
  *
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
- * @interface GenericRepository
- * @since 30/10/2024
+ * @version v1.0
+ * @class GenericRepository
+ * @since v1.0 (30/11/2024)
  */
-
 public interface GenericBusinessRepository<E extends GenericClass> {
 
     E create(@Nonnull E entity, @Nonnull RepositoryAuth auth) throws SystemGlobalException;

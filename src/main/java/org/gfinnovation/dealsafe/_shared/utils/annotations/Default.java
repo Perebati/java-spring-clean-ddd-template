@@ -12,11 +12,10 @@ import java.lang.annotation.Target;
  * this annotation flags which is the default constructor.
  *
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @annotation @Default
- * @since 30/10/2024
+ * @since v1.0 (30/11/2024)
  */
-
 @Target(ElementType.CONSTRUCTOR)
 @Retention(RetentionPolicy.CLASS)
 public @interface Default {

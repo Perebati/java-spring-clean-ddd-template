@@ -6,9 +6,9 @@ import org.gfinnovation.dealsafe.modules.input.domain.Input;
 
 /**
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @class InputBusiness
- * @since 30/10/2024
+ * @since v1.0 (30/11/2024)
  */
 
 public interface InputService extends GenericService<Input> {

@@ -14,6 +14,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+/**
+ * @author Lucas Batista Pereira
+ * @version v1.1
+ * @class RootTreeDynamicServiceImpl
+ * @since v1.0 (06/02/2025)
+ */
 @Service
 public class RootTreeDynamicServiceImpl
         extends GenericServiceImpl<RootTreeDynamic, RootTreeDynamicRepository>

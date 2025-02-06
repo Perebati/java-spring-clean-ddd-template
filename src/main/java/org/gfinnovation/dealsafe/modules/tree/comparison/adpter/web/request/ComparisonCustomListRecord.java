@@ -5,6 +5,12 @@ import org.springframework.lang.NonNull;
 
 import java.util.UUID;
 
+/**
+ * @author Lucas Batista Pereira
+ * @version v1.1
+ * @class ComparisonCustomListRecord
+ * @since v1.0 (06/02/2025)
+ */
 public record ComparisonCustomListRecord(@NonNull String jsonPath,
                                          @NonNull UUID comparisonListId,
                                          @NonNull UUID parentId,

@@ -12,6 +12,12 @@ import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.repository.int
 import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.repository.interfaces.NodeTreeIfRepository;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author Lucas Batista Pereira
+ * @version v1.1
+ * @class NodeTreeRepositoryFactoryImpl
+ * @since v1.0 (06/02/2025)
+ */
 @Component
 @AllArgsConstructor
 class NodeTreeRepositoryFactoryImpl implements NodeTreeRepositoryFactory {

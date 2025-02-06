@@ -5,6 +5,12 @@ import org.gfinnovation.dealsafe.modules.tree.node.application.service.interface
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeBlock;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author Lucas Batista Pereira
+ * @version v1.1
+ * @class UpdateNodeBlock
+ * @since v1.0 (06/02/2025)
+ */
 @Component
 public class UpdateNodeBlock extends UseCase<NodeTreeBlock, NodeTreeBlock> {
     private final NodeTreeBlockService nodeTreeBlockService;
@@ -15,6 +21,6 @@ public class UpdateNodeBlock extends UseCase<NodeTreeBlock, NodeTreeBlock> {
 
     @Override
     public NodeTreeBlock execute(NodeTreeBlock input) {
-        return this.nodeTreeBlockService.updateSync(input);
+        return this.nodeTreeBlockService.update(input);
     }
 }

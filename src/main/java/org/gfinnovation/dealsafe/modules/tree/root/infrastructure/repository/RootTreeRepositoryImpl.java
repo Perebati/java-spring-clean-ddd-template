@@ -26,11 +26,10 @@ import java.util.UUID;
 
 /**
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @class RootTreeRepositoryImpl
- * @since 30/10/2024
+ * @since v1.0 (30/11/2024)
  */
-
 @Repository
 class RootTreeRepositoryImpl
         extends GenericBusinessRepositoryImpl<RootTree<?>, RootTreeEntity>
@@ -81,7 +80,7 @@ class RootTreeRepositoryImpl
      * @param node_id NodeId.
      * @return Optional of UUID
      * @author Lucas Batista Pereira
-     * @since 30/10/2024
+     * @since v1.0 (30/11/2024)
      */
     @Override
     public Optional<UUID> findRootIdByNodeId(UUID node_id) throws SystemGlobalException {

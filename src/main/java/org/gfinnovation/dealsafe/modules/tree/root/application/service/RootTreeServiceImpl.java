@@ -19,11 +19,10 @@ import java.util.UUID;
  * type, it will be crated a RootStatic (for predefined input) or a RootDynamic (for dynamic input).
  *
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
- * @class RootTreeBusinessImpl
- * @since 30/10/2024
+ * @version v1.0
+ * @class RootTreeServiceImpl
+ * @since v1.0 (30/11/2024)
  */
-
 @Service
 class RootTreeServiceImpl
         extends GenericAuthDomainServiceImpl

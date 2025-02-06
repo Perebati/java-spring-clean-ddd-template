@@ -24,11 +24,10 @@ import java.util.stream.Collectors;
  * The error is saved on db and then filtered for the client.
  *
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @class GlobalExceptionHandler
- * @since 30/10/2024
+ * @since v1.0 (30/11/2024)
  */
-
 @RequiredArgsConstructor
 @RestControllerAdvice
 @Profile({"dev", "prod"})

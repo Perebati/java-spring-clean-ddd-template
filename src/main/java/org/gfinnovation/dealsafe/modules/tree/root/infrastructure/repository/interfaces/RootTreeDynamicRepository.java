@@ -6,10 +6,9 @@ import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeDynamic;
 
 /**
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
- * @interface RootTreeDynamicRepository
- * @since 30/10/2024
+ * @version v1.0
+ * @class RootTreeDynamicRepository
+ * @since v1.0 (30/11/2024)
  */
-
 public interface RootTreeDynamicRepository extends GenericBusinessRepository<RootTreeDynamic> {
 }

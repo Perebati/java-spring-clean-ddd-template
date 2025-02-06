@@ -20,11 +20,10 @@ import org.springframework.stereotype.Service;
  * Each node can have linked operations.
  *
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
- * @class NodeTreeBusinessImpl
- * @since 30/10/2024
+ * @version v1.0
+ * @class NodeTreeServiceImpl
+ * @since v1.0 (30/11/2024)
  */
-
 @Service
 class NodeTreeBlockServiceImpl
         extends GenericServiceImpl<NodeTreeBlock, NodeTreeBlockRepository>
@@ -53,7 +52,7 @@ class NodeTreeBlockServiceImpl
      *
      * @throws ApplicationException Thrown when an error occurs on business level.
      * @author Lucas Batista Pereira
-     * @since 30/10/2024
+     * @since v1.0 (30/11/2024)
      */
 
     public NodeTreeBlock create(NodeCreationDTO nodeCreationDTO) throws SystemGlobalException {

@@ -4,9 +4,9 @@ import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.inter
 
 /**
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
- * @interface ActionOperationRepository
- * @since 30/10/2024
+ * @version v1.0
+ * @class ActionOperationRepository
+ * @since v1.0 (30/11/2024)
  */
 public interface ActionOperationRepository extends GenericBusinessRepository<ActionOperation> {
 }

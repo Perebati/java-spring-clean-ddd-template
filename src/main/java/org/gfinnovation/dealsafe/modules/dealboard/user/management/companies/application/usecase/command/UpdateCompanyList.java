@@ -15,6 +15,6 @@ public class UpdateCompanyList extends UseCase<CompanyList, CompanyList> {
 
     @Override
     public CompanyList execute(CompanyList input) {
-        return this.companyListService.updateSync(input);
+        return this.companyListService.update(input);
     }
 }

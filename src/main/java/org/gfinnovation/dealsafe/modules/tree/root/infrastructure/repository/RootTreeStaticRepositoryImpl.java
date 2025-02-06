@@ -12,11 +12,10 @@ import org.springframework.stereotype.Repository;
 
 /**
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @class RootTreeStaticRepositoryImpl
- * @since 30/10/2024
+ * @since v1.0 (30/11/2024)
  */
-
 @Repository
 class RootTreeStaticRepositoryImpl
         extends GenericBusinessRepositoryImpl<RootTreeStatic, RootTreeStaticEntity>

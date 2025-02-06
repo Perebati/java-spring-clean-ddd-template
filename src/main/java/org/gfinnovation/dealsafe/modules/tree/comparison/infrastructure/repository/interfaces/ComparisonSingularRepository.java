@@ -5,9 +5,9 @@ import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingul
 
 /**
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
- * @interface ComparisonOperationRepository
- * @since 30/10/2024
+ * @version v1.0
+ * @class ComparisonOperationRepository
+ * @since v1.0 (30/11/2024)
  */
 public interface ComparisonSingularRepository extends GenericBusinessRepository<ComparisonSingular> {
 }

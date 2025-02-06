@@ -18,11 +18,10 @@ import org.springframework.stereotype.Service;
  * Handles comparisons operations.
  *
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
- * @class ComparisonOperationBusinessImpl
- * @since 30/10/2024
+ * @version v1.0
+ * @class ComparisonOperationServiceImpl
+ * @since v1.0 (30/11/2024)
  */
-
 @Service
 class ComparisonSingularServiceImpl
         extends GenericServiceImpl<ComparisonSingular, ComparisonSingularRepository>

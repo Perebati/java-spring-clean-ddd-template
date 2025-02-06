@@ -14,9 +14,9 @@ import static org.neo4j.driver.Values.parameters;
 
 /**
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @class Neo4jTest
- * @since 04/11/2024
+ * @since v1.0 (04/11/2024)
  */
 @Component
 @Profile("dev")

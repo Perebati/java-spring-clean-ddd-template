@@ -9,11 +9,10 @@ import java.util.UUID;
 
 /**
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
- * @interface RootTreeRepository
- * @since 30/10/2024
+ * @version v1.0
+ * @class RootTreeRepository
+ * @since v1.0 (30/11/2024)
  */
-
 public interface RootTreeRepository {
     Object readGenericRoot(@NotNull UUID id, @NotNull RepositoryAuth auth) throws SystemGlobalException;
 

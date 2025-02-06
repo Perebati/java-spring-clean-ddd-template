@@ -17,11 +17,10 @@ import java.util.UUID;
 
 /**
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
- * @class TreeController
- * @since 30/10/2024
+ * @version v1.0
+ * @class NodeTreeControllerImpl
+ * @since v1.0 (30/11/2024)
  */
-
 @Controller
 class NodeTreeControllerImpl implements NodeTreeController {
     private final CreateNodeBlock createNodeBlock;

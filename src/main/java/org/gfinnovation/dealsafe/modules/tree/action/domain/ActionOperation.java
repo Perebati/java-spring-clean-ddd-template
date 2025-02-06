@@ -11,9 +11,9 @@ import org.gfinnovation.dealsafe._shared.modules.domain.GenericBusinessClass;
  * This one only sends a message to a URL.
  *
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @class ActionOperation
- * @since 30/10/2024
+ * @since v1.0 (30/11/2024)
  */
 @EqualsAndHashCode(callSuper = true)
 @Getter

@@ -23,11 +23,10 @@ import org.springframework.stereotype.Repository;
 
 /**
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @class NodeTreeRepositoryImpl
  * @since 24/01/2025
  */
-
 @Repository
 @AllArgsConstructor
 class NodeTreeRepositoryImpl

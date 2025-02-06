@@ -19,11 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
- * @interface TreeController
- * @since 04/11/2024
+ * @version v1.0
+ * @class RootTreeController
+ * @since v1.0 (04/11/2024)
  */
-
 @RestController
 @RequestMapping("tree")
 @Tag(name = "Árvore - Raiz")

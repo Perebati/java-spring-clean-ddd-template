@@ -11,11 +11,10 @@ import java.util.UUID;
  * JPA class used for saving business information on business classes.
  *
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @class GenericBusinessEntity
- * @since 30/10/2024
+ * @since v1.0 (30/11/2024)
  */
-
 @Data
 @EqualsAndHashCode(callSuper = true)
 @MappedSuperclass

@@ -6,9 +6,9 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 /**
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
- * @interface ErrorLogRepository
- * @since 30/10/2024
+ * @version v1.0
+ * @class ErrorLogRepository
+ * @since v1.0 (30/11/2024)
  */
 @Profile({"dev", "prod"})
 public interface ErrorLogRepository extends MongoRepository<ErrorLogSchema, String> {

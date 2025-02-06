@@ -6,9 +6,9 @@ package org.gfinnovation.dealsafe.modules.tree.comparison.domain.service.singula
  * perform is informed on their name.
  *
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @class Comparison
- * @since 30/10/2024
+ * @since v1.0 (30/11/2024)
  */
 public class ComparisonSingularOperation {
 
@@ -20,7 +20,7 @@ public class ComparisonSingularOperation {
      * @param b Compared parameter.
      * @return Boolean
      * @author Lucas Batista Pereira
-     * @since 30/10/2024
+     * @since v1.0 (30/11/2024)
      */
     public Boolean doOperation(String a, String b) {
         return null;
@@ -32,7 +32,7 @@ public class ComparisonSingularOperation {
      * @param value Parsed value.
      * @return Number
      * @author Lucas Batista Pereira
-     * @since 30/10/2024
+     * @since v1.0 (30/11/2024)
      */
     public Number parseNumericValue(String value) {
         try {

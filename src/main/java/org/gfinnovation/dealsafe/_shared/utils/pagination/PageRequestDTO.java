@@ -6,11 +6,10 @@ import org.springframework.data.domain.Sort;
 
 /**
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @class PageableDTO
  * @since 06/01/2025
  */
-
 @Getter
 public class PageRequestDTO<T extends Enum<T>> extends PageRequest {
     private int pageNumber;

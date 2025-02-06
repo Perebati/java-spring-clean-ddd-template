@@ -11,11 +11,10 @@ import java.util.HashMap;
  * Useful for converting Map to string and vice versa.
  *
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @class HashMapConverter
- * @since 30/10/2024
+ * @since v1.0 (30/11/2024)
  */
-
 @Converter
 public class HashMapConverter implements AttributeConverter<HashMap<String, Object>, String> {
 

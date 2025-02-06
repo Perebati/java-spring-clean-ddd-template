@@ -2,7 +2,7 @@ package org.gfinnovation.dealsafe.modules.tree.action.domain;
 
 /**
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @class SendEmailAction
  * @since 16/01/2025
  */

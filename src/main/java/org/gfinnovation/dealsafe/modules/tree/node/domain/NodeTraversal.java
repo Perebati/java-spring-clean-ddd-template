@@ -2,11 +2,10 @@ package org.gfinnovation.dealsafe.modules.tree.node.domain;
 
 /**
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
- * @interface NodeTreeInterface
+ * @version v1.0
+ * @class NodeTreeInterface
  * @since 21/01/2025
  */
-
 public interface NodeTraversal<T> {
     boolean traverse(T inputData);
 }

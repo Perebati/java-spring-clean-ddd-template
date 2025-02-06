@@ -13,11 +13,10 @@ import org.springframework.stereotype.Component;
  * Handles the creation and validation of Nodes.
  *
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @class NodeFactoryImpl
- * @since 30/10/2024
+ * @since v1.0 (30/11/2024)
  */
-
 @Component
 class NodeTreeFactoryImpl implements NodeTreeFactory {
 
@@ -28,7 +27,7 @@ class NodeTreeFactoryImpl implements NodeTreeFactory {
      * @return NodeTree
      * @throws ValidationException Thrown when an error occurs on factory level.
      * @author Lucas Batista Pereira
-     * @since 30/10/2024
+     * @since v1.0 (30/11/2024)
      */
     public NodeTreeBlock produceBlock(String name, Node<?> nodeParent) throws SystemGlobalException {
         try {

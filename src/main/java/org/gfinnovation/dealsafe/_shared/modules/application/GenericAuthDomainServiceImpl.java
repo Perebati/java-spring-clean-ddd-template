@@ -9,6 +9,14 @@ import org.slf4j.MDC;
 
 import java.util.UUID;
 
+/**
+ * This class handles auth operations using MDC.
+ *
+ * @author Lucas Batista Pereira
+ * @version v1.0
+ * @class GenericAuthDomainServiceImpl
+ * @since v1.0 (24/01/2025)
+ */
 public abstract class GenericAuthDomainServiceImpl {
     protected UUID getUserId() throws SystemGlobalException {
         try {

@@ -11,9 +11,9 @@ import org.gfinnovation.dealsafe._shared.modules.infrastructure.GenericBusinessE
  * This class will soon be replaced in later versions of dealsafe.
  *
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @class OperationActionSchema
- * @since 30/10/2024
+ * @since v1.0 (30/11/2024)
  */
 @Data
 @Entity

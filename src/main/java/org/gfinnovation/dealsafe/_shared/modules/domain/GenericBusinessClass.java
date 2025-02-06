@@ -13,11 +13,10 @@ import java.util.UUID;
  * GenericBusinessEntity, which is a JPA class equivalent to this one.
  *
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @class GenericBusinessClass
- * @since 30/10/2024
+ * @since v1.0 (30/11/2024)
  */
-
 @EqualsAndHashCode(callSuper = true)
 @Data
 public abstract class GenericBusinessClass extends GenericClass {

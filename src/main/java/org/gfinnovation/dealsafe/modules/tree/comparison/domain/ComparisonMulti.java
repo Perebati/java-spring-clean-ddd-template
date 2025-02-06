@@ -14,6 +14,12 @@ import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTree;
 
 import java.util.List;
 
+/**
+ * @author Lucas Batista Pereira
+ * @version v1.1
+ * @class ComparisonMulti
+ * @since v1.0 (06/02/2025)
+ */
 @EqualsAndHashCode(callSuper = true)
 @Getter
 @Setter

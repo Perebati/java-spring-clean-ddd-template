@@ -11,11 +11,10 @@ import org.springframework.context.annotation.Primary;
 
 /**
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
- * @interface RootTreeDynamicMapper
- * @since 30/10/2024
+ * @version v1.0
+ * @class RootTreeDynamicMapper
+ * @since v1.0 (30/11/2024)
  */
-
 @Mapper(
         componentModel = MappingConstants.ComponentModel.SPRING,
         unmappedTargetPolicy = ReportingPolicy.IGNORE

@@ -8,11 +8,10 @@ import java.util.List;
 
 /**
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @class NodeTreeBlockEntity
  * @since 24/01/2025
  */
-
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)

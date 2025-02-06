@@ -16,11 +16,10 @@ import java.util.UUID;
  * Handles the creation and validation of Root nodes.
  *
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @class TreeRootFactoryImpl
- * @since 30/10/2024
+ * @since v1.0 (30/11/2024)
  */
-
 @Component
 class RootTreeFactoryImpl implements RootTreeFactory {
     private final InputService inputService;
@@ -37,7 +36,7 @@ class RootTreeFactoryImpl implements RootTreeFactory {
      * @return RootTreeDynamic
      * @throws ValidationException Thrown when an error on factory level occurs.
      * @author Lucas Batista Pereira
-     * @since 30/10/2024
+     * @since v1.0 (30/11/2024)
      */
     public RootTreeDynamic produce(String name, UUID dynamic_input) throws SystemGlobalException {
         try {
@@ -59,7 +58,7 @@ class RootTreeFactoryImpl implements RootTreeFactory {
      * @throws DomainException     Thrown when an error on factory level occurs.
      * @throws ValidationException Thrown when an error on factory level occurs.
      * @author Lucas Batista Pereira
-     * @since 30/10/2024
+     * @since v1.0 (30/11/2024)
      */
 
     public RootTreeStatic produce(String name, PredefinedTypeEnum static_input) throws SystemGlobalException {

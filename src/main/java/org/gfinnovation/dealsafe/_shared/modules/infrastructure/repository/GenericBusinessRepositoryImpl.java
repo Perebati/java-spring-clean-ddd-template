@@ -28,11 +28,10 @@ import java.util.stream.Collectors;
  * This repository should be used for any entity/domain that is dependent of business rules.
  *
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @class GenericBusinessRepositoryImpl
  * @since 01/11/2024
  */
-
 public abstract class GenericBusinessRepositoryImpl
         <E extends GenericBusinessClass, S extends GenericBusinessEntity>
         extends GenericBusinessJpaRepositoryImpl<S>
@@ -51,7 +50,6 @@ public abstract class GenericBusinessRepositoryImpl
      * @param jpaRepository SimpleJpaRepository class for general use.
      * @param entityClass   Reference class for infra operations.
      */
-
     @Autowired
     public GenericBusinessRepositoryImpl(
             GenericBusinessMapper<E, S> mapper,
@@ -69,9 +67,8 @@ public abstract class GenericBusinessRepositoryImpl
      *
      * @param schema Reference schema.
      * @author Lucas Batista Pereira
-     * @since 06/11/2024
+     * @since v1.0 (06/11/2024)
      */
-
     private void setCommonFields(
             S schema,
             RepositoryAuth auth) {
@@ -87,10 +84,10 @@ public abstract class GenericBusinessRepositoryImpl
      * Sync version of create.
      *
      * @param entity Entity that extends GenericBusinessClass
-     * @return CompletableFuture<E>
+     * @return E
      * @throws InfrastructureException Thrown when an unexpected database error occurs.
      * @author Lucas Batista Pereira
-     * @since 06/11/2024
+     * @since v1.0 (06/11/2024)
      */
     @Override
     @Transactional
@@ -116,7 +113,7 @@ public abstract class GenericBusinessRepositoryImpl
      * @return Entity
      * @throws InfrastructureException Thrown when an unexpected database error occurs.
      * @author Lucas Batista Pereira
-     * @since 06/11/2024
+     * @since v1.0 (06/11/2024)
      */
     @Override
     public E read(
@@ -142,7 +139,7 @@ public abstract class GenericBusinessRepositoryImpl
      * @return Schema
      * @throws InfrastructureException Thrown when an unexpected database error occurs.
      * @author Lucas Batista Pereira
-     * @since 06/11/2024
+     * @since v1.0 (06/11/2024)
      */
     protected S readInternal(
             UUID id,
@@ -161,10 +158,10 @@ public abstract class GenericBusinessRepositoryImpl
      * Sync version of Update method.
      *
      * @param entity Entity to be updated.
-     * @return CompletableFuture<E>
+     * @return E
      * @throws InfrastructureException Thrown when an unexpected database error occurs.
      * @author Lucas Batista Pereira
-     * @since 06/11/2024
+     * @since v1.0 (06/11/2024)
      */
     @Override
     @Transactional
@@ -191,7 +188,7 @@ public abstract class GenericBusinessRepositoryImpl
      * @param id Reference for entity to be deleted.
      * @throws InfrastructureException Thrown when an unexpected database error occurs.
      * @author Lucas Batista Pereira
-     * @since 06/11/2024
+     * @since v1.0 (06/11/2024)
      */
     @Override
     @Transactional
@@ -224,7 +221,7 @@ public abstract class GenericBusinessRepositoryImpl
      * @return Optional<List < E>>
      * @throws InfrastructureException Thrown when an unexpected database error occurs.
      * @author Lucas Batista Pereira
-     * @since 06/11/2024
+     * @since v1.0 (06/11/2024)
      */
     @Override
     public Optional<List<E>> findAll(
@@ -249,7 +246,7 @@ public abstract class GenericBusinessRepositoryImpl
      * @return Optional<List < E>>
      * @throws InfrastructureException Thrown when an unexpected database error occurs.
      * @author Lucas Batista Pereira
-     * @since 06/11/2024
+     * @since v1.0 (06/11/2024)
      */
     @Override
     public Optional<List<E>> findAllByIds(
@@ -274,7 +271,7 @@ public abstract class GenericBusinessRepositoryImpl
      * @param id Reference id for checking.
      * @throws InfrastructureException Thrown when an unexpected database error occurs.
      * @author Lucas Batista Pereira
-     * @since 06/11/2024
+     * @since v1.0 (06/11/2024)
      */
     @Override
     @Transactional
@@ -295,7 +292,7 @@ public abstract class GenericBusinessRepositoryImpl
      * @param ids Reference ids for checking.
      * @throws InfrastructureException Thrown when an unexpected database error occurs.
      * @author Lucas Batista Pereira
-     * @since 06/11/2024
+     * @since v1.0 (06/11/2024)
      */
     @Override
     @Transactional
@@ -322,7 +319,7 @@ public abstract class GenericBusinessRepositoryImpl
      * @param pageRequest PageRequest object.
      * @return Page<E>
      * @throws InfrastructureException Thrown when an unexpected database error occurs.
-     * @since 06/11/2024
+     * @since v1.0 (06/11/2024)
      */
     public Page<E> findAllPaginated(
             @Nonnull PageRequest pageRequest,
@@ -348,7 +345,7 @@ public abstract class GenericBusinessRepositoryImpl
      * @return CompletableFuture<E>
      * @throws InfrastructureException Thrown when an unexpected database error occurs.
      * @author Lucas Batista Pereira
-     * @since 06/11/2024
+     * @since v1.0 (06/11/2024)
      */
     @Override
     @Async
@@ -375,7 +372,7 @@ public abstract class GenericBusinessRepositoryImpl
      * @return CompletableFuture<E>
      * @throws InfrastructureException Thrown when an unexpected database error occurs.
      * @author Lucas Batista Pereira
-     * @since 06/11/2024
+     * @since v1.0 (06/11/2024)
      */
     @Override
     @Async
@@ -403,7 +400,7 @@ public abstract class GenericBusinessRepositoryImpl
      * @param id Reference for entity to be deleted.
      * @throws InfrastructureException Thrown when an unexpected database error occurs.
      * @author Lucas Batista Pereira
-     * @since 06/11/2024
+     * @since v1.0 (06/11/2024)
      */
     @Override
     @Async

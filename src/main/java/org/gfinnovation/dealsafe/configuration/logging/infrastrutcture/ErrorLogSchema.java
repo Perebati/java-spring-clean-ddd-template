@@ -10,9 +10,9 @@ import java.util.Date;
  * in MongoDb. This class represents a saved error.
  *
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @class ErrorLogSchema
- * @since 30/10/2024
+ * @since v1.0 (30/11/2024)
  */
 @Data
 @Document(collection = "error_log")

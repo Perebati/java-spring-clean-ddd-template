@@ -9,11 +9,10 @@ import java.util.UUID;
 
 /**
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
- * @interface TreeRootFactory
- * @since 30/10/2024
+ * @version v1.0
+ * @class TreeRootFactory
+ * @since v1.0 (30/11/2024)
  */
-
 public interface RootTreeFactory {
     RootTreeDynamic produce(String name, UUID dynamic_input) throws SystemGlobalException;
 

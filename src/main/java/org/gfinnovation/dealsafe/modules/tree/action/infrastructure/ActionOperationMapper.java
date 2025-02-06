@@ -9,9 +9,9 @@ import org.springframework.context.annotation.Primary;
 
 /**
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
- * @interface OperationActionMapper
- * @since 30/10/2024
+ * @version v1.0
+ * @class OperationActionMapper
+ * @since v1.0 (30/11/2024)
  */
 @Mapper(
         componentModel = MappingConstants.ComponentModel.SPRING,

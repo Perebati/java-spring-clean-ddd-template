@@ -13,9 +13,9 @@ import java.util.HashMap;
 
 /**
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @class InputSchema
- * @since 30/10/2024
+ * @since v1.0 (30/11/2024)
  */
 
 @Data

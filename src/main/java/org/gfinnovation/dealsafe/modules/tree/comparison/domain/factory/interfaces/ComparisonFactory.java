@@ -11,11 +11,10 @@ import java.util.UUID;
 
 /**
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
- * @interface ComparisonOperationFactory
- * @since 30/10/2024
+ * @version v1.0
+ * @class ComparisonOperationFactory
+ * @since v1.0 (30/11/2024)
  */
-
 public interface ComparisonFactory {
     ComparisonSingular produce(
             ComparisonSingular.ComparisonSingularTypeEnum type,

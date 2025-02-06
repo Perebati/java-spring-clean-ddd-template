@@ -8,6 +8,12 @@ import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
+/**
+ * @author Lucas Batista Pereira
+ * @version v1.1
+ * @class ReadComparisonSingular
+ * @since v1.0 (06/02/2025)
+ */
 @Component
 public class ReadComparisonSingular extends UseCase<UUID, ComparisonSingular> {
     private final ComparisonSingularService comparisonSingularService;

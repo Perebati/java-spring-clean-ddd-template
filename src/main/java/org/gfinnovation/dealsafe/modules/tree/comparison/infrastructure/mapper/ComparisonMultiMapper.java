@@ -8,6 +8,12 @@ import org.mapstruct.MappingConstants;
 import org.mapstruct.ReportingPolicy;
 import org.springframework.context.annotation.Primary;
 
+/**
+ * @author Lucas Batista Pereira
+ * @version v1.1
+ * @class ComparisonMultiMapper
+ * @since v1.0 (06/02/2025)
+ */
 @Mapper(
         componentModel = MappingConstants.ComponentModel.SPRING,
         unmappedTargetPolicy = ReportingPolicy.IGNORE

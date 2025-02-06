@@ -27,11 +27,10 @@ import java.util.UUID;
  * Handles Comparisons creation.
  *
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @class ComparisonOperationFactory
- * @since 30/10/2024
+ * @since v1.0 (30/11/2024)
  */
-
 @Component
 public class ComparisonFactoryImpl implements ComparisonFactory {
     private final RootTreeService rootTreeService;
@@ -58,7 +57,7 @@ public class ComparisonFactoryImpl implements ComparisonFactory {
      * @return Comparison
      * @throws ValidationException Thrown when something wrong happened on factory layer.
      * @author Lucas Batista Pereira
-     * @since 30/10/2024
+     * @since v1.0 (30/11/2024)
      */
 
     public ComparisonSingular produce(

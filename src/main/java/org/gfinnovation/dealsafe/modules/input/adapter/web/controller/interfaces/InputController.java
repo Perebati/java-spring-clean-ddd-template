@@ -15,9 +15,9 @@ import java.util.UUID;
 
 /**
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
- * @interface InputController
- * @since 04/11/2024
+ * @version v1.0
+ * @class InputController
+ * @since v1.0 (04/11/2024)
  */
 
 @RestController

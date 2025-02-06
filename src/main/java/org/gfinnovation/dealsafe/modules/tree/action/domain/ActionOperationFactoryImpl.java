@@ -9,9 +9,9 @@ import org.springframework.stereotype.Component;
  * Handles Action creation.
  *
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @class ActionOperationFactoryImpl
- * @since 30/10/2024
+ * @since v1.0 (30/11/2024)
  */
 
 @Component
@@ -27,7 +27,7 @@ public class ActionOperationFactoryImpl implements ActionOperationFactory {
      * @throws DomainException     Thrown when something wrong happened on factory layer.
      * @throws ValidationException Thrown when something wrong happened on factory layer.
      * @author Lucas Batista Pereira
-     * @since 30/10/2024
+     * @since v1.0 (30/11/2024)
      */
 
     public ActionOperation produce(String url, String message) throws SystemGlobalException {

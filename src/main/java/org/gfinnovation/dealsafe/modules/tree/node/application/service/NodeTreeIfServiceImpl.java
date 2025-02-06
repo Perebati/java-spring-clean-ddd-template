@@ -14,6 +14,12 @@ import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.repository.int
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author Lucas Batista Pereira
+ * @version v1.1
+ * @class NodeTreeIfServiceImpl
+ * @since v1.0 (06/02/2025)
+ */
 @Service
 class NodeTreeIfServiceImpl
         extends GenericServiceImpl<NodeTreeIf, NodeTreeIfRepository>

@@ -7,11 +7,10 @@ import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeBlock;
 
 /**
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
- * @class NodeTreeBusiness
- * @since 30/10/2024
+ * @version v1.0
+ * @class NodeTreeBlockService
+ * @since v1.0 (30/11/2024)
  */
-
 public interface NodeTreeBlockService extends GenericService<NodeTreeBlock> {
     NodeTreeBlock create(NodeCreationDTO nodeCreationDTO) throws SystemGlobalException;
 }

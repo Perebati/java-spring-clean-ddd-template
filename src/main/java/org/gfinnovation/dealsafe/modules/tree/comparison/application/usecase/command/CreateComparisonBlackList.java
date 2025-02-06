@@ -9,6 +9,12 @@ import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonCustom
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author Lucas Batista Pereira
+ * @version v1.1
+ * @class CreateComparisonBlackList
+ * @since v1.0 (06/02/2025)
+ */
 @Component
 public class CreateComparisonBlackList extends UseCase<ComparisonCustomListRecord, ComparisonCustomList> {
     private final ComparisonCustomListService comparisonCustomListService;

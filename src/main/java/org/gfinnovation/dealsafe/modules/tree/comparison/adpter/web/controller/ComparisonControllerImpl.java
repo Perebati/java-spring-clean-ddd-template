@@ -21,9 +21,9 @@ import org.springframework.stereotype.Controller;
 
 /**
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
- * @class ConditionController
- * @since 30/10/2024
+ * @version v1.0
+ * @class ComparisonControllerImpl
+ * @since v1.0 (30/11/2024)
  */
 @Controller
 class ComparisonControllerImpl implements ComparisonController {

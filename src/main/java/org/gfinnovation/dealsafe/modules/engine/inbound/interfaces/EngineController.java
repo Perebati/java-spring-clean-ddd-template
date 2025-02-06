@@ -13,9 +13,9 @@ import java.util.UUID;
 
 /**
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
- * @interface EngineController
- * @since 04/11/2024
+ * @version v1.0
+ * @class EngineController
+ * @since v1.0 (04/11/2024)
  */
 
 @RestController

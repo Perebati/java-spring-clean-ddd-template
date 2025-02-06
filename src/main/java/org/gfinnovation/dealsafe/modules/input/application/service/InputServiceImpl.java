@@ -18,9 +18,9 @@ import org.springframework.stereotype.Service;
  * type of input is done inside an enumerator.
  *
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
- * @class InputBusinessImpl
- * @since 30/10/2024
+ * @version v1.0
+ * @class InputServiceImpl
+ * @since v1.0 (30/11/2024)
  */
 
 @Service
@@ -48,7 +48,7 @@ class InputServiceImpl
      * @return InputEntity
      * @throws ApplicationException Thrown when ac error occurred on business level.
      * @author Lucas Batista Pereira
-     * @since 30/10/2024
+     * @since v1.0 (30/11/2024)
      */
     public Input create(
             String name,

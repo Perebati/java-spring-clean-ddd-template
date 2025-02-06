@@ -13,17 +13,17 @@ import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * Every single factory that is not linked to authentication entities should extend
- * from this.
+ * This class has most of CRUD operations built in. It also handles
+ * Repository communication and authorization.
+ * It also handles possibles errors.
+ * Every new service class created in this system should be extended from this,
+ * as it makes things easier for developers.
  *
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
- * @class GenericBusinessFactory
- * @since 30/10/2024
+ * @version v1.0
+ * @class GenericServiceImpl
+ * @since v1.0 (24/01/2025)
  */
-
-//TODO: Comentar o código
-//TODO: Segregar commands de queries. Definir commands como protected e Query como public.
 public abstract class GenericServiceImpl
         <E extends GenericBusinessClass, R extends GenericBusinessRepository<E>>
         extends GenericAuthDomainServiceImpl
@@ -44,17 +44,7 @@ public abstract class GenericServiceImpl
         }
     }
 
-    public CompletableFuture<E> updateAsync(E entity) throws SystemGlobalException {
-        try {
-            return this.repository.updateAsync(entity, getRepositoryAuth());
-        } catch (SystemGlobalException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new ApplicationException("Something went wrong async updating an entity.");
-        }
-    }
-
-    public E updateSync(E entity) throws SystemGlobalException {
+    public E update(E entity) throws SystemGlobalException {
         try {
             return this.repository.update(entity, getRepositoryAuth());
         } catch (SystemGlobalException e) {
@@ -64,17 +54,7 @@ public abstract class GenericServiceImpl
         }
     }
 
-    public void deleteAsync(UUID id) throws SystemGlobalException {
-        try {
-            this.repository.deleteAsync(id, getRepositoryAuth());
-        } catch (SystemGlobalException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new ApplicationException("Something went wrong async deleting an entity.");
-        }
-    }
-
-    public void deleteSync(UUID id) throws SystemGlobalException {
+    public void delete(UUID id) throws SystemGlobalException {
         try {
             this.repository.delete(id, getRepositoryAuth());
         } catch (SystemGlobalException e) {
@@ -121,6 +101,26 @@ public abstract class GenericServiceImpl
             throw e;
         } catch (Exception e) {
             throw new ApplicationException("Something went wrong checking all entities by ids.");
+        }
+    }
+
+    public CompletableFuture<E> updateAsync(E entity) throws SystemGlobalException {
+        try {
+            return this.repository.updateAsync(entity, getRepositoryAuth());
+        } catch (SystemGlobalException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new ApplicationException("Something went wrong async updating an entity.");
+        }
+    }
+
+    public void deleteAsync(UUID id) throws SystemGlobalException {
+        try {
+            this.repository.deleteAsync(id, getRepositoryAuth());
+        } catch (SystemGlobalException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new ApplicationException("Something went wrong async deleting an entity.");
         }
     }
 }

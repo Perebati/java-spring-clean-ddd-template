@@ -4,8 +4,8 @@ import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.inter
 
 /**
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
- * @interface NodeTreeActionRepository
+ * @version v1.0
+ * @class NodeTreeActionRepository
  * @since 22/01/2025
  */
 

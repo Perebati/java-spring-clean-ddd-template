@@ -9,6 +9,12 @@ import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.NodeTreeEntity
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Lucas Batista Pereira
+ * @version v1.1
+ * @class ComparisonMultiEntity
+ * @since v1.0 (06/02/2025)
+ */
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)

@@ -1,5 +1,14 @@
 package org.gfinnovation.dealsafe._shared.utils.converter;
 
+/**
+ * This util class filters a String that indicates the path for
+ * a variable on a json.
+ *
+ * @author Lucas Batista Pereira
+ * @version v1.0
+ * @class PathNormalizer
+ * @since v1.0 (05/02/2025)
+ */
 public class PathNormalizer {
     public static String normalizePath(String input) {
         if (input == null || input.isEmpty()) {

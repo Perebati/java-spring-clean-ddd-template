@@ -4,6 +4,7 @@ import org.gfinnovation.dealsafe.modules.input.domain.Input;
 import org.gfinnovation.dealsafe.modules.input.domain.factory.interfaces.InputFactory;
 import org.gfinnovation.dealsafe.modules.input.infrastructure.repository.interfaces.InputRepository;
 import org.gfinnovation.dealsafe.tests._shared.GenericBusinessRepositoryTest;
+import org.junit.jupiter.api.DisplayName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,13 +13,14 @@ import org.springframework.test.context.ActiveProfiles;
 
 /**
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @class InputRepositoryTest
- * @since 30/10/2024
+ * @since v1.0 (30/11/2024)
  */
 @SpringBootTest
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
+@DisplayName("Repository test for Input")
 public class InputRepositoryTest extends GenericBusinessRepositoryTest<Input> {
 
     String json = """

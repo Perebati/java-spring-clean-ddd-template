@@ -11,6 +11,12 @@ import org.gfinnovation.dealsafe.modules.tree.root.infrastructure.repository.int
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author Lucas Batista Pereira
+ * @version v1.1
+ * @class RootTreeStaticServiceImpl
+ * @since v1.0 (06/02/2025)
+ */
 @Service
 class RootTreeStaticServiceImpl
         extends GenericServiceImpl<RootTreeStatic, RootTreeStaticRepository>
@@ -34,7 +40,7 @@ class RootTreeStaticServiceImpl
      * @return RootTreeStatic
      * @throws ApplicationException Thrown when an error occurs on business level.
      * @author Lucas Batista Pereira
-     * @since 30/10/2024
+     * @since v1.0 (30/11/2024)
      */
     @Override
     public RootTreeStatic create(String name, PredefinedTypeEnum static_input) throws SystemGlobalException {

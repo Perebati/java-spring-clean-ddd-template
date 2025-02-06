@@ -12,9 +12,9 @@ import java.util.UUID;
  * Handles action operations.
  *
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @class ActionOperationImpl
- * @since 30/10/2024
+ * @since v1.0 (30/11/2024)
  */
 @Service
 public class ActionOperationServiceImpl
@@ -38,7 +38,7 @@ public class ActionOperationServiceImpl
      * @return ActionOperation
      * @throws ApplicationException When an error occurs on business level.
      * @author Lucas Batista Pereira
-     * @since 30/10/2024
+     * @since v1.0 (30/11/2024)
      */
 
     @Override

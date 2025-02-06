@@ -16,6 +16,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+/**
+ * @author Lucas Batista Pereira
+ * @version v1.1
+ * @class ComparisonCustomListServiceImpl
+ * @since v1.0 (06/02/2025)
+ */
 @Service
 class ComparisonCustomListServiceImpl
         extends GenericServiceImpl<ComparisonCustomList, ComparisonCustomListRepository>

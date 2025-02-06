@@ -7,6 +7,12 @@ import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
+/**
+ * @author Lucas Batista Pereira
+ * @version v1.1
+ * @class ReadNodeIf
+ * @since v1.0 (06/02/2025)
+ */
 @Component
 public class ReadNodeIf extends UseCase<UUID, NodeTreeIf> {
     private final NodeTreeIfService nodeTreeIfService;

@@ -23,9 +23,9 @@ import java.util.Map;
  * checking if the comparison field exists in the dynamic input.
  *
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @class InputEntity
- * @since 30/10/2024
+ * @since v1.0 (30/11/2024)
  */
 
 @EqualsAndHashCode(callSuper = true)

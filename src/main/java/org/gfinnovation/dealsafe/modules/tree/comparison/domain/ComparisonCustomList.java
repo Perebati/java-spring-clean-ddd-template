@@ -16,6 +16,12 @@ import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTree;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * @author Lucas Batista Pereira
+ * @version v1.1
+ * @class ComparisonCustomList
+ * @since v1.0 (06/02/2025)
+ */
 @EqualsAndHashCode(callSuper = true)
 @Getter
 @Setter

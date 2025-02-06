@@ -17,11 +17,10 @@ import java.util.UUID;
 
 /**
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
- * @interface TreeController
- * @since 04/11/2024
+ * @version v1.0
+ * @class NodeTreeController
+ * @since v1.0 (04/11/2024)
  */
-
 @RestController
 @RequestMapping("tree")
 @Tag(name = "Árvore - Nó")

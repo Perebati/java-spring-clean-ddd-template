@@ -17,11 +17,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
- * @class TreeController
- * @since 30/10/2024
+ * @version v1.0
+ * @class RootTreeControllerImpl
+ * @since v1.0 (30/11/2024)
  */
-
 @Controller
 class RootTreeControllerImpl implements RootTreeController {
     private final RootTreeStaticService rootTreeStaticService;

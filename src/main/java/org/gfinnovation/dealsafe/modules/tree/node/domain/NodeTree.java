@@ -14,9 +14,9 @@ import java.util.UUID;
  * A node can be both a parent and a child, algo it can contain operations.
  *
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @class NodeTree
- * @since 30/10/2024
+ * @since v1.0 (30/11/2024)
  */
 @Getter
 @Setter

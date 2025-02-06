@@ -10,23 +10,22 @@ import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * Every single business class in this system should extend from this.
+ * Every single Service class in this system should extend from this.
  * It sets a pattern for the whole system, witch is easy to follow.
  *
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
- * @interface GenericBusinessInterface
- * @since 30/10/2024
+ * @version v1.0
+ * @class GenericService
+ * @since v1.0 (30/11/2024)
  */
-
 public interface GenericService<E extends GenericClass> {
     E read(UUID id) throws SystemGlobalException;
 
     CompletableFuture<E> updateAsync(E entity) throws SystemGlobalException;
 
-    E updateSync(E entity) throws SystemGlobalException;
+    E update(E entity) throws SystemGlobalException;
 
-    void deleteSync(UUID id) throws SystemGlobalException;
+    void delete(UUID id) throws SystemGlobalException;
 
     void deleteAsync(UUID id) throws SystemGlobalException;
 

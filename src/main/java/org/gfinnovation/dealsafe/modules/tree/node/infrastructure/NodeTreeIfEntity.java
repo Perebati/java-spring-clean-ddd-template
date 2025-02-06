@@ -6,6 +6,12 @@ import lombok.EqualsAndHashCode;
 
 import java.util.List;
 
+/**
+ * @author Lucas Batista Pereira
+ * @version v1.1
+ * @class NodeTreeIfEntity
+ * @since v1.0 (06/02/2025)
+ */
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)

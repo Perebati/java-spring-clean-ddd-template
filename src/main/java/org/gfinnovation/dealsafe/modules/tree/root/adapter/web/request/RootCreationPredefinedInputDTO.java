@@ -5,11 +5,10 @@ import org.springframework.lang.NonNull;
 
 /**
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @class RootCreationDTO
  * @since 01/11/2024
  */
-
 public record RootCreationPredefinedInputDTO(
         @NonNull String name,
         @NonNull PredefinedTypeEnum type) {

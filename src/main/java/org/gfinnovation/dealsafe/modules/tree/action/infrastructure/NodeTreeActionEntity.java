@@ -9,7 +9,7 @@ import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.NodeTreeEntity
 
 /**
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @class NodeTreeActionEntity
  * @since 22/01/2025
  */

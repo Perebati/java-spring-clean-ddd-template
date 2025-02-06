@@ -8,9 +8,9 @@ import java.util.UUID;
 
 /**
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @record ComparisonCreationDTO
- * @since 04/11/2024
+ * @since v1.0 (04/11/2024)
  */
 public record ComparisonSingularRecord(@NonNull ComparisonSingular.ComparisonSingularTypeEnum type,
                                        @NonNull String jsonPath,

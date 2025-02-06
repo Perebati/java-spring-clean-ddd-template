@@ -11,11 +11,10 @@ import java.util.UUID;
  * Trivial class used for storing basic information from saved entities.
  *
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @class GenericEntity
- * @since 30/10/2024
+ * @since v1.0 (30/11/2024)
  */
-
 @Data
 @MappedSuperclass
 @NoArgsConstructor

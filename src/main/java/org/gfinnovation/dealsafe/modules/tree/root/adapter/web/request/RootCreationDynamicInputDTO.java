@@ -6,11 +6,10 @@ import java.util.UUID;
 
 /**
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @record RootCreationDynamicInputDTO
- * @since 04/11/2024
+ * @since v1.0 (04/11/2024)
  */
-
 public record RootCreationDynamicInputDTO(
         @NonNull String name,
         @NonNull UUID dynamicInput_id) {

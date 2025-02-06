@@ -5,9 +5,9 @@ import org.gfinnovation.dealsafe.modules.input.domain.Input;
 
 /**
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
- * @interface InputRepository
- * @since 30/10/2024
+ * @version v1.0
+ * @class InputRepository
+ * @since v1.0 (30/11/2024)
  */
 
 public interface InputRepository extends GenericBusinessRepository<Input> {

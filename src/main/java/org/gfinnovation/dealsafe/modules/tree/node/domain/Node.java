@@ -8,7 +8,7 @@ import org.gfinnovation.dealsafe._shared.modules.domain.GenericBusinessClass;
 
 /**
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @class Node
  * @since 24/01/2025
  */

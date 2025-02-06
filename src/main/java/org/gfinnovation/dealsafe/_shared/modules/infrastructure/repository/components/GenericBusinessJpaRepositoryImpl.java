@@ -18,11 +18,10 @@ import java.util.*;
  * a generic implementation of a repository that handles business entities.
  *
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
- * @interface GenericJpaRepository
- * @since 06/11/2024
+ * @version v1.0
+ * @class GenericJpaRepository
+ * @since v1.0 (06/11/2024)
  */
-
 public abstract class GenericBusinessJpaRepositoryImpl<S extends GenericBusinessEntity> {
 
     @PersistenceContext

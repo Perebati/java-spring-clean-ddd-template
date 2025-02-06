@@ -4,6 +4,12 @@ import org.gfinnovation.dealsafe.modules.tree.comparison.domain.service.multi.Co
 
 import java.util.List;
 
+/**
+ * @author Lucas Batista Pereira
+ * @version v1.1
+ * @class NotContainsOperation
+ * @since v1.0 (06/02/2025)
+ */
 public class NotContainsOperation extends ComparisonMultiOperation {
     @Override
     public Boolean doOperation(String a, List<String> b) {

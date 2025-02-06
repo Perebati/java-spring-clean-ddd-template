@@ -8,9 +8,9 @@ import java.util.List;
  * perform is informed on their name.
  *
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
+ * @version v1.0
  * @class Comparison
- * @since 30/10/2024
+ * @since v1.0 (30/11/2024)
  */
 public class ComparisonMultiOperation {
 
@@ -22,7 +22,7 @@ public class ComparisonMultiOperation {
      * @param b Compared parameter.
      * @return Boolean
      * @author Lucas Batista Pereira
-     * @since 30/10/2024
+     * @since v1.0 (30/11/2024)
      */
     public Boolean doOperation(String a, List<String> b) {
         return null;

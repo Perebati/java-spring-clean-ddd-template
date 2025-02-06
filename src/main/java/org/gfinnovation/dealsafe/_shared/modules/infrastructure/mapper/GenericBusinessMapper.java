@@ -10,11 +10,10 @@ import static java.util.stream.Collectors.toList;
 
 /**
  * @author Lucas Batista Pereira
- * @version DealSafe_alpha_v1
- * @interface GenericBusinessMapper
- * @since 06/11/2024
+ * @version v1.0
+ * @class GenericBusinessMapper
+ * @since v1.0 (06/11/2024)
  */
-
 public interface GenericBusinessMapper<E extends GenericClass, S extends GenericEntity> {
     E toEntity(S schema);
 
