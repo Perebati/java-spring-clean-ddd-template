@@ -21,7 +21,7 @@ import java.util.HashMap;
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
-@Table(name = "dynamic_input")
+@Table(name = "input_dynamic")
 public class InputEntity extends GenericBusinessEntity {
 
     @Column(name = "name", nullable = false)

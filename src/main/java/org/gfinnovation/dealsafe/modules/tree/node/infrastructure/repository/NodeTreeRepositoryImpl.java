@@ -40,7 +40,10 @@ class NodeTreeRepositoryImpl
     private final NodeTreeIfRepository nodeTreeIfRepository;
 
     @Transactional
-    public T createNode(T newNode, Node<?> parent, NodeTreeIf.SetNode nodeSet, RepositoryAuth auth) throws SystemGlobalException {
+    public T createNode(T newNode,
+                        Node<?> parent,
+                        NodeTreeIf.SetNode nodeSet,
+                        RepositoryAuth auth) throws SystemGlobalException {
         try {
             GenericBusinessRepository<T> nodeRepo = nodeRepositoryFactory.getRepositoryForNode(newNode);
 
@@ -61,7 +64,9 @@ class NodeTreeRepositoryImpl
         }
     }
 
-    private Node<?> readParent(Node<?> parent, RepositoryAuth auth, T createdEntity) throws InfrastructureException {
+    private Node<?> readParent(Node<?> parent,
+                               RepositoryAuth auth,
+                               T createdEntity) throws InfrastructureException {
         switch (parent.getNodeType()) {
             case Node.NodeType.ROOT_STATIC:
                 RootTreeStatic parent_static = this.rootTreeStaticRepository.read(parent.getId(), auth);
@@ -86,7 +91,8 @@ class NodeTreeRepositoryImpl
         }
     }
 
-    private void updateParent(Node<?> parentEntity, RepositoryAuth auth) throws InfrastructureException {
+    private void updateParent(Node<?> parentEntity,
+                              RepositoryAuth auth) throws InfrastructureException {
         switch (parentEntity.getNodeType()) {
             case Node.NodeType.ROOT_STATIC:
                 RootTreeStatic parentStatic = (RootTreeStatic) parentEntity;
@@ -116,8 +122,7 @@ class NodeTreeRepositoryImpl
     private void insertInIfNode(
             T createdNodeEntity,
             NodeTreeIf parent,
-            NodeTreeIf.SetNode position
-    ) throws InfrastructureException {
+            NodeTreeIf.SetNode position) throws InfrastructureException {
         try {
             switch (position) {
                 case NodeTreeIf.SetNode.CONDITIONAL:

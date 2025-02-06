@@ -5,5 +5,5 @@ import org.springframework.lang.NonNull;
 import java.util.List;
 
 public record CompanyListData(@NonNull String name,
-                              @NonNull List<String> cnpjs) {
+                              List<String> cnpjs) {
 }

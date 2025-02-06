@@ -10,6 +10,7 @@ import org.slf4j.MDC;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
@@ -38,8 +39,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(AdapterException.class)
     public ResponseEntity<Object> handleAdapterException(AdapterException ex, WebRequest request) {
-        ErrorLogSchema errorLog = buildErrorLog(ex);
-        logService.saveErrorLogAsync(errorLog);
+        buildErrorLog(ex,
+                MDC.get("userId"),
+                MDC.get("companyId"),
+                MDC.get("requestId"),
+                MDC.get("methodId"));
 
         logger.error(ex.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
@@ -47,8 +51,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ApplicationException.class)
     public ResponseEntity<Object> handleApplicationException(ApplicationException ex, WebRequest request) {
-        ErrorLogSchema errorLog = buildErrorLog(ex);
-        logService.saveErrorLogAsync(errorLog);
+        buildErrorLog(ex,
+                MDC.get("userId"),
+                MDC.get("companyId"),
+                MDC.get("requestId"),
+                MDC.get("methodId"));
 
         logger.error(ex.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
@@ -56,8 +63,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(DomainException.class)
     public ResponseEntity<Object> handleDomainException(DomainException ex, WebRequest request) {
-        ErrorLogSchema errorLog = buildErrorLog(ex);
-        logService.saveErrorLogAsync(errorLog);
+        buildErrorLog(ex,
+                MDC.get("userId"),
+                MDC.get("companyId"),
+                MDC.get("requestId"),
+                MDC.get("methodId"));
 
         logger.error(ex.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
@@ -65,8 +75,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(InfrastructureException.class)
     public ResponseEntity<Object> handleInfraException(InfrastructureException ex, WebRequest request) {
-        ErrorLogSchema errorLog = buildErrorLog(ex);
-        logService.saveErrorLogAsync(errorLog);
+        buildErrorLog(ex,
+                MDC.get("userId"),
+                MDC.get("companyId"),
+                MDC.get("requestId"),
+                MDC.get("methodId"));
 
         logger.error(ex.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
@@ -74,8 +87,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(FailedRequestException.class)
     public ResponseEntity<Object> handleBadRequestException(FailedRequestException ex, WebRequest request) {
-        ErrorLogSchema errorLog = buildErrorLog(ex);
-        logService.saveErrorLogAsync(errorLog);
+        buildErrorLog(ex,
+                MDC.get("userId"),
+                MDC.get("companyId"),
+                MDC.get("requestId"),
+                MDC.get("methodId"));
 
         logger.error(ex.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
@@ -83,26 +99,34 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleGenericException(Exception ex, WebRequest request) {
-        ErrorLogSchema errorLog = buildErrorLog(ex);
-        logService.saveErrorLogAsync(errorLog);
+        buildErrorLog(ex,
+                MDC.get("userId"),
+                MDC.get("companyId"),
+                MDC.get("requestId"),
+                MDC.get("methodId"));
 
         logger.error(ex.getCause().getMessage());
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong. Error is likely unmapped, please contact support.");
     }
 
-    private ErrorLogSchema buildErrorLog(Exception ex) {
+    @Async
+    protected void buildErrorLog(Exception ex,
+                                 String userId,
+                                 String companyId,
+                                 String requestId,
+                                 String methodId) {
         ErrorLogSchema errorLog = new ErrorLogSchema();
         errorLog.setErrorMessage(ex.getMessage());
         errorLog.setErrorStackTrace(formatStackTrace(ex.getStackTrace()));
         errorLog.setTimestamp(new Date());
 
-        errorLog.setUserId(MDC.get("userId"));
-        errorLog.setCompanyId(MDC.get("companyId"));
-        errorLog.setRequestId(MDC.get("requestId"));
-        errorLog.setMethodId(MDC.get("methodId"));
+        errorLog.setUserId(userId);
+        errorLog.setCompanyId(companyId);
+        errorLog.setRequestId(requestId);
+        errorLog.setMethodId(methodId);
 
-        return errorLog;
+        logService.saveErrorLogAsync(errorLog);
     }
 
     private String formatStackTrace(StackTraceElement[] stackTrace) {

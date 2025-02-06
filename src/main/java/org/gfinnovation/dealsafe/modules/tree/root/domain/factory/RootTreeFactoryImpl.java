@@ -43,6 +43,8 @@ class RootTreeFactoryImpl implements RootTreeFactory {
         try {
             this.inputService.check(dynamic_input);
             return new RootTreeDynamic(name, dynamic_input);
+        } catch (SystemGlobalException e) {
+            throw e;
         } catch (Exception e) {
             throw new DomainException("Something went wrong creating a dynamic root node.");
         }
@@ -63,6 +65,8 @@ class RootTreeFactoryImpl implements RootTreeFactory {
     public RootTreeStatic produce(String name, PredefinedTypeEnum static_input) throws SystemGlobalException {
         try {
             return new RootTreeStatic(name, static_input);
+        } catch (SystemGlobalException e) {
+            throw e;
         } catch (Exception e) {
             throw new DomainException("Something went wrong creating a predefined root node.");
         }

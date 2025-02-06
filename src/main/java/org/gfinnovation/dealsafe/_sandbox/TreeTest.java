@@ -25,9 +25,9 @@ import org.gfinnovation.dealsafe.modules.tree.node.application.service.interface
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTree;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeIf;
 import org.gfinnovation.dealsafe.modules.tree.root.application.service.interfaces.RootTreeDynamicService;
-import org.gfinnovation.dealsafe.modules.tree.root.application.service.interfaces.RootTreeStaticService;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeDynamic;
 import org.slf4j.MDC;
+import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,9 +45,9 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @RequestMapping("teste")
 @Tag(name = "Teste")
+@Profile("dev")
 public class TreeTest {
     private final NodeTreeBlockService nodeTreeBlockService;
-    private final RootTreeStaticService rootTreeStaticService;
     private final NodeTreeIfService nodeTreeIfService;
     private final ComparisonSingularService comparisonSingularService;
     private final ComparisonMultiService comparisonMultiService;

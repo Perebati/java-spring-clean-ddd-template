@@ -1,13 +1,11 @@
 package org.gfinnovation.dealsafe.configuration.security;
 
 import io.jsonwebtoken.*;
-import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.gfinnovation.dealsafe.configuration.logging.LogService;
-import org.gfinnovation.dealsafe.configuration.logging.infrastrutcture.RequestLogSchema;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
@@ -16,7 +14,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
@@ -31,8 +28,10 @@ import java.util.UUID;
 public class JwtTokenFilter extends OncePerRequestFilter {
 
     private final LogService logService;
+
     @Value("${jwt.privateKey}")
     private String privateKey;
+
     @Value("${jwt.publicKey}")
     private String publicKey;
 
@@ -40,7 +39,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         this.logService = logService;
     }
 
-    //TODO: Extrair Roles do JWT e melhorar o tratamente de requisição. Otimizar a salvamento de log.
+    //TODO: Extrair Roles do JWT e melhorar o tratamento de requisição.
 
     @Override
     protected void doFilterInternal(
@@ -68,17 +67,13 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                 String whitelabelId = jwsClaims.getBody().get("whitelabelId", String.class);
 
                 if (userId != null && whitelabelId != null) {
-                    RequestLogSchema requestLog = new RequestLogSchema();
-                    requestLog.setUserId(userId);
-                    requestLog.setCompanyId(whitelabelId);
-                    requestLog.setRequestType("REST");
-                    requestLog.setTimestamp(new Date());
-                    requestLog.setUri(request.getRequestURI());
-                    logService.saveRequestLogAsync(requestLog);
+                    logService.saveRequest( whitelabelId, userId, request.getRequestURI());
 
                     MDC.put("userId", userId);
                     MDC.put("whitelabelId", whitelabelId);
                     MDC.put("requestId", requestId);
+                } else{
+                    throw new JwtException("Invalid JWT");
                 }
             }
 
@@ -100,11 +95,6 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         response.setStatus(status);
         String json = String.format("{\"error\": \"%s\"}", message);
         response.getWriter().write(json);
-    }
-
-    private Key getSigningKey() {
-        byte[] keyBytes = privateKey.getBytes(StandardCharsets.UTF_8);
-        return Keys.hmacShaKeyFor(keyBytes);
     }
 
     private String getBearerToken(HttpServletRequest request) {

@@ -24,7 +24,7 @@ public class ComparisonMultiEntity extends NodeTreeEntity {
 
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(
-            name = "tree_root_node_condition_comparison_multi_variables",
+            name = "_relation_mulitComp_x_vars",
             joinColumns = @JoinColumn(name = "comparison_id")
     )
     @Column(name = "expected_vars", columnDefinition = "TEXT", nullable = false)

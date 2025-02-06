@@ -127,9 +127,9 @@ public abstract class GenericBusinessRepositoryImpl
                     .orElseThrow(() -> new InfrastructureException("Entity not found with id: " + id));
             return mapper.toEntity(result);
         } catch (InfrastructureException e) {
+            logger.error("Failed to retrieve entity with id: {}", id, e);
             throw e;
         } catch (Exception e) {
-            logger.error("Failed to retrieve entity with id: {}", id, e);
             throw new InfrastructureException("Failed to retrieve data");
         }
     }
@@ -277,10 +277,16 @@ public abstract class GenericBusinessRepositoryImpl
      * @since 06/11/2024
      */
     @Override
+    @Transactional
     public void check(
             @Nonnull UUID id,
             @Nonnull RepositoryAuth auth) throws InfrastructureException {
-        this.readInternal(id, auth);
+        try {
+            this.readInternal(id, auth);
+        } catch (Exception e) {
+            logger.error("Failed to check entity by ID: {}", id, e);
+            throw new InfrastructureException("Failed to find entities by IDs");
+        }
     }
 
     /**
@@ -292,15 +298,21 @@ public abstract class GenericBusinessRepositoryImpl
      * @since 06/11/2024
      */
     @Override
+    @Transactional
     public void checkAll(
             @Nonnull Set<UUID> ids,
             @Nonnull RepositoryAuth auth) throws InfrastructureException {
+        try {
         List<S> schemas = this.findAllByIds(auth.userId(), auth.whitelabelId(), ids, entityClass);
         if (schemas.size() != ids.size()) {
             Set<UUID> foundIds = schemas.stream().map(S::getId).collect(Collectors.toSet());
             Set<UUID> missingIds = ids.stream().filter(id -> !foundIds.contains(id)).collect(Collectors.toSet());
             throw new EntityNotFound
                     ("Entities not found or already deleted for IDs: " + missingIds);
+        }
+        } catch (Exception e) {
+            logger.error("Failed to check entities by IDd: {}", ids, e);
+            throw new InfrastructureException("Failed to find entities by IDs");
         }
     }
 

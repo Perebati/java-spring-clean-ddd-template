@@ -1,7 +1,6 @@
 package org.gfinnovation.dealsafe.modules.engine;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import org.gfinnovation.dealsafe._sandbox.Neo4jTest;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.InvocationTargetException;
@@ -20,11 +19,6 @@ import java.util.Queue;
 
 @Component
 public class Engine {
-    private final Neo4jTest neo4jTest;
-
-    public Engine(Neo4jTest neo4jTest) {
-        this.neo4jTest = neo4jTest;
-    }
 
     /**
      * This is an early version of that validates a json based on a tree previously created.
@@ -43,9 +37,6 @@ public class Engine {
 
     public boolean bfsValidation(JsonNode root, JsonNode objectToValidate) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException {
         Queue<JsonNode> queue = new LinkedList<>();
-
-        this.neo4jTest.storeUserInput(objectToValidate.toString());
-
 //        if (root.has("nodes")) {
 //            for (JsonNode node : root.get("nodes")) {
 //                queue.add(node);

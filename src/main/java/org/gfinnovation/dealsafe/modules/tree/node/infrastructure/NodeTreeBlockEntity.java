@@ -30,7 +30,7 @@ public class NodeTreeBlockEntity
 
     @OneToMany(cascade = {CascadeType.REMOVE, CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JoinTable(
-            name = "_relation_node_x_node",
+            name = "_relation_block_x_node",
             joinColumns = @JoinColumn(name = "parent_id"),
             inverseJoinColumns = @JoinColumn(name = "node_id")
     )

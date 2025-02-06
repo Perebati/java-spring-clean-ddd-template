@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -51,8 +52,23 @@ public class LogService {
     }
 
     @Async
-    public CompletableFuture<RequestLogSchema> saveRequestLogAsync(RequestLogSchema requestLog) {
-        return CompletableFuture.completedFuture(requestLogRepository.save(requestLog));
+    public void saveRequestLogAsync(RequestLogSchema requestLog) {
+        requestLogRepository.save(requestLog);
+    }
+
+    @Async
+    public void saveRequest(
+            String userId,
+            String whitelabelId,
+            String uri
+    ){
+        RequestLogSchema requestLog = new RequestLogSchema();
+        requestLog.setUserId(userId);
+        requestLog.setCompanyId(whitelabelId);
+        requestLog.setRequestType("REST");
+        requestLog.setTimestamp(new Date());
+        requestLog.setUri(uri);
+        this.saveRequestLogAsync(requestLog);
     }
 
     public boolean requestIdExists(String requestId) {

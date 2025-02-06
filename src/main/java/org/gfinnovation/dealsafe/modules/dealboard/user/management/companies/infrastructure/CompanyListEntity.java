@@ -20,7 +20,7 @@ public class CompanyListEntity extends GenericBusinessEntity {
 
     @ElementCollection
     @CollectionTable(
-            name = "blacklist_cnpjs",
+            name = "_relation_deal_x_cnpjs",
             joinColumns = @JoinColumn(name = "blacklist_id"),
             indexes = @Index(name = "idx_cnpj", columnList = "cnpj")
     )

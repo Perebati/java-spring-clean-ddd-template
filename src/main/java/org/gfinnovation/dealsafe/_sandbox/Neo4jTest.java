@@ -4,6 +4,7 @@ import org.neo4j.driver.AuthTokens;
 import org.neo4j.driver.Driver;
 import org.neo4j.driver.GraphDatabase;
 import org.neo4j.driver.Query;
+import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
@@ -17,8 +18,8 @@ import static org.neo4j.driver.Values.parameters;
  * @class Neo4jTest
  * @since 04/11/2024
  */
-
 @Component
+@Profile("dev")
 public class Neo4jTest implements AutoCloseable {
     private final Driver driver;
     private final String uri = "neo4j://localhost:7999";
