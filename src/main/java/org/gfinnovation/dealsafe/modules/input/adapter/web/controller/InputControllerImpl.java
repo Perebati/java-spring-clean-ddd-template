@@ -1,16 +1,20 @@
 package org.gfinnovation.dealsafe.modules.input.adapter.web.controller;
 
+import lombok.AllArgsConstructor;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.AdapterException;
 import org.gfinnovation.dealsafe.modules.input.adapter.web.controller.interfaces.InputController;
-import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.InputService;
+import org.gfinnovation.dealsafe.modules.input.adapter.web.request.CreateInputRecord;
+import org.gfinnovation.dealsafe.modules.input.application.usecase.command.CreateInputUseCase;
+import org.gfinnovation.dealsafe.modules.input.application.usecase.command.DeleteInputUseCase;
+import org.gfinnovation.dealsafe.modules.input.application.usecase.command.UpdateInputUseCase;
+import org.gfinnovation.dealsafe.modules.input.application.usecase.query.ReadAllInputUseCase;
+import org.gfinnovation.dealsafe.modules.input.application.usecase.query.ReadInputUseCase;
 import org.gfinnovation.dealsafe.modules.input.domain.Input;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.UUID;
 
@@ -20,21 +24,21 @@ import java.util.UUID;
  * @class InputController
  * @since v1.0 (30/11/2024)
  */
-
 @Controller
+@AllArgsConstructor
 class InputControllerImpl implements InputController {
-    private final InputService inputService;
+    private final CreateInputUseCase createInputUseCase;
+    private final ReadInputUseCase readInputUseCase;
+    private final ReadAllInputUseCase readAllInputUseCase;
+    private final UpdateInputUseCase updateInputUseCase;
+    private final DeleteInputUseCase deleteInputUseCase;
 
-    public InputControllerImpl(InputService inputService) {
-        this.inputService = inputService;
-    }
 
     @Override
-    public ResponseEntity<Input> createInput(@NonNull @RequestParam String name,
-                                             @NonNull @RequestBody String json) throws SystemGlobalException {
+    public ResponseEntity<Input> createInput(@NonNull CreateInputRecord request)
+            throws SystemGlobalException {
         try {
-            return ResponseEntity.status(HttpStatus.CREATED).body(this.inputService.create(name, json));
-
+            return ResponseEntity.status(HttpStatus.CREATED).body(this.createInputUseCase.execute(request));
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
@@ -43,9 +47,10 @@ class InputControllerImpl implements InputController {
     }
 
     @Override
-    public ResponseEntity<Input> readInput(@NonNull UUID id) throws SystemGlobalException {
+    public ResponseEntity<Input> readInput(@NonNull UUID id)
+            throws SystemGlobalException {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(this.inputService.read(id));
+            return ResponseEntity.status(HttpStatus.OK).body(this.readInputUseCase.execute(id));
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {

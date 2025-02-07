@@ -1,14 +1,18 @@
 package org.gfinnovation.dealsafe.modules.input.adapter.web.controller.interfaces;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
+import org.gfinnovation.dealsafe.modules.input.adapter.web.request.CreateInputRecord;
 import org.gfinnovation.dealsafe.modules.input.domain.Input;
 import org.springframework.http.ResponseEntity;
-import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -25,22 +29,46 @@ import java.util.UUID;
 @Tag(name = "Input")
 @SecurityRequirement(name = "BearerAuth")
 public interface InputController {
-    @Operation(summary = "Cadastro de input dinâmico", description = "Registra um novo input no sistema.")
+    @Operation(
+            summary = "Cadastro de input dinâmico",
+            description = "Registra um novo input no sistema."
+    )
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Input criado com sucesso!"),
-            @ApiResponse(responseCode = "400", description = "Requisição inválida"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "200", description = "Input criado com sucesso!", content =
+            @Content(mediaType = "application/json", schema = @Schema(implementation = Input.class))),
+            @ApiResponse(responseCode = "400", description = "Requisição inválida", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
     @PostMapping()
-    ResponseEntity<Input> createInput(@NonNull @RequestParam String name,
-                                      @NonNull @RequestBody String json) throws SystemGlobalException;
+    ResponseEntity<Input> createInput(@RequestBody(
+            description = "Dados para criação de input",
+            required = true,
+            content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = CreateInputRecord.class),
+                    examples = {
+                            @ExampleObject(
+                                    name = "CreateInputRecordExemplo",
+                                    value = """
+                                            {
+                                              "name": "Exemplo de Nome",
+                                              "json": {
+                                                    "chave": "valor"
+                                                }
+                                            }
+                                            """
+                            )
+                    }
+            )
+    ) CreateInputRecord request)
+            throws SystemGlobalException;
 
     @Operation(summary = "Busca um input dinâmico", description = "Busca um input no sistema.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Input lido com sucesso!"),
-            @ApiResponse(responseCode = "400", description = "Requisição inválida"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "400", description = "Requisição inválida", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
-    @GetMapping()
-    ResponseEntity<Input> readInput(@NonNull UUID id) throws SystemGlobalException;
+    @GetMapping("/{id}")
+    ResponseEntity<Input> readInput(@PathVariable UUID id) throws SystemGlobalException;
 }

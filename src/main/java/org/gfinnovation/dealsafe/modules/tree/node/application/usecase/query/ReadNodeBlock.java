@@ -14,15 +14,13 @@ import java.util.UUID;
  * @since v1.0 (06/02/2025)
  */
 @Component
-public class ReadNodeBlock extends UseCase<UUID, NodeTreeBlock> {
-    private final NodeTreeBlockService nodeTreeBlockService;
-
+public class ReadNodeBlock extends UseCase<UUID, NodeTreeBlock, NodeTreeBlockService> {
     public ReadNodeBlock(NodeTreeBlockService nodeTreeBlockService) {
-        this.nodeTreeBlockService = nodeTreeBlockService;
+        super(nodeTreeBlockService);
     }
 
     @Override
     public NodeTreeBlock execute(UUID input) {
-        return this.nodeTreeBlockService.read(input);
+        return this.service.read(input);
     }
 }

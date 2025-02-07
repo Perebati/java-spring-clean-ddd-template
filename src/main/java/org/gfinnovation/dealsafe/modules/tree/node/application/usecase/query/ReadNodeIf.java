@@ -14,15 +14,13 @@ import java.util.UUID;
  * @since v1.0 (06/02/2025)
  */
 @Component
-public class ReadNodeIf extends UseCase<UUID, NodeTreeIf> {
-    private final NodeTreeIfService nodeTreeIfService;
-
+public class ReadNodeIf extends UseCase<UUID, NodeTreeIf, NodeTreeIfService> {
     public ReadNodeIf(NodeTreeIfService nodeTreeIfService) {
-        this.nodeTreeIfService = nodeTreeIfService;
+        super(nodeTreeIfService);
     }
 
     @Override
     public NodeTreeIf execute(UUID input) {
-        return this.nodeTreeIfService.read(input);
+        return this.service.read(input);
     }
 }

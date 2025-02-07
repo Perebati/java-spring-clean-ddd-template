@@ -85,7 +85,8 @@ public class CompanyListControllerImpl implements CompanyListController {
     @Override
     public ResponseEntity<Void> deleteList(@NonNull UUID company_list) throws SystemGlobalException {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(this.deleteCompanyList.execute(company_list));
+            this.deleteCompanyList.execute(company_list);
+            return ResponseEntity.status(HttpStatus.OK).build();
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {

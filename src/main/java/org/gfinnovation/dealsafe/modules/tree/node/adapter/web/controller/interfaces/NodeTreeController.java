@@ -1,6 +1,7 @@
 package org.gfinnovation.dealsafe.modules.tree.node.adapter.web.controller.interfaces;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -31,8 +32,8 @@ public interface NodeTreeController {
             description = "Registra um novo nó bloco. Parent_id pode ser tanto uma referência para um Nó comum ou para um Root.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Nó criado com sucesso!"),
-            @ApiResponse(responseCode = "400", description = "Requisição inválida"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "400", description = "Requisição inválida", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
     @PostMapping("/node-block")
     ResponseEntity<Void> createNodeBlock(@NonNull @RequestBody NodeCreationDTO request) throws SystemGlobalException;
@@ -43,8 +44,8 @@ public interface NodeTreeController {
             description = "Registra um novo nó bloco. Parent_id pode ser tanto uma referência para um Nó comum ou para um Root.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Nó criado com sucesso!"),
-            @ApiResponse(responseCode = "400", description = "Requisição inválida"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "400", description = "Requisição inválida", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
     @PostMapping("/node-if")
     ResponseEntity<Void> createNodeIf(@NonNull @RequestBody NodeCreationDTO request) throws SystemGlobalException;
@@ -55,8 +56,8 @@ public interface NodeTreeController {
             description = "Realiza a leitura de um nó block na árvore.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Sucesso!"),
-            @ApiResponse(responseCode = "400", description = "Requisição inválida"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "400", description = "Requisição inválida", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
     @GetMapping("/node-block")
     ResponseEntity<NodeTreeBlock> readNodeBlock(@NonNull @RequestParam UUID request) throws SystemGlobalException;
@@ -66,8 +67,8 @@ public interface NodeTreeController {
             description = "Realiza a leitura de um nó IF na árvore.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Sucesso!"),
-            @ApiResponse(responseCode = "400", description = "Requisição inválida"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "400", description = "Requisição inválida", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
     @GetMapping("/node-if")
     ResponseEntity<NodeTreeIf> readNodeIf(@NonNull @RequestParam UUID request) throws SystemGlobalException;
@@ -77,8 +78,8 @@ public interface NodeTreeController {
             description = "Realiza a atualização de um nó block na árvore.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Sucesso!"),
-            @ApiResponse(responseCode = "400", description = "Requisição inválida"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "400", description = "Requisição inválida", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
     @PutMapping("/node-block")
     ResponseEntity<NodeTreeBlock> updateNodeBlock(@NonNull @RequestBody NodeTreeBlock request) throws SystemGlobalException;
@@ -88,8 +89,8 @@ public interface NodeTreeController {
             description = "Realiza a atualização de um nó block na árvore.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Sucesso!"),
-            @ApiResponse(responseCode = "400", description = "Requisição inválida"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "400", description = "Requisição inválida", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
     @PutMapping("/node-if")
     ResponseEntity<NodeTreeIf> updateNodeIf(@NonNull @RequestBody NodeTreeIf request) throws SystemGlobalException;
@@ -99,8 +100,8 @@ public interface NodeTreeController {
             description = "Realiza a deleção de um nó block na árvore.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Sucesso!"),
-            @ApiResponse(responseCode = "400", description = "Requisição inválida"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "400", description = "Requisição inválida", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
     @DeleteMapping("/node-block")
     ResponseEntity<Void> deleteNodeBlock(@NonNull @RequestParam UUID request) throws SystemGlobalException;
@@ -110,8 +111,8 @@ public interface NodeTreeController {
             description = "Realiza a deleção de um nó IF na árvore.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Sucesso!"),
-            @ApiResponse(responseCode = "400", description = "Requisição inválida"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "400", description = "Requisição inválida", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
     @DeleteMapping("/node-if")
     ResponseEntity<Void> deleteNodeIf(@NonNull @RequestParam UUID request) throws SystemGlobalException;

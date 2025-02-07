@@ -27,7 +27,7 @@ public interface GenericBusinessRepository<E extends GenericClass> {
 
     E create(@Nonnull E entity, @Nonnull RepositoryAuth auth) throws SystemGlobalException;
 
-    E read(@Nonnull UUID id, @Nonnull RepositoryAuth auth) throws SystemGlobalException;
+    Optional<E> read(@Nonnull UUID id, @Nonnull RepositoryAuth auth) throws SystemGlobalException;
 
     E update(@Nonnull E entity, @Nonnull RepositoryAuth auth) throws SystemGlobalException;
 

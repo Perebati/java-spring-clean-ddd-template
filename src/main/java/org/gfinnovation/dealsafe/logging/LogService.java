@@ -1,11 +1,11 @@
-package org.gfinnovation.dealsafe.configuration.logging;
+package org.gfinnovation.dealsafe.logging;
 
-import org.gfinnovation.dealsafe.configuration.logging.infrastrutcture.ErrorLogSchema;
-import org.gfinnovation.dealsafe.configuration.logging.infrastrutcture.MethodCallLogSchema;
-import org.gfinnovation.dealsafe.configuration.logging.infrastrutcture.RequestLogSchema;
-import org.gfinnovation.dealsafe.configuration.logging.infrastrutcture.repository.ErrorLogRepository;
-import org.gfinnovation.dealsafe.configuration.logging.infrastrutcture.repository.MethodCallLogRepository;
-import org.gfinnovation.dealsafe.configuration.logging.infrastrutcture.repository.RequestLogRepository;
+import org.gfinnovation.dealsafe.logging.infrastrutcture.ErrorLogSchema;
+import org.gfinnovation.dealsafe.logging.infrastrutcture.MethodCallLogSchema;
+import org.gfinnovation.dealsafe.logging.infrastrutcture.RequestLogSchema;
+import org.gfinnovation.dealsafe.logging.infrastrutcture.repository.ErrorLogRepository;
+import org.gfinnovation.dealsafe.logging.infrastrutcture.repository.MethodCallLogRepository;
+import org.gfinnovation.dealsafe.logging.infrastrutcture.repository.RequestLogRepository;
 import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,6 @@ import java.util.concurrent.CompletableFuture;
 
 /**
  * TODO: Need refactor.
- * This is a mess, is works but its not worth commenting on.
  *
  * @author Lucas Batista Pereira
  * @version v1.0

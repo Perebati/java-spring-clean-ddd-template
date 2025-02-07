@@ -8,6 +8,11 @@ package org.gfinnovation.dealsafe._shared.modules.application.usecase;
  * @class UseCase
  * @since v1.0 (30/01/2025)
  */
-public abstract class NullOutputUseCase<IN> {
+public abstract class NullOutputUseCase<IN, SERVICE> {
+    protected final SERVICE service;
+    protected NullOutputUseCase(SERVICE service) {
+        this.service = service;
+    }
+
     public abstract void execute(IN input);
 }

@@ -13,15 +13,13 @@ import java.util.UUID;
  * @since v1.0 (06/02/2025)
  */
 @Component
-public class DeleteNodeIf extends NullOutputUseCase<UUID> {
-    private final NodeTreeIfService nodeTreeIfService;
-
-    public DeleteNodeIf(NodeTreeIfService nodeTreeIfService) {
-        this.nodeTreeIfService = nodeTreeIfService;
+public class DeleteNodeIf extends NullOutputUseCase<UUID, NodeTreeIfService> {
+    protected DeleteNodeIf(NodeTreeIfService nodeTreeIfService) {
+        super(nodeTreeIfService);
     }
 
     @Override
     public void execute(UUID input) {
-        this.nodeTreeIfService.delete(input);
+        this.service.delete(input);
     }
 }

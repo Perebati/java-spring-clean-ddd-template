@@ -9,6 +9,7 @@ import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.AdapterException;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.application.service.interfaces.CompanyListService;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.domain.CompanyList;
+import org.gfinnovation.dealsafe.modules.input.adapter.web.request.CreateInputRecord;
 import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.InputService;
 import org.gfinnovation.dealsafe.modules.input.domain.Input;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonMultiRecord;
@@ -61,27 +62,32 @@ public class TreeTest {
         try {
 
             String json = """
-                    {
-                      "nome": "João",
-                      "idade": 30,
-                      "CPF": 11330176650,
-                      "endereco": {
-                        "rua": "Rua A",
-                        "bairro": "Centro"
-                      },
-                      "telefone": ["123456789", "987654321"],
+                {
+                  "nome": "João",
+                  "idade": 30,
+                  "CPF": 11330176650,
+                  "endereco": {
+                    "rua": "Rua A",
+                    "bairro": "Centro"
+                  },
+                  "telefone": ["123456789", "987654321"],
+                  "teste": {
                       "teste": {
-                          "teste":{
-                              "teste": "teste"
-                          }
-                       }
-                    }
-                    """;
+                          "teste": "teste"
+                      }
+                   }
+                }
+                """;
+
+            ObjectMapper mapper = new ObjectMapper();
+
+            JsonNode rootNode = mapper.readTree(json);
+
             MDC.put("userId", UUID.randomUUID().toString());
             MDC.put("whitelabelId", UUID.randomUUID().toString());
             MDC.put("requestId", UUID.randomUUID().toString());
 
-            Input input = this.inputService.create("Example", json);
+            Input input = this.inputService.create(new CreateInputRecord("Example", rootNode));
 
             RootTreeDynamic createdRoot = this.rootTreeDynamic.create("ROOT Teste", input.getId());
 
@@ -144,7 +150,6 @@ public class TreeTest {
                     nodeIf3.getParentId(),
                     NodeTreeIf.SetNode.ELSE
             );
-            ObjectMapper mapper = new ObjectMapper();
             JsonNode jsonNode = mapper.readTree(json);
 
 

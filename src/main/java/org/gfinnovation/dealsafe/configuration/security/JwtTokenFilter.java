@@ -5,7 +5,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.gfinnovation.dealsafe.configuration.logging.LogService;
+import org.gfinnovation.dealsafe.logging.LogService;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
@@ -25,9 +25,9 @@ import java.util.UUID;
 
 /**
  * @author Lucas Batista Pereira
- * @version v2.0
+ * @version v1.0
  * @class JwtTokenFilter
- * @since v2.0 (06/02/2025)
+ * @since v1.0 (06/02/2025)
  */
 @Component
 @Profile({"dev", "prod"})

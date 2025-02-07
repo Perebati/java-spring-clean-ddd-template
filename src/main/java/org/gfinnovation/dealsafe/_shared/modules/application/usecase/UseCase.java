@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe._shared.modules.application.usecase;
 
-import org.apache.coyote.BadRequestException;
+import org.gfinnovation.dealsafe.exception.models.ApplicationException;
 
 /**
  * Abstract class for UseCase,
@@ -11,6 +11,12 @@ import org.apache.coyote.BadRequestException;
  * @class UseCase
  * @since v1.0 (30/01/2025)
  */
-public abstract class UseCase<IN, OUT> {
-    public abstract OUT execute(IN input) throws BadRequestException;
+public abstract class UseCase<IN, OUT, SERVICE>{
+    protected final SERVICE service;
+
+    public UseCase(SERVICE service) {
+        this.service = service;
+    }
+
+    public abstract OUT execute(IN input) throws ApplicationException;
 }

@@ -16,9 +16,9 @@ import java.util.Map;
 
 /**
  * @author Lucas Batista Pereira
- * @version v2.0
+ * @version v1.0
  * @class CustomAuthenticationEntryPoint
- * @since v2.0 (06/02/2025)
+ * @since v1.0 (06/02/2025)
  */
 @Component
 public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {

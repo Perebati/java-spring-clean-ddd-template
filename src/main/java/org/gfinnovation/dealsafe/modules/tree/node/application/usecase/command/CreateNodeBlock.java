@@ -13,15 +13,13 @@ import org.springframework.stereotype.Component;
  * @since v1.0 (06/02/2025)
  */
 @Component
-public class CreateNodeBlock extends UseCase<NodeCreationDTO, NodeTreeBlock> {
-    private final NodeTreeBlockService nodeTreeBlockService;
-
+public class CreateNodeBlock extends UseCase<NodeCreationDTO, NodeTreeBlock, NodeTreeBlockService> {
     public CreateNodeBlock(NodeTreeBlockService nodeTreeBlockService) {
-        this.nodeTreeBlockService = nodeTreeBlockService;
+        super(nodeTreeBlockService);
     }
 
     @Override
     public NodeTreeBlock execute(NodeCreationDTO input) {
-        return nodeTreeBlockService.create(input);
+        return service.create(input);
     }
 }

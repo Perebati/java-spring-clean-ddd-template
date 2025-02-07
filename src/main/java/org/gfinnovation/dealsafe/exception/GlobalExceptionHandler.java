@@ -1,8 +1,8 @@
 package org.gfinnovation.dealsafe.exception;
 
 import lombok.RequiredArgsConstructor;
-import org.gfinnovation.dealsafe.configuration.logging.LogService;
-import org.gfinnovation.dealsafe.configuration.logging.infrastrutcture.ErrorLogSchema;
+import org.gfinnovation.dealsafe.logging.LogService;
+import org.gfinnovation.dealsafe.logging.infrastrutcture.ErrorLogSchema;
 import org.gfinnovation.dealsafe.exception.models.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

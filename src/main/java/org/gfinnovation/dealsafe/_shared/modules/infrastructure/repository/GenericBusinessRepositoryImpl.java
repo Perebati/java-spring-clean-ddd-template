@@ -116,13 +116,13 @@ public abstract class GenericBusinessRepositoryImpl
      * @since v1.0 (06/11/2024)
      */
     @Override
-    public E read(
+    public Optional<E> read(
             @Nonnull UUID id,
             @Nonnull RepositoryAuth auth) throws InfrastructureException {
         try {
             S result = this.findById(id, auth.whitelabelId(), entityClass)
                     .orElseThrow(() -> new InfrastructureException("Entity not found with id: " + id));
-            return mapper.toEntity(result);
+            return Optional.ofNullable(mapper.toEntity(result));
         } catch (InfrastructureException e) {
             logger.error("Failed to retrieve entity with id: {}", id, e);
             throw e;

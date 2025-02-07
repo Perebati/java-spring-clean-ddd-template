@@ -8,16 +8,13 @@ import org.springframework.stereotype.Component;
 import java.util.UUID;
 
 @Component
-public class ReadCompanyList extends UseCase<UUID, CompanyList> {
-
-    private final CompanyListService companyListService;
-
+public class ReadCompanyList extends UseCase<UUID, CompanyList, CompanyListService> {
     public ReadCompanyList(CompanyListService companyListService) {
-        this.companyListService = companyListService;
+        super(companyListService);
     }
 
     @Override
     public CompanyList execute(UUID input) {
-        return this.companyListService.read(input);
+        return this.service.read(input);
     }
 }

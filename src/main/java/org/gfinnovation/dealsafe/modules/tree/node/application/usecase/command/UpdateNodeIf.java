@@ -12,15 +12,13 @@ import org.springframework.stereotype.Component;
  * @since v1.0 (06/02/2025)
  */
 @Component
-public class UpdateNodeIf extends UseCase<NodeTreeIf, NodeTreeIf> {
-    private final NodeTreeIfService nodeTreeIfService;
-
+public class UpdateNodeIf extends UseCase<NodeTreeIf, NodeTreeIf, NodeTreeIfService> {
     public UpdateNodeIf(NodeTreeIfService nodeTreeIfService) {
-        this.nodeTreeIfService = nodeTreeIfService;
+        super(nodeTreeIfService);
     }
 
     @Override
     public NodeTreeIf execute(NodeTreeIf input) {
-        return this.nodeTreeIfService.update(input);
+        return this.service.update(input);
     }
 }

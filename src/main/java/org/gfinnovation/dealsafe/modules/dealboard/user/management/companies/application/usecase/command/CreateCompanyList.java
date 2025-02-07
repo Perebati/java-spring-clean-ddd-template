@@ -7,16 +7,13 @@ import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.dom
 import org.springframework.stereotype.Component;
 
 @Component
-public class CreateCompanyList extends UseCase<CompanyListData, CompanyList> {
-
-    private final CompanyListService companyListService;
-
+public class CreateCompanyList extends UseCase<CompanyListData, CompanyList, CompanyListService> {
     public CreateCompanyList(CompanyListService companyListService) {
-        this.companyListService = companyListService;
+        super(companyListService);
     }
 
     @Override
     public CompanyList execute(CompanyListData input) {
-        return this.companyListService.createCompanyList(input.name(), input.cnpjs());
+        return this.service.createCompanyList(input.name(), input.cnpjs());
     }
 }

@@ -8,15 +8,13 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class ReadAllCompanyList extends UseCase<Void, List<CompanyList>> {
-    private final CompanyListService companyListService;
-
+public class ReadAllCompanyList extends UseCase<Void, List<CompanyList>, CompanyListService> {
     public ReadAllCompanyList(CompanyListService companyListService) {
-        this.companyListService = companyListService;
+        super(companyListService);
     }
 
     @Override
     public List<CompanyList> execute(Void input) {
-        return companyListService.readAll().get();
+        return service.readAll().get();
     }
 }

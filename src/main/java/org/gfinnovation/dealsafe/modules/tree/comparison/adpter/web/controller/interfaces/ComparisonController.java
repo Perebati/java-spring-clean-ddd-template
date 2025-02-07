@@ -1,6 +1,7 @@
 package org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.controller.interfaces;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -34,8 +35,8 @@ public interface ComparisonController {
             description = "Registra uma nova operação de comparação no sistema.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operação de comparação criado com sucesso!"),
-            @ApiResponse(responseCode = "400", description = "Requisição inválida"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "400", description = "Requisição inválida", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
     @PostMapping("comparison-singular")
     ResponseEntity<ComparisonSingular> createSingularComparison(@NonNull @RequestBody ComparisonSingularRecord request)
@@ -45,8 +46,8 @@ public interface ComparisonController {
             description = "Registra uma nova operação de comparação no sistema.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operação de comparação criado com sucesso!"),
-            @ApiResponse(responseCode = "400", description = "Requisição inválida"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "400", description = "Requisição inválida", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
     @PostMapping("comparison-multi")
     ResponseEntity<ComparisonMulti> createMultiComparison(@NonNull @RequestBody ComparisonMultiRecord request)
@@ -56,8 +57,8 @@ public interface ComparisonController {
             description = "Registra uma nova operação de Blacklist no sistema.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operação de comparação criado com sucesso!"),
-            @ApiResponse(responseCode = "400", description = "Requisição inválida"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "400", description = "Requisição inválida", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
     @PostMapping("comparison-black-list")
     ResponseEntity<ComparisonCustomList> createBlackListComparison(@NonNull @RequestBody ComparisonCustomListRecord request)
@@ -67,8 +68,8 @@ public interface ComparisonController {
             description = "Registra uma nova operação de WhiteList no sistema.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operação de comparação criado com sucesso!"),
-            @ApiResponse(responseCode = "400", description = "Requisição inválida"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "400", description = "Requisição inválida", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
     @PostMapping("comparison-white-list")
     ResponseEntity<ComparisonCustomList> createWhiteListComparison(@NonNull @RequestBody ComparisonCustomListRecord request)

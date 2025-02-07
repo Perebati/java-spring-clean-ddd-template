@@ -1,4 +1,4 @@
-package org.gfinnovation.dealsafe.modules.engine;
+package org.gfinnovation.dealsafe.engine;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.stereotype.Component;

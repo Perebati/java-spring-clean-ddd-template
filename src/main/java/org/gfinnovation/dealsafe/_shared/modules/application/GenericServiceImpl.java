@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 
 /**
  * This class has most of CRUD operations built in. It also handles
@@ -26,41 +25,20 @@ import java.util.concurrent.CompletableFuture;
  */
 public abstract class GenericServiceImpl
         <E extends GenericBusinessClass, R extends GenericBusinessRepository<E>>
-        extends GenericAuthDomainServiceImpl
+        extends GenericWriteOperationsServiceImpl<E, R>
         implements GenericService<E> {
-    protected final R repository;
 
     protected GenericServiceImpl(R repository) {
-        this.repository = repository;
+        super(repository);
     }
 
-    public E read(UUID id) throws SystemGlobalException {
+    public Optional<E> read(UUID id) throws SystemGlobalException {
         try {
             return this.repository.read(id, getRepositoryAuth());
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
             throw new ApplicationException("Something went wrong reading an entity.");
-        }
-    }
-
-    public E update(E entity) throws SystemGlobalException {
-        try {
-            return this.repository.update(entity, getRepositoryAuth());
-        } catch (SystemGlobalException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new ApplicationException("Something went wrong updating an entity.");
-        }
-    }
-
-    public void delete(UUID id) throws SystemGlobalException {
-        try {
-            this.repository.delete(id, getRepositoryAuth());
-        } catch (SystemGlobalException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new ApplicationException("Something went wrong deleting an entity.");
         }
     }
 
@@ -101,26 +79,6 @@ public abstract class GenericServiceImpl
             throw e;
         } catch (Exception e) {
             throw new ApplicationException("Something went wrong checking all entities by ids.");
-        }
-    }
-
-    public CompletableFuture<E> updateAsync(E entity) throws SystemGlobalException {
-        try {
-            return this.repository.updateAsync(entity, getRepositoryAuth());
-        } catch (SystemGlobalException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new ApplicationException("Something went wrong async updating an entity.");
-        }
-    }
-
-    public void deleteAsync(UUID id) throws SystemGlobalException {
-        try {
-            this.repository.deleteAsync(id, getRepositoryAuth());
-        } catch (SystemGlobalException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new ApplicationException("Something went wrong async deleting an entity.");
         }
     }
 }

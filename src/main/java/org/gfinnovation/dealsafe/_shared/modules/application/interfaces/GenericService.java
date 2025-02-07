@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 
 /**
  * Every single Service class in this system should extend from this.
@@ -19,15 +18,7 @@ import java.util.concurrent.CompletableFuture;
  * @since v1.0 (30/11/2024)
  */
 public interface GenericService<E extends GenericClass> {
-    E read(UUID id) throws SystemGlobalException;
-
-    CompletableFuture<E> updateAsync(E entity) throws SystemGlobalException;
-
-    E update(E entity) throws SystemGlobalException;
-
-    void delete(UUID id) throws SystemGlobalException;
-
-    void deleteAsync(UUID id) throws SystemGlobalException;
+    Optional<E> read(UUID id) throws SystemGlobalException;
 
     Optional<List<E>> readAll() throws SystemGlobalException;
 

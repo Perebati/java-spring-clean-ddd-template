@@ -12,15 +12,13 @@ import org.springframework.stereotype.Component;
  * @since v1.0 (06/02/2025)
  */
 @Component
-public class UpdateNodeBlock extends UseCase<NodeTreeBlock, NodeTreeBlock> {
-    private final NodeTreeBlockService nodeTreeBlockService;
-
+public class UpdateNodeBlock extends UseCase<NodeTreeBlock, NodeTreeBlock, NodeTreeBlockService> {
     public UpdateNodeBlock(NodeTreeBlockService nodeTreeBlockService) {
-        this.nodeTreeBlockService = nodeTreeBlockService;
+        super(nodeTreeBlockService);
     }
 
     @Override
     public NodeTreeBlock execute(NodeTreeBlock input) {
-        return this.nodeTreeBlockService.update(input);
+        return this.service.update(input);
     }
 }

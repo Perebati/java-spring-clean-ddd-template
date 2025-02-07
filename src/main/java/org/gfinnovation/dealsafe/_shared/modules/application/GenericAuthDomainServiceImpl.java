@@ -17,7 +17,7 @@ import java.util.UUID;
  * @class GenericAuthDomainServiceImpl
  * @since v1.0 (24/01/2025)
  */
-public abstract class GenericAuthDomainServiceImpl {
+abstract class GenericAuthDomainServiceImpl {
     protected UUID getUserId() throws SystemGlobalException {
         try {
             String userIdStr = MDC.get("userId");

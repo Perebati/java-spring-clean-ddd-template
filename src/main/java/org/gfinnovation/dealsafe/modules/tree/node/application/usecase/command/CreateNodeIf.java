@@ -13,15 +13,13 @@ import org.springframework.stereotype.Component;
  * @since v1.0 (06/02/2025)
  */
 @Component
-public class CreateNodeIf extends UseCase<NodeCreationDTO, NodeTreeIf> {
-    private final NodeTreeIfService nodeTreeIfService;
-
+public class CreateNodeIf extends UseCase<NodeCreationDTO, NodeTreeIf, NodeTreeIfService> {
     public CreateNodeIf(NodeTreeIfService nodeTreeIfService) {
-        this.nodeTreeIfService = nodeTreeIfService;
+        super(nodeTreeIfService);
     }
 
     @Override
     public NodeTreeIf execute(NodeCreationDTO input) {
-        return this.nodeTreeIfService.create(input);
+        return this.service.create(input);
     }
 }

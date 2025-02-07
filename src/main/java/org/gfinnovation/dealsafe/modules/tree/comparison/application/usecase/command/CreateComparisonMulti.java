@@ -1,6 +1,5 @@
 package org.gfinnovation.dealsafe.modules.tree.comparison.application.usecase.command;
 
-import org.apache.coyote.BadRequestException;
 import org.gfinnovation.dealsafe._shared.modules.application.usecase.UseCase;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonMultiRecord;
 import org.gfinnovation.dealsafe.modules.tree.comparison.application.service.interfaces.ComparisonMultiService;
@@ -14,15 +13,13 @@ import org.springframework.stereotype.Component;
  * @since v1.0 (06/02/2025)
  */
 @Component
-public class CreateComparisonMulti extends UseCase<ComparisonMultiRecord, ComparisonMulti> {
-    private final ComparisonMultiService comparisonMultiService;
-
+public class CreateComparisonMulti extends UseCase<ComparisonMultiRecord, ComparisonMulti, ComparisonMultiService> {
     public CreateComparisonMulti(ComparisonMultiService comparisonMultiService) {
-        this.comparisonMultiService = comparisonMultiService;
+        super(comparisonMultiService);
     }
 
     @Override
-    public ComparisonMulti execute(ComparisonMultiRecord input) throws BadRequestException {
-        return this.comparisonMultiService.create(input);
+    public ComparisonMulti execute(ComparisonMultiRecord input) {
+        return this.service.create(input);
     }
 }

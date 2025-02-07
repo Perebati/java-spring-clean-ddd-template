@@ -1,4 +1,4 @@
-package org.gfinnovation.dealsafe.configuration.logging.infrastrutcture;
+package org.gfinnovation.dealsafe.logging.infrastrutcture;
 
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;

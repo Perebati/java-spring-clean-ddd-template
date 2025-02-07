@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.application.service.interfaces.CompanyListService;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.domain.CompanyList;
+import org.gfinnovation.dealsafe.modules.input.adapter.web.request.CreateInputRecord;
 import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.InputService;
 import org.gfinnovation.dealsafe.modules.input.domain.Input;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonMultiRecord;
@@ -75,7 +76,6 @@ public class CreateTreeScenarioTest extends GenericScenarioTest {
     @MockBean
     private RootTreeRepository rootTreeRepository;
 
-
     @Test
     @DisplayName("Should create a tree and then validate a json.")
     @Transactional
@@ -98,7 +98,11 @@ public class CreateTreeScenarioTest extends GenericScenarioTest {
                 }
                 """;
 
-        Input input = inputService.create("Example", json);
+        ObjectMapper mapper = new ObjectMapper();
+
+        JsonNode rootNode = mapper.readTree(json);
+
+        Input input = inputService.create(new CreateInputRecord("Example", rootNode));
         assertNotNull(input, "Input should not be null");
 
         RootTreeDynamic createdRoot = rootTreeDynamic.create("ROOT Teste", input.getId());
@@ -180,7 +184,6 @@ public class CreateTreeScenarioTest extends GenericScenarioTest {
         );
         assertNotNull(comparisonCustomList, "ComparisonCustomList should not be null");
 
-        ObjectMapper mapper = new ObjectMapper();
         JsonNode jsonNode = mapper.readTree(json);
 
         createdRoot = rootTreeDynamic.read(createdRoot.getId());

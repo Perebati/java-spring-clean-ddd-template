@@ -1,6 +1,5 @@
 package org.gfinnovation.dealsafe.modules.tree.comparison.application.usecase.query;
 
-import org.apache.coyote.BadRequestException;
 import org.gfinnovation.dealsafe._shared.modules.application.usecase.UseCase;
 import org.gfinnovation.dealsafe.modules.tree.comparison.application.service.interfaces.ComparisonSingularService;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
@@ -15,15 +14,13 @@ import java.util.UUID;
  * @since v1.0 (06/02/2025)
  */
 @Component
-public class ReadComparisonSingular extends UseCase<UUID, ComparisonSingular> {
-    private final ComparisonSingularService comparisonSingularService;
-
+public class ReadComparisonSingular extends UseCase<UUID, ComparisonSingular, ComparisonSingularService> {
     public ReadComparisonSingular(ComparisonSingularService comparisonSingularService) {
-        this.comparisonSingularService = comparisonSingularService;
+        super(comparisonSingularService);
     }
 
     @Override
-    public ComparisonSingular execute(UUID input) throws BadRequestException {
-        return comparisonSingularService.read(input);
+    public ComparisonSingular execute(UUID input) {
+        return this.service.read(input);
     }
 }

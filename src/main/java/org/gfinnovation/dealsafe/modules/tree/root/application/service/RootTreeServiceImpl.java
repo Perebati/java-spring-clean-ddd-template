@@ -24,9 +24,7 @@ import java.util.UUID;
  * @since v1.0 (30/11/2024)
  */
 @Service
-class RootTreeServiceImpl
-        extends GenericAuthDomainServiceImpl
-        implements RootTreeService {
+class RootTreeServiceImpl implements RootTreeService {
     private final RootTreeRepository rootTreeRepository;
 
     @Autowired

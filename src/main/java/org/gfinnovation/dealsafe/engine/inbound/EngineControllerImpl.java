@@ -1,11 +1,11 @@
-package org.gfinnovation.dealsafe.modules.engine.inbound;
+package org.gfinnovation.dealsafe.engine.inbound;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
-import org.gfinnovation.dealsafe.modules.engine.Engine;
-import org.gfinnovation.dealsafe.modules.engine.inbound.interfaces.EngineController;
+import org.gfinnovation.dealsafe.engine.Engine;
+import org.gfinnovation.dealsafe.engine.inbound.interfaces.EngineController;
 import org.gfinnovation.dealsafe.modules.tree.root.application.service.interfaces.RootTreeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

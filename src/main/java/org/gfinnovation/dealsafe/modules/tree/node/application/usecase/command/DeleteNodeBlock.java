@@ -13,15 +13,13 @@ import java.util.UUID;
  * @since v1.0 (06/02/2025)
  */
 @Component
-public class DeleteNodeBlock extends NullOutputUseCase<UUID> {
-    private final NodeTreeBlockService blockService;
-
-    public DeleteNodeBlock(NodeTreeBlockService blockService) {
-        this.blockService = blockService;
+public class DeleteNodeBlock extends NullOutputUseCase<UUID, NodeTreeBlockService> {
+    protected DeleteNodeBlock(NodeTreeBlockService nodeTreeBlockService) {
+        super(nodeTreeBlockService);
     }
 
     @Override
     public void execute(UUID input) {
-        this.blockService.delete(input);
+        this.service.delete(input);
     }
 }

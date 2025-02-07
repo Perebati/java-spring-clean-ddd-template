@@ -1,7 +1,8 @@
-package org.gfinnovation.dealsafe.modules.engine.inbound.interfaces;
+package org.gfinnovation.dealsafe.engine.inbound.interfaces;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -26,8 +27,8 @@ public interface EngineController {
     @Operation(summary = "Valida um json na árvore de validação", description = "Necessita do JSON em sí e a id do nó da árvore de validação.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Json validado com sucesso!"),
-            @ApiResponse(responseCode = "400", description = "Requisição inválida"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "400", description = "Requisição inválida", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
     @PostMapping()
     ResponseEntity<Boolean> validateJson(@RequestParam UUID root_id, @RequestBody JsonNode jsonNode);

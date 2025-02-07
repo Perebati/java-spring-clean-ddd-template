@@ -1,6 +1,6 @@
-package org.gfinnovation.dealsafe.configuration.logging.infrastrutcture.repository;
+package org.gfinnovation.dealsafe.logging.infrastrutcture.repository;
 
-import org.gfinnovation.dealsafe.configuration.logging.infrastrutcture.MethodCallLogSchema;
+import org.gfinnovation.dealsafe.logging.infrastrutcture.MethodCallLogSchema;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
