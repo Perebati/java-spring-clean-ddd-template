@@ -21,6 +21,6 @@ public class ReadNodeIf extends UseCase<UUID, NodeTreeIf, NodeTreeIfService> {
 
     @Override
     public NodeTreeIf execute(UUID input) {
-        return this.service.read(input);
+        return this.service.read(input).get();
     }
 }

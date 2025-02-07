@@ -48,7 +48,7 @@ class ComparisonSingularServiceImpl
             ComparisonSingularRecord input
     ) throws SystemGlobalException {
         try {
-            Node<?> parent = this.nodeRepository.read(input.parentId(), getRepositoryAuth());
+            Node<?> parent = this.nodeRepository.read(input.parentId(), getRepositoryAuth()).get();
             ComparisonSingular newOperation = this.comparisonOperationFactory.produce(input.type(), input.jsonPath(), input.variable(), parent);
             return this.comparisonSingularRepository.createNode(newOperation, parent, input.position(), getRepositoryAuth());
         } catch (SystemGlobalException e) {

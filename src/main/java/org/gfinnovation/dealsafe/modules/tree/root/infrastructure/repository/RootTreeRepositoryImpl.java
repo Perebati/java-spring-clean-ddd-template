@@ -62,7 +62,7 @@ class RootTreeRepositoryImpl
     @Override
     public Object readGenericRoot(@NotNull UUID id, @NotNull RepositoryAuth auth) throws SystemGlobalException {
         try {
-            RootTree<?> rootTree = this.read(id, auth);
+            RootTree<?> rootTree = this.read(id, auth).get();
             if (rootTree.getNodeType().equals(Node.NodeType.ROOT_DYNAMIC)) {
                 return this.rootTreeDynamicRepository.read(id, auth);
             } else {

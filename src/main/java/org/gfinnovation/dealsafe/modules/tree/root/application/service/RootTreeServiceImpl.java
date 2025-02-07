@@ -1,12 +1,12 @@
 package org.gfinnovation.dealsafe.modules.tree.root.application.service;
 
-import org.gfinnovation.dealsafe._shared.modules.application.GenericAuthDomainServiceImpl;
+import org.gfinnovation.dealsafe._shared.modules.application.GenericServiceImpl;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.ApplicationException;
 import org.gfinnovation.dealsafe.exception.models.InfrastructureException;
 import org.gfinnovation.dealsafe.modules.tree.root.application.service.interfaces.RootTreeService;
+import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTree;
 import org.gfinnovation.dealsafe.modules.tree.root.infrastructure.repository.interfaces.RootTreeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -24,14 +24,12 @@ import java.util.UUID;
  * @since v1.0 (30/11/2024)
  */
 @Service
-class RootTreeServiceImpl implements RootTreeService {
-    private final RootTreeRepository rootTreeRepository;
+class RootTreeServiceImpl
+        extends GenericServiceImpl<RootTree<?>, RootTreeRepository>
+        implements RootTreeService {
 
-    @Autowired
-    public RootTreeServiceImpl(
-            RootTreeRepository rootTreeRepository
-    ) {
-        this.rootTreeRepository = rootTreeRepository;
+    protected RootTreeServiceImpl(RootTreeRepository repository) {
+        super(repository);
     }
 
     /**
@@ -47,7 +45,7 @@ class RootTreeServiceImpl implements RootTreeService {
     @Override
     public Object readGenericRoot(UUID id) throws SystemGlobalException {
         try {
-            return this.rootTreeRepository.readGenericRoot(id, getRepositoryAuth());
+            return this.repository.readGenericRoot(id, getRepositoryAuth());
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
@@ -66,7 +64,7 @@ class RootTreeServiceImpl implements RootTreeService {
     @Override
     public Optional<UUID> findRootIdByNodeId(UUID node_id) throws SystemGlobalException {
         try {
-            return this.rootTreeRepository.findRootIdByNodeId(node_id);
+            return this.repository.findRootIdByNodeId(node_id);
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
