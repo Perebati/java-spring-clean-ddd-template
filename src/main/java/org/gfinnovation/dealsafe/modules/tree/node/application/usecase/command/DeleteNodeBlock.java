@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe.modules.tree.node.application.usecase.command;
 
-import org.gfinnovation.dealsafe._shared.modules.application.usecase.NullOutputUseCase;
+import org.gfinnovation.dealsafe._shared.application.usecase.NullOutputUseCase;
 import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeBlockService;
 import org.springframework.stereotype.Component;
 
@@ -20,6 +20,6 @@ public class DeleteNodeBlock extends NullOutputUseCase<UUID, NodeTreeBlockServic
 
     @Override
     public void execute(UUID input) {
-        this.service.delete(input);
+        this.service.deleteBlock(input);
     }
 }

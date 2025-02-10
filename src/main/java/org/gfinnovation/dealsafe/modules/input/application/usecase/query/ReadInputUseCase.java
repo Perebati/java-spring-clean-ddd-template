@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe.modules.input.application.usecase.query;
 
-import org.gfinnovation.dealsafe._shared.modules.application.usecase.UseCase;
+import org.gfinnovation.dealsafe._shared.application.usecase.UseCase;
 import org.gfinnovation.dealsafe.exception.models.ApplicationException;
 import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.InputService;
 import org.gfinnovation.dealsafe.modules.input.domain.Input;

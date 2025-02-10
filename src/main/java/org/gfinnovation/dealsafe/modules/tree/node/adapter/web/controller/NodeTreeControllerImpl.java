@@ -2,7 +2,8 @@ package org.gfinnovation.dealsafe.modules.tree.node.adapter.web.controller;
 
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.controller.interfaces.NodeTreeController;
-import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeCreationDTO;
+import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeCreationData;
+import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeTreeBlockData;
 import org.gfinnovation.dealsafe.modules.tree.node.application.usecase.command.*;
 import org.gfinnovation.dealsafe.modules.tree.node.application.usecase.query.ReadNodeBlock;
 import org.gfinnovation.dealsafe.modules.tree.node.application.usecase.query.ReadNodeIf;
@@ -28,7 +29,6 @@ class NodeTreeControllerImpl implements NodeTreeController {
     private final DeleteNodeBlock deleteNodeBlock;
     private final DeleteNodeIf deleteNodeif;
     private final UpdateNodeBlock updateNodeBlock;
-    private final UpdateNodeIf updateNodeIf;
     private final ReadNodeBlock readNodeBlock;
     private final ReadNodeIf readNodeIf;
 
@@ -39,7 +39,6 @@ class NodeTreeControllerImpl implements NodeTreeController {
             DeleteNodeBlock deleteNodeBlock,
             DeleteNodeIf deleteNodeif,
             UpdateNodeBlock updateNodeBlock,
-            UpdateNodeIf updateNodeIf,
             ReadNodeBlock readNodeBlock,
             ReadNodeIf readNodeIf
     ) {
@@ -48,19 +47,18 @@ class NodeTreeControllerImpl implements NodeTreeController {
         this.deleteNodeBlock = deleteNodeBlock;
         this.deleteNodeif = deleteNodeif;
         this.updateNodeBlock = updateNodeBlock;
-        this.updateNodeIf = updateNodeIf;
         this.readNodeBlock = readNodeBlock;
         this.readNodeIf = readNodeIf;
     }
 
     @Override
-    public ResponseEntity<Void> createNodeBlock(@NonNull NodeCreationDTO request) throws SystemGlobalException {
+    public ResponseEntity<Void> createNodeBlock(@NonNull NodeCreationData request) throws SystemGlobalException {
         this.createNodeBlock.execute(request);
         return ResponseEntity.ok().build();
     }
 
     @Override
-    public ResponseEntity<Void> createNodeIf(@NonNull NodeCreationDTO request) throws SystemGlobalException {
+    public ResponseEntity<Void> createNodeIf(@NonNull NodeCreationData request) throws SystemGlobalException {
         this.createNodeIf.execute(request);
         return ResponseEntity.ok().build();
     }
@@ -76,13 +74,9 @@ class NodeTreeControllerImpl implements NodeTreeController {
     }
 
     @Override
-    public ResponseEntity<NodeTreeBlock> updateNodeBlock(@NonNull NodeTreeBlock request) throws SystemGlobalException {
-        return ResponseEntity.ok(this.updateNodeBlock.execute(request));
-    }
-
-    @Override
-    public ResponseEntity<NodeTreeIf> updateNodeIf(@NonNull NodeTreeIf request) throws SystemGlobalException {
-        return ResponseEntity.ok(this.updateNodeIf.execute(request));
+    public ResponseEntity<NodeTreeBlock> updateNodeBlock(@NonNull UUID id,
+                                                         @NonNull NodeTreeBlockData request) throws SystemGlobalException {
+        return ResponseEntity.ok(this.updateNodeBlock.execute(id, request));
     }
 
     @Override

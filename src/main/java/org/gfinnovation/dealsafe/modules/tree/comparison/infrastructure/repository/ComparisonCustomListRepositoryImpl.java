@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe.modules.tree.comparison.infrastructure.repository;
 
 import jakarta.persistence.EntityManager;
-import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.GenericBusinessRepositoryImpl;
+import org.gfinnovation.dealsafe._shared.infrastructure.repository.GenericBusinessRepositoryImpl;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonCustomList;
 import org.gfinnovation.dealsafe.modules.tree.comparison.infrastructure.ComparisonCustomListEntity;
 import org.gfinnovation.dealsafe.modules.tree.comparison.infrastructure.mapper.ComparisonCustomListMapper;

@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe.modules.tree.comparison.application.service;
 
-import org.gfinnovation.dealsafe._shared.modules.application.GenericServiceImpl;
+import org.gfinnovation.dealsafe._shared.application.GenericServiceImpl;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.ApplicationException;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonSingularRecord;
@@ -48,7 +48,7 @@ class ComparisonSingularServiceImpl
             ComparisonSingularRecord input
     ) throws SystemGlobalException {
         try {
-            Node<?> parent = this.nodeRepository.read(input.parentId(), getRepositoryAuth()).get();
+            Node<?> parent = this.nodeRepository.read(input.parentId(), getRepositoryAuth());
             ComparisonSingular newOperation = this.comparisonOperationFactory.produce(input.type(), input.jsonPath(), input.variable(), parent);
             return this.comparisonSingularRepository.createNode(newOperation, parent, input.position(), getRepositoryAuth());
         } catch (SystemGlobalException e) {

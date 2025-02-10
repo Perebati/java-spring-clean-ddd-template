@@ -8,8 +8,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.gfinnovation.dealsafe._shared.modules.domain.GenericBusinessClass;
-import org.gfinnovation.dealsafe._shared.utils.annotations.Default;
+import org.gfinnovation.dealsafe._shared.domain.GenericBusinessClass;
+import org.gfinnovation.dealsafe.utils.annotations.Default;
 import org.gfinnovation.dealsafe.exception.models.ApplicationException;
 import org.springframework.validation.annotation.Validated;
 

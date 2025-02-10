@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe.modules.input.application.usecase.query;
 
-import org.gfinnovation.dealsafe._shared.modules.application.usecase.NullInputUseCase;
+import org.gfinnovation.dealsafe._shared.application.usecase.NullInputUseCase;
 import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.InputService;
 import org.gfinnovation.dealsafe.modules.input.domain.Input;
 import org.springframework.stereotype.Component;

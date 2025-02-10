@@ -7,7 +7,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
-import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeCreationDTO;
+import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeCreationData;
+import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeTreeBlockData;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeBlock;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeIf;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +37,7 @@ public interface NodeTreeController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
     @PostMapping("/node-block")
-    ResponseEntity<Void> createNodeBlock(@NonNull @RequestBody NodeCreationDTO request) throws SystemGlobalException;
+    ResponseEntity<Void> createNodeBlock(@NonNull @RequestBody NodeCreationData request) throws SystemGlobalException;
 
 
     @Operation(
@@ -48,7 +49,7 @@ public interface NodeTreeController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
     @PostMapping("/node-if")
-    ResponseEntity<Void> createNodeIf(@NonNull @RequestBody NodeCreationDTO request) throws SystemGlobalException;
+    ResponseEntity<Void> createNodeIf(@NonNull @RequestBody NodeCreationData request) throws SystemGlobalException;
 
 
     @Operation(
@@ -82,18 +83,8 @@ public interface NodeTreeController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
     @PutMapping("/node-block")
-    ResponseEntity<NodeTreeBlock> updateNodeBlock(@NonNull @RequestBody NodeTreeBlock request) throws SystemGlobalException;
-
-    @Operation(
-            summary = "Update de nó block na árvore",
-            description = "Realiza a atualização de um nó block na árvore.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Sucesso!"),
-            @ApiResponse(responseCode = "400", description = "Requisição inválida", content = @Content),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
-    })
-    @PutMapping("/node-if")
-    ResponseEntity<NodeTreeIf> updateNodeIf(@NonNull @RequestBody NodeTreeIf request) throws SystemGlobalException;
+    ResponseEntity<NodeTreeBlock> updateNodeBlock(@NonNull UUID id,
+                                                  @NonNull NodeTreeBlockData request) throws SystemGlobalException;
 
     @Operation(
             summary = "Deleta de nó block na árvore",

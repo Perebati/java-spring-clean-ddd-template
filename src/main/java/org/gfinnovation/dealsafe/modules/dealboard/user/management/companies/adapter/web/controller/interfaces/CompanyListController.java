@@ -77,19 +77,18 @@ public interface CompanyListController {
             @ApiResponse(responseCode = "400", description = "Requisição inválida", content = @Content),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
-    @PutMapping("company-list")
-    ResponseEntity<CompanyList> updateList(@io.swagger.v3.oas.annotations.parameters.RequestBody(
+    @PutMapping("company-list/{id}")
+    ResponseEntity<CompanyList> updateList(@PathVariable UUID id, @io.swagger.v3.oas.annotations.parameters.RequestBody(
             description = "Dados para ataulização de uma lista de empresas",
             required = true,
             content = @Content(
                     mediaType = "application/json",
-                    schema = @Schema(implementation = CompanyList.class),
+                    schema = @Schema(implementation = CompanyListData.class),
                     examples = {
                             @ExampleObject(
                                     name = "UpdateInputRecordRecordExemplo",
                                     value = """
                                             {
-                                              "id": "46fa5849-00d5-4b62-958b-ad654cfd93aa",
                                               "name": "Lista personaliza 01 atualizada",
                                               "cnpjs": [
                                                 "73486838000100", "78813083000125", "53617500000133", "85536411000159"
@@ -99,15 +98,5 @@ public interface CompanyListController {
                             )
                     }
             )
-    ) CompanyList companyList) throws SystemGlobalException;
-
-    @Operation(summary = "Deleta uma lista de empresas baseado no id",
-            description = "Necessita do id da lista de empresas.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Sucesso!"),
-            @ApiResponse(responseCode = "400", description = "Requisição inválida", content = @Content),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
-    })
-    @DeleteMapping("company-list/{id}")
-    ResponseEntity<Void> deleteList(@PathVariable UUID id) throws SystemGlobalException;
+    ) CompanyListData companyList) throws SystemGlobalException;
 }

@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe.modules.tree.comparison.infrastructure.mapper;
 
-import org.gfinnovation.dealsafe._shared.modules.infrastructure.mapper.GenericBusinessMapper;
+import org.gfinnovation.dealsafe._shared.infrastructure.mapper.GenericBusinessMapper;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
 import org.gfinnovation.dealsafe.modules.tree.comparison.infrastructure.ComparisonSingularEntity;
 import org.mapstruct.Mapper;

@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe.modules.tree.node.infrastructure.repository.factory;
 
 import lombok.AllArgsConstructor;
-import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.interfaces.GenericBusinessRepository;
+import org.gfinnovation.dealsafe._shared.infrastructure.repository.interfaces.GenericBusinessRepository;
 import org.gfinnovation.dealsafe.modules.tree.action.domain.NodeTreeActionRepository;
 import org.gfinnovation.dealsafe.modules.tree.comparison.infrastructure.repository.interfaces.ComparisonCustomListRepository;
 import org.gfinnovation.dealsafe.modules.tree.comparison.infrastructure.repository.interfaces.ComparisonMultiRepository;

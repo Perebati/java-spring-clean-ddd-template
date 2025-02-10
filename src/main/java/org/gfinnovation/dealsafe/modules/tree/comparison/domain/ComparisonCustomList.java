@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.gfinnovation.dealsafe._shared.utils.annotations.Default;
+import org.gfinnovation.dealsafe.utils.annotations.Default;
 import org.gfinnovation.dealsafe.modules.tree.comparison.application.usecase.query.ReadCustomList;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.service.multi.ComparisonMultiOperation;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.service.multi.types.ContainsOperation;

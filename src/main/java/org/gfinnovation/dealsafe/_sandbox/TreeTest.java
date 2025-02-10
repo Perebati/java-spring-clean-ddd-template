@@ -9,7 +9,7 @@ import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.AdapterException;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.application.service.interfaces.CompanyListService;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.domain.CompanyList;
-import org.gfinnovation.dealsafe.modules.input.adapter.web.request.CreateInputRecord;
+import org.gfinnovation.dealsafe.modules.input.adapter.web.request.CreateInputData;
 import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.InputService;
 import org.gfinnovation.dealsafe.modules.input.domain.Input;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonMultiRecord;
@@ -20,7 +20,7 @@ import org.gfinnovation.dealsafe.modules.tree.comparison.application.service.int
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonCustomList;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonMulti;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
-import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeCreationDTO;
+import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeCreationData;
 import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeBlockService;
 import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeIfService;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTree;
@@ -87,25 +87,25 @@ public class TreeTest {
             MDC.put("whitelabelId", UUID.randomUUID().toString());
             MDC.put("requestId", UUID.randomUUID().toString());
 
-            Input input = this.inputService.create(new CreateInputRecord("Example", rootNode));
+            Input input = this.inputService.createInput(new CreateInputData("Example", rootNode));
 
             RootTreeDynamic createdRoot = this.rootTreeDynamic.create("ROOT Teste", input.getId());
 
-            NodeTree<?> node1 = this.nodeTreeBlockService.create(new NodeCreationDTO("NODE 1", createdRoot.getId(), null));
+            NodeTree<?> node1 = this.nodeTreeBlockService.createBlock(new NodeCreationData("NODE 1", createdRoot.getId(), null));
 
-            NodeTree<?> node2 = this.nodeTreeBlockService.create(new NodeCreationDTO("NODE 3", createdRoot.getId(), null));
+            NodeTree<?> node2 = this.nodeTreeBlockService.createBlock(new NodeCreationData("NODE 3", createdRoot.getId(), null));
 
-            NodeTree<?> createdNode2 = this.nodeTreeBlockService.create(new NodeCreationDTO("NODE 2", node1.getId(), null));
+            NodeTree<?> createdNode2 = this.nodeTreeBlockService.createBlock(new NodeCreationData("NODE 2", node1.getId(), null));
 
-            NodeTree<?> nodeIf1 = this.nodeTreeIfService.create(new NodeCreationDTO("NODE IF 1", node1.getId(), null));
+            NodeTree<?> nodeIf1 = this.nodeTreeIfService.createIf(new NodeCreationData("NODE IF 1", node1.getId(), null));
 
-            NodeTree<?> nodeIf2 = this.nodeTreeIfService.create(new NodeCreationDTO("NODE IF 2", nodeIf1.getId(), NodeTreeIf.SetNode.CONDITIONAL));
+            NodeTree<?> nodeIf2 = this.nodeTreeIfService.createIf(new NodeCreationData("NODE IF 2", nodeIf1.getId(), NodeTreeIf.SetNode.CONDITIONAL));
 
-            NodeTree<?> node4 = this.nodeTreeBlockService.create(new NodeCreationDTO("NODE 5", nodeIf1.getId(), NodeTreeIf.SetNode.THEN));
+            NodeTree<?> node4 = this.nodeTreeBlockService.createBlock(new NodeCreationData("NODE 5", nodeIf1.getId(), NodeTreeIf.SetNode.THEN));
 
-            NodeTree<?> node5 = this.nodeTreeBlockService.create(new NodeCreationDTO("NODE 6", nodeIf1.getId(), NodeTreeIf.SetNode.ELSE));
+            NodeTree<?> node5 = this.nodeTreeBlockService.createBlock(new NodeCreationData("NODE 6", nodeIf1.getId(), NodeTreeIf.SetNode.ELSE));
 
-            NodeTree<?> nodeIf3 = this.nodeTreeIfService.create(new NodeCreationDTO("NODE IF 3", nodeIf1.getId(), null));
+            NodeTree<?> nodeIf3 = this.nodeTreeIfService.createIf(new NodeCreationData("NODE IF 3", nodeIf1.getId(), null));
 
             ComparisonSingular comparisonSingular = this.comparisonSingularService.create(new ComparisonSingularRecord(
                     ComparisonSingular.ComparisonSingularTypeEnum.EQUAL,

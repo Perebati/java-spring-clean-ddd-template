@@ -1,9 +1,9 @@
 package org.gfinnovation.dealsafe.modules.tree.node.infrastructure.mapper;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import org.gfinnovation.dealsafe._shared.modules.domain.GenericClass;
-import org.gfinnovation.dealsafe._shared.modules.infrastructure.GenericEntity;
-import org.gfinnovation.dealsafe._shared.modules.infrastructure.mapper.GenericBusinessMapper;
+import org.gfinnovation.dealsafe._shared.domain.GenericClass;
+import org.gfinnovation.dealsafe._shared.infrastructure.GenericEntity;
+import org.gfinnovation.dealsafe._shared.infrastructure.mapper.GenericBusinessMapper;
 import org.gfinnovation.dealsafe.modules.tree.action.domain.NodeTreeAction;
 import org.gfinnovation.dealsafe.modules.tree.action.infrastructure.NodeTreeActionEntity;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonCustomList;

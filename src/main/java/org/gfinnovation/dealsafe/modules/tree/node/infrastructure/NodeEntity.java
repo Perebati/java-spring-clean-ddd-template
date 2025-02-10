@@ -3,7 +3,7 @@ package org.gfinnovation.dealsafe.modules.tree.node.infrastructure;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.gfinnovation.dealsafe._shared.modules.infrastructure.GenericBusinessEntity;
+import org.gfinnovation.dealsafe._shared.infrastructure.GenericBusinessEntity;
 
 /**
  * @author Lucas Batista Pereira

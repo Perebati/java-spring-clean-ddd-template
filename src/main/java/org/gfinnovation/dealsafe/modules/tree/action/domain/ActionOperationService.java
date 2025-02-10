@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe.modules.tree.action.domain;
 
-import org.gfinnovation.dealsafe._shared.modules.application.interfaces.GenericService;
+import org.gfinnovation.dealsafe._shared.application.interfaces.GenericService;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 
 import java.util.UUID;

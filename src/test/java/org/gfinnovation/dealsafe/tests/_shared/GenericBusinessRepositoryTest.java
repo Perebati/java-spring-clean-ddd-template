@@ -2,9 +2,9 @@ package org.gfinnovation.dealsafe.tests._shared;
 
 import jakarta.transaction.Transactional;
 import org.apache.coyote.BadRequestException;
-import org.gfinnovation.dealsafe._shared.modules.domain.GenericClass;
-import org.gfinnovation.dealsafe._shared.modules.infrastructure.RepositoryAuth;
-import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.interfaces.GenericBusinessRepository;
+import org.gfinnovation.dealsafe._shared.domain.GenericClass;
+import org.gfinnovation.dealsafe._shared.infrastructure.RepositoryAuth;
+import org.gfinnovation.dealsafe._shared.infrastructure.repository.interfaces.GenericBusinessRepository;
 import org.gfinnovation.dealsafe.exception.models.InfrastructureException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

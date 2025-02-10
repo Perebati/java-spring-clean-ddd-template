@@ -4,7 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.gfinnovation.dealsafe._shared.modules.domain.GenericBusinessClass;
+import org.gfinnovation.dealsafe._shared.domain.GenericBusinessClass;
 
 /**
  * @author Lucas Batista Pereira

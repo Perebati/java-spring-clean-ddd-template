@@ -5,8 +5,8 @@ import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.validation.constraints.NotNull;
-import org.gfinnovation.dealsafe._shared.modules.infrastructure.RepositoryAuth;
-import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.GenericBusinessRepositoryImpl;
+import org.gfinnovation.dealsafe._shared.infrastructure.RepositoryAuth;
+import org.gfinnovation.dealsafe._shared.infrastructure.repository.GenericBusinessRepositoryImpl;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.InfrastructureException;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
@@ -62,7 +62,7 @@ class RootTreeRepositoryImpl
     @Override
     public Object readGenericRoot(@NotNull UUID id, @NotNull RepositoryAuth auth) throws SystemGlobalException {
         try {
-            RootTree<?> rootTree = this.read(id, auth).get();
+            RootTree<?> rootTree = this.read(id, auth);
             if (rootTree.getNodeType().equals(Node.NodeType.ROOT_DYNAMIC)) {
                 return this.rootTreeDynamicRepository.read(id, auth);
             } else {

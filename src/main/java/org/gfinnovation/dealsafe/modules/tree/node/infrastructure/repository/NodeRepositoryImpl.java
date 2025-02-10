@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe.modules.tree.node.infrastructure.repository;
 
 import jakarta.persistence.EntityManager;
-import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.GenericBusinessRepositoryImpl;
+import org.gfinnovation.dealsafe._shared.infrastructure.repository.GenericBusinessRepositoryImpl;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
 import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.NodeEntity;
 import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.mapper.NodeMapper;

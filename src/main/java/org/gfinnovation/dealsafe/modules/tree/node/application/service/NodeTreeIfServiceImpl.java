@@ -1,9 +1,9 @@
 package org.gfinnovation.dealsafe.modules.tree.node.application.service;
 
-import org.gfinnovation.dealsafe._shared.modules.application.GenericServiceImpl;
+import org.gfinnovation.dealsafe._shared.application.GenericServiceImpl;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.ApplicationException;
-import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeCreationDTO;
+import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeCreationData;
 import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeIfService;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeIf;
@@ -13,6 +13,8 @@ import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.repository.int
 import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.repository.interfaces.NodeTreeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 /**
  * @author Lucas Batista Pereira
@@ -41,15 +43,27 @@ class NodeTreeIfServiceImpl
         this.nodeRepository = nodeRepository;
     }
 
-    public NodeTreeIf create(NodeCreationDTO nodeCreationDTO) throws SystemGlobalException {
+    @Override
+    public NodeTreeIf createIf(NodeCreationData nodeCreationData) throws SystemGlobalException {
         try {
-            Node<?> parent = this.nodeRepository.read(nodeCreationDTO.parent_id(), getRepositoryAuth());
+            Node<?> parent = this.nodeRepository.read(nodeCreationData.parent_id(), getRepositoryAuth());
             NodeTreeIf newNode = this.nodeTreeFactory.produceIf(parent);
-            return this.read(this.nodeTreeRepository.createNode(newNode, parent, nodeCreationDTO.position(), getRepositoryAuth()).getId());
+            return this.read(this.nodeTreeRepository.createNode(newNode, parent, nodeCreationData.position(), getRepositoryAuth()).getId());
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ApplicationException("Something went wrong checking a node.");
+            throw new ApplicationException("Something went wrong creating a if node.");
+        }
+    }
+
+    @Override
+    public void deleteIf(UUID id) throws SystemGlobalException {
+        try {
+            this.delete(id);
+        } catch (SystemGlobalException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new ApplicationException("Something went wrong deleting a if node.");
         }
     }
 }

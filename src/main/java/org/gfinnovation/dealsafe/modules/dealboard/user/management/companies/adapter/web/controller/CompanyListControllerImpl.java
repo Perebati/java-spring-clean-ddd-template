@@ -1,11 +1,11 @@
 package org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.adapter.web.controller;
 
+import jakarta.annotation.Nonnull;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.AdapterException;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.adapter.web.controller.interfaces.CompanyListController;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.adapter.web.request.CompanyListData;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.application.usecase.command.CreateCompanyList;
-import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.application.usecase.command.DeleteCompanyList;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.application.usecase.command.UpdateCompanyList;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.application.usecase.query.ReadAllCompanyList;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.application.usecase.query.ReadCompanyList;
@@ -24,18 +24,15 @@ public class CompanyListControllerImpl implements CompanyListController {
     private final ReadCompanyList readCompanyList;
     private final ReadAllCompanyList readAllCompanyList;
     private final UpdateCompanyList updateCompanyList;
-    private final DeleteCompanyList deleteCompanyList;
 
     public CompanyListControllerImpl(CreateCompanyList createCompanyList,
                                      ReadCompanyList readCompanyList,
                                      ReadAllCompanyList readAllCompanyList,
-                                     UpdateCompanyList updateCompanyList,
-                                     DeleteCompanyList deleteCompanyList) {
+                                     UpdateCompanyList updateCompanyList) {
         this.createCompanyList = createCompanyList;
         this.readCompanyList = readCompanyList;
         this.readAllCompanyList = readAllCompanyList;
         this.updateCompanyList = updateCompanyList;
-        this.deleteCompanyList = deleteCompanyList;
     }
 
     @Override
@@ -72,25 +69,14 @@ public class CompanyListControllerImpl implements CompanyListController {
     }
 
     @Override
-    public ResponseEntity<CompanyList> updateList(@NonNull CompanyList companyList) throws SystemGlobalException {
+    public ResponseEntity<CompanyList> updateList(@Nonnull UUID id,
+                                                  @NonNull CompanyListData companyList) throws SystemGlobalException {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(this.updateCompanyList.execute(companyList));
+            return ResponseEntity.status(HttpStatus.OK).body(this.updateCompanyList.execute(id, companyList));
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
             throw new AdapterException("Unexpected error in company list updating.");
-        }
-    }
-
-    @Override
-    public ResponseEntity<Void> deleteList(@NonNull UUID company_list) throws SystemGlobalException {
-        try {
-            this.deleteCompanyList.execute(company_list);
-            return ResponseEntity.status(HttpStatus.OK).build();
-        } catch (SystemGlobalException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new AdapterException("Unexpected error in company list deleting.");
         }
     }
 }

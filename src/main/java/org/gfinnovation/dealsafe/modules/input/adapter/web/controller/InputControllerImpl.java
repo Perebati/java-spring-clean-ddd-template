@@ -4,11 +4,8 @@ import lombok.AllArgsConstructor;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.AdapterException;
 import org.gfinnovation.dealsafe.modules.input.adapter.web.controller.interfaces.InputController;
-import org.gfinnovation.dealsafe.modules.input.adapter.web.request.CreateInputRecord;
+import org.gfinnovation.dealsafe.modules.input.adapter.web.request.CreateInputData;
 import org.gfinnovation.dealsafe.modules.input.application.usecase.command.CreateInputUseCase;
-import org.gfinnovation.dealsafe.modules.input.application.usecase.command.DeleteInputUseCase;
-import org.gfinnovation.dealsafe.modules.input.application.usecase.command.UpdateInputUseCase;
-import org.gfinnovation.dealsafe.modules.input.application.usecase.query.ReadAllInputUseCase;
 import org.gfinnovation.dealsafe.modules.input.application.usecase.query.ReadInputUseCase;
 import org.gfinnovation.dealsafe.modules.input.domain.Input;
 import org.springframework.http.HttpStatus;
@@ -29,13 +26,10 @@ import java.util.UUID;
 class InputControllerImpl implements InputController {
     private final CreateInputUseCase createInputUseCase;
     private final ReadInputUseCase readInputUseCase;
-    private final ReadAllInputUseCase readAllInputUseCase;
-    private final UpdateInputUseCase updateInputUseCase;
-    private final DeleteInputUseCase deleteInputUseCase;
 
 
     @Override
-    public ResponseEntity<Input> createInput(@NonNull CreateInputRecord request)
+    public ResponseEntity<Input> createInput(@NonNull CreateInputData request)
             throws SystemGlobalException {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(this.createInputUseCase.execute(request));

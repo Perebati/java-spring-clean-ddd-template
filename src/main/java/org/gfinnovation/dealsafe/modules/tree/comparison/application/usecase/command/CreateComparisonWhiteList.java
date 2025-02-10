@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe.modules.tree.comparison.application.usecase.command;
 
 import jakarta.transaction.Transactional;
-import org.gfinnovation.dealsafe._shared.modules.application.usecase.UseCase;
+import org.gfinnovation.dealsafe._shared.application.usecase.UseCase;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonCustomListRecord;
 import org.gfinnovation.dealsafe.modules.tree.comparison.application.service.interfaces.ComparisonCustomListService;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonCustomList;

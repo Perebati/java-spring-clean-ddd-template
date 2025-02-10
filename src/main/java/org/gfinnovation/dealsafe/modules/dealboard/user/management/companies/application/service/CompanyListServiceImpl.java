@@ -1,8 +1,9 @@
 package org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.application.service;
 
-import org.gfinnovation.dealsafe._shared.modules.application.GenericServiceImpl;
+import org.gfinnovation.dealsafe._shared.application.GenericServiceImpl;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.ApplicationException;
+import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.adapter.web.request.CompanyListData;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.application.service.interfaces.CompanyListService;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.domain.CompanyList;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.domain.factory.interfaces.CompanyListFactory;
@@ -10,6 +11,7 @@ import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.inf
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 class CompanyListServiceImpl
@@ -36,6 +38,17 @@ class CompanyListServiceImpl
             throw e;
         } catch (Exception e) {
             throw new ApplicationException("Something went wrong creating a company list.");
+        }
+    }
+
+    @Override
+    public CompanyList updateCompanyList(UUID id, CompanyListData companyList) throws SystemGlobalException {
+        try {
+            return this.update(id, companyList);
+        } catch (SystemGlobalException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new ApplicationException("Something went wrong updating a company list.");
         }
     }
 }

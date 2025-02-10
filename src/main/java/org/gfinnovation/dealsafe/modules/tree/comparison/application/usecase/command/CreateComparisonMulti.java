@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe.modules.tree.comparison.application.usecase.command;
 
-import org.gfinnovation.dealsafe._shared.modules.application.usecase.UseCase;
+import org.gfinnovation.dealsafe._shared.application.usecase.UseCase;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonMultiRecord;
 import org.gfinnovation.dealsafe.modules.tree.comparison.application.service.interfaces.ComparisonMultiService;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonMulti;

@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe.modules.tree.action.infrastructure;
 
 import jakarta.persistence.EntityManager;
-import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.GenericBusinessRepositoryImpl;
+import org.gfinnovation.dealsafe._shared.infrastructure.repository.GenericBusinessRepositoryImpl;
 import org.gfinnovation.dealsafe.modules.tree.action.domain.ActionOperation;
 import org.gfinnovation.dealsafe.modules.tree.action.domain.ActionOperationRepository;
 import org.springframework.beans.factory.annotation.Autowired;

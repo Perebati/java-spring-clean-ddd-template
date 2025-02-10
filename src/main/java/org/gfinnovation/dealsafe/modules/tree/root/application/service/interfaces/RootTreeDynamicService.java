@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe.modules.tree.root.application.service.interfaces;
 
-import org.gfinnovation.dealsafe._shared.modules.application.interfaces.GenericService;
+import org.gfinnovation.dealsafe._shared.application.interfaces.GenericService;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeDynamic;
 

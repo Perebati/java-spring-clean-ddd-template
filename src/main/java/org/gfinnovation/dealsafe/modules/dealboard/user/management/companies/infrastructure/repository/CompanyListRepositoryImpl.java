@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.infrastructure.repository;
 
 import jakarta.persistence.EntityManager;
-import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.GenericBusinessRepositoryImpl;
+import org.gfinnovation.dealsafe._shared.infrastructure.repository.GenericBusinessRepositoryImpl;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.domain.CompanyList;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.infrastructure.CompanyListEntity;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.infrastructure.mapper.CompanyListMapper;

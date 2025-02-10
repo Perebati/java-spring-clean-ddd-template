@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe.modules.tree.node.infrastructure.repository.interfaces;
 
-import org.gfinnovation.dealsafe._shared.modules.infrastructure.RepositoryAuth;
+import org.gfinnovation.dealsafe._shared.infrastructure.RepositoryAuth;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTree;

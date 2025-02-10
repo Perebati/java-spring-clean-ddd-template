@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe.modules.tree.comparison.application.service;
 
-import org.gfinnovation.dealsafe._shared.modules.application.GenericServiceImpl;
+import org.gfinnovation.dealsafe._shared.application.GenericServiceImpl;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.ApplicationException;
 import org.gfinnovation.dealsafe.modules.tree.comparison.application.service.interfaces.ComparisonCustomListService;

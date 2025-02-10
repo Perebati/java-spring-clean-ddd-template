@@ -10,7 +10,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
-import org.gfinnovation.dealsafe.modules.input.adapter.web.request.CreateInputRecord;
+import org.gfinnovation.dealsafe.modules.input.adapter.web.request.CreateInputData;
 import org.gfinnovation.dealsafe.modules.input.domain.Input;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -45,7 +45,7 @@ public interface InputController {
             required = true,
             content = @Content(
                     mediaType = "application/json",
-                    schema = @Schema(implementation = CreateInputRecord.class),
+                    schema = @Schema(implementation = CreateInputData.class),
                     examples = {
                             @ExampleObject(
                                     name = "CreateInputRecordExemplo",
@@ -60,7 +60,7 @@ public interface InputController {
                             )
                     }
             )
-    ) CreateInputRecord request)
+    ) CreateInputData request)
             throws SystemGlobalException;
 
     @Operation(summary = "Busca um input dinâmico", description = "Busca um input no sistema.")

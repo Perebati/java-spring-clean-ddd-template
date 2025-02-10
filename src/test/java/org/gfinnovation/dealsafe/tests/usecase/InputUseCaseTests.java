@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
-import org.gfinnovation.dealsafe.modules.input.adapter.web.request.CreateInputRecord;
+import org.gfinnovation.dealsafe.modules.input.adapter.web.request.CreateInputData;
 import org.gfinnovation.dealsafe.modules.input.application.usecase.command.CreateInputUseCase;
 import org.gfinnovation.dealsafe.modules.input.domain.Input;
 import org.gfinnovation.dealsafe.tests._shared.GenericScenarioTest;
@@ -59,7 +59,7 @@ public class InputUseCaseTests extends GenericScenarioTest {
 
         JsonNode rootNode = mapper.readTree(json);
 
-        Input input = this.createInputUseCase.execute(new CreateInputRecord("Teste", rootNode));
+        Input input = this.createInputUseCase.execute(new CreateInputData("Teste", rootNode));
         assertNotNull(input.getId());
         assertEquals("Teste", input.getName());
     }

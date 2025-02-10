@@ -1,8 +1,8 @@
 package org.gfinnovation.dealsafe.modules.tree.root.infrastructure.repository.interfaces;
 
 import jakarta.validation.constraints.NotNull;
-import org.gfinnovation.dealsafe._shared.modules.infrastructure.RepositoryAuth;
-import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.interfaces.GenericBusinessRepository;
+import org.gfinnovation.dealsafe._shared.infrastructure.RepositoryAuth;
+import org.gfinnovation.dealsafe._shared.infrastructure.repository.interfaces.GenericBusinessRepository;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTree;
 

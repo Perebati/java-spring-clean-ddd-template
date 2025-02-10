@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe.modules.input.infrastructure.mapper;
 
-import org.gfinnovation.dealsafe._shared.modules.infrastructure.mapper.GenericBusinessMapper;
+import org.gfinnovation.dealsafe._shared.infrastructure.mapper.GenericBusinessMapper;
 import org.gfinnovation.dealsafe.modules.input.domain.Input;
 import org.gfinnovation.dealsafe.modules.input.infrastructure.InputEntity;
 import org.mapstruct.Mapper;

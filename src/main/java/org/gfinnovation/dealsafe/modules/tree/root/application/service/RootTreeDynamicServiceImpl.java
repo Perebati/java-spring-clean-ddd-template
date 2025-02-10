@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe.modules.tree.root.application.service;
 
 import jakarta.validation.ValidationException;
-import org.gfinnovation.dealsafe._shared.modules.application.GenericServiceImpl;
+import org.gfinnovation.dealsafe._shared.application.GenericServiceImpl;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.ApplicationException;
 import org.gfinnovation.dealsafe.exception.models.InfrastructureException;

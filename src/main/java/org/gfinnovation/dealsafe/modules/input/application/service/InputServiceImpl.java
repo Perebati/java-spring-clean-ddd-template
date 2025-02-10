@@ -1,9 +1,9 @@
 package org.gfinnovation.dealsafe.modules.input.application.service;
 
-import org.gfinnovation.dealsafe._shared.modules.application.GenericServiceImpl;
+import org.gfinnovation.dealsafe._shared.application.GenericServiceImpl;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.ApplicationException;
-import org.gfinnovation.dealsafe.modules.input.adapter.web.request.CreateInputRecord;
+import org.gfinnovation.dealsafe.modules.input.adapter.web.request.CreateInputData;
 import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.InputService;
 import org.gfinnovation.dealsafe.modules.input.domain.Input;
 import org.gfinnovation.dealsafe.modules.input.domain.factory.interfaces.InputFactory;
@@ -48,8 +48,8 @@ class InputServiceImpl
      * @author Lucas Batista Pereira
      * @since v1.0 (30/11/2024)
      */
-    public Input create(
-            CreateInputRecord request
+    public Input createInput(
+            CreateInputData request
     ) throws SystemGlobalException {
         try {
             return this.inputRepository.create(

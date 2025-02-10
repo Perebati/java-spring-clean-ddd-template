@@ -1,8 +1,8 @@
 package org.gfinnovation.dealsafe.modules.input.application.service.interfaces;
 
-import org.gfinnovation.dealsafe._shared.modules.application.interfaces.GenericService;
+import org.gfinnovation.dealsafe._shared.application.interfaces.GenericService;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
-import org.gfinnovation.dealsafe.modules.input.adapter.web.request.CreateInputRecord;
+import org.gfinnovation.dealsafe.modules.input.adapter.web.request.CreateInputData;
 import org.gfinnovation.dealsafe.modules.input.domain.Input;
 
 /**
@@ -13,5 +13,5 @@ import org.gfinnovation.dealsafe.modules.input.domain.Input;
  */
 
 public interface InputService extends GenericService<Input> {
-    Input create(CreateInputRecord request) throws SystemGlobalException;
+    Input createInput(CreateInputData request) throws SystemGlobalException;
 }

@@ -2,8 +2,8 @@ package org.gfinnovation.dealsafe.modules.tree.comparison.domain.factory;
 
 import jakarta.validation.ValidationException;
 import org.apache.coyote.BadRequestException;
-import org.gfinnovation.dealsafe._shared.modules.infrastructure.repository.exception.EntityNotFound;
-import org.gfinnovation.dealsafe._shared.utils.converter.PathNormalizer;
+import org.gfinnovation.dealsafe._shared.infrastructure.repository.exception.EntityNotFound;
+import org.gfinnovation.dealsafe.utils.converter.PathNormalizer;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.DomainException;
 import org.gfinnovation.dealsafe.exception.models.FailedRequestException;
