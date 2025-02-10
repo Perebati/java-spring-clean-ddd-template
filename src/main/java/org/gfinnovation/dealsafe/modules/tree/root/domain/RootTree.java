@@ -1,13 +1,13 @@
 package org.gfinnovation.dealsafe.modules.tree.root.domain;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.gfinnovation.dealsafe.utils.annotations.Default;
+import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTree;
+import org.gfinnovation.dealsafe.utils.annotations.Default;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -25,9 +25,9 @@ import java.util.List;
 @Setter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class RootTree<T> extends Node<T> {
+public class RootTree<T extends NodeInput> extends Node<T> {
     private String name;
-    private List<NodeTree<JsonNode>> nodes = new ArrayList<>();
+    private List<NodeTree<T>> nodes = new ArrayList<>();
 
     @Default
     public RootTree(
@@ -41,14 +41,14 @@ public class RootTree<T> extends Node<T> {
     public RootTree(
             String name,
             NodeType nodeType,
-            LinkedList<NodeTree<JsonNode>> nodes
+            LinkedList<NodeTree<T>> nodes
     ) {
         setName(name);
         setNodeType(nodeType);
         this.nodes = nodes;
     }
 
-    public void addNode(NodeTree<JsonNode> node) {
+    public void addNode(NodeTree<T> node) {
         try {
             this.nodes.add(node);
             node.setParent(this);

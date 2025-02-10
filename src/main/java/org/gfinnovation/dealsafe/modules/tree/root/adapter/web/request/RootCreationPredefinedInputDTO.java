@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe.modules.tree.root.adapter.web.request;
 
-import org.gfinnovation.dealsafe.modules.tree.root.domain.valueobjects.PredefinedTypeEnum;
+import org.gfinnovation.dealsafe.modules.input.domain.predefined.PredefinedTypeEnum;
 import org.springframework.lang.NonNull;
 
 /**

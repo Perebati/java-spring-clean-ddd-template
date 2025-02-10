@@ -1,6 +1,7 @@
 package org.gfinnovation.dealsafe.modules.tree.node.infrastructure.repository.interfaces;
 
 import org.gfinnovation.dealsafe._shared.infrastructure.repository.interfaces.GenericBusinessRepository;
+import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
 
 /**
@@ -9,5 +10,5 @@ import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
  * @class NodeRepository
  * @since v1.0 (06/02/2025)
  */
-public interface NodeRepository extends GenericBusinessRepository<Node<Object>> {
+public interface NodeRepository extends GenericBusinessRepository<Node<NodeInput>> {
 }

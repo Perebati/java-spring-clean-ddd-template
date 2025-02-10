@@ -1,6 +1,7 @@
 package org.gfinnovation.dealsafe.modules.tree.root.infrastructure.mapper;
 
-import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.mapper.NodeTreeMapper;
+import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
+import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.mapper.NodeTreeGenericMapper;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTree;
 import org.gfinnovation.dealsafe.modules.tree.root.infrastructure.RootTreeEntity;
 import org.mapstruct.Mapper;
@@ -20,8 +21,8 @@ import org.springframework.context.annotation.Primary;
         unmappedTargetPolicy = ReportingPolicy.IGNORE
 )
 @Primary
-public interface RootTreeMapper extends NodeTreeMapper<RootTree<?>, RootTreeEntity> {
+public interface RootTreeMapper extends NodeTreeGenericMapper<RootTree<NodeInput>, RootTreeEntity> {
     @Override
     @Mapping(target = "nodes", source = "nodes", qualifiedByName = "mapNodes")
-    RootTree<Object> toEntity(RootTreeEntity schema);
+    RootTree<NodeInput> toEntity(RootTreeEntity schema);
 }

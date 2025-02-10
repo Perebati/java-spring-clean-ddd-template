@@ -9,6 +9,7 @@ import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.dom
 import org.gfinnovation.dealsafe.modules.input.adapter.web.request.CreateInputData;
 import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.InputService;
 import org.gfinnovation.dealsafe.modules.input.domain.Input;
+import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonMultiRecord;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonSingularRecord;
 import org.gfinnovation.dealsafe.modules.tree.comparison.application.service.interfaces.ComparisonCustomListService;
@@ -189,6 +190,8 @@ public class CreateTreeScenarioTest extends GenericScenarioTest {
         createdRoot = rootTreeDynamic.read(createdRoot.getId());
         assertNotNull(createdRoot, "root should not be null");
 
-        assertFalse(createdRoot.traverse(jsonNode));
+        NodeInput nodeInput = new NodeInput(jsonNode);
+
+        assertFalse(createdRoot.traverse(nodeInput));
     }
 }

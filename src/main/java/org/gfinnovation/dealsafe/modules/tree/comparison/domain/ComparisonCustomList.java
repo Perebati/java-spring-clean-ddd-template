@@ -1,17 +1,17 @@
 package org.gfinnovation.dealsafe.modules.tree.comparison.domain;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.gfinnovation.dealsafe.utils.annotations.Default;
+import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
 import org.gfinnovation.dealsafe.modules.tree.comparison.application.usecase.query.ReadCustomList;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.service.multi.ComparisonMultiOperation;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.service.multi.types.ContainsOperation;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.service.multi.types.NotContainsOperation;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTree;
+import org.gfinnovation.dealsafe.utils.annotations.Default;
 
 import java.util.List;
 import java.util.UUID;
@@ -27,7 +27,7 @@ import java.util.UUID;
 @Setter
 @ToString
 public class ComparisonCustomList
-        extends NodeTree<JsonNode> {
+        extends NodeTree<NodeInput> {
     private ComparisonCustomListEnum comparisonTypeEnum;
     private String jsonVariablePath;
     private UUID customListId;
@@ -46,9 +46,9 @@ public class ComparisonCustomList
     }
 
     @Override
-    public boolean traverse(JsonNode data) {
+    public boolean traverse(NodeInput data) {
         try {
-            String inputData = data.at(this.jsonVariablePath).asText();
+            String inputData = data.getJsonNode().at(this.jsonVariablePath).asText();
             ComparisonMultiOperation comparisonOperation =
                     this.comparisonTypeEnum.createOperationInstance();
 

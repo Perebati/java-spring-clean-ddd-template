@@ -4,6 +4,7 @@ import jakarta.annotation.Nonnull;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.AdapterException;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.adapter.web.controller.interfaces.CompanyListController;
+import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.adapter.web.request.CompanyListCreationData;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.adapter.web.request.CompanyListData;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.application.usecase.command.CreateCompanyList;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.application.usecase.command.UpdateCompanyList;
@@ -36,7 +37,7 @@ public class CompanyListControllerImpl implements CompanyListController {
     }
 
     @Override
-    public ResponseEntity<CompanyList> createList(@NonNull CompanyListData companyListData) throws SystemGlobalException {
+    public ResponseEntity<CompanyList> createList(@NonNull CompanyListCreationData companyListData) throws SystemGlobalException {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(this.createCompanyList.execute(companyListData));
         } catch (SystemGlobalException e) {

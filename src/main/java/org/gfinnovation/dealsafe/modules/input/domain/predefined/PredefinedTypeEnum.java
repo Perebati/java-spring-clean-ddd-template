@@ -1,8 +1,7 @@
-package org.gfinnovation.dealsafe.modules.tree.root.domain.valueobjects;
+package org.gfinnovation.dealsafe.modules.input.domain.predefined;
 
 import lombok.Getter;
 import org.gfinnovation.dealsafe.exception.models.FailedRequestException;
-import org.gfinnovation.dealsafe.modules.tree.root.domain.valueobjects.predefined.PredefinedInputExampleEntity;
 
 import java.lang.reflect.Field;
 

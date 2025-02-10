@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
+import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.adapter.web.request.CompanyListCreationData;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.adapter.web.request.CompanyListData;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.domain.CompanyList;
 import org.springframework.http.ResponseEntity;
@@ -35,10 +36,10 @@ public interface CompanyListController {
             required = true,
             content = @Content(
                     mediaType = "application/json",
-                    schema = @Schema(implementation = CompanyListData.class),
+                    schema = @Schema(implementation = CompanyListCreationData.class),
                     examples = {
                             @ExampleObject(
-                                    name = "CreateInputRecordRecordExemplo",
+                                    name = "CompanyListCreationData",
                                     value = """
                                             {
                                               "name": "Lista personaliza 01",
@@ -50,7 +51,7 @@ public interface CompanyListController {
                             )
                     }
             )
-    ) CompanyListData companyListData) throws SystemGlobalException;
+    ) CompanyListCreationData companyListData) throws SystemGlobalException;
 
     @Operation(summary = "Realiza a leitura de um lista de empresas",
             description = "Necessita do id da lista de empresas.")

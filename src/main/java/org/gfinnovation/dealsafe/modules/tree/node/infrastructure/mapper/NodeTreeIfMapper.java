@@ -19,7 +19,7 @@ import org.springframework.context.annotation.Primary;
         unmappedTargetPolicy = ReportingPolicy.IGNORE
 )
 @Primary
-public interface NodeTreeIfMapper extends NodeTreeMapper<NodeTreeIf, NodeTreeIfEntity> {
+public interface NodeTreeIfMapper extends NodeTreeGenericMapper<NodeTreeIf, NodeTreeIfEntity> {
     @Override
     @Mapping(target = "conditionalNodes", source = "conditionalNodes", qualifiedByName = "mapNodes")
     @Mapping(target = "thenNodes", source = "thenNodes", qualifiedByName = "mapNodes")

@@ -2,8 +2,8 @@ package org.gfinnovation.dealsafe.modules.tree.root.application.service.interfac
 
 import org.gfinnovation.dealsafe._shared.application.interfaces.GenericService;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
+import org.gfinnovation.dealsafe.modules.input.domain.predefined.PredefinedTypeEnum;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeStatic;
-import org.gfinnovation.dealsafe.modules.tree.root.domain.valueobjects.PredefinedTypeEnum;
 
 /**
  * @author Lucas Batista Pereira

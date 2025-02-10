@@ -52,15 +52,13 @@ class NodeTreeControllerImpl implements NodeTreeController {
     }
 
     @Override
-    public ResponseEntity<Void> createNodeBlock(@NonNull NodeCreationData request) throws SystemGlobalException {
-        this.createNodeBlock.execute(request);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<NodeTreeBlock> createNodeBlock(@NonNull NodeCreationData request) throws SystemGlobalException {
+        return ResponseEntity.ok(this.createNodeBlock.execute(request));
     }
 
     @Override
-    public ResponseEntity<Void> createNodeIf(@NonNull NodeCreationData request) throws SystemGlobalException {
-        this.createNodeIf.execute(request);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<NodeTreeIf> createNodeIf(@NonNull NodeCreationData request) throws SystemGlobalException {
+        return ResponseEntity.ok(this.createNodeIf.execute(request));
     }
 
     @Override

@@ -1,12 +1,12 @@
 package org.gfinnovation.dealsafe.modules.tree.root.domain;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.gfinnovation.dealsafe.utils.annotations.Default;
+import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTree;
+import org.gfinnovation.dealsafe.utils.annotations.Default;
 
 import java.util.LinkedList;
 import java.util.UUID;
@@ -23,7 +23,7 @@ import java.util.UUID;
 @Setter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class RootTreeDynamic extends RootTree<JsonNode> {
+public class RootTreeDynamic extends RootTree<NodeInput> {
     private UUID dynamicInputId;
 
     @Default
@@ -38,15 +38,15 @@ public class RootTreeDynamic extends RootTree<JsonNode> {
     public RootTreeDynamic(
             String name,
             UUID dynamicInputId,
-            LinkedList<NodeTree<JsonNode>> nodes
+            LinkedList<NodeTree<NodeInput>> nodes
     ) {
         super(name, NodeType.ROOT_STATIC, nodes);
         this.dynamicInputId = dynamicInputId;
     }
 
     @Override
-    public boolean traverse(JsonNode inputData) {
-        for (NodeTree<JsonNode> node : getNodes()) {
+    public boolean traverse(NodeInput inputData) {
+        for (NodeTree<NodeInput> node : getNodes()) {
             if (!node.traverse(inputData)) return false;
         }
         return true;

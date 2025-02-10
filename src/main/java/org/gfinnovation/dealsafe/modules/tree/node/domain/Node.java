@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.gfinnovation.dealsafe._shared.domain.GenericBusinessClass;
+import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
 
 /**
  * @author Lucas Batista Pereira
@@ -16,7 +17,7 @@ import org.gfinnovation.dealsafe._shared.domain.GenericBusinessClass;
 @Setter
 @ToString
 @EqualsAndHashCode(callSuper = true)
-public class Node<T>
+public class Node<T extends NodeInput>
         extends GenericBusinessClass
         implements NodeTraversal<T> {
     private NodeType nodeType;

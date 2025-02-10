@@ -48,7 +48,7 @@ public interface InputController {
                     schema = @Schema(implementation = CreateInputData.class),
                     examples = {
                             @ExampleObject(
-                                    name = "CreateInputRecordExemplo",
+                                    name = "CreateInputData",
                                     value = """
                                             {
                                               "name": "Exemplo de Nome",

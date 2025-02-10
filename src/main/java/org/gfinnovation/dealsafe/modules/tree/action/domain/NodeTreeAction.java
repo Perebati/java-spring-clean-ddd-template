@@ -1,9 +1,9 @@
 package org.gfinnovation.dealsafe.modules.tree.action.domain;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
+import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTree;
 
@@ -17,7 +17,7 @@ import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTree;
 @EqualsAndHashCode(callSuper = true)
 @Getter
 @ToString
-public class NodeTreeAction extends NodeTree<JsonNode> {
+public class NodeTreeAction extends NodeTree<NodeInput> {
     ActionEnum actionType;
 
     public NodeTreeAction(
@@ -29,7 +29,7 @@ public class NodeTreeAction extends NodeTree<JsonNode> {
     }
 
     @Override
-    public boolean traverse(JsonNode inputData) {
+    public boolean traverse(NodeInput inputData) {
         return true;
     }
 

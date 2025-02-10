@@ -1,10 +1,10 @@
 package org.gfinnovation.dealsafe.modules.tree.node.domain;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
 import org.gfinnovation.dealsafe.utils.annotations.Default;
 
 import java.util.ArrayList;
@@ -21,10 +21,10 @@ import java.util.List;
 @Setter
 @ToString
 public class NodeTreeIf
-        extends NodeTree<JsonNode> {
-    private final List<NodeTree<JsonNode>> conditionalNodes = new ArrayList<>();
-    private final List<NodeTree<JsonNode>> thenNodes = new ArrayList<>();
-    private final List<NodeTree<JsonNode>> elseNodes = new ArrayList<>();
+        extends NodeTree<NodeInput> {
+    private final List<NodeTree<NodeInput>> conditionalNodes = new ArrayList<>();
+    private final List<NodeTree<NodeInput>> thenNodes = new ArrayList<>();
+    private final List<NodeTree<NodeInput>> elseNodes = new ArrayList<>();
 
     @Default
     public NodeTreeIf(
@@ -33,35 +33,35 @@ public class NodeTreeIf
         super(NodeType.NODE_IF, parentNode);
     }
 
-    public void addConditionalNode(NodeTree<JsonNode> node) {
+    public void addConditionalNode(NodeTree<NodeInput> node) {
         conditionalNodes.add(node);
     }
 
-    public void addThenNode(NodeTree<JsonNode> node) {
+    public void addThenNode(NodeTree<NodeInput> node) {
         thenNodes.add(node);
     }
 
-    public void addElseNode(NodeTree<JsonNode> node) {
+    public void addElseNode(NodeTree<NodeInput> node) {
         elseNodes.add(node);
     }
 
     @Override
-    public boolean traverse(JsonNode inputData) {
+    public boolean traverse(NodeInput inputData) {
         boolean flag = true;
-        for (NodeTree<JsonNode> node : getConditionalNodes()) {
+        for (NodeTree<NodeInput> node : getConditionalNodes()) {
             if (!node.traverse(inputData)) {
                 flag = false;
                 break;
             }
         }
         if (flag) {
-            for (NodeTree<JsonNode> thenNode : thenNodes) {
+            for (NodeTree<NodeInput> thenNode : thenNodes) {
                 if (!thenNode.traverse(inputData)) {
                     return false;
                 }
             }
         } else {
-            for (NodeTree<JsonNode> elseNode : elseNodes) {
+            for (NodeTree<NodeInput> elseNode : elseNodes) {
                 if (!elseNode.traverse(inputData)) {
                     return false;
                 }

@@ -1,9 +1,9 @@
 package org.gfinnovation.dealsafe.modules.tree.root.domain.factory.interfaces;
 
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
+import org.gfinnovation.dealsafe.modules.input.domain.predefined.PredefinedTypeEnum;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeDynamic;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeStatic;
-import org.gfinnovation.dealsafe.modules.tree.root.domain.valueobjects.PredefinedTypeEnum;
 
 import java.util.UUID;
 

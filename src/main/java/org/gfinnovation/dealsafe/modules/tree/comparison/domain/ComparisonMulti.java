@@ -1,16 +1,16 @@
 package org.gfinnovation.dealsafe.modules.tree.comparison.domain;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.gfinnovation.dealsafe.utils.annotations.Default;
+import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.service.multi.ComparisonMultiOperation;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.service.multi.types.ContainsOperation;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.service.multi.types.NotContainsOperation;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTree;
+import org.gfinnovation.dealsafe.utils.annotations.Default;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ import java.util.List;
 @Setter
 @ToString
 public class ComparisonMulti
-        extends NodeTree<JsonNode> {
+        extends NodeTree<NodeInput> {
     private ComparisonMultiTypeEnum comparisonTypeEnum;
     private String jsonVariablePath;
     private List<String> expectedVars;
@@ -44,9 +44,9 @@ public class ComparisonMulti
     }
 
     @Override
-    public boolean traverse(JsonNode data) {
+    public boolean traverse(NodeInput data) {
         try {
-            String inputData = data.at(this.getJsonVariablePath()).asText();
+            String inputData = data.getJsonNode().at(this.getJsonVariablePath()).asText();
 
             ComparisonMultiTypeEnum comparisonTypeEnum = this.getComparisonTypeEnum();
             ComparisonMultiOperation comparisonOperation = comparisonTypeEnum.createOperationInstance();

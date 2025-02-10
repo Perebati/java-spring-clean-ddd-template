@@ -9,6 +9,7 @@ import org.gfinnovation.dealsafe._shared.infrastructure.RepositoryAuth;
 import org.gfinnovation.dealsafe._shared.infrastructure.repository.GenericBusinessRepositoryImpl;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.InfrastructureException;
+import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTree;
 import org.gfinnovation.dealsafe.modules.tree.root.infrastructure.RootTreeEntity;
@@ -32,7 +33,7 @@ import java.util.UUID;
  */
 @Repository
 class RootTreeRepositoryImpl
-        extends GenericBusinessRepositoryImpl<RootTree<?>, RootTreeEntity>
+        extends GenericBusinessRepositoryImpl<RootTree<NodeInput>, RootTreeEntity>
         implements RootTreeRepository {
     private final RootTreeDynamicRepository rootTreeDynamicRepository;
     private final RootTreeStaticRepository rootTreeStaticRepository;

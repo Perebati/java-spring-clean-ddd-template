@@ -5,12 +5,12 @@ import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.ApplicationException;
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeCreationData;
 import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeIfService;
+import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeService;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeIf;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.factory.interfaces.NodeTreeFactory;
 import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.repository.interfaces.NodeRepository;
 import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.repository.interfaces.NodeTreeIfRepository;
-import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.repository.interfaces.NodeTreeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,19 +27,19 @@ class NodeTreeIfServiceImpl
         extends GenericServiceImpl<NodeTreeIf, NodeTreeIfRepository>
         implements NodeTreeIfService {
     private final NodeTreeFactory nodeTreeFactory;
-    private final NodeTreeRepository<NodeTreeIf> nodeTreeRepository;
+    private final NodeTreeService<NodeTreeIf> nodeTreeService;
     private final NodeRepository nodeRepository;
 
     @Autowired
     NodeTreeIfServiceImpl(
             NodeTreeIfRepository nodeTreeIfRepository,
             NodeTreeFactory nodeTreeFactory,
-            NodeTreeRepository<NodeTreeIf> nodeTreeRepository,
+            NodeTreeService<NodeTreeIf> nodeTreeService,
             NodeRepository nodeRepository
     ) {
         super(nodeTreeIfRepository);
         this.nodeTreeFactory = nodeTreeFactory;
-        this.nodeTreeRepository = nodeTreeRepository;
+        this.nodeTreeService = nodeTreeService;
         this.nodeRepository = nodeRepository;
     }
 
@@ -48,7 +48,7 @@ class NodeTreeIfServiceImpl
         try {
             Node<?> parent = this.nodeRepository.read(nodeCreationData.parent_id(), getRepositoryAuth());
             NodeTreeIf newNode = this.nodeTreeFactory.produceIf(parent);
-            return this.read(this.nodeTreeRepository.createNode(newNode, parent, nodeCreationData.position(), getRepositoryAuth()).getId());
+            return this.read(this.nodeTreeService.createNode(newNode, parent, nodeCreationData.position(), getRepositoryAuth()).getId());
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {

@@ -19,7 +19,7 @@ import org.springframework.context.annotation.Primary;
         unmappedTargetPolicy = ReportingPolicy.IGNORE
 )
 @Primary
-public interface NodeTreeBlockMapper extends NodeTreeMapper<NodeTreeBlock, NodeTreeBlockEntity> {
+public interface NodeTreeBlockMapper extends NodeTreeGenericMapper<NodeTreeBlock, NodeTreeBlockEntity> {
 
     @Override
     @Mapping(target = "nodes", source = "nodes", qualifiedByName = "mapNodes")

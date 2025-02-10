@@ -12,7 +12,6 @@ import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeTreeB
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeBlock;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeIf;
 import org.springframework.http.ResponseEntity;
-import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -37,7 +36,7 @@ public interface NodeTreeController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
     @PostMapping("/node-block")
-    ResponseEntity<Void> createNodeBlock(@NonNull @RequestBody NodeCreationData request) throws SystemGlobalException;
+    ResponseEntity<NodeTreeBlock> createNodeBlock(@RequestBody NodeCreationData request) throws SystemGlobalException;
 
 
     @Operation(
@@ -49,7 +48,7 @@ public interface NodeTreeController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
     @PostMapping("/node-if")
-    ResponseEntity<Void> createNodeIf(@NonNull @RequestBody NodeCreationData request) throws SystemGlobalException;
+    ResponseEntity<NodeTreeIf> createNodeIf(@RequestBody NodeCreationData request) throws SystemGlobalException;
 
 
     @Operation(
@@ -60,8 +59,8 @@ public interface NodeTreeController {
             @ApiResponse(responseCode = "400", description = "Requisição inválida", content = @Content),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
-    @GetMapping("/node-block")
-    ResponseEntity<NodeTreeBlock> readNodeBlock(@NonNull @RequestParam UUID request) throws SystemGlobalException;
+    @GetMapping("/node/{id}")
+    ResponseEntity<NodeTreeBlock> readNodeBlock(@PathVariable UUID id) throws SystemGlobalException;
 
     @Operation(
             summary = "Leitura de nó IF na árvore",
@@ -71,8 +70,8 @@ public interface NodeTreeController {
             @ApiResponse(responseCode = "400", description = "Requisição inválida", content = @Content),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
-    @GetMapping("/node-if")
-    ResponseEntity<NodeTreeIf> readNodeIf(@NonNull @RequestParam UUID request) throws SystemGlobalException;
+    @GetMapping("/node-if/{id}")
+    ResponseEntity<NodeTreeIf> readNodeIf(@PathVariable UUID id) throws SystemGlobalException;
 
     @Operation(
             summary = "Update de nó block na árvore",
@@ -82,9 +81,9 @@ public interface NodeTreeController {
             @ApiResponse(responseCode = "400", description = "Requisição inválida", content = @Content),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
-    @PutMapping("/node-block")
-    ResponseEntity<NodeTreeBlock> updateNodeBlock(@NonNull UUID id,
-                                                  @NonNull NodeTreeBlockData request) throws SystemGlobalException;
+    @PutMapping("/node-block/{id}")
+    ResponseEntity<NodeTreeBlock> updateNodeBlock(@PathVariable UUID id,
+                                                  @RequestBody NodeTreeBlockData request) throws SystemGlobalException;
 
     @Operation(
             summary = "Deleta de nó block na árvore",
@@ -94,8 +93,8 @@ public interface NodeTreeController {
             @ApiResponse(responseCode = "400", description = "Requisição inválida", content = @Content),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
-    @DeleteMapping("/node-block")
-    ResponseEntity<Void> deleteNodeBlock(@NonNull @RequestParam UUID request) throws SystemGlobalException;
+    @DeleteMapping("/node-block/{id}")
+    ResponseEntity<Void> deleteNodeBlock(@PathVariable UUID id) throws SystemGlobalException;
 
     @Operation(
             summary = "Deleta de nó IF na árvore",
@@ -105,6 +104,6 @@ public interface NodeTreeController {
             @ApiResponse(responseCode = "400", description = "Requisição inválida", content = @Content),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
-    @DeleteMapping("/node-if")
-    ResponseEntity<Void> deleteNodeIf(@NonNull @RequestParam UUID request) throws SystemGlobalException;
+    @DeleteMapping("/node-if/{id}")
+    ResponseEntity<Void> deleteNodeIf(@RequestParam UUID id) throws SystemGlobalException;
 }

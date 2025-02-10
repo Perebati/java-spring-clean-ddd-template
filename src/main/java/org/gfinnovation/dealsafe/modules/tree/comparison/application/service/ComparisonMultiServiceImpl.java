@@ -8,9 +8,9 @@ import org.gfinnovation.dealsafe.modules.tree.comparison.application.service.int
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonMulti;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.factory.interfaces.ComparisonFactory;
 import org.gfinnovation.dealsafe.modules.tree.comparison.infrastructure.repository.interfaces.ComparisonMultiRepository;
+import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeService;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
 import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.repository.interfaces.NodeRepository;
-import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.repository.interfaces.NodeTreeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,19 +26,19 @@ class ComparisonMultiServiceImpl
         implements ComparisonMultiService {
     private final ComparisonFactory comparisonOperationFactory;
     private final NodeRepository nodeRepository;
-    private final NodeTreeRepository<ComparisonMulti> nodeTreeRepository;
+    private final NodeTreeService<ComparisonMulti> nodeTreeService;
 
     @Autowired
     public ComparisonMultiServiceImpl(
             ComparisonMultiRepository comparisonMultiRepository,
             ComparisonFactory comparisonOperationFactory,
             NodeRepository nodeRepository,
-            NodeTreeRepository<ComparisonMulti> nodeTreeRepository
+            NodeTreeService<ComparisonMulti> nodeTreeService
     ) {
         super(comparisonMultiRepository);
         this.comparisonOperationFactory = comparisonOperationFactory;
         this.nodeRepository = nodeRepository;
-        this.nodeTreeRepository = nodeTreeRepository;
+        this.nodeTreeService = nodeTreeService;
     }
 
     public ComparisonMulti create(
@@ -47,7 +47,7 @@ class ComparisonMultiServiceImpl
         try {
             Node<?> parent = this.nodeRepository.read(input.parentId(), getRepositoryAuth());
             ComparisonMulti newOperation = this.comparisonOperationFactory.produce(input.type(), input.jsonPath(), input.variables(), parent);
-            return this.nodeTreeRepository.createNode(newOperation, parent, input.position(), getRepositoryAuth());
+            return this.nodeTreeService.createNode(newOperation, parent, input.position(), getRepositoryAuth());
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {

@@ -4,6 +4,7 @@ import org.gfinnovation.dealsafe._shared.application.GenericServiceImpl;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.ApplicationException;
 import org.gfinnovation.dealsafe.exception.models.InfrastructureException;
+import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
 import org.gfinnovation.dealsafe.modules.tree.root.application.service.interfaces.RootTreeService;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTree;
 import org.gfinnovation.dealsafe.modules.tree.root.infrastructure.repository.interfaces.RootTreeRepository;
@@ -25,7 +26,7 @@ import java.util.UUID;
  */
 @Service
 class RootTreeServiceImpl
-        extends GenericServiceImpl<RootTree<?>, RootTreeRepository>
+        extends GenericServiceImpl<RootTree<NodeInput>, RootTreeRepository>
         implements RootTreeService {
 
     protected RootTreeServiceImpl(RootTreeRepository repository) {

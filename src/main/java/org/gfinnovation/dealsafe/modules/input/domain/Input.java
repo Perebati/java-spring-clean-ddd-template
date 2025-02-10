@@ -9,8 +9,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.gfinnovation.dealsafe._shared.domain.GenericBusinessClass;
-import org.gfinnovation.dealsafe.utils.annotations.Default;
 import org.gfinnovation.dealsafe.exception.models.ApplicationException;
+import org.gfinnovation.dealsafe.utils.annotations.Default;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.HashMap;
@@ -105,7 +105,7 @@ public class Input extends GenericBusinessClass {
         return "Unknown";
     }
 
-    //TODO: Estes dois métodos precisam de reajustes
+    //TODO: Estes dois métodos abaixo precisam de reajustes
     public void validateJsonPath(String jsonPath) {
         if (jsonPath.startsWith("/")) jsonPath = jsonPath.replaceFirst("^[/.]", "");
 

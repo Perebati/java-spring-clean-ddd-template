@@ -2,6 +2,7 @@ package org.gfinnovation.dealsafe.modules.tree.node.infrastructure.repository;
 
 import jakarta.persistence.EntityManager;
 import org.gfinnovation.dealsafe._shared.infrastructure.repository.GenericBusinessRepositoryImpl;
+import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
 import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.NodeEntity;
 import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.mapper.NodeMapper;
@@ -18,7 +19,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 class NodeRepositoryImpl
-        extends GenericBusinessRepositoryImpl<Node<Object>, NodeEntity>
+        extends GenericBusinessRepositoryImpl<Node<NodeInput>, NodeEntity>
         implements NodeRepository {
 
     @Autowired

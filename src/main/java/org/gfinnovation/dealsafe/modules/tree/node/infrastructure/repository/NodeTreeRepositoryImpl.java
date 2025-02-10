@@ -1,16 +1,19 @@
 package org.gfinnovation.dealsafe.modules.tree.node.infrastructure.repository;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
-import lombok.AllArgsConstructor;
 import org.gfinnovation.dealsafe._shared.infrastructure.RepositoryAuth;
+import org.gfinnovation.dealsafe._shared.infrastructure.repository.GenericBusinessRepositoryImpl;
 import org.gfinnovation.dealsafe._shared.infrastructure.repository.interfaces.GenericBusinessRepository;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.InfrastructureException;
+import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTree;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeBlock;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeIf;
+import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.NodeTreeEntity;
+import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.mapper.NodeTreeMapper;
 import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.repository.factory.interfaces.NodeTreeRepositoryFactory;
 import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.repository.interfaces.NodeTreeBlockRepository;
 import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.repository.interfaces.NodeTreeIfRepository;
@@ -19,6 +22,7 @@ import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeDynamic;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeStatic;
 import org.gfinnovation.dealsafe.modules.tree.root.infrastructure.repository.interfaces.RootTreeDynamicRepository;
 import org.gfinnovation.dealsafe.modules.tree.root.infrastructure.repository.interfaces.RootTreeStaticRepository;
+import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -28,15 +32,31 @@ import org.springframework.stereotype.Repository;
  * @since 24/01/2025
  */
 @Repository
-@AllArgsConstructor
-class NodeTreeRepositoryImpl
-        <T extends NodeTree<JsonNode>>
+class NodeTreeRepositoryImpl<T extends NodeTree<NodeInput>>
+        extends GenericBusinessRepositoryImpl<NodeTree<NodeInput>, NodeTreeEntity>
         implements NodeTreeRepository<T> {
     private final NodeTreeRepositoryFactory nodeRepositoryFactory;
     private final RootTreeStaticRepository rootTreeStaticRepository;
     private final RootTreeDynamicRepository rootTreeDynamicRepository;
     private final NodeTreeBlockRepository nodeTreeBlockRepository;
     private final NodeTreeIfRepository nodeTreeIfRepository;
+
+
+    public NodeTreeRepositoryImpl(
+            NodeTreeMapper mapper,
+            EntityManager entityManager,
+            NodeTreeRepositoryFactory nodeRepositoryFactory,
+            RootTreeStaticRepository rootTreeStaticRepository,
+            RootTreeDynamicRepository rootTreeDynamicRepository,
+            NodeTreeBlockRepository nodeTreeBlockRepository,
+            NodeTreeIfRepository nodeTreeIfRepository) {
+        super(mapper, new SimpleJpaRepository<>(NodeTreeEntity.class, entityManager), NodeTreeEntity.class);
+        this.nodeRepositoryFactory = nodeRepositoryFactory;
+        this.rootTreeStaticRepository = rootTreeStaticRepository;
+        this.rootTreeDynamicRepository = rootTreeDynamicRepository;
+        this.nodeTreeBlockRepository = nodeTreeBlockRepository;
+        this.nodeTreeIfRepository = nodeTreeIfRepository;
+    }
 
     @Transactional
     public T createNode(T newNode,

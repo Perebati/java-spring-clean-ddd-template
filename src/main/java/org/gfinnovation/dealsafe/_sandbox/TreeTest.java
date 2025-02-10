@@ -155,7 +155,7 @@ public class TreeTest {
 
             createdRoot = this.rootTreeDynamic.read(createdRoot.getId());
 
-            createdRoot.traverse(jsonNode);
+            //createdRoot.traverse(jsonNode);
 
             throw new AdapterException("sxfsdf");
         } catch (SystemGlobalException e) {

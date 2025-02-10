@@ -4,6 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
 import org.gfinnovation.dealsafe.utils.annotations.Default;
 
 import java.util.UUID;
@@ -22,7 +23,7 @@ import java.util.UUID;
 @Setter
 @ToString
 @EqualsAndHashCode(callSuper = true)
-public class NodeTree<T>
+public class NodeTree<T extends NodeInput>
         extends Node<T> {
     private UUID parentId;
     private ParentType parentType;

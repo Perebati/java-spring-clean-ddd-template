@@ -1,12 +1,12 @@
 package org.gfinnovation.dealsafe.modules.tree.node.domain;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.gfinnovation.dealsafe.utils.annotations.Default;
 import org.gfinnovation.dealsafe.exception.models.DomainException;
+import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
+import org.gfinnovation.dealsafe.utils.annotations.Default;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +22,9 @@ import java.util.List;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 public class NodeTreeBlock
-        extends NodeTree<JsonNode> {
+        extends NodeTree<NodeInput> {
     private String name;
-    private List<NodeTree<JsonNode>> nodes = new ArrayList<>();
+    private List<NodeTree<NodeInput>> nodes = new ArrayList<>();
 
     @Default
     public NodeTreeBlock(
@@ -38,14 +38,14 @@ public class NodeTreeBlock
     public NodeTreeBlock(
             String name,
             Node<?> parentNode,
-            List<NodeTree<JsonNode>> nodes
+            List<NodeTree<NodeInput>> nodes
     ) {
         super(NodeType.NODE_BLOCK, parentNode);
         this.name = name;
         this.nodes = nodes;
     }
 
-    public void addNode(NodeTree<JsonNode> node) {
+    public void addNode(NodeTree<NodeInput> node) {
         try {
             this.nodes.add(node);
             node.setParent(this);
@@ -55,8 +55,8 @@ public class NodeTreeBlock
     }
 
     @Override
-    public boolean traverse(JsonNode inputData) {
-        for (NodeTree<JsonNode> node : getNodes()) {
+    public boolean traverse(NodeInput inputData) {
+        for (NodeTree<NodeInput> node : getNodes()) {
             if (!node.traverse(inputData)) return false;
         }
         return true;

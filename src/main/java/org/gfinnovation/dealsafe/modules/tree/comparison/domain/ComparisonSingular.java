@@ -1,15 +1,15 @@
 package org.gfinnovation.dealsafe.modules.tree.comparison.domain;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.gfinnovation.dealsafe.utils.annotations.Default;
+import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.service.singular.ComparisonSingularOperation;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.service.singular.types.*;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTree;
+import org.gfinnovation.dealsafe.utils.annotations.Default;
 
 /**
  * @author Lucas Batista Pereira
@@ -22,7 +22,7 @@ import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTree;
 @Setter
 @ToString
 public class ComparisonSingular
-        extends NodeTree<JsonNode> {
+        extends NodeTree<NodeInput> {
     private ComparisonSingularTypeEnum comparisonTypeEnum;
     private String jsonVariablePath;
     private String expectedVar;
@@ -41,9 +41,9 @@ public class ComparisonSingular
     }
 
     @Override
-    public boolean traverse(JsonNode data) {
+    public boolean traverse(NodeInput data) {
         try {
-            String inputData = data.at(this.jsonVariablePath).asText();
+            String inputData = data.getJsonNode().at(this.jsonVariablePath).asText();
 
             ComparisonSingularTypeEnum comparisonTypeEnum = this.getComparisonTypeEnum();
             ComparisonSingularOperation comparisonOperation = comparisonTypeEnum.createOperationInstance();

@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe.modules.tree.root.infrastructure.mapper;
 
-import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.mapper.NodeTreeMapper;
+import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.mapper.NodeTreeGenericMapper;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeStatic;
 import org.gfinnovation.dealsafe.modules.tree.root.infrastructure.RootTreeStaticEntity;
 import org.mapstruct.Mapper;
@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Primary;
         unmappedTargetPolicy = ReportingPolicy.IGNORE
 )
 @Primary
-public interface RootTreeStaticMapper extends NodeTreeMapper<RootTreeStatic, RootTreeStaticEntity> {
+public interface RootTreeStaticMapper extends NodeTreeGenericMapper<RootTreeStatic, RootTreeStaticEntity> {
     @Override
     @Mapping(target = "nodes", source = "nodes", qualifiedByName = "mapNodes")
     RootTreeStatic toEntity(RootTreeStaticEntity schema);
