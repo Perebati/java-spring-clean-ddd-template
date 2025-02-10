@@ -6,7 +6,7 @@ import org.slf4j.MDC;
 
 import java.util.UUID;
 
-public abstract class GenericScenarioTest {
+public abstract class GenericTest {
 
     @BeforeEach
     public void setUp() {

@@ -26,7 +26,7 @@ import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeIf;
 import org.gfinnovation.dealsafe.modules.tree.root.application.service.interfaces.RootTreeDynamicService;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeDynamic;
 import org.gfinnovation.dealsafe.modules.tree.root.infrastructure.repository.interfaces.RootTreeRepository;
-import org.gfinnovation.dealsafe.tests._shared.GenericScenarioTest;
+import org.gfinnovation.dealsafe.tests._shared.GenericTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,8 +47,8 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
-@DisplayName("Test for tree validation")
-public class CreateTreeScenarioTest extends GenericScenarioTest {
+@DisplayName("Scenario: Complete cycle for tree validation")
+public class CreateTreeScenarioTest extends GenericTest {
 
     @Autowired
     private NodeTreeBlockService nodeTreeBlockService;

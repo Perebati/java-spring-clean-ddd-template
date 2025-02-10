@@ -7,7 +7,7 @@ import jakarta.transaction.Transactional;
 import org.gfinnovation.dealsafe.modules.input.adapter.web.request.CreateInputData;
 import org.gfinnovation.dealsafe.modules.input.application.usecase.command.CreateInputUseCase;
 import org.gfinnovation.dealsafe.modules.input.domain.Input;
-import org.gfinnovation.dealsafe.tests._shared.GenericScenarioTest;
+import org.gfinnovation.dealsafe.tests._shared.GenericTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +28,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @SpringBootTest
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
-@DisplayName("UseCase: Input creation")
-public class InputUseCaseTests extends GenericScenarioTest {
+@DisplayName("UseCase: InputCreate")
+public class InputUseCaseTests extends GenericTest {
     @Autowired
     private CreateInputUseCase createInputUseCase;
 

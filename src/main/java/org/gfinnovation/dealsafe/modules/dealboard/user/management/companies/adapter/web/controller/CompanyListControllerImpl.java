@@ -48,9 +48,9 @@ public class CompanyListControllerImpl implements CompanyListController {
     }
 
     @Override
-    public ResponseEntity<CompanyList> readList(@NonNull UUID company_list) throws SystemGlobalException {
+    public ResponseEntity<CompanyList> readList(@NonNull UUID id) throws SystemGlobalException {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(this.readCompanyList.execute(company_list));
+            return ResponseEntity.status(HttpStatus.OK).body(this.readCompanyList.execute(id));
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {

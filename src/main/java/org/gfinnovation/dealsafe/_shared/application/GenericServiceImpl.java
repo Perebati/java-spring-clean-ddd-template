@@ -110,7 +110,7 @@ public abstract class GenericServiceImpl
     protected <D> E update(UUID id, D data) throws SystemGlobalException {
         try {
             E entity = this.read(id);
-            ObjectMerger.mergeObjects(entity, data);
+            entity = ObjectMerger.mergeObjects(data, entity);
             return this.repository.update(entity, getRepositoryAuth());
         } catch (SystemGlobalException e) {
             throw e;
@@ -132,7 +132,7 @@ public abstract class GenericServiceImpl
     protected <D> CompletableFuture<E> updateAsync(UUID id, D data) throws SystemGlobalException {
         try {
             E entity = this.read(id);
-            ObjectMerger.mergeObjects(entity, data);
+            entity = ObjectMerger.mergeObjects(data, entity);
             return this.repository.updateAsync(entity, getRepositoryAuth());
         } catch (SystemGlobalException e) {
             throw e;

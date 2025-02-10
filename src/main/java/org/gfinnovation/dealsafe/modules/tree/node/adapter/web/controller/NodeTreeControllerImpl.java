@@ -62,13 +62,13 @@ class NodeTreeControllerImpl implements NodeTreeController {
     }
 
     @Override
-    public ResponseEntity<NodeTreeBlock> readNodeBlock(@NonNull UUID request) throws SystemGlobalException {
-        return ResponseEntity.ok(this.readNodeBlock.execute(request));
+    public ResponseEntity<NodeTreeBlock> readNodeBlock(@NonNull UUID id) throws SystemGlobalException {
+        return ResponseEntity.ok(this.readNodeBlock.execute(id));
     }
 
     @Override
-    public ResponseEntity<NodeTreeIf> readNodeIf(@NonNull UUID request) throws SystemGlobalException {
-        return ResponseEntity.ok(this.readNodeIf.execute(request));
+    public ResponseEntity<NodeTreeIf> readNodeIf(@NonNull UUID id) throws SystemGlobalException {
+        return ResponseEntity.ok(this.readNodeIf.execute(id));
     }
 
     @Override
@@ -78,14 +78,14 @@ class NodeTreeControllerImpl implements NodeTreeController {
     }
 
     @Override
-    public ResponseEntity<Void> deleteNodeBlock(@NonNull UUID request) throws SystemGlobalException {
-        this.deleteNodeBlock.execute(request);
+    public ResponseEntity<Void> deleteNodeBlock(@NonNull UUID id) throws SystemGlobalException {
+        this.deleteNodeBlock.execute(id);
         return ResponseEntity.ok().build();
     }
 
     @Override
-    public ResponseEntity<Void> deleteNodeIf(@NonNull UUID request) throws SystemGlobalException {
-        this.deleteNodeif.execute(request);
+    public ResponseEntity<Void> deleteNodeIf(@NonNull UUID id) throws SystemGlobalException {
+        this.deleteNodeif.execute(id);
         return ResponseEntity.ok().build();
     }
 }

@@ -86,7 +86,7 @@ class NodeTreeBlockServiceImpl
     @Override
     public void deleteBlock(UUID id) throws SystemGlobalException {
         try {
-            this.deleteAsync(id);
+            this.delete(id);
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {

@@ -1,5 +1,7 @@
 package org.gfinnovation.dealsafe.utils.converter;
 
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
+
 import java.lang.reflect.Field;
 
 public class ObjectMerger {
@@ -14,9 +16,9 @@ public class ObjectMerger {
      * @param <A>    tipo do objeto de origem
      * @param <B>    tipo do objeto de destino
      */
-    public static <A, B> void mergeObjects(A source, B target) {
+    public static <A, B> B mergeObjects(A source, B target) {
         if (source == null || target == null) {
-            return;
+            return target;
         }
 
         Class<?> sourceClass = source.getClass();
@@ -37,18 +39,18 @@ public class ObjectMerger {
                 }
 
                 targetField.setAccessible(true);
-
                 Object value = sourceField.get(source);
 
-                if (value != null && isAssignable(targetField.getType(), sourceField.getType())) {
+                if (value != null
+                        && targetField.getType().isAssignableFrom(sourceField.getType())) {
                     targetField.set(target, value);
                 }
-
             } catch (IllegalAccessException e) {
-                e.printStackTrace();
+                throw new SystemGlobalException("Something went wrong while merging objects in " + sourceClass.getName());
             }
         }
 
+        return target;
     }
 
     private static boolean isAssignable(Class<?> targetType, Class<?> sourceType) {

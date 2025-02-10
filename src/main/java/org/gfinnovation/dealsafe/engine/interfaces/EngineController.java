@@ -1,4 +1,4 @@
-package org.gfinnovation.dealsafe.engine.inbound.interfaces;
+package org.gfinnovation.dealsafe.engine.interfaces;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,6 +30,6 @@ public interface EngineController {
             @ApiResponse(responseCode = "400", description = "Requisição inválida", content = @Content),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
-    @PostMapping()
-    ResponseEntity<Boolean> validateJson(@RequestParam UUID root_id, @RequestBody JsonNode jsonNode);
+    @PostMapping("{id}")
+    ResponseEntity<Boolean> validateJson(@PathVariable UUID id, @RequestBody JsonNode jsonNode);
 }

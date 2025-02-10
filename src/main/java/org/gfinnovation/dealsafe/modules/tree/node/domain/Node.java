@@ -27,12 +27,12 @@ public class Node<T extends NodeInput>
     }
 
     public enum NodeType {
+        ROOT_STATIC,
+        ROOT_DYNAMIC,
         NODE_BLOCK,
         NODE_ACTION,
         NODE_IF,
         NODE_CONDITION,
-        ROOT_STATIC,
-        ROOT_DYNAMIC,
         CONDITIONAL_COMPARISON_SINGULAR,
         CONDITIONAL_COMPARISON_MULTIPLE,
         CONDITIONAL_COMPARISON_CUSTOM

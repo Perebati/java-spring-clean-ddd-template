@@ -1,6 +1,9 @@
 package org.gfinnovation.dealsafe.modules.tree.root.application.service.interfaces;
 
+import org.gfinnovation.dealsafe._shared.application.interfaces.GenericService;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
+import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
+import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTree;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -11,7 +14,7 @@ import java.util.UUID;
  * @class RootTreeService
  * @since v1.0 (30/11/2024)
  */
-public interface RootTreeService {
+public interface RootTreeService extends GenericService<RootTree<NodeInput>> {
     Object readGenericRoot(UUID id) throws SystemGlobalException;
 
     Optional<UUID> findRootIdByNodeId(UUID node_id) throws SystemGlobalException;

@@ -20,7 +20,7 @@ import org.springframework.test.context.ActiveProfiles;
 @SpringBootTest
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
-@DisplayName("Repository test for Input")
+@DisplayName("Repository: Input")
 public class InputRepositoryTest extends GenericBusinessRepositoryTest<Input> {
 
     String json = """

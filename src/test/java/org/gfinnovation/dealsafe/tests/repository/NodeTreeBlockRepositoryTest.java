@@ -22,7 +22,7 @@ import org.springframework.test.context.ActiveProfiles;
 @SpringBootTest
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
-@DisplayName("Repository test for NodeBlock")
+@DisplayName("Repository: NodeBlock")
 public class NodeTreeBlockRepositoryTest extends GenericBusinessRepositoryTest<NodeTreeBlock> {
     @Autowired
     private NodeTreeBlockRepository nodeTreeBlockRepository;

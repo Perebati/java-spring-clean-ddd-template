@@ -20,7 +20,7 @@ import java.util.UUID;
 @SpringBootTest
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
-@DisplayName("Repository test for RootTree Dynamic")
+@DisplayName("Repository: RootTreeDynamic")
 public class RootTreeDynamicRepositoryTest extends GenericBusinessRepositoryTest<RootTreeDynamic> {
     @Autowired
     private RootTreeDynamicRepository rootTreeDynamicRepository;

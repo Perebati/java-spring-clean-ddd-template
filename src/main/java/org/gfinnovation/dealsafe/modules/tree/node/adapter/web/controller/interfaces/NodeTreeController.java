@@ -59,7 +59,7 @@ public interface NodeTreeController {
             @ApiResponse(responseCode = "400", description = "Requisição inválida", content = @Content),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
-    @GetMapping("/node/{id}")
+    @GetMapping("/node-block/{id}")
     ResponseEntity<NodeTreeBlock> readNodeBlock(@PathVariable UUID id) throws SystemGlobalException;
 
     @Operation(

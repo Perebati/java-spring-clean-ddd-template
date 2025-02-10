@@ -20,7 +20,7 @@ import org.springframework.test.context.ActiveProfiles;
 @SpringBootTest
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
-@DisplayName("Repository test for RootTree Static")
+@DisplayName("Repository: RootTreeStatic")
 public class RootTreeStaticRepositoryTest extends GenericBusinessRepositoryTest<RootTreeStatic> {
     @Autowired
     private RootTreeFactory rootTreeFactory;
