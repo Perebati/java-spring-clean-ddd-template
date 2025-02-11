@@ -6,6 +6,7 @@ import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.In
 import org.gfinnovation.dealsafe.modules.input.domain.Input;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -15,13 +16,13 @@ import java.util.UUID;
  * @since v1.0 (07/02/2025)
  */
 @Component
-public class ReadInputUseCase extends UseCase<UUID, Input, InputService>{
-    public ReadInputUseCase(InputService inputService) {
+public class FindInputUseCase extends UseCase<UUID, Optional<Input>, InputService>{
+    public FindInputUseCase(InputService inputService) {
         super(inputService);
     }
 
     @Override
-    public Input execute(UUID input) throws ApplicationException {
-        return this.service.read(input);
+    public Optional<Input> execute(UUID input) throws ApplicationException {
+        return this.service.findById(input);
     }
 }

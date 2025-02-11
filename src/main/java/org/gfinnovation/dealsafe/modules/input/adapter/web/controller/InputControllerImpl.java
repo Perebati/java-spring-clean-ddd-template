@@ -6,13 +6,14 @@ import org.gfinnovation.dealsafe.exception.models.AdapterException;
 import org.gfinnovation.dealsafe.modules.input.adapter.web.controller.interfaces.InputController;
 import org.gfinnovation.dealsafe.modules.input.adapter.web.request.CreateInputData;
 import org.gfinnovation.dealsafe.modules.input.application.usecase.command.CreateInputUseCase;
-import org.gfinnovation.dealsafe.modules.input.application.usecase.query.ReadInputUseCase;
+import org.gfinnovation.dealsafe.modules.input.application.usecase.query.FindInputUseCase;
 import org.gfinnovation.dealsafe.modules.input.domain.Input;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
 
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -25,7 +26,7 @@ import java.util.UUID;
 @AllArgsConstructor
 class InputControllerImpl implements InputController {
     private final CreateInputUseCase createInputUseCase;
-    private final ReadInputUseCase readInputUseCase;
+    private final FindInputUseCase findInputUseCase;
 
 
     @Override
@@ -41,10 +42,10 @@ class InputControllerImpl implements InputController {
     }
 
     @Override
-    public ResponseEntity<Input> readInput(@NonNull UUID id)
+    public ResponseEntity<Optional<Input>> readInput(@NonNull UUID id)
             throws SystemGlobalException {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(this.readInputUseCase.execute(id));
+            return ResponseEntity.status(HttpStatus.OK).body(this.findInputUseCase.execute(id));
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {

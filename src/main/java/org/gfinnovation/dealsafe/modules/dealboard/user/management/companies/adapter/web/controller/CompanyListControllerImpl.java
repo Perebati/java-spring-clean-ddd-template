@@ -8,8 +8,8 @@ import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.ada
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.adapter.web.request.CompanyListData;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.application.usecase.command.CreateCompanyList;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.application.usecase.command.UpdateCompanyList;
-import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.application.usecase.query.ReadAllCompanyList;
-import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.application.usecase.query.ReadCompanyList;
+import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.application.usecase.query.FindAllCompanyList;
+import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.application.usecase.query.FindCompanyList;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.domain.CompanyList;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,22 +17,23 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Controller
 public class CompanyListControllerImpl implements CompanyListController {
     private final CreateCompanyList createCompanyList;
-    private final ReadCompanyList readCompanyList;
-    private final ReadAllCompanyList readAllCompanyList;
+    private final FindCompanyList findCompanyList;
+    private final FindAllCompanyList findAllCompanyList;
     private final UpdateCompanyList updateCompanyList;
 
     public CompanyListControllerImpl(CreateCompanyList createCompanyList,
-                                     ReadCompanyList readCompanyList,
-                                     ReadAllCompanyList readAllCompanyList,
+                                     FindCompanyList findCompanyList,
+                                     FindAllCompanyList findAllCompanyList,
                                      UpdateCompanyList updateCompanyList) {
         this.createCompanyList = createCompanyList;
-        this.readCompanyList = readCompanyList;
-        this.readAllCompanyList = readAllCompanyList;
+        this.findCompanyList = findCompanyList;
+        this.findAllCompanyList = findAllCompanyList;
         this.updateCompanyList = updateCompanyList;
     }
 
@@ -48,9 +49,9 @@ public class CompanyListControllerImpl implements CompanyListController {
     }
 
     @Override
-    public ResponseEntity<CompanyList> readList(@NonNull UUID id) throws SystemGlobalException {
+    public ResponseEntity<Optional<CompanyList>> findCompanyList(@NonNull UUID id) throws SystemGlobalException {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(this.readCompanyList.execute(id));
+            return ResponseEntity.status(HttpStatus.OK).body(this.findCompanyList.execute(id));
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
@@ -59,9 +60,9 @@ public class CompanyListControllerImpl implements CompanyListController {
     }
 
     @Override
-    public ResponseEntity<List<CompanyList>> realAllList() throws SystemGlobalException {
+    public ResponseEntity<Optional<List<CompanyList>>> findAllCompanyList() throws SystemGlobalException {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(this.readAllCompanyList.execute(null));
+            return ResponseEntity.status(HttpStatus.OK).body(this.findAllCompanyList.execute(null));
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {

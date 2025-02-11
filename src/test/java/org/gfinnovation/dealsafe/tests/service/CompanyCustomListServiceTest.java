@@ -66,4 +66,24 @@ public class CompanyCustomListServiceTest extends GenericTest {
         assertEquals(list2, companyList.getCnpjs());
         assertNotNull(companyList.getId());
     }
+
+    @Test
+    @Transactional
+    public void testUpdate2(){
+        String listName1 = "test 1";
+        List<String> list1 = new ArrayList<>(List.of("54913262000176", "38676795000125", "79225338000100"));
+
+        CompanyList companyList = this.companyListService.createCompanyList(listName1, list1);
+
+        assertEquals(listName1, companyList.getName());
+        assertEquals(list1, companyList.getCnpjs());
+        assertNotNull(companyList.getId());
+        List<String> list2 = new ArrayList<>(List.of("54913262000177", "38676795000126", "79225338000101"));
+
+        companyList = this.companyListService.updateCompanyList(companyList.getId(), new CompanyListData(null, list2));
+
+        assertEquals(listName1, companyList.getName());
+        assertEquals(list2, companyList.getCnpjs());
+        assertNotNull(companyList.getId());
+    }
 }

@@ -6,15 +6,16 @@ import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.dom
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
-public class ReadAllCompanyList extends UseCase<Void, List<CompanyList>, CompanyListService> {
-    public ReadAllCompanyList(CompanyListService companyListService) {
+public class FindAllCompanyList extends UseCase<Void, Optional<List<CompanyList>>, CompanyListService> {
+    public FindAllCompanyList(CompanyListService companyListService) {
         super(companyListService);
     }
 
     @Override
-    public List<CompanyList> execute(Void input) {
-        return service.readAll().get();
+    public Optional<List<CompanyList>> execute(Void input) {
+        return service.readAll();
     }
 }

@@ -5,8 +5,8 @@ import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.controller.interf
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeCreationData;
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeTreeBlockData;
 import org.gfinnovation.dealsafe.modules.tree.node.application.usecase.command.*;
-import org.gfinnovation.dealsafe.modules.tree.node.application.usecase.query.ReadNodeBlock;
-import org.gfinnovation.dealsafe.modules.tree.node.application.usecase.query.ReadNodeIf;
+import org.gfinnovation.dealsafe.modules.tree.node.application.usecase.query.FindNodeBlock;
+import org.gfinnovation.dealsafe.modules.tree.node.application.usecase.query.FindNodeIf;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeBlock;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeIf;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
 
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -29,8 +30,8 @@ class NodeTreeControllerImpl implements NodeTreeController {
     private final DeleteNodeBlock deleteNodeBlock;
     private final DeleteNodeIf deleteNodeif;
     private final UpdateNodeBlock updateNodeBlock;
-    private final ReadNodeBlock readNodeBlock;
-    private final ReadNodeIf readNodeIf;
+    private final FindNodeBlock findNodeBlock;
+    private final FindNodeIf findNodeIf;
 
     @Autowired
     NodeTreeControllerImpl(
@@ -39,16 +40,16 @@ class NodeTreeControllerImpl implements NodeTreeController {
             DeleteNodeBlock deleteNodeBlock,
             DeleteNodeIf deleteNodeif,
             UpdateNodeBlock updateNodeBlock,
-            ReadNodeBlock readNodeBlock,
-            ReadNodeIf readNodeIf
+            FindNodeBlock findNodeBlock,
+            FindNodeIf findNodeIf
     ) {
         this.createNodeBlock = createNodeBlock;
         this.createNodeIf = createNodeIf;
         this.deleteNodeBlock = deleteNodeBlock;
         this.deleteNodeif = deleteNodeif;
         this.updateNodeBlock = updateNodeBlock;
-        this.readNodeBlock = readNodeBlock;
-        this.readNodeIf = readNodeIf;
+        this.findNodeBlock = findNodeBlock;
+        this.findNodeIf = findNodeIf;
     }
 
     @Override
@@ -62,13 +63,13 @@ class NodeTreeControllerImpl implements NodeTreeController {
     }
 
     @Override
-    public ResponseEntity<NodeTreeBlock> readNodeBlock(@NonNull UUID id) throws SystemGlobalException {
-        return ResponseEntity.ok(this.readNodeBlock.execute(id));
+    public ResponseEntity<Optional<NodeTreeBlock>> findNodeBlock(@NonNull UUID id) throws SystemGlobalException {
+        return ResponseEntity.ok(this.findNodeBlock.execute(id));
     }
 
     @Override
-    public ResponseEntity<NodeTreeIf> readNodeIf(@NonNull UUID id) throws SystemGlobalException {
-        return ResponseEntity.ok(this.readNodeIf.execute(id));
+    public ResponseEntity<Optional<NodeTreeIf>> findNodeIf(@NonNull UUID id) throws SystemGlobalException {
+        return ResponseEntity.ok(this.findNodeIf.execute(id));
     }
 
     @Override

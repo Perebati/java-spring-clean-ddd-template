@@ -81,13 +81,12 @@ public abstract class GenericBusinessRepositoryImpl
      */
 
     /**
-     * Sync version of create.
+     * Creates an entity in database
      *
-     * @param entity Entity that extends GenericBusinessClass
+     * @param entity Entity to be crated.
+     * @param auth Repository credentials, must contain user and WhitelabelId.
      * @return E
-     * @throws InfrastructureException Thrown when an unexpected database error occurs.
-     * @author Lucas Batista Pereira
-     * @since v1.0 (06/11/2024)
+     * @throws InfrastructureException Custom error.
      */
     @Override
     @Transactional
@@ -106,23 +105,21 @@ public abstract class GenericBusinessRepositoryImpl
         }
     }
 
+
     /**
-     * Standard reading method.
+     * Reads and returns an entity by its id.
      *
-     * @param id Reference entity id.
-     * @return Entity
-     * @throws InfrastructureException Thrown when an unexpected database error occurs.
-     * @author Lucas Batista Pereira
-     * @since v1.0 (06/11/2024)
+     * @param id EntityId to be read.
+     * @param auth Repository credentials, must contain user and WhitelabelId.
+     * @return E
+     * @throws InfrastructureException Custom error.
      */
     @Override
     public E read(
             @Nonnull UUID id,
             @Nonnull RepositoryAuth auth) throws InfrastructureException {
         try {
-            S result = this.findById(id, auth.whitelabelId(), entityClass)
-                    .orElseThrow(() -> new InfrastructureException("Entity not found with id: " + id));
-            return mapper.toEntity(result);
+            return mapper.toEntity(this.readInternal(id, auth));
         } catch (InfrastructureException e) {
             logger.error("Failed to retrieve entity with id: {}", id, e);
             throw e;
@@ -133,13 +130,12 @@ public abstract class GenericBusinessRepositoryImpl
 
 
     /**
-     * Protected class, for internal use only.
+     * Used for specifics situations in this class.
      *
-     * @param id Reference entity id.
-     * @return Schema
-     * @throws InfrastructureException Thrown when an unexpected database error occurs.
-     * @author Lucas Batista Pereira
-     * @since v1.0 (06/11/2024)
+     * @param id EntityId to be read.
+     * @param auth Repository credentials, must contain user and WhitelabelId.
+     * @return E
+     * @throws InfrastructureException Custom error.
      */
     protected S readInternal(
             UUID id,
@@ -154,14 +150,14 @@ public abstract class GenericBusinessRepositoryImpl
         }
     }
 
+
     /**
-     * Sync version of Update method.
+     * Updates an entity.
      *
      * @param entity Entity to be updated.
+     * @param auth Repository credentials, must contain user and WhitelabelId.
      * @return E
-     * @throws InfrastructureException Thrown when an unexpected database error occurs.
-     * @author Lucas Batista Pereira
-     * @since v1.0 (06/11/2024)
+     * @throws InfrastructureException Custom error.
      */
     @Override
     @Transactional
@@ -213,6 +209,20 @@ public abstract class GenericBusinessRepositoryImpl
         jpaRepository.save(schema);
 
         logger.info("Entity with id: {} was marked as deleted.", id);
+    }
+
+    @Override
+    public Optional<E> findById(
+            @Nonnull UUID id,
+            @Nonnull RepositoryAuth auth) throws InfrastructureException {
+        try {
+            return Optional.ofNullable(mapper.toEntity(this.readInternal(id, auth)));
+        } catch (InfrastructureException e) {
+            logger.error("Failed to retrieve entity with id: {}", id, e);
+            throw e;
+        } catch (Exception e) {
+            throw new InfrastructureException("Failed to retrieve data");
+        }
     }
 
     /**

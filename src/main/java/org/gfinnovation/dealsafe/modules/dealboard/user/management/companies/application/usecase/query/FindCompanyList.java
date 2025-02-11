@@ -5,16 +5,17 @@ import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.app
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.domain.CompanyList;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Component
-public class ReadCompanyList extends UseCase<UUID, CompanyList, CompanyListService> {
-    public ReadCompanyList(CompanyListService companyListService) {
+public class FindCompanyList extends UseCase<UUID, Optional<CompanyList>, CompanyListService> {
+    public FindCompanyList(CompanyListService companyListService) {
         super(companyListService);
     }
 
     @Override
-    public CompanyList execute(UUID input) {
-        return this.service.read(input);
+    public Optional<CompanyList> execute(UUID input) {
+        return this.service.findById(input);
     }
 }

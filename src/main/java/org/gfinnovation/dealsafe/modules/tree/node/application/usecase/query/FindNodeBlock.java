@@ -5,6 +5,7 @@ import org.gfinnovation.dealsafe.modules.tree.node.application.service.interface
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeBlock;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -14,13 +15,13 @@ import java.util.UUID;
  * @since v1.0 (06/02/2025)
  */
 @Component
-public class ReadNodeBlock extends UseCase<UUID, NodeTreeBlock, NodeTreeBlockService> {
-    public ReadNodeBlock(NodeTreeBlockService nodeTreeBlockService) {
+public class FindNodeBlock extends UseCase<UUID, Optional<NodeTreeBlock>, NodeTreeBlockService> {
+    public FindNodeBlock(NodeTreeBlockService nodeTreeBlockService) {
         super(nodeTreeBlockService);
     }
 
     @Override
-    public NodeTreeBlock execute(UUID input) {
-        return this.service.read(input);
+    public Optional<NodeTreeBlock> execute(UUID input) {
+        return this.service.findById(input);
     }
 }

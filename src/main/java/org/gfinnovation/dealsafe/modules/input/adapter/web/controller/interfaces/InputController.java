@@ -15,6 +15,7 @@ import org.gfinnovation.dealsafe.modules.input.domain.Input;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -70,5 +71,5 @@ public interface InputController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
     @GetMapping("/{id}")
-    ResponseEntity<Input> readInput(@PathVariable UUID id) throws SystemGlobalException;
+    ResponseEntity<Optional<Input>> readInput(@PathVariable UUID id) throws SystemGlobalException;
 }

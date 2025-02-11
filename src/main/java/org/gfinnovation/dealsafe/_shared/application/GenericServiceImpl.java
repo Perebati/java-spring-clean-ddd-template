@@ -51,6 +51,16 @@ public abstract class GenericServiceImpl
         }
     }
 
+    public Optional<E> findById(UUID id) throws SystemGlobalException {
+        try {
+            return this.repository.findById(id, getRepositoryAuth());
+        } catch (SystemGlobalException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new ApplicationException("Something went wrong finding an entity.");
+        }
+    }
+
     public Optional<List<E>> readAll() throws SystemGlobalException {
         try {
             return this.repository.findAll(getRepositoryAuth());

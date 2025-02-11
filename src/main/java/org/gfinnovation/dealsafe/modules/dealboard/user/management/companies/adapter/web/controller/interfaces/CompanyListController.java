@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -61,7 +62,7 @@ public interface CompanyListController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
     @GetMapping("company-list/{id}")
-    ResponseEntity<CompanyList> readList(@PathVariable UUID id) throws SystemGlobalException;
+    ResponseEntity<Optional<CompanyList>> findCompanyList(@PathVariable UUID id) throws SystemGlobalException;
 
     @Operation(summary = "Realiza a leitura de todas as listas de empresas")
     @ApiResponses(value = {
@@ -70,7 +71,7 @@ public interface CompanyListController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
     @GetMapping("company-list/getAll")
-    ResponseEntity<List<CompanyList>> realAllList() throws SystemGlobalException;
+    ResponseEntity<Optional<List<CompanyList>>> findAllCompanyList() throws SystemGlobalException;
 
     @Operation(summary = "Atualiza um objeto de lista de empresas", description = "Necessita do objeto a ser atualizado.")
     @ApiResponses(value = {
@@ -87,7 +88,7 @@ public interface CompanyListController {
                     schema = @Schema(implementation = CompanyListData.class),
                     examples = {
                             @ExampleObject(
-                                    name = "UpdateInputRecordRecordExemplo",
+                                    name = "CompanyListData",
                                     value = """
                                             {
                                               "name": "Lista personaliza 01 atualizada",

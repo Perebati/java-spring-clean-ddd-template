@@ -160,4 +160,32 @@ public abstract class GenericBusinessRepositoryTest<
             throw new RuntimeException(e);
         }
     }
+
+    @Test
+    public void testCreateAsync() {
+        try {
+            E entity = createEntity();
+            E createdEntity = repository.createAsync(entity, repositoryAuth).join();
+
+            assertNotNull(createdEntity.getId(), "A entidade criada deveria ter um ID gerado.");
+            assertNotNull(createdEntity.getCreatedAt(), "A entidade criada deveria ter a data de criação definida.");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    public void testUpdateAsync(){
+        try {
+            E entity = createEntity();
+            E createdEntity = repository.create(entity, repositoryAuth);
+
+            E updatedEntity = repository.updateAsync(createdEntity, repositoryAuth).join();
+
+            assertNotNull(updatedEntity.getId(), "O ID da entidade atualizada não deve ser nulo.");
+            assertNotEquals(createdEntity.getUpdatedAt(), updatedEntity.getUpdatedAt(), "A data de atualização deveria ser alterada.");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

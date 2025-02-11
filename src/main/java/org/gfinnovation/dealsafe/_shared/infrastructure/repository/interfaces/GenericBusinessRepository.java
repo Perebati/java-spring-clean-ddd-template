@@ -4,6 +4,7 @@ import jakarta.annotation.Nonnull;
 import org.gfinnovation.dealsafe._shared.domain.GenericClass;
 import org.gfinnovation.dealsafe._shared.infrastructure.RepositoryAuth;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
+import org.gfinnovation.dealsafe.exception.models.InfrastructureException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
@@ -32,6 +33,8 @@ public interface GenericBusinessRepository<E extends GenericClass> {
     E update(@Nonnull E entity, @Nonnull RepositoryAuth auth) throws SystemGlobalException;
 
     void delete(@Nonnull UUID id, @Nonnull RepositoryAuth auth) throws SystemGlobalException;
+
+    Optional<E> findById(@Nonnull UUID id, @Nonnull RepositoryAuth auth) throws InfrastructureException;
 
     Optional<List<E>> findAll(@Nonnull RepositoryAuth auth) throws SystemGlobalException;
 

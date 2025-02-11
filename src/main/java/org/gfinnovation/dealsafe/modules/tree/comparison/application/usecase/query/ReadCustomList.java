@@ -25,12 +25,6 @@ public class ReadCustomList {
     }
 
     public static List<String> execute(UUID input) throws BadRequestException {
-        if (staticCompanyListService == null) {
-            throw new IllegalStateException(
-                    "staticCompanyListService was not initialized in Spring!"
-            );
-        }
-
         CompanyList comparisonMulti = staticCompanyListService.read(input);
         return comparisonMulti.getCnpjs();
     }

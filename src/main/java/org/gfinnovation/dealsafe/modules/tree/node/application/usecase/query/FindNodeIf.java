@@ -5,6 +5,7 @@ import org.gfinnovation.dealsafe.modules.tree.node.application.service.interface
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeIf;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -14,13 +15,13 @@ import java.util.UUID;
  * @since v1.0 (06/02/2025)
  */
 @Component
-public class ReadNodeIf extends UseCase<UUID, NodeTreeIf, NodeTreeIfService> {
-    public ReadNodeIf(NodeTreeIfService nodeTreeIfService) {
+public class FindNodeIf extends UseCase<UUID, Optional<NodeTreeIf>, NodeTreeIfService> {
+    public FindNodeIf(NodeTreeIfService nodeTreeIfService) {
         super(nodeTreeIfService);
     }
 
     @Override
-    public NodeTreeIf execute(UUID input) {
-        return this.service.read(input);
+    public Optional<NodeTreeIf> execute(UUID input) {
+        return this.service.findById(input);
     }
 }

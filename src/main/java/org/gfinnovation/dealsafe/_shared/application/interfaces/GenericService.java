@@ -20,6 +20,8 @@ import java.util.UUID;
 public interface GenericService<E extends GenericClass> {
     E read(UUID id) throws SystemGlobalException;
 
+    Optional<E> findById(UUID id) throws SystemGlobalException;
+
     Optional<List<E>> readAll() throws SystemGlobalException;
 
     Optional<List<E>> readAllByIds(List<UUID> ids) throws SystemGlobalException;

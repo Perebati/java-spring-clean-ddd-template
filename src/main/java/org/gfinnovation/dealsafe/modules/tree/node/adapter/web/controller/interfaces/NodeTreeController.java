@@ -14,6 +14,7 @@ import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeIf;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -60,7 +61,7 @@ public interface NodeTreeController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
     @GetMapping("/node-block/{id}")
-    ResponseEntity<NodeTreeBlock> readNodeBlock(@PathVariable UUID id) throws SystemGlobalException;
+    ResponseEntity<Optional<NodeTreeBlock>> findNodeBlock(@PathVariable UUID id) throws SystemGlobalException;
 
     @Operation(
             summary = "Leitura de nó IF na árvore",
@@ -71,7 +72,7 @@ public interface NodeTreeController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
     @GetMapping("/node-if/{id}")
-    ResponseEntity<NodeTreeIf> readNodeIf(@PathVariable UUID id) throws SystemGlobalException;
+    ResponseEntity<Optional<NodeTreeIf>> findNodeIf(@PathVariable UUID id) throws SystemGlobalException;
 
     @Operation(
             summary = "Update de nó block na árvore",
@@ -105,5 +106,5 @@ public interface NodeTreeController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
     @DeleteMapping("/node-if/{id}")
-    ResponseEntity<Void> deleteNodeIf(@RequestParam UUID id) throws SystemGlobalException;
+    ResponseEntity<Void> deleteNodeIf(@PathVariable UUID id) throws SystemGlobalException;
 }
