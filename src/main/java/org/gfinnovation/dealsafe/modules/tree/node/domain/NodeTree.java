@@ -1,10 +1,16 @@
 package org.gfinnovation.dealsafe.modules.tree.node.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
+import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonCustomList;
+import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonMulti;
+import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
 import org.gfinnovation.dealsafe.utils.annotations.Default;
 
 import java.util.UUID;
@@ -23,9 +29,22 @@ import java.util.UUID;
 @Setter
 @ToString
 @EqualsAndHashCode(callSuper = true)
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.DEDUCTION
+)
+@JsonSubTypes({
+        @JsonSubTypes.Type(NodeTreeBlock.class),
+        @JsonSubTypes.Type(NodeTreeIf.class),
+        @JsonSubTypes.Type(ComparisonSingular.class),
+        @JsonSubTypes.Type(ComparisonMulti.class),
+        @JsonSubTypes.Type(ComparisonCustomList.class)
+})
 public class NodeTree<T extends NodeInput>
         extends Node<T> {
+    @JsonIgnore
     private UUID parentId;
+
+    @JsonIgnore
     private ParentType parentType;
 
     @Default
@@ -37,6 +56,7 @@ public class NodeTree<T extends NodeInput>
         setParent(parentNode);
     }
 
+    @JsonIgnore
     public void setParent(Node<?> parent) {
         if (parent == null) {
             this.parentId = null;

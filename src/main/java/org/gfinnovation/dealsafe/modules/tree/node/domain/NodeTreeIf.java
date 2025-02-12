@@ -1,10 +1,15 @@
 package org.gfinnovation.dealsafe.modules.tree.node.domain;
 
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
+import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonCustomList;
+import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonMulti;
+import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
 import org.gfinnovation.dealsafe.utils.annotations.Default;
 
 import java.util.ArrayList;
@@ -22,8 +27,38 @@ import java.util.List;
 @ToString
 public class NodeTreeIf
         extends NodeTree<NodeInput> {
+
+    @ArraySchema(schema = @Schema(
+            oneOf = {
+                    NodeTreeIf.class,
+                    NodeTreeBlock.class,
+                    ComparisonSingular.class,
+                    ComparisonMulti.class,
+                    ComparisonCustomList.class
+            }
+    ))
     private final List<NodeTree<NodeInput>> conditionalNodes = new ArrayList<>();
+
+    @ArraySchema(schema = @Schema(
+            oneOf = {
+                    NodeTreeIf.class,
+                    NodeTreeBlock.class,
+                    ComparisonSingular.class,
+                    ComparisonMulti.class,
+                    ComparisonCustomList.class
+            }
+    ))
     private final List<NodeTree<NodeInput>> thenNodes = new ArrayList<>();
+
+    @ArraySchema(schema = @Schema(
+            oneOf = {
+                    NodeTreeIf.class,
+                    NodeTreeBlock.class,
+                    ComparisonSingular.class,
+                    ComparisonMulti.class,
+                    ComparisonCustomList.class
+            }
+    ))
     private final List<NodeTree<NodeInput>> elseNodes = new ArrayList<>();
 
     @Default

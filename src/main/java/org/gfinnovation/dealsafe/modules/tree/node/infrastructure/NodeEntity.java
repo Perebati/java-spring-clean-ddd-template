@@ -38,7 +38,6 @@ public class NodeEntity
         NODE_BLOCK,
         NODE_ACTION,
         NODE_IF,
-        NODE_CONDITION,
         ROOT_STATIC,
         ROOT_DYNAMIC,
         CONDITIONAL_COMPARISON_SINGULAR,
