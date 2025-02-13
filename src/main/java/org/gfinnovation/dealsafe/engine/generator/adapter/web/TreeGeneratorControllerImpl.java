@@ -2,11 +2,10 @@ package org.gfinnovation.dealsafe.engine.generator.adapter.web;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
-import org.gfinnovation.dealsafe.exception.SystemGlobalException;
-import org.gfinnovation.dealsafe.exception.models.AdapterException;
 import org.gfinnovation.dealsafe.engine.generator.adapter.web.interfaces.TreeGeneratorController;
 import org.gfinnovation.dealsafe.engine.generator.application.usecase.CreateTreeUseCase;
-import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
+import org.gfinnovation.dealsafe.exception.models.AdapterException;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTree;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +23,7 @@ public class TreeGeneratorControllerImpl implements TreeGeneratorController {
 
     private final CreateTreeUseCase createTreeUseCase;
 
-    public ResponseEntity<RootTree<?>> createTree(@NotNull RootTree<NodeInput> request) {
+    public ResponseEntity<RootTree<?>> createTree(@NotNull RootTree<?> request) {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(
                     this.createTreeUseCase.execute(

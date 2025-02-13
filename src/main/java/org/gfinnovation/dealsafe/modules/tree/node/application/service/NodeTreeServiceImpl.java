@@ -1,7 +1,6 @@
 package org.gfinnovation.dealsafe.modules.tree.node.application.service;
 
 import org.gfinnovation.dealsafe._shared.application.GenericServiceImpl;
-import org.gfinnovation.dealsafe._shared.infrastructure.RepositoryAuth;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.ApplicationException;
 import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
@@ -31,10 +30,9 @@ class NodeTreeServiceImpl<T extends NodeTree<NodeInput>>
     @Override
     public T createNode(T newNode,
                         Node<?> parent,
-                        NodeTreeIf.SetNode nodeSet,
-                        RepositoryAuth auth) throws SystemGlobalException {
+                        NodeTreeIf.SetNode nodeSet) throws SystemGlobalException {
         try {
-            return this.repository.createNode(newNode, parent, nodeSet, auth);
+            return this.repository.createNode(newNode, parent, nodeSet, getRepositoryAuth());
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {

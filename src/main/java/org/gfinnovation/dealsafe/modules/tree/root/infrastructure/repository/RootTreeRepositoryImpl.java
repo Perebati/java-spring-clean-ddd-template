@@ -87,7 +87,6 @@ class RootTreeRepositoryImpl
     public Optional<UUID> findRootIdByNodeId(UUID node_id) throws SystemGlobalException {
         try {
             String sql = """
-                    
                         WITH RECURSIVE hierarchy AS (
                         SELECT
                             n.id AS node_id,

@@ -1,7 +1,6 @@
 package org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces;
 
 import org.gfinnovation.dealsafe._shared.application.interfaces.GenericService;
-import org.gfinnovation.dealsafe._shared.infrastructure.RepositoryAuth;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
@@ -18,6 +17,5 @@ public interface NodeTreeService<T extends NodeTree<NodeInput>>
         extends GenericService<NodeTree<NodeInput>> {
     T createNode(T newNode,
                  Node<?> parent,
-                 NodeTreeIf.SetNode nodeSet,
-                 RepositoryAuth auth) throws SystemGlobalException;
+                 NodeTreeIf.SetNode nodeSet) throws SystemGlobalException;
 }

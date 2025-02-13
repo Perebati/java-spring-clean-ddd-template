@@ -7,10 +7,10 @@ import org.gfinnovation.dealsafe.modules.tree.comparison.application.service.int
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonCustomList;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.factory.interfaces.ComparisonFactory;
 import org.gfinnovation.dealsafe.modules.tree.comparison.infrastructure.repository.interfaces.ComparisonCustomListRepository;
+import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeService;
 import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeService;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeIf;
-import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.repository.interfaces.NodeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,18 +26,18 @@ import java.util.UUID;
 class ComparisonCustomListServiceImpl
         extends GenericServiceImpl<ComparisonCustomList, ComparisonCustomListRepository>
         implements ComparisonCustomListService {
-    private final NodeRepository nodeRepository;
+    private final NodeService nodeService;
     private final ComparisonFactory comparisonFactory;
     private final NodeTreeService<ComparisonCustomList> nodeTreeService;
 
     @Autowired
     protected ComparisonCustomListServiceImpl(
             ComparisonCustomListRepository repository,
-            NodeRepository nodeRepository,
+            NodeService nodeService,
             ComparisonFactory comparisonFactory,
             NodeTreeService<ComparisonCustomList> nodeTreeService) {
         super(repository);
-        this.nodeRepository = nodeRepository;
+        this.nodeService = nodeService;
         this.comparisonFactory = comparisonFactory;
         this.nodeTreeService = nodeTreeService;
     }
@@ -50,9 +50,9 @@ class ComparisonCustomListServiceImpl
             NodeTreeIf.SetNode position
     ) throws SystemGlobalException {
         try {
-            Node<?> parent = this.nodeRepository.read(parentId, getRepositoryAuth());
+            Node<?> parent = this.nodeService.read(parentId);
             ComparisonCustomList newOperation = this.comparisonFactory.produce(type, jsonPath, customListId, parent);
-            return this.nodeTreeService.createNode(newOperation, parent, position, getRepositoryAuth());
+            return this.nodeTreeService.createNode(newOperation, parent, position);
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {

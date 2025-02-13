@@ -5,12 +5,12 @@ import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.ApplicationException;
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeCreationData;
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeTreeBlockData;
+import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeService;
 import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeBlockService;
 import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeService;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeBlock;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.factory.interfaces.NodeTreeFactory;
-import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.repository.interfaces.NodeRepository;
 import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.repository.interfaces.NodeTreeBlockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,19 +32,19 @@ class NodeTreeBlockServiceImpl
         extends GenericServiceImpl<NodeTreeBlock, NodeTreeBlockRepository>
         implements NodeTreeBlockService {
     private final NodeTreeFactory nodeTreeFactory;
-    private final NodeRepository nodeRepository;
+    private final NodeService nodeService;
     private final NodeTreeService<NodeTreeBlock> nodeTreeService;
 
     @Autowired
     public NodeTreeBlockServiceImpl(
             NodeTreeBlockRepository nodeTreeBlockRepository,
             NodeTreeFactory nodeTreeFactory,
-            NodeRepository nodeRepository,
+            NodeService nodeService,
             NodeTreeService<NodeTreeBlock> nodeTreeService
     ) {
         super(nodeTreeBlockRepository);
         this.nodeTreeFactory = nodeTreeFactory;
-        this.nodeRepository = nodeRepository;
+        this.nodeService = nodeService;
         this.nodeTreeService = nodeTreeService;
     }
 
@@ -61,9 +61,9 @@ class NodeTreeBlockServiceImpl
     @Override
     public NodeTreeBlock createBlock(NodeCreationData nodeCreationData) throws SystemGlobalException {
         try {
-            Node<?> parent = this.nodeRepository.read(nodeCreationData.parent_id(), getRepositoryAuth());
+            Node<?> parent = this.nodeService.read(nodeCreationData.parent_id());
             NodeTreeBlock newNode = this.nodeTreeFactory.produceBlock(nodeCreationData.name(), parent);
-            return this.read(this.nodeTreeService.createNode(newNode, parent, nodeCreationData.position(), getRepositoryAuth()).getId());
+            return this.read(this.nodeTreeService.createNode(newNode, parent, nodeCreationData.position()).getId());
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {

@@ -1,9 +1,9 @@
 package org.gfinnovation.dealsafe.engine.generator.application.service;
 
 import jakarta.transaction.Transactional;
+import org.gfinnovation.dealsafe.engine.generator.application.service.interfaces.TreeGeneratorService;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.AdapterException;
-import org.gfinnovation.dealsafe.engine.generator.application.service.interfaces.TreeGeneratorService;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonMultiRecord;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonSingularRecord;
 import org.gfinnovation.dealsafe.modules.tree.comparison.application.service.interfaces.ComparisonCustomListService;
@@ -44,7 +44,13 @@ class TreeGeneratorServiceImpl implements TreeGeneratorService {
     private final RootTreeDynamicService rootTreeDynamic;
     private final RootTreeStaticService rootTreeStatic;
 
-    public TreeGeneratorServiceImpl(NodeTreeBlockService nodeTreeBlockService, NodeTreeIfService nodeTreeIfService, ComparisonSingularService comparisonSingularService, ComparisonMultiService comparisonMultiService, ComparisonCustomListService comparisonCustomListService, RootTreeDynamicService rootTreeDynamic, RootTreeStaticService rootTreeStatic) {
+    public TreeGeneratorServiceImpl(NodeTreeBlockService nodeTreeBlockService,
+                                    NodeTreeIfService nodeTreeIfService,
+                                    ComparisonSingularService comparisonSingularService,
+                                    ComparisonMultiService comparisonMultiService,
+                                    ComparisonCustomListService comparisonCustomListService,
+                                    RootTreeDynamicService rootTreeDynamic,
+                                    RootTreeStaticService rootTreeStatic) {
         this.nodeTreeBlockService = nodeTreeBlockService;
         this.nodeTreeIfService = nodeTreeIfService;
         this.comparisonSingularService = comparisonSingularService;
