@@ -1,5 +1,9 @@
 package org.gfinnovation.dealsafe.modules.tree.comparison.domain;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,8 +30,9 @@ import java.util.UUID;
 @Getter
 @Setter
 @ToString
-public class ComparisonCustomList
-        extends NodeTree<NodeInput> {
+@JsonTypeName("ComparisonCustomList")
+@Schema(name = "ComparisonCustomList", description = "Representa um nó de comparação customizada na árvore de nós")
+public class ComparisonCustomList extends NodeTree<NodeInput> {
     private ComparisonCustomListEnum comparisonTypeEnum;
     private String jsonVariablePath;
     private UUID customListId;
@@ -42,6 +47,19 @@ public class ComparisonCustomList
         super(NodeType.CONDITIONAL_COMPARISON_CUSTOM, parentNode);
         this.comparisonTypeEnum = comparisonTypeEnum;
         this.jsonVariablePath = jsonPath;
+        this.customListId = customListId;
+    }
+
+    @JsonCreator
+    public ComparisonCustomList(
+            @JsonProperty("comparisonTypeEnum") ComparisonCustomListEnum comparisonTypeEnum,
+            @JsonProperty("jsonVariablePath") String jsonVariablePath,
+            @JsonProperty("customListId") UUID customListId
+
+    ) {
+        super(NodeType.CONDITIONAL_COMPARISON_CUSTOM, null);
+        this.comparisonTypeEnum = comparisonTypeEnum;
+        this.jsonVariablePath = jsonVariablePath;
         this.customListId = customListId;
     }
 

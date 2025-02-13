@@ -31,7 +31,7 @@ public class NodeEntity
     public final static String DISCRIMINATOR_COMPARISON_CUSTOM = "CC";
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "node_type")
+    @Column(name = "node_type", nullable = false)
     private NodeType nodeType;
 
     public enum NodeType {

@@ -25,6 +25,6 @@ import java.util.UUID;
 )
 @DiscriminatorValue(NodeEntity.DISCRIMINATOR_DYNAMIC)
 public class RootTreeDynamicEntity extends RootTreeEntity {
-    @Column(name = "dynamic_input_id")
+    @Column(name = "dynamic_input_id", nullable = false)
     private UUID dynamicInputId;
 }

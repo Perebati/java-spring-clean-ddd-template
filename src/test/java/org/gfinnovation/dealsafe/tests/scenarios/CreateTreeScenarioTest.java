@@ -19,6 +19,7 @@ import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonCustom
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonMulti;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeCreationData;
+import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeIfCreationData;
 import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeBlockService;
 import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeIfService;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTree;
@@ -119,10 +120,10 @@ public class CreateTreeScenarioTest extends GenericTest {
         NodeTree<?> createdNode2 = nodeTreeBlockService.createBlock(new NodeCreationData("NODE 2", node1.getId(), null));
         assertNotNull(createdNode2, "NODE 2 should not be null");
 
-        NodeTree<?> nodeIf1 = nodeTreeIfService.createIf(new NodeCreationData("NODE IF 1", node1.getId(), null));
+        NodeTree<?> nodeIf1 = nodeTreeIfService.createIf(new NodeIfCreationData(node1.getId(), null));
         assertNotNull(nodeIf1, "NODE IF 1 should not be null");
 
-        NodeTree<?> nodeIf2 = nodeTreeIfService.createIf(new NodeCreationData("NODE IF 2", nodeIf1.getId(), NodeTreeIf.SetNode.CONDITIONAL));
+        NodeTree<?> nodeIf2 = nodeTreeIfService.createIf(new NodeIfCreationData(nodeIf1.getId(), NodeTreeIf.SetNode.CONDITIONAL));
         assertNotNull(nodeIf2, "NODE IF 2 should not be null");
 
         NodeTree<?> node4 = nodeTreeBlockService.createBlock(new NodeCreationData("NODE 5", nodeIf1.getId(), NodeTreeIf.SetNode.THEN));
@@ -131,7 +132,7 @@ public class CreateTreeScenarioTest extends GenericTest {
         NodeTree<?> node5 = nodeTreeBlockService.createBlock(new NodeCreationData("NODE 6", nodeIf1.getId(), NodeTreeIf.SetNode.ELSE));
         assertNotNull(node5, "NODE 6 should not be null");
 
-        NodeTree<?> nodeIf3 = nodeTreeIfService.createIf(new NodeCreationData("NODE IF 3", nodeIf1.getId(), null));
+        NodeTree<?> nodeIf3 = nodeTreeIfService.createIf(new NodeIfCreationData(nodeIf1.getId(), null));
         assertNotNull(nodeIf3, "NODE IF 3 should not be null");
 
         when(rootTreeRepository.findRootIdByNodeId(any(UUID.class)))

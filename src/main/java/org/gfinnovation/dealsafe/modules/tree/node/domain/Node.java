@@ -1,9 +1,11 @@
 package org.gfinnovation.dealsafe.modules.tree.node.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 import org.gfinnovation.dealsafe._shared.domain.GenericBusinessClass;
 import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
@@ -19,6 +21,8 @@ import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeStatic;
  * @class Node
  * @since 24/01/2025
  */
+@Getter
+@Setter
 @ToString
 @EqualsAndHashCode(callSuper = true)
 @JsonTypeInfo(
@@ -36,18 +40,9 @@ import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeStatic;
 public class Node<T extends NodeInput>
         extends GenericBusinessClass
         implements NodeTraversal<T> {
-    @JsonIgnore
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private NodeType nodeType;
-
-    @JsonIgnore
-    public NodeType getNodeType() {
-        return nodeType;
-    }
-
-    @JsonIgnore
-    public void setNodeType(NodeType nodeType) {
-        this.nodeType = nodeType;
-    }
 
     public boolean traverse(T inputData) {
         return false;

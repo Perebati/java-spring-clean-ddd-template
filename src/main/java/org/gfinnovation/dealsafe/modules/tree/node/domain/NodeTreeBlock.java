@@ -1,5 +1,8 @@
 package org.gfinnovation.dealsafe.modules.tree.node.domain;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.EqualsAndHashCode;
@@ -26,6 +29,8 @@ import java.util.List;
 @Getter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
+@JsonTypeName("NodeTreeBlock")
+@Schema(name = "NodeTreeBlock", description = "Representa um nó do tipo BLOCK na árvore de nós")
 public class NodeTreeBlock
         extends NodeTree<NodeInput> {
     private String name;
@@ -58,6 +63,16 @@ public class NodeTreeBlock
         super(NodeType.NODE_BLOCK, parentNode);
         this.name = name;
         this.nodes = nodes;
+    }
+
+    @JsonCreator
+    public NodeTreeBlock(
+            @JsonProperty("name") String name,
+            @JsonProperty("nodes") List<NodeTree<NodeInput>> nodes
+    ) {
+        super(NodeType.NODE_BLOCK, null);
+        this.name = name;
+        this.nodes = (nodes != null) ? nodes : new ArrayList<>();
     }
 
     public void addNode(NodeTree<NodeInput> node) {

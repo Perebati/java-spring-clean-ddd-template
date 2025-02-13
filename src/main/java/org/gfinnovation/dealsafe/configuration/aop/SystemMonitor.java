@@ -3,13 +3,13 @@ package org.gfinnovation.dealsafe.configuration.aop;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.gfinnovation.dealsafe.exception.models.FailedRequestException;
 import org.gfinnovation.dealsafe.logging.LogService;
 import org.gfinnovation.dealsafe.logging.infrastrutcture.MethodCallLogSchema;
 import org.slf4j.MDC;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-import javax.naming.AuthenticationException;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -42,7 +42,7 @@ public class SystemMonitor {
         String companyId = MDC.get("whitelabelId");
 
         if (companyId == null || userId == null) {
-            throw new AuthenticationException("Erro de autenticação!");
+            throw new FailedRequestException("Unauthorized request");
         }
         try {
             return joinPoint.proceed();

@@ -1,16 +1,19 @@
 package org.gfinnovation.dealsafe.exception;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
+import org.gfinnovation.dealsafe.exception.models.*;
 import org.gfinnovation.dealsafe.logging.LogService;
 import org.gfinnovation.dealsafe.logging.infrastrutcture.ErrorLogSchema;
-import org.gfinnovation.dealsafe.exception.models.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
@@ -93,6 +96,45 @@ public class GlobalExceptionHandler {
                 MDC.get("methodId"));
 
         logger.error(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(JsonProcessingException.class)
+    public ResponseEntity<Object> handleJacksonException(JsonProcessingException ex, WebRequest request) {
+        buildErrorLog(ex,
+                MDC.get("userId"),
+                MDC.get("companyId"),
+                MDC.get("requestId"),
+                MDC.get("methodId"));
+
+        logger.error(ex.getCause().getMessage());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<Object> handleHttpException(HttpMessageNotReadableException ex, WebRequest request) {
+        buildErrorLog(ex,
+                MDC.get("userId"),
+                MDC.get("companyId"),
+                MDC.get("requestId"),
+                MDC.get("methodId"));
+
+        logger.error(ex.getCause().getMessage());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Object> handleValidationException(MethodArgumentNotValidException ex, WebRequest request) {
+        buildErrorLog(ex,
+                MDC.get("userId"),
+                MDC.get("companyId"),
+                MDC.get("requestId"),
+                MDC.get("methodId"));
+
+        logger.error(ex.getCause().getMessage());
+
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 

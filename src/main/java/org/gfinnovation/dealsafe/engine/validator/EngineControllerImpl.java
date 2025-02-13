@@ -1,9 +1,8 @@
-package org.gfinnovation.dealsafe.engine;
+package org.gfinnovation.dealsafe.engine.validator;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
-import org.gfinnovation.dealsafe.engine.interfaces.EngineController;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.ApplicationException;
 import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;

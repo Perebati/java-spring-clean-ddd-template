@@ -4,6 +4,7 @@ import org.gfinnovation.dealsafe._shared.application.GenericServiceImpl;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.ApplicationException;
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeCreationData;
+import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeIfCreationData;
 import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeIfService;
 import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeService;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
@@ -44,7 +45,7 @@ class NodeTreeIfServiceImpl
     }
 
     @Override
-    public NodeTreeIf createIf(NodeCreationData nodeCreationData) throws SystemGlobalException {
+    public NodeTreeIf createIf(NodeIfCreationData nodeCreationData) throws SystemGlobalException {
         try {
             Node<?> parent = this.nodeRepository.read(nodeCreationData.parent_id(), getRepositoryAuth());
             NodeTreeIf newNode = this.nodeTreeFactory.produceIf(parent);

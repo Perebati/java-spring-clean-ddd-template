@@ -24,7 +24,7 @@ import java.util.List;
 )
 public class NodeTreeBlockEntity
         extends NodeTreeEntity {
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
     @OneToMany(cascade = {CascadeType.REMOVE, CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.EAGER)

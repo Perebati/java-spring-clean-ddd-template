@@ -1,5 +1,8 @@
 package org.gfinnovation.dealsafe.modules.tree.node.domain;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.EqualsAndHashCode;
@@ -25,6 +28,8 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
+@JsonTypeName("NodeTreeIf")
+@Schema(name = "NodeTreeIf", description = "Representa um nó do tipo IF na árvore de nós")
 public class NodeTreeIf
         extends NodeTree<NodeInput> {
 
@@ -37,7 +42,7 @@ public class NodeTreeIf
                     ComparisonCustomList.class
             }
     ))
-    private final List<NodeTree<NodeInput>> conditionalNodes = new ArrayList<>();
+    private List<NodeTree<NodeInput>> conditionalNodes = new ArrayList<>();
 
     @ArraySchema(schema = @Schema(
             oneOf = {
@@ -48,7 +53,7 @@ public class NodeTreeIf
                     ComparisonCustomList.class
             }
     ))
-    private final List<NodeTree<NodeInput>> thenNodes = new ArrayList<>();
+    private List<NodeTree<NodeInput>> thenNodes = new ArrayList<>();
 
     @ArraySchema(schema = @Schema(
             oneOf = {
@@ -59,13 +64,26 @@ public class NodeTreeIf
                     ComparisonCustomList.class
             }
     ))
-    private final List<NodeTree<NodeInput>> elseNodes = new ArrayList<>();
+    private List<NodeTree<NodeInput>> elseNodes = new ArrayList<>();
 
     @Default
     public NodeTreeIf(
             Node<?> parentNode
     ) {
         super(NodeType.NODE_IF, parentNode);
+    }
+
+    @JsonCreator
+    public NodeTreeIf(
+            @JsonProperty("conditionalNodes") List<NodeTree<NodeInput>> conditionalNodes,
+            @JsonProperty("thenNodes") List<NodeTree<NodeInput>> thenNodes,
+            @JsonProperty("elseNodes") List<NodeTree<NodeInput>> elseNodes
+
+    ) {
+        super(NodeType.NODE_IF, null);
+        this.conditionalNodes = (conditionalNodes != null) ? conditionalNodes : new ArrayList<>();
+        this.thenNodes = (thenNodes != null) ? thenNodes : new ArrayList<>();
+        this.elseNodes = (elseNodes != null) ? elseNodes : new ArrayList<>();
     }
 
     public void addConditionalNode(NodeTree<NodeInput> node) {

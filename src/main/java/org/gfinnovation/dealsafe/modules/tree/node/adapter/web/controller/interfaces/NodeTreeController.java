@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeCreationData;
+import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeIfCreationData;
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeTreeBlockData;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeBlock;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeIf;
@@ -49,7 +50,7 @@ public interface NodeTreeController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
     @PostMapping("/node-if")
-    ResponseEntity<NodeTreeIf> createNodeIf(@RequestBody NodeCreationData request) throws SystemGlobalException;
+    ResponseEntity<NodeTreeIf> createNodeIf(@RequestBody NodeIfCreationData request) throws SystemGlobalException;
 
 
     @Operation(

@@ -1,5 +1,9 @@
 package org.gfinnovation.dealsafe.modules.tree.root.domain;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +13,7 @@ import org.gfinnovation.dealsafe.modules.input.domain.predefined.PredefinedTypeE
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTree;
 import org.gfinnovation.dealsafe.utils.annotations.Default;
 
-import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Maps Root attributes if the input of the validation tree is predefined.
@@ -23,6 +27,8 @@ import java.util.LinkedList;
 @Setter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
+@JsonTypeName("RootTreeStatic")
+@Schema(name = "RootTreeStatic", description = "Representa um nó raiz onde o input é pré-definido na árvore de nós")
 public class RootTreeStatic extends RootTree<NodeInput> {
     private PredefinedTypeEnum input_type;
 
@@ -35,10 +41,11 @@ public class RootTreeStatic extends RootTree<NodeInput> {
         this.input_type = type;
     }
 
+    @JsonCreator
     public RootTreeStatic(
-            String name,
-            PredefinedTypeEnum type,
-            LinkedList<NodeTree<NodeInput>> nodes
+            @JsonProperty("name") String name,
+            @JsonProperty("input_type") PredefinedTypeEnum type,
+            @JsonProperty("nodes") List<NodeTree<NodeInput>> nodes
     ) {
         super(name, NodeType.ROOT_STATIC, nodes);
         this.input_type = type;

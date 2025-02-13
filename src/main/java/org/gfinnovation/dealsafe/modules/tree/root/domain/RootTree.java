@@ -19,7 +19,6 @@ import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeIf;
 import org.gfinnovation.dealsafe.utils.annotations.Default;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -67,7 +66,7 @@ public class RootTree<T extends NodeInput> extends Node<T> {
     public RootTree(
             String name,
             NodeType nodeType,
-            LinkedList<NodeTree<T>> nodes
+            List<NodeTree<T>> nodes
     ) {
         setName(name);
         setNodeType(nodeType);

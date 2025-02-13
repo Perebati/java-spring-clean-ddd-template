@@ -1,5 +1,9 @@
 package org.gfinnovation.dealsafe.modules.tree.comparison.domain;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +25,8 @@ import org.gfinnovation.dealsafe.utils.annotations.Default;
 @Getter
 @Setter
 @ToString
+@JsonTypeName("ComparisonSingular")
+@Schema(name = "ComparisonSingular", description = "Representa um nó de comparação simples na árvore de nós")
 public class ComparisonSingular
         extends NodeTree<NodeInput> {
     private ComparisonSingularTypeEnum comparisonTypeEnum;
@@ -38,6 +44,19 @@ public class ComparisonSingular
         this.comparisonTypeEnum = comparisonTypeEnum;
         this.jsonVariablePath = jsonPath;
         this.expectedVar = variables;
+    }
+
+    @JsonCreator
+    public ComparisonSingular(
+            @JsonProperty("comparisonTypeEnum") ComparisonSingularTypeEnum comparisonTypeEnum,
+            @JsonProperty("jsonVariablePath") String jsonVariablePath,
+            @JsonProperty("expectedVar") String expectedVar
+
+    ) {
+        super(NodeType.CONDITIONAL_COMPARISON_SINGULAR, null);
+        this.comparisonTypeEnum = comparisonTypeEnum;
+        this.jsonVariablePath = jsonVariablePath;
+        this.expectedVar = expectedVar;
     }
 
     @Override

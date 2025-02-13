@@ -3,6 +3,7 @@ package org.gfinnovation.dealsafe.modules.tree.node.adapter.web.controller;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.controller.interfaces.NodeTreeController;
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeCreationData;
+import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeIfCreationData;
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeTreeBlockData;
 import org.gfinnovation.dealsafe.modules.tree.node.application.usecase.command.*;
 import org.gfinnovation.dealsafe.modules.tree.node.application.usecase.query.FindNodeBlock;
@@ -58,7 +59,7 @@ class NodeTreeControllerImpl implements NodeTreeController {
     }
 
     @Override
-    public ResponseEntity<NodeTreeIf> createNodeIf(@NonNull NodeCreationData request) throws SystemGlobalException {
+    public ResponseEntity<NodeTreeIf> createNodeIf(@NonNull NodeIfCreationData request) throws SystemGlobalException {
         return ResponseEntity.ok(this.createNodeIf.execute(request));
     }
 

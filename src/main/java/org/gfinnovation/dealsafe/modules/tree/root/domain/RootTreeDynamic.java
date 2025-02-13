@@ -1,5 +1,7 @@
 package org.gfinnovation.dealsafe.modules.tree.root.domain;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,6 +25,8 @@ import java.util.UUID;
 @Setter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
+@JsonTypeName("RootTreeDynamic")
+@Schema(name = "RootTreeDynamic", description = "Representa um nó raiz onde o input é dinâmico na árvore de nós")
 public class RootTreeDynamic extends RootTree<NodeInput> {
     private UUID dynamicInputId;
 

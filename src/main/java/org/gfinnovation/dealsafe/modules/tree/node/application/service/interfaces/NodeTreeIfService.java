@@ -2,12 +2,12 @@ package org.gfinnovation.dealsafe.modules.tree.node.application.service.interfac
 
 import org.gfinnovation.dealsafe._shared.application.interfaces.GenericService;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
-import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeCreationData;
+import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeIfCreationData;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeIf;
 
 import java.util.UUID;
 
 public interface NodeTreeIfService extends GenericService<NodeTreeIf> {
-    NodeTreeIf createIf(NodeCreationData nodeCreationData) throws SystemGlobalException;
+    NodeTreeIf createIf(NodeIfCreationData nodeCreationData) throws SystemGlobalException;
     void deleteIf(UUID id) throws SystemGlobalException;
 }

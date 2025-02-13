@@ -25,10 +25,10 @@ import java.util.UUID;
 )
 public class NodeTreeEntity
         extends NodeEntity {
-    @Column(name = "parent_id")
+    @Column(name = "parent_id", nullable = false)
     private UUID parentId;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "parent_type")
+    @Column(name = "parent_type", nullable = false)
     private NodeTree.ParentType parentType;
 }

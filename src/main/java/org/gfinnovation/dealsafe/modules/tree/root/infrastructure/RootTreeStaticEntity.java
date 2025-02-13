@@ -25,6 +25,6 @@ import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.NodeEntity;
 @DiscriminatorValue(NodeEntity.DISCRIMINATOR_STATIC)
 public class RootTreeStaticEntity extends RootTreeEntity {
     @Enumerated(EnumType.STRING)
-    @Column(name = "input_type")
+    @Column(name = "input_type", nullable = false)
     private PredefinedTypeEnum input_type;
 }

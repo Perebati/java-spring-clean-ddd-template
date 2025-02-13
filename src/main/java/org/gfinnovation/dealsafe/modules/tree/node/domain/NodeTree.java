@@ -1,6 +1,7 @@
 package org.gfinnovation.dealsafe.modules.tree.node.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.EqualsAndHashCode;
@@ -41,10 +42,11 @@ import java.util.UUID;
 })
 public class NodeTree<T extends NodeInput>
         extends Node<T> {
-    @JsonIgnore
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private UUID parentId;
 
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private ParentType parentType;
 
     @Default

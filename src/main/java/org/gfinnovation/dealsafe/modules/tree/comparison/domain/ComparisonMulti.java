@@ -1,5 +1,9 @@
 package org.gfinnovation.dealsafe.modules.tree.comparison.domain;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,8 +28,9 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class ComparisonMulti
-        extends NodeTree<NodeInput> {
+@JsonTypeName("ComparisonMulti")
+@Schema(name = "ComparisonMulti", description = "Representa um nó de comparação múltipla na árvore de nós")
+public class ComparisonMulti extends NodeTree<NodeInput> {
     private ComparisonMultiTypeEnum comparisonTypeEnum;
     private String jsonVariablePath;
     private List<String> expectedVars;
@@ -40,6 +45,19 @@ public class ComparisonMulti
         super(NodeType.CONDITIONAL_COMPARISON_MULTIPLE, parentNode);
         this.comparisonTypeEnum = comparisonTypeEnum;
         this.jsonVariablePath = jsonPath;
+        this.expectedVars = expectedVars;
+    }
+
+    @JsonCreator
+    public ComparisonMulti(
+            @JsonProperty("comparisonTypeEnum") ComparisonMultiTypeEnum comparisonTypeEnum,
+            @JsonProperty("jsonVariablePath") String jsonVariablePath,
+            @JsonProperty("expectedVars") List<String> expectedVars
+
+    ) {
+        super(NodeType.CONDITIONAL_COMPARISON_MULTIPLE, null);
+        this.comparisonTypeEnum = comparisonTypeEnum;
+        this.jsonVariablePath = jsonVariablePath;
         this.expectedVars = expectedVars;
     }
 
