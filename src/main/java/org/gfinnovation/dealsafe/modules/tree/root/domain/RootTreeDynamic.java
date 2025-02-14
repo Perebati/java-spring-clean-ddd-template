@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
-import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTree;
+import org.gfinnovation.dealsafe.modules.tree._shared.domain.NodeTree;
 import org.gfinnovation.dealsafe.utils.annotations.Default;
 
 import java.util.LinkedList;

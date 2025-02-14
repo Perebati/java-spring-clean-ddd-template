@@ -6,7 +6,7 @@ import org.gfinnovation.dealsafe.modules.tree.action.domain.NodeTreeActionReposi
 import org.gfinnovation.dealsafe.modules.tree.comparison.infrastructure.repository.interfaces.ComparisonCustomListRepository;
 import org.gfinnovation.dealsafe.modules.tree.comparison.infrastructure.repository.interfaces.ComparisonMultiRepository;
 import org.gfinnovation.dealsafe.modules.tree.comparison.infrastructure.repository.interfaces.ComparisonSingularRepository;
-import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
+import org.gfinnovation.dealsafe.modules.tree._shared.domain.Node;
 import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.repository.factory.interfaces.NodeTreeRepositoryFactory;
 import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.repository.interfaces.NodeTreeBlockRepository;
 import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.repository.interfaces.NodeTreeIfRepository;

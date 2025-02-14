@@ -1,4 +1,4 @@
-package org.gfinnovation.dealsafe.modules.tree.node.domain;
+package org.gfinnovation.dealsafe.modules.tree._shared.domain;
 
 /**
  * @author Lucas Batista Pereira

@@ -1,10 +1,10 @@
-package org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces;
+package org.gfinnovation.dealsafe.modules.tree._shared.application.interfaces;
 
 import org.gfinnovation.dealsafe._shared.application.interfaces.GenericService;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
-import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
-import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTree;
+import org.gfinnovation.dealsafe.modules.tree._shared.domain.Node;
+import org.gfinnovation.dealsafe.modules.tree._shared.domain.NodeTree;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeIf;
 
 /**

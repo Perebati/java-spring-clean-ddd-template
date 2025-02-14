@@ -1,9 +1,9 @@
-package org.gfinnovation.dealsafe.modules.tree.node.infrastructure;
+package org.gfinnovation.dealsafe.modules.tree._shared.infrastructure;
 
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTree;
+import org.gfinnovation.dealsafe.modules.tree._shared.domain.NodeTree;
 
 import java.util.UUID;
 

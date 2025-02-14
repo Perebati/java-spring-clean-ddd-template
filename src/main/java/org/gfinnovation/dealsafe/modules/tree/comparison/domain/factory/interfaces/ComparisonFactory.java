@@ -4,7 +4,7 @@ import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonCustomList;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonMulti;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
-import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
+import org.gfinnovation.dealsafe.modules.tree._shared.domain.Node;
 
 import java.util.List;
 import java.util.UUID;

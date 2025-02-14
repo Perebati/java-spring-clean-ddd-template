@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.ApplicationException;
 import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
-import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
+import org.gfinnovation.dealsafe.modules.tree._shared.domain.Node;
 import org.gfinnovation.dealsafe.modules.tree.root.application.service.interfaces.RootTreeDynamicService;
 import org.gfinnovation.dealsafe.modules.tree.root.application.service.interfaces.RootTreeService;
 import org.gfinnovation.dealsafe.modules.tree.root.application.service.interfaces.RootTreeStaticService;

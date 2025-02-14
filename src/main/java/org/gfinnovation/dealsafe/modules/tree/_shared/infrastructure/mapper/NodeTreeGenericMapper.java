@@ -1,9 +1,11 @@
-package org.gfinnovation.dealsafe.modules.tree.node.infrastructure.mapper;
+package org.gfinnovation.dealsafe.modules.tree._shared.infrastructure.mapper;
 
 import org.gfinnovation.dealsafe._shared.domain.GenericClass;
 import org.gfinnovation.dealsafe._shared.infrastructure.GenericEntity;
 import org.gfinnovation.dealsafe._shared.infrastructure.mapper.GenericBusinessMapper;
 import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
+import org.gfinnovation.dealsafe.modules.tree._shared.domain.NodeTree;
+import org.gfinnovation.dealsafe.modules.tree._shared.infrastructure.NodeTreeEntity;
 import org.gfinnovation.dealsafe.modules.tree.action.domain.NodeTreeAction;
 import org.gfinnovation.dealsafe.modules.tree.action.infrastructure.NodeTreeActionEntity;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonCustomList;
@@ -12,11 +14,9 @@ import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingul
 import org.gfinnovation.dealsafe.modules.tree.comparison.infrastructure.ComparisonCustomListEntity;
 import org.gfinnovation.dealsafe.modules.tree.comparison.infrastructure.ComparisonMultiEntity;
 import org.gfinnovation.dealsafe.modules.tree.comparison.infrastructure.ComparisonSingularEntity;
-import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTree;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeBlock;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeIf;
 import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.NodeTreeBlockEntity;
-import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.NodeTreeEntity;
 import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.NodeTreeIfEntity;
 import org.mapstruct.Named;
 

@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe.modules.tree.node.domain.factory.interfaces;
 
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
-import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
+import org.gfinnovation.dealsafe.modules.tree._shared.domain.Node;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeBlock;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeIf;
 

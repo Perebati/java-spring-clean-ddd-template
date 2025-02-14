@@ -13,8 +13,8 @@ import org.gfinnovation.dealsafe.modules.tree.comparison.application.usecase.que
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.service.multi.ComparisonMultiOperation;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.service.multi.types.ContainsOperation;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.service.multi.types.NotContainsOperation;
-import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
-import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTree;
+import org.gfinnovation.dealsafe.modules.tree._shared.domain.Node;
+import org.gfinnovation.dealsafe.modules.tree._shared.domain.NodeTree;
 import org.gfinnovation.dealsafe.utils.annotations.Default;
 
 import java.util.List;

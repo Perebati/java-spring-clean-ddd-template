@@ -1,4 +1,4 @@
-package org.gfinnovation.dealsafe.modules.tree.node.domain;
+package org.gfinnovation.dealsafe.modules.tree._shared.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,6 +12,8 @@ import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonCustomList;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonMulti;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
+import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeBlock;
+import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeIf;
 import org.gfinnovation.dealsafe.utils.annotations.Default;
 
 import java.util.UUID;
@@ -40,8 +42,7 @@ import java.util.UUID;
         @JsonSubTypes.Type(ComparisonMulti.class),
         @JsonSubTypes.Type(ComparisonCustomList.class)
 })
-public class NodeTree<T extends NodeInput>
-        extends Node<T> {
+public class NodeTree<T extends NodeInput> extends Node<T> {
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private UUID parentId;

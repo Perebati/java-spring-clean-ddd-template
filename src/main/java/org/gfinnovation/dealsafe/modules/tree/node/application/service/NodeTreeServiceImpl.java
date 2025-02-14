@@ -4,11 +4,11 @@ import org.gfinnovation.dealsafe._shared.application.GenericServiceImpl;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.ApplicationException;
 import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
-import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeService;
-import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
-import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTree;
+import org.gfinnovation.dealsafe.modules.tree._shared.application.interfaces.NodeTreeService;
+import org.gfinnovation.dealsafe.modules.tree._shared.domain.Node;
+import org.gfinnovation.dealsafe.modules.tree._shared.domain.NodeTree;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeIf;
-import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.repository.interfaces.NodeTreeRepository;
+import org.gfinnovation.dealsafe.modules.tree._shared.infrastructure.repository.interfaces.NodeTreeRepository;
 import org.springframework.stereotype.Service;
 
 /**

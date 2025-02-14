@@ -1,12 +1,12 @@
-package org.gfinnovation.dealsafe.modules.tree.node.infrastructure.repository;
+package org.gfinnovation.dealsafe.modules.tree._shared.infrastructure.repository;
 
 import jakarta.persistence.EntityManager;
 import org.gfinnovation.dealsafe._shared.infrastructure.repository.GenericBusinessRepositoryImpl;
 import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
-import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
-import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.NodeEntity;
-import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.mapper.NodeMapper;
-import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.repository.interfaces.NodeRepository;
+import org.gfinnovation.dealsafe.modules.tree._shared.domain.Node;
+import org.gfinnovation.dealsafe.modules.tree._shared.infrastructure.NodeEntity;
+import org.gfinnovation.dealsafe.modules.tree._shared.infrastructure.mapper.NodeMapper;
+import org.gfinnovation.dealsafe.modules.tree._shared.infrastructure.repository.interfaces.NodeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Repository;

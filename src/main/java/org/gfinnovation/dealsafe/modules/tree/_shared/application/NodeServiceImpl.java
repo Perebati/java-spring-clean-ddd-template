@@ -1,10 +1,10 @@
-package org.gfinnovation.dealsafe.modules.tree.node.application.service;
+package org.gfinnovation.dealsafe.modules.tree._shared.application;
 
 import org.gfinnovation.dealsafe._shared.application.GenericServiceImpl;
 import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
-import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeService;
-import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
-import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.repository.interfaces.NodeRepository;
+import org.gfinnovation.dealsafe.modules.tree._shared.application.interfaces.NodeService;
+import org.gfinnovation.dealsafe.modules.tree._shared.domain.Node;
+import org.gfinnovation.dealsafe.modules.tree._shared.infrastructure.repository.interfaces.NodeRepository;
 import org.springframework.stereotype.Service;
 
 /**

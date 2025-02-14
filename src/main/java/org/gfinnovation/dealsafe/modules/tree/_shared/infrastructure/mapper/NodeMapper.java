@@ -1,9 +1,9 @@
-package org.gfinnovation.dealsafe.modules.tree.node.infrastructure.mapper;
+package org.gfinnovation.dealsafe.modules.tree._shared.infrastructure.mapper;
 
 import org.gfinnovation.dealsafe._shared.infrastructure.mapper.GenericBusinessMapper;
 import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
-import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
-import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.NodeEntity;
+import org.gfinnovation.dealsafe.modules.tree._shared.domain.Node;
+import org.gfinnovation.dealsafe.modules.tree._shared.infrastructure.NodeEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.ReportingPolicy;

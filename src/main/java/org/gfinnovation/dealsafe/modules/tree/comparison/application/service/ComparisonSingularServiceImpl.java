@@ -8,9 +8,9 @@ import org.gfinnovation.dealsafe.modules.tree.comparison.application.service.int
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.factory.interfaces.ComparisonFactory;
 import org.gfinnovation.dealsafe.modules.tree.comparison.infrastructure.repository.interfaces.ComparisonSingularRepository;
-import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeService;
-import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeService;
-import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
+import org.gfinnovation.dealsafe.modules.tree._shared.application.interfaces.NodeService;
+import org.gfinnovation.dealsafe.modules.tree._shared.application.interfaces.NodeTreeService;
+import org.gfinnovation.dealsafe.modules.tree._shared.domain.Node;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

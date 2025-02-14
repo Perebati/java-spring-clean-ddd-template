@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe.modules.tree.root.infrastructure.mapper;
 
 import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
-import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.mapper.NodeTreeGenericMapper;
+import org.gfinnovation.dealsafe.modules.tree._shared.infrastructure.mapper.NodeTreeGenericMapper;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTree;
 import org.gfinnovation.dealsafe.modules.tree.root.infrastructure.RootTreeEntity;
 import org.mapstruct.Mapper;

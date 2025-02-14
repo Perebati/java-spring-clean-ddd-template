@@ -13,7 +13,7 @@ import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonMulti;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.exception.IllegalFieldException;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.factory.interfaces.ComparisonFactory;
-import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
+import org.gfinnovation.dealsafe.modules.tree._shared.domain.Node;
 import org.gfinnovation.dealsafe.modules.tree.root.application.service.interfaces.RootTreeService;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeDynamic;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeStatic;
@@ -59,7 +59,6 @@ public class ComparisonFactoryImpl implements ComparisonFactory {
      * @author Lucas Batista Pereira
      * @since v1.0 (30/11/2024)
      */
-
     public ComparisonSingular produce(
             ComparisonSingular.ComparisonSingularTypeEnum type,
             String jsonPath,

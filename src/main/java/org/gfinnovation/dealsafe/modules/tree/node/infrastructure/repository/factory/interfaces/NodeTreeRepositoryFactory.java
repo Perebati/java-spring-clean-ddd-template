@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe.modules.tree.node.infrastructure.repository.factory.interfaces;
 
 import org.gfinnovation.dealsafe._shared.infrastructure.repository.interfaces.GenericBusinessRepository;
-import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
+import org.gfinnovation.dealsafe.modules.tree._shared.domain.Node;
 
 /**
  * @author Lucas Batista Pereira

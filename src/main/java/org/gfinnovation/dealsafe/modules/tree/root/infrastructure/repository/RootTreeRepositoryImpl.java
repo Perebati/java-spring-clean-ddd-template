@@ -10,7 +10,7 @@ import org.gfinnovation.dealsafe._shared.infrastructure.repository.GenericBusine
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.InfrastructureException;
 import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
-import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
+import org.gfinnovation.dealsafe.modules.tree._shared.domain.Node;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTree;
 import org.gfinnovation.dealsafe.modules.tree.root.infrastructure.RootTreeEntity;
 import org.gfinnovation.dealsafe.modules.tree.root.infrastructure.mapper.RootTreeMapper;

@@ -1,5 +1,6 @@
 package org.gfinnovation.dealsafe.modules.tree.node.infrastructure.mapper;
 
+import org.gfinnovation.dealsafe.modules.tree._shared.infrastructure.mapper.NodeTreeGenericMapper;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeIf;
 import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.NodeTreeIfEntity;
 import org.mapstruct.Mapper;

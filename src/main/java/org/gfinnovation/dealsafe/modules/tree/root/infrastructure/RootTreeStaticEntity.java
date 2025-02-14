@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.gfinnovation.dealsafe.modules.input.domain.predefined.PredefinedTypeEnum;
-import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.NodeEntity;
+import org.gfinnovation.dealsafe.modules.tree._shared.infrastructure.NodeEntity;
 
 /**
  * @author Lucas Batista Pereira

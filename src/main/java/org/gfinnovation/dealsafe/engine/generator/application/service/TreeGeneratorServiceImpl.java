@@ -16,8 +16,8 @@ import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeCreat
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeIfCreationData;
 import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeBlockService;
 import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeIfService;
-import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
-import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTree;
+import org.gfinnovation.dealsafe.modules.tree._shared.domain.Node;
+import org.gfinnovation.dealsafe.modules.tree._shared.domain.NodeTree;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeBlock;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeIf;
 import org.gfinnovation.dealsafe.modules.tree.root.application.service.interfaces.RootTreeDynamicService;
@@ -33,7 +33,6 @@ import org.springframework.stereotype.Service;
  * @class TreeGeneratorServiceImpl
  * @since v1.0 (13/02/2025)
  */
-
 @Service
 class TreeGeneratorServiceImpl implements TreeGeneratorService {
     private final NodeTreeBlockService nodeTreeBlockService;
@@ -81,6 +80,12 @@ class TreeGeneratorServiceImpl implements TreeGeneratorService {
         }
     }
 
+    /**
+     * Via input, this method will create a tree based on the Json in a recursive manner.
+     *
+     * @param parentEntity Parent entity.
+     * @param tree Tree node.
+     */
     protected void processNode(Node<?> parentEntity, Node<?> tree) {
         switch (tree.getNodeType()) {
             case ROOT_STATIC -> {
@@ -118,6 +123,13 @@ class TreeGeneratorServiceImpl implements TreeGeneratorService {
         }
     }
 
+    /**
+     * Process the child node.
+     * @param parent Parent node.
+     * @param node Node.
+     * @param setNode Set node.
+     * @return Node
+     */
     protected Node<?> processChild(Node<?> parent, Node<?> node, NodeTreeIf.SetNode setNode) {
         switch (node.getNodeType()){
             case NODE_BLOCK -> {
