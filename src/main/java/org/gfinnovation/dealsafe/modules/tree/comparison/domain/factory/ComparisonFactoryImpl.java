@@ -5,13 +5,13 @@ import org.apache.coyote.BadRequestException;
 import org.gfinnovation.dealsafe._shared.infrastructure.repository.exception.EntityNotFound;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.DomainException;
-import org.gfinnovation.dealsafe.exception.models.FailedRequestException;
 import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.InputService;
 import org.gfinnovation.dealsafe.modules.input.domain.Input;
 import org.gfinnovation.dealsafe.modules.input.domain.predefined.PredefinedTypeEnum;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonCustomList;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonMulti;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
+import org.gfinnovation.dealsafe.modules.tree.comparison.domain.exception.IllegalFieldException;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.factory.interfaces.ComparisonFactory;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.Node;
 import org.gfinnovation.dealsafe.modules.tree.root.application.service.interfaces.RootTreeService;
@@ -79,7 +79,7 @@ public class ComparisonFactoryImpl implements ComparisonFactory {
                 try {
                     predefinedTypeEnum.validateJsonPath(predefinedTypeEnum, jsonPath);
                 } catch (NoSuchFieldException e) {
-                    throw new FailedRequestException("Field not found: " + e.getMessage());
+                    throw new IllegalFieldException("Field not found: " + e.getMessage());
                 }
             } else if (rootTreeEntity instanceof RootTreeDynamic) {
                 Input input = this.inputService.read(((RootTreeDynamic) rootTreeEntity).getDynamicInputId());
@@ -140,7 +140,7 @@ public class ComparisonFactoryImpl implements ComparisonFactory {
             try {
                 predefinedTypeEnum.validateJsonPath(predefinedTypeEnum, jsonPath);
             } catch (NoSuchFieldException e) {
-                throw new FailedRequestException("Field not found: " + e.getMessage());
+                throw new IllegalFieldException("Field not found: " + e.getMessage());
             }
         } else if (rootTreeEntity instanceof RootTreeDynamic) {
             Input input = this.inputService.read(((RootTreeDynamic) rootTreeEntity).getDynamicInputId());

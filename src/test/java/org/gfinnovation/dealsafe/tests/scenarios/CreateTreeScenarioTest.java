@@ -26,28 +26,20 @@ import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTree;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeIf;
 import org.gfinnovation.dealsafe.modules.tree.root.application.service.interfaces.RootTreeDynamicService;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeDynamic;
-import org.gfinnovation.dealsafe.modules.tree.root.infrastructure.repository.interfaces.RootTreeRepository;
 import org.gfinnovation.dealsafe.tests._shared.GenericTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @ActiveProfiles("test")
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
 @DisplayName("Scenario: Complete cycle for tree validation")
 public class CreateTreeScenarioTest extends GenericTest {
 
@@ -74,9 +66,6 @@ public class CreateTreeScenarioTest extends GenericTest {
 
     @Autowired
     private RootTreeDynamicService rootTreeDynamic;
-
-    @MockBean
-    private RootTreeRepository rootTreeRepository;
 
     @Test
     @DisplayName("Should create a tree and then validate a json.")
@@ -134,9 +123,6 @@ public class CreateTreeScenarioTest extends GenericTest {
 
         NodeTree<?> nodeIf3 = nodeTreeIfService.createIf(new NodeIfCreationData(nodeIf1.getId(), null));
         assertNotNull(nodeIf3, "NODE IF 3 should not be null");
-
-        when(rootTreeRepository.findRootIdByNodeId(any(UUID.class)))
-                .thenReturn(Optional.of(createdRoot.getId()));
 
         ComparisonSingular comparisonSingular = comparisonSingularService.create(new ComparisonSingularRecord(
                 ComparisonSingular.ComparisonSingularTypeEnum.EQUAL,

@@ -3,15 +3,17 @@ package org.gfinnovation.dealsafe.tests.usecase;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
-import org.gfinnovation.dealsafe.engine.generator.adapter.web.interfaces.TreeGeneratorController;
+import org.gfinnovation.dealsafe.engine.generator.application.usecase.CreateTreeUseCase;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTree;
 import org.gfinnovation.dealsafe.tests._shared.GenericTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * @author Lucas Batista Pereira
@@ -21,10 +23,8 @@ import org.springframework.test.context.ActiveProfiles;
  */
 @SpringBootTest
 @ActiveProfiles("test")
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
 @DisplayName("UseCase: CreateTreeUseCase")
 public class CreateTreeUseCaseTest extends GenericTest {
-
     String input = """
                     {
                       "input_type": "TESTE",
@@ -64,8 +64,9 @@ public class CreateTreeUseCaseTest extends GenericTest {
                       ]
                     }
             """;
+
     @Autowired
-    private TreeGeneratorController treeGeneratorController;
+    private CreateTreeUseCase createTreeUseCase;
 
     @Transactional
     @Test
@@ -74,6 +75,13 @@ public class CreateTreeUseCaseTest extends GenericTest {
 
         RootTree<?> rootObject = mapper.readValue(input, RootTree.class);
 
-        //this.treeGeneratorController.createTree(rootObject);
+        RootTree<?> resultRoot = this.createTreeUseCase.execute(rootObject);
+
+        assertNotNull(resultRoot.getId());
+        assertNotNull(resultRoot.getName());
+        assertNotNull(resultRoot.getNodes());
+        assertEquals("Root Tree Name", rootObject.getName());
+        assertEquals(1, resultRoot.getNodes().size());
+        assertNotNull(resultRoot.getNodes().getFirst().getId());
     }
 }

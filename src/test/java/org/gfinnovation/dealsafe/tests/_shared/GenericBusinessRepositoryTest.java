@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @since v1.0 (30/11/2024)
  */
 public abstract class GenericBusinessRepositoryTest<
-        E extends GenericClass> {
+        E extends GenericClass> extends GenericTest{
 
     protected GenericBusinessRepository<E> repository;
     protected RepositoryAuth repositoryAuth;

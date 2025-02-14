@@ -53,7 +53,7 @@ class InputServiceImpl
     ) throws SystemGlobalException {
         try {
             return this.inputRepository.create(
-                    this.inputFactory.produce(request.name(), request.json().asText()),
+                    this.inputFactory.produce(request.name(), request.json().toString()),
                     getRepositoryAuth());
         } catch (SystemGlobalException e) {
             throw e;

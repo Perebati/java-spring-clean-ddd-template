@@ -10,6 +10,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.gfinnovation.dealsafe._shared.domain.GenericBusinessClass;
 import org.gfinnovation.dealsafe.exception.models.ApplicationException;
+import org.gfinnovation.dealsafe.modules.tree.comparison.domain.exception.IllegalFieldException;
 import org.gfinnovation.dealsafe.utils.annotations.Default;
 import org.springframework.validation.annotation.Validated;
 
@@ -71,7 +72,7 @@ public class Input extends GenericBusinessClass {
             JsonNode rootNode = objectMapper.readTree(json);
             mapJsonToFields("", rootNode, fields);
         } catch (Exception e) {
-            throw new RuntimeException("Error processing Json", e);
+            throw new IllegalFieldException("Error processing Json");
         }
     }
 
@@ -112,7 +113,7 @@ public class Input extends GenericBusinessClass {
         jsonPath = jsonPath.replaceAll("/", ".");
 
         if (!fields.containsKey(jsonPath)) {
-            throw new IllegalArgumentException("Specified path does not exist: " + jsonPath);
+            throw new IllegalFieldException("Specified path does not exist: " + jsonPath);
         }
     }
 
@@ -128,7 +129,7 @@ public class Input extends GenericBusinessClass {
         boolean isTypeValid = validateType(variable, expectedType);
 
         if (!isTypeValid) {
-            throw new IllegalArgumentException("Variable type does not match expected type: " + expectedType);
+            throw new IllegalFieldException("Variable type does not match expected type: " + expectedType);
         }
     }
 

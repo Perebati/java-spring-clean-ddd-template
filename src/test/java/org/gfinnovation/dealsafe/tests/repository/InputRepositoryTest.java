@@ -6,7 +6,6 @@ import org.gfinnovation.dealsafe.modules.input.infrastructure.repository.interfa
 import org.gfinnovation.dealsafe.tests._shared.GenericBusinessRepositoryTest;
 import org.junit.jupiter.api.DisplayName;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -19,7 +18,6 @@ import org.springframework.test.context.ActiveProfiles;
  */
 @SpringBootTest
 @ActiveProfiles("test")
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
 @DisplayName("Repository: Input")
 public class InputRepositoryTest extends GenericBusinessRepositoryTest<Input> {
 
@@ -40,6 +38,7 @@ public class InputRepositoryTest extends GenericBusinessRepositoryTest<Input> {
             }
             """;
 
+
     @Autowired
     private InputRepository inputRepository;
 
@@ -48,6 +47,7 @@ public class InputRepositoryTest extends GenericBusinessRepositoryTest<Input> {
 
     @Override
     protected Input createEntity() {
+
         return this.inputFactory.produce("TestInputH2", json);
     }
 

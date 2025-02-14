@@ -7,7 +7,6 @@ import org.gfinnovation.dealsafe.modules.tree.root.infrastructure.repository.int
 import org.gfinnovation.dealsafe.tests._shared.GenericBusinessRepositoryTest;
 import org.junit.jupiter.api.DisplayName;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -19,7 +18,6 @@ import org.springframework.test.context.ActiveProfiles;
  */
 @SpringBootTest
 @ActiveProfiles("test")
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
 @DisplayName("Repository: RootTreeStatic")
 public class RootTreeStaticRepositoryTest extends GenericBusinessRepositoryTest<RootTreeStatic> {
     @Autowired
