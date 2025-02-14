@@ -27,8 +27,7 @@ import org.gfinnovation.dealsafe.utils.annotations.Default;
 @ToString
 @JsonTypeName("ComparisonSingular")
 @Schema(name = "ComparisonSingular", description = "Representa um nó de comparação simples na árvore de nós")
-public final class ComparisonSingular
-        extends NodeTree<NodeInput> {
+public final class ComparisonSingular extends NodeTree<NodeInput> {
     private ComparisonSingularTypeEnum comparisonTypeEnum;
     private String jsonVariablePath;
     private String expectedVar;

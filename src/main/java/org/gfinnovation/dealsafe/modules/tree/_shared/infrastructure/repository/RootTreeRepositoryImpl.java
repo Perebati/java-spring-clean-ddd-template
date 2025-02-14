@@ -1,4 +1,4 @@
-package org.gfinnovation.dealsafe.modules.tree.root.infrastructure.repository;
+package org.gfinnovation.dealsafe.modules.tree._shared.infrastructure.repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
@@ -11,11 +11,11 @@ import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.InfrastructureException;
 import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
 import org.gfinnovation.dealsafe.modules.tree._shared.domain.Node;
-import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTree;
-import org.gfinnovation.dealsafe.modules.tree.root.infrastructure.RootTreeEntity;
-import org.gfinnovation.dealsafe.modules.tree.root.infrastructure.mapper.RootTreeMapper;
+import org.gfinnovation.dealsafe.modules.tree._shared.domain.RootTree;
+import org.gfinnovation.dealsafe.modules.tree._shared.infrastructure.RootTreeEntity;
+import org.gfinnovation.dealsafe.modules.tree._shared.infrastructure.mapper.RootTreeMapper;
 import org.gfinnovation.dealsafe.modules.tree.root.infrastructure.repository.interfaces.RootTreeDynamicRepository;
-import org.gfinnovation.dealsafe.modules.tree.root.infrastructure.repository.interfaces.RootTreeRepository;
+import org.gfinnovation.dealsafe.modules.tree._shared.infrastructure.repository.interfaces.RootTreeRepository;
 import org.gfinnovation.dealsafe.modules.tree.root.infrastructure.repository.interfaces.RootTreeStaticRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;

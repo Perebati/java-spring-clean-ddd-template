@@ -14,7 +14,7 @@ import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingul
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.exception.IllegalFieldException;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.factory.interfaces.ComparisonFactory;
 import org.gfinnovation.dealsafe.modules.tree._shared.domain.Node;
-import org.gfinnovation.dealsafe.modules.tree.root.application.service.interfaces.RootTreeService;
+import org.gfinnovation.dealsafe.modules.tree._shared.application.interfaces.RootTreeService;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeDynamic;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeStatic;
 import org.gfinnovation.dealsafe.utils.converter.PathNormalizer;

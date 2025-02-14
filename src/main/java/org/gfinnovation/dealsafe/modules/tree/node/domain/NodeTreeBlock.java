@@ -33,8 +33,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @JsonTypeName("NodeTreeBlock")
 @Schema(name = "NodeTreeBlock", description = "Representa um nó do tipo BLOCK na árvore de nós")
-public class NodeTreeBlock
-        extends NodeTree<NodeInput> {
+public class NodeTreeBlock extends NodeTree<NodeInput> {
     private String name;
 
     @ArraySchema(schema = @Schema(

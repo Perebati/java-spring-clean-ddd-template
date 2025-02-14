@@ -32,8 +32,7 @@ import java.util.List;
 @ToString
 @JsonTypeName("NodeTreeIf")
 @Schema(name = "NodeTreeIf", description = "Representa um nó do tipo IF na árvore de nós")
-public class NodeTreeIf
-        extends NodeTree<NodeInput> {
+public class NodeTreeIf extends NodeTree<NodeInput> {
 
     @ArraySchema(schema = @Schema(
             oneOf = {

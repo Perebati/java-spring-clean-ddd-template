@@ -3,7 +3,7 @@ package org.gfinnovation.dealsafe.engine.generator.application.usecase;
 import org.gfinnovation.dealsafe._shared.application.usecase.UseCase;
 import org.gfinnovation.dealsafe.exception.models.ApplicationException;
 import org.gfinnovation.dealsafe.engine.generator.application.service.interfaces.TreeGeneratorService;
-import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTree;
+import org.gfinnovation.dealsafe.modules.tree._shared.domain.RootTree;
 import org.springframework.stereotype.Component;
 
 /**

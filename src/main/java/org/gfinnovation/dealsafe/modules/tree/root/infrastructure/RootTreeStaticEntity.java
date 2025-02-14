@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.gfinnovation.dealsafe.modules.input.domain.predefined.PredefinedTypeEnum;
 import org.gfinnovation.dealsafe.modules.tree._shared.infrastructure.NodeEntity;
+import org.gfinnovation.dealsafe.modules.tree._shared.infrastructure.RootTreeEntity;
 
 /**
  * @author Lucas Batista Pereira

@@ -6,7 +6,7 @@ import org.gfinnovation.dealsafe.engine.generator.adapter.web.interfaces.TreeGen
 import org.gfinnovation.dealsafe.engine.generator.application.usecase.CreateTreeUseCase;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.AdapterException;
-import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTree;
+import org.gfinnovation.dealsafe.modules.tree._shared.domain.RootTree;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

@@ -1,9 +1,9 @@
-package org.gfinnovation.dealsafe.modules.tree.root.application.service.interfaces;
+package org.gfinnovation.dealsafe.modules.tree._shared.application.interfaces;
 
 import org.gfinnovation.dealsafe._shared.application.interfaces.GenericService;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
-import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTree;
+import org.gfinnovation.dealsafe.modules.tree._shared.domain.RootTree;
 
 import java.util.Optional;
 import java.util.UUID;
