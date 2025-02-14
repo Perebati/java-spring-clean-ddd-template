@@ -3,7 +3,7 @@ package org.gfinnovation.dealsafe._sandbox;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.gfinnovation.dealsafe.engine.generator.application.service.interfaces.TreeGeneratorService;
+import org.gfinnovation.dealsafe.modules.engine.generator.application.service.interfaces.TreeGeneratorService;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.AdapterException;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.application.service.interfaces.CompanyListService;

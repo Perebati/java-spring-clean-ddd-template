@@ -19,7 +19,7 @@ import java.util.List;
 @Table(
         name = "tree_root",
         indexes = {
-                @Index(name = "idx_tree_root_id", columnList = "id")
+                @Index(name = "idx_tree_root_id", columnList = "id", unique = true)
         }
 )
 public class RootTreeEntity extends NodeEntity {

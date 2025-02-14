@@ -1,4 +1,4 @@
-package org.gfinnovation.dealsafe.engine.validator;
+package org.gfinnovation.dealsafe.modules.engine.validator;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

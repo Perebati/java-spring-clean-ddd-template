@@ -3,7 +3,7 @@ package org.gfinnovation.dealsafe.tests.usecase;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
-import org.gfinnovation.dealsafe.engine.generator.application.usecase.CreateTreeUseCase;
+import org.gfinnovation.dealsafe.modules.engine.generator.application.usecase.CreateTreeUseCase;
 import org.gfinnovation.dealsafe.modules.tree._shared.domain.RootTree;
 import org.gfinnovation.dealsafe.tests._shared.GenericTest;
 import org.junit.jupiter.api.DisplayName;

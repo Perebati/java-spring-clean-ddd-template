@@ -18,7 +18,12 @@ import java.util.UUID;
 @Entity
 @EqualsAndHashCode(callSuper = true)
 @DiscriminatorValue(NodeEntity.DISCRIMINATOR_COMPARISON_CUSTOM)
-@Table(name = "tree_root_node_condition_comparison_custom")
+@Table(
+        name = "tree_root_node_condition_comparison_custom",
+        indexes = {
+                @Index(name = "idx_tree_comparison_custom_id", columnList = "id")
+        }
+)
 public class ComparisonCustomListEntity extends NodeTreeEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "comparison_Type", nullable = false)

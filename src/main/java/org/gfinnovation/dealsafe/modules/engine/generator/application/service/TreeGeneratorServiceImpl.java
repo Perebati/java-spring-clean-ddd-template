@@ -1,7 +1,7 @@
-package org.gfinnovation.dealsafe.engine.generator.application.service;
+package org.gfinnovation.dealsafe.modules.engine.generator.application.service;
 
 import jakarta.transaction.Transactional;
-import org.gfinnovation.dealsafe.engine.generator.application.service.interfaces.TreeGeneratorService;
+import org.gfinnovation.dealsafe.modules.engine.generator.application.service.interfaces.TreeGeneratorService;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.AdapterException;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonMultiRecord;

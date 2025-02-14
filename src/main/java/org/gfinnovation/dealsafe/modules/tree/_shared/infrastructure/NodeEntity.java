@@ -16,9 +16,15 @@ import org.gfinnovation.dealsafe._shared.infrastructure.GenericBusinessEntity;
 @EqualsAndHashCode(callSuper = true)
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "type", length = 3, discriminatorType = DiscriminatorType.STRING)
-@Table(name = "tree")
-public class NodeEntity
-        extends GenericBusinessEntity {
+@Table(
+        name = "tree",
+        indexes = {
+                @Index(name = "idx_tree", columnList = "id", unique = true),
+                @Index(name = "idx_tree_user_id", columnList = "user_id"),
+                @Index(name = "idx_tree_whiteLabel_id", columnList = "whiteLabel_id")
+        }
+)
+public class NodeEntity extends GenericBusinessEntity {
     public final static String DISCRIMINATOR_ROOT = "RT";
     public final static String DISCRIMINATOR_NODE = "ND";
     public final static String DISCRIMINATOR_DYNAMIC = "DY";

@@ -1,4 +1,4 @@
-package org.gfinnovation.dealsafe.engine.validator;
+package org.gfinnovation.dealsafe.modules.engine.validator;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import io.swagger.v3.oas.annotations.Operation;

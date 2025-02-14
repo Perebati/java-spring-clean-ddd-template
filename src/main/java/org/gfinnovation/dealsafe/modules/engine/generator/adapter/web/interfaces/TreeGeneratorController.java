@@ -1,4 +1,4 @@
-package org.gfinnovation.dealsafe.engine.generator.adapter.web.interfaces;
+package org.gfinnovation.dealsafe.modules.engine.generator.adapter.web.interfaces;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
