@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
+import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.NotNull;
 import org.gfinnovation.dealsafe._shared.infrastructure.RepositoryAuth;
 import org.gfinnovation.dealsafe._shared.infrastructure.repository.GenericBusinessRepositoryImpl;
@@ -11,11 +12,13 @@ import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.InfrastructureException;
 import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
 import org.gfinnovation.dealsafe.modules.tree._shared.domain.Node;
+import org.gfinnovation.dealsafe.modules.tree._shared.domain.NodeTree;
 import org.gfinnovation.dealsafe.modules.tree._shared.domain.RootTree;
 import org.gfinnovation.dealsafe.modules.tree._shared.infrastructure.RootTreeEntity;
 import org.gfinnovation.dealsafe.modules.tree._shared.infrastructure.mapper.RootTreeMapper;
-import org.gfinnovation.dealsafe.modules.tree.root.infrastructure.repository.interfaces.RootTreeDynamicRepository;
+import org.gfinnovation.dealsafe.modules.tree._shared.infrastructure.repository.interfaces.NodeTreeRepository;
 import org.gfinnovation.dealsafe.modules.tree._shared.infrastructure.repository.interfaces.RootTreeRepository;
+import org.gfinnovation.dealsafe.modules.tree.root.infrastructure.repository.interfaces.RootTreeDynamicRepository;
 import org.gfinnovation.dealsafe.modules.tree.root.infrastructure.repository.interfaces.RootTreeStaticRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
@@ -37,6 +40,7 @@ class RootTreeRepositoryImpl
         implements RootTreeRepository {
     private final RootTreeDynamicRepository rootTreeDynamicRepository;
     private final RootTreeStaticRepository rootTreeStaticRepository;
+    private final NodeTreeRepository<?> nodeTreeRepository;
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -46,11 +50,13 @@ class RootTreeRepositoryImpl
             RootTreeMapper mapper,
             EntityManager entityManager,
             RootTreeDynamicRepository rootTreeDynamicRepository,
-            RootTreeStaticRepository rootTreeStaticRepository
+            RootTreeStaticRepository rootTreeStaticRepository,
+            NodeTreeRepository<?> nodeTreeRepository
     ) {
         super(mapper, new SimpleJpaRepository<>(RootTreeEntity.class, entityManager), RootTreeEntity.class);
         this.rootTreeDynamicRepository = rootTreeDynamicRepository;
         this.rootTreeStaticRepository = rootTreeStaticRepository;
+        this.nodeTreeRepository = nodeTreeRepository;
     }
 
     /**
@@ -69,6 +75,8 @@ class RootTreeRepositoryImpl
             } else {
                 return this.rootTreeStaticRepository.read(id, auth);
             }
+        } catch (SystemGlobalException e) {
+            throw e;
         } catch (Exception e) {
             throw new InfrastructureException("Something went wrong reading a root.");
         }
@@ -142,8 +150,28 @@ class RootTreeRepositoryImpl
             } catch (NoResultException e) {
                 return Optional.empty();
             }
+        } catch (SystemGlobalException e) {
+            throw e;
         } catch (Exception e) {
             throw new InfrastructureException("An error occurred when searching for a root id.");
+        }
+    }
+
+    @Transactional
+    public void deleteRoot(UUID id,
+                           RepositoryAuth auth) throws SystemGlobalException {
+        try {
+            RootTree<?> rootTree = this.read(id, auth);
+
+            for (NodeTree<?> node : rootTree.getNodes()) {
+                this.nodeTreeRepository.deleteNode(node.getId(), auth);
+            }
+
+            this.delete(id, auth);
+        } catch (SystemGlobalException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new InfrastructureException("Something went wrong deleting a root.");
         }
     }
 }

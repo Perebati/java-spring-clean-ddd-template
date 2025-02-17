@@ -1,11 +1,14 @@
 package org.gfinnovation.dealsafe.modules.tree.node.adapter.web.controller;
 
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
+import org.gfinnovation.dealsafe.modules.tree._shared.application.usecase.DeleteNodeUseCase;
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.controller.interfaces.NodeTreeController;
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeCreationData;
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeIfCreationData;
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeTreeBlockData;
-import org.gfinnovation.dealsafe.modules.tree.node.application.usecase.command.*;
+import org.gfinnovation.dealsafe.modules.tree.node.application.usecase.command.CreateNodeBlock;
+import org.gfinnovation.dealsafe.modules.tree.node.application.usecase.command.CreateNodeIf;
+import org.gfinnovation.dealsafe.modules.tree.node.application.usecase.command.UpdateNodeBlock;
 import org.gfinnovation.dealsafe.modules.tree.node.application.usecase.query.FindNodeBlock;
 import org.gfinnovation.dealsafe.modules.tree.node.application.usecase.query.FindNodeIf;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeBlock;
@@ -28,29 +31,26 @@ import java.util.UUID;
 class NodeTreeControllerImpl implements NodeTreeController {
     private final CreateNodeBlock createNodeBlock;
     private final CreateNodeIf createNodeIf;
-    private final DeleteNodeBlock deleteNodeBlock;
-    private final DeleteNodeIf deleteNodeif;
     private final UpdateNodeBlock updateNodeBlock;
     private final FindNodeBlock findNodeBlock;
     private final FindNodeIf findNodeIf;
+    private final DeleteNodeUseCase deleteNodeUseCase;
 
     @Autowired
     NodeTreeControllerImpl(
             CreateNodeBlock createNodeBlock,
             CreateNodeIf createNodeIf,
-            DeleteNodeBlock deleteNodeBlock,
-            DeleteNodeIf deleteNodeif,
             UpdateNodeBlock updateNodeBlock,
             FindNodeBlock findNodeBlock,
-            FindNodeIf findNodeIf
+            FindNodeIf findNodeIf,
+            DeleteNodeUseCase deleteNodeUseCase
     ) {
         this.createNodeBlock = createNodeBlock;
         this.createNodeIf = createNodeIf;
-        this.deleteNodeBlock = deleteNodeBlock;
-        this.deleteNodeif = deleteNodeif;
         this.updateNodeBlock = updateNodeBlock;
         this.findNodeBlock = findNodeBlock;
         this.findNodeIf = findNodeIf;
+        this.deleteNodeUseCase = deleteNodeUseCase;
     }
 
     @Override
@@ -80,14 +80,9 @@ class NodeTreeControllerImpl implements NodeTreeController {
     }
 
     @Override
-    public ResponseEntity<Void> deleteNodeBlock(@NonNull UUID id) throws SystemGlobalException {
-        this.deleteNodeBlock.execute(id);
-        return ResponseEntity.ok().build();
-    }
+    public ResponseEntity<Void> deleteNode(@NonNull UUID id) throws SystemGlobalException {
+        this.deleteNodeUseCase.execute(id);
 
-    @Override
-    public ResponseEntity<Void> deleteNodeIf(@NonNull UUID id) throws SystemGlobalException {
-        this.deleteNodeif.execute(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 }

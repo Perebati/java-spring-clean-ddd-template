@@ -24,8 +24,7 @@ import java.util.List;
                 @Index(name = "idx_tree_node_block_id", columnList = "id")
         }
 )
-public class NodeTreeBlockEntity
-        extends NodeTreeEntity {
+public class NodeTreeBlockEntity extends NodeTreeEntity {
     @Column(name = "name", nullable = false)
     private String name;
 

@@ -1,4 +1,4 @@
-package org.gfinnovation.dealsafe.modules.tree._shared.application.interfaces;
+package org.gfinnovation.dealsafe.modules.tree._shared.application.service.interfaces;
 
 import org.gfinnovation.dealsafe._shared.application.interfaces.GenericService;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;

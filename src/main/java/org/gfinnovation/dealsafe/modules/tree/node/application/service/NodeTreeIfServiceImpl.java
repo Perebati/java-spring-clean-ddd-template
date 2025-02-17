@@ -1,10 +1,10 @@
-package org.gfinnovation.dealsafe.modules.tree._shared.application;
+package org.gfinnovation.dealsafe.modules.tree.node.application.service;
 
 import org.gfinnovation.dealsafe._shared.application.GenericServiceImpl;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.ApplicationException;
-import org.gfinnovation.dealsafe.modules.tree._shared.application.interfaces.NodeService;
-import org.gfinnovation.dealsafe.modules.tree._shared.application.interfaces.NodeTreeService;
+import org.gfinnovation.dealsafe.modules.tree._shared.application.service.interfaces.NodeService;
+import org.gfinnovation.dealsafe.modules.tree._shared.application.service.interfaces.NodeTreeService;
 import org.gfinnovation.dealsafe.modules.tree._shared.domain.Node;
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeIfCreationData;
 import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeIfService;
@@ -13,8 +13,6 @@ import org.gfinnovation.dealsafe.modules.tree.node.domain.factory.interfaces.Nod
 import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.repository.interfaces.NodeTreeIfRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.UUID;
 
 /**
  * @author Lucas Batista Pereira
@@ -53,17 +51,6 @@ class NodeTreeIfServiceImpl
             throw e;
         } catch (Exception e) {
             throw new ApplicationException("Something went wrong creating a if node.");
-        }
-    }
-
-    @Override
-    public void deleteIf(UUID id) throws SystemGlobalException {
-        try {
-            this.delete(id);
-        } catch (SystemGlobalException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new ApplicationException("Something went wrong deleting a if node.");
         }
     }
 }

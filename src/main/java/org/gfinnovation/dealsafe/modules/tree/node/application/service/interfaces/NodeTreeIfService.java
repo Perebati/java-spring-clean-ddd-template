@@ -5,9 +5,6 @@ import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeIfCreationData;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeIf;
 
-import java.util.UUID;
-
 public interface NodeTreeIfService extends GenericService<NodeTreeIf> {
     NodeTreeIf createIf(NodeIfCreationData nodeCreationData) throws SystemGlobalException;
-    void deleteIf(UUID id) throws SystemGlobalException;
 }

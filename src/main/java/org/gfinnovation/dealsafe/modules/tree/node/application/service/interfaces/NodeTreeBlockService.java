@@ -18,5 +18,4 @@ public interface NodeTreeBlockService extends GenericService<NodeTreeBlock> {
     NodeTreeBlock createBlock(NodeCreationData nodeCreationData) throws SystemGlobalException;
     NodeTreeBlock updateBlock(UUID id,
                               NodeTreeBlockData nodeTreeBlockData) throws SystemGlobalException;
-    void deleteBlock(UUID id) throws SystemGlobalException;
 }

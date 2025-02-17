@@ -39,9 +39,7 @@ import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeStatic;
         @JsonSubTypes.Type(ComparisonMulti.class),
         @JsonSubTypes.Type(ComparisonCustomList.class)
 })
-public class Node<T extends NodeInput>
-        extends GenericBusinessClass
-        implements NodeTraversal<T> {
+public class Node<T extends NodeInput> extends GenericBusinessClass implements NodeTraversal<T> {
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private NodeType nodeType;

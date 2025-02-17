@@ -3,14 +3,14 @@ package org.gfinnovation.dealsafe.modules.tree.comparison.application.service;
 import org.gfinnovation.dealsafe._shared.application.GenericServiceImpl;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.ApplicationException;
+import org.gfinnovation.dealsafe.modules.tree._shared.application.service.interfaces.NodeService;
+import org.gfinnovation.dealsafe.modules.tree._shared.application.service.interfaces.NodeTreeService;
+import org.gfinnovation.dealsafe.modules.tree._shared.domain.Node;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonSingularRecord;
 import org.gfinnovation.dealsafe.modules.tree.comparison.application.service.interfaces.ComparisonSingularService;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.factory.interfaces.ComparisonFactory;
 import org.gfinnovation.dealsafe.modules.tree.comparison.infrastructure.repository.interfaces.ComparisonSingularRepository;
-import org.gfinnovation.dealsafe.modules.tree._shared.application.interfaces.NodeService;
-import org.gfinnovation.dealsafe.modules.tree._shared.application.interfaces.NodeTreeService;
-import org.gfinnovation.dealsafe.modules.tree._shared.domain.Node;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

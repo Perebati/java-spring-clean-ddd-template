@@ -9,7 +9,9 @@ import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.dom
 import org.gfinnovation.dealsafe.modules.input.adapter.web.request.CreateInputData;
 import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.InputService;
 import org.gfinnovation.dealsafe.modules.input.domain.Input;
+import org.gfinnovation.dealsafe.modules.tree._shared.application.service.interfaces.NodeTreeService;
 import org.gfinnovation.dealsafe.modules.tree._shared.domain.NodeTree;
+import org.gfinnovation.dealsafe.modules.tree._shared.domain.RootTree;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonMultiRecord;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonSingularRecord;
 import org.gfinnovation.dealsafe.modules.tree.comparison.application.service.interfaces.ComparisonCustomListService;
@@ -22,7 +24,6 @@ import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeCreat
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeIfCreationData;
 import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeBlockService;
 import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeIfService;
-import org.gfinnovation.dealsafe.modules.tree.node.application.usecase.command.DeleteNodeBlock;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeIf;
 import org.gfinnovation.dealsafe.modules.tree.root.application.service.interfaces.RootTreeDynamicService;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeDynamic;
@@ -49,7 +50,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @DisplayName("UseCase: DeleteNodeBlockUseCaseTest")
 public class DeleteNodeBlockUseCaseTest extends GenericTest {
     @Autowired
-    private DeleteNodeBlock deleteNodeBlock;
+    private NodeTreeService<?> nodeTreeService;
 
     @Autowired
     private NodeTreeBlockService nodeTreeBlockService;
@@ -180,13 +181,14 @@ public class DeleteNodeBlockUseCaseTest extends GenericTest {
         );
         assertNotNull(comparisonCustomList, "ComparisonCustomList should not be null");
 
-        deleteNodeBlock.execute(node1.getId());
+        this.nodeTreeService.deleteNode(node1.getId());
+
+        RootTree<?> rootTree = this.rootTreeDynamic.read(createdRoot.getId());
 
         assertThrows(RuntimeException.class, () -> nodeTreeBlockService.findById(node1.getId()));
+        assertThrows(RuntimeException.class, () -> nodeTreeIfService.read(nodeIf1.getId()));
 
 
-        NodeTreeIf nodeIfssss = this.nodeTreeIfService.read(nodeIf1.getId());
-
-        assertThrows(RuntimeException.class, () -> nodeTreeIfService.findById(nodeIf1.getId()));
+        System.out.println("Teste");
     }
 }
