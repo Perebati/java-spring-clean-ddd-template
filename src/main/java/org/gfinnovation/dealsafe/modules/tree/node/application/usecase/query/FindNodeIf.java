@@ -1,6 +1,7 @@
 package org.gfinnovation.dealsafe.modules.tree.node.application.usecase.query;
 
 import org.gfinnovation.dealsafe._shared.application.usecase.UseCase;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeIfService;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeIf;
 import org.springframework.stereotype.Component;
@@ -21,7 +22,7 @@ public class FindNodeIf extends UseCase<UUID, Optional<NodeTreeIf>, NodeTreeIfSe
     }
 
     @Override
-    public Optional<NodeTreeIf> execute(UUID input) {
+    public Optional<NodeTreeIf> execute(UUID input) throws SystemGlobalException {
         return this.service.findById(input);
     }
 }

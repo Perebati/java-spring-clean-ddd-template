@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,5 +32,5 @@ public interface EngineController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
     @PostMapping("{id}")
-    ResponseEntity<Boolean> validateJson(@PathVariable UUID id, @RequestBody JsonNode jsonNode);
+    ResponseEntity<Boolean> validateJson(@PathVariable UUID id, @RequestBody JsonNode jsonNode) throws SystemGlobalException;
 }

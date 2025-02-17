@@ -72,7 +72,7 @@ class RootTreeRepositoryImpl
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new InfrastructureException("Something went wrong reading a root.");
+            throw new InfrastructureException("Something went wrong reading a root.", e);
         }
     }
 
@@ -144,10 +144,8 @@ class RootTreeRepositoryImpl
             } catch (NoResultException e) {
                 return Optional.empty();
             }
-        } catch (SystemGlobalException e) {
-            throw e;
         } catch (Exception e) {
-            throw new InfrastructureException("An error occurred when searching for a root id.");
+            throw new InfrastructureException("An error occurred when searching for a root id.", e);
         }
     }
 }

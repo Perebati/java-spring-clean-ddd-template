@@ -12,7 +12,7 @@ import org.gfinnovation.dealsafe.exception.SystemGlobalException;
  * @since v1.0 (30/11/2024)
  */
 public class InfrastructureException extends SystemGlobalException {
-    public InfrastructureException(String message) {
-        super(message);
+    public InfrastructureException(String message, Throwable cause) {
+        super(message, cause);
     }
 }

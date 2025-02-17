@@ -50,7 +50,7 @@ class NodeTreeIfServiceImpl
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ApplicationException("Something went wrong creating a if node.");
+            throw new ApplicationException("Something went wrong creating a if node.", e);
         }
     }
 }

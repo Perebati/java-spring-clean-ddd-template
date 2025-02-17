@@ -1,6 +1,7 @@
 package org.gfinnovation.dealsafe.tests.service;
 
 import jakarta.transaction.Transactional;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.adapter.web.request.CompanyListData;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.application.service.interfaces.CompanyListService;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.domain.CompanyList;
@@ -33,7 +34,7 @@ public class CompanyCustomListServiceTest extends GenericTest {
 
     @Test
     @Transactional
-    public void testCreate(){
+    public void testCreate() throws SystemGlobalException {
         String listName = "test";
         List<String> list = new ArrayList<>(List.of("54913262000176", "38676795000125", "79225338000100"));
 
@@ -45,7 +46,7 @@ public class CompanyCustomListServiceTest extends GenericTest {
 
     @Test
     @Transactional
-    public void testUpdate(){
+    public void testUpdate() throws SystemGlobalException {
         String listName1 = "test 1";
         List<String> list1 = new ArrayList<>(List.of("54913262000176", "38676795000125", "79225338000100"));
 
@@ -67,7 +68,7 @@ public class CompanyCustomListServiceTest extends GenericTest {
 
     @Test
     @Transactional
-    public void testUpdate2(){
+    public void testUpdate2() throws SystemGlobalException {
         String listName1 = "test 1";
         List<String> list1 = new ArrayList<>(List.of("54913262000176", "38676795000125", "79225338000100"));
 

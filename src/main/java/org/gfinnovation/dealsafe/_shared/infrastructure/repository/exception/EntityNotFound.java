@@ -9,7 +9,7 @@ import org.gfinnovation.dealsafe.exception.models.InfrastructureException;
  * @since v1.0 (06/02/2025)
  */
 public class EntityNotFound extends InfrastructureException {
-    public EntityNotFound(String message) {
-        super(message);
+    public EntityNotFound(String message, Throwable e) {
+        super(message, e);
     }
 }

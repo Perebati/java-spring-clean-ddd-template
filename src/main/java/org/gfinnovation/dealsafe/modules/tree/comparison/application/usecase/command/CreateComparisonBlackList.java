@@ -2,6 +2,7 @@ package org.gfinnovation.dealsafe.modules.tree.comparison.application.usecase.co
 
 import jakarta.transaction.Transactional;
 import org.gfinnovation.dealsafe._shared.application.usecase.UseCase;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonCustomListRecord;
 import org.gfinnovation.dealsafe.modules.tree.comparison.application.service.interfaces.ComparisonCustomListService;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonCustomList;
@@ -21,7 +22,7 @@ public class CreateComparisonBlackList extends UseCase<ComparisonCustomListRecor
 
     @Override
     @Transactional
-    public ComparisonCustomList execute(ComparisonCustomListRecord input) {
+    public ComparisonCustomList execute(ComparisonCustomListRecord input) throws SystemGlobalException {
         return this.service.create(
                 ComparisonCustomList.ComparisonCustomListEnum.NOT_CONTAINS,
                 input.jsonPath(),

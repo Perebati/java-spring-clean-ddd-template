@@ -1,6 +1,7 @@
 package org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.application.usecase.query;
 
 import org.gfinnovation.dealsafe._shared.application.usecase.UseCase;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.application.service.interfaces.CompanyListService;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.domain.CompanyList;
 import org.springframework.stereotype.Component;
@@ -15,7 +16,7 @@ public class FindAllCompanyList extends UseCase<Void, Optional<List<CompanyList>
     }
 
     @Override
-    public Optional<List<CompanyList>> execute(Void input) {
+    public Optional<List<CompanyList>> execute(Void input) throws SystemGlobalException {
         return service.readAll();
     }
 }

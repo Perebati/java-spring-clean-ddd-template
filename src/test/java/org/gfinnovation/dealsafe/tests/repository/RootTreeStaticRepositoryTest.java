@@ -1,5 +1,6 @@
 package org.gfinnovation.dealsafe.tests.repository;
 
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.modules.input.domain.predefined.PredefinedTypeEnum;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeStatic;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.factory.interfaces.RootTreeFactory;
@@ -27,7 +28,7 @@ public class RootTreeStaticRepositoryTest extends GenericBusinessRepositoryTest<
     private RootTreeStaticRepository rootTreeStaticRepository;
 
     @Override
-    protected RootTreeStatic createEntity() {
+    protected RootTreeStatic createEntity() throws SystemGlobalException {
         String name = "Teste";
         return this.rootTreeFactory.produce(name, PredefinedTypeEnum.TESTE);
     }

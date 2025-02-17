@@ -1,6 +1,7 @@
 package org.gfinnovation.dealsafe.tests.service;
 
 import jakarta.transaction.Transactional;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.InfrastructureException;
 import org.gfinnovation.dealsafe.modules.input.domain.predefined.PredefinedTypeEnum;
 import org.gfinnovation.dealsafe.modules.tree._shared.application.service.interfaces.NodeTreeService;
@@ -40,7 +41,7 @@ public class NodeTreeBlockServiceTest extends GenericTest {
 
     @Test
     @Transactional
-    public void createNodeBlock(){
+    public void createNodeBlock() throws SystemGlobalException {
         String nodeBlockName = "test";
 
         RootTreeStatic rootTreeStatic = this.rootTreeStaticService.create("teste", PredefinedTypeEnum.TESTE);
@@ -56,7 +57,7 @@ public class NodeTreeBlockServiceTest extends GenericTest {
 
     @Test
     @Transactional
-    public void updateNodeBlock(){
+    public void updateNodeBlock() throws SystemGlobalException {
         String nodeBlockName1 = "test 1";
         String nodeBlockName2 = "test 2";
 
@@ -78,7 +79,7 @@ public class NodeTreeBlockServiceTest extends GenericTest {
 
     @Test
     @Transactional
-    public void deleteNodeBlock(){
+    public void deleteNodeBlock() throws SystemGlobalException {
         String nodeBlockName = "test";
 
         RootTreeStatic rootTreeStatic = this.rootTreeStaticService.create("teste", PredefinedTypeEnum.TESTE);

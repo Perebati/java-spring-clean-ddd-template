@@ -1,6 +1,7 @@
 package org.gfinnovation.dealsafe.modules.tree._shared.application.usecase;
 
 import org.gfinnovation.dealsafe._shared.application.usecase.NullOutputUseCase;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.modules.tree._shared.application.service.interfaces.NodeTreeService;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +22,7 @@ public class DeleteNodeUseCase extends NullOutputUseCase<UUID, NodeTreeService<?
     }
 
     @Override
-    public void execute(UUID id) {
+    public void execute(UUID id) throws SystemGlobalException {
         service.deleteNode(id);
     }
 }

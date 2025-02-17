@@ -44,7 +44,7 @@ public class CompanyListControllerImpl implements CompanyListController {
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new AdapterException("Unexpected error in company list creation.");
+            throw new AdapterException("Unexpected error in company list creation.", e);
         }
     }
 
@@ -55,7 +55,7 @@ public class CompanyListControllerImpl implements CompanyListController {
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new AdapterException("Unexpected error in company list reading.");
+            throw new AdapterException("Unexpected error in company list reading.", e);
         }
     }
 
@@ -66,7 +66,7 @@ public class CompanyListControllerImpl implements CompanyListController {
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new AdapterException("Unexpected error in company list reading.");
+            throw new AdapterException("Unexpected error in company list reading.", e);
         }
     }
 
@@ -78,7 +78,7 @@ public class CompanyListControllerImpl implements CompanyListController {
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new AdapterException("Unexpected error in company list updating.");
+            throw new AdapterException("Unexpected error in company list updating.", e);
         }
     }
 }

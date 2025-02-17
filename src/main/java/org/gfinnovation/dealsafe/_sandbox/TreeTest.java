@@ -3,11 +3,14 @@ package org.gfinnovation.dealsafe._sandbox;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.gfinnovation.dealsafe.modules.engine.generator.application.service.interfaces.TreeGeneratorService;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.AdapterException;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.application.service.interfaces.CompanyListService;
+import org.gfinnovation.dealsafe.modules.engine.generator.application.service.interfaces.TreeGeneratorService;
 import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.InputService;
+import org.gfinnovation.dealsafe.modules.tree._shared.domain.Node;
+import org.gfinnovation.dealsafe.modules.tree._shared.domain.NodeTree;
+import org.gfinnovation.dealsafe.modules.tree._shared.domain.RootTree;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonMultiRecord;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonSingularRecord;
 import org.gfinnovation.dealsafe.modules.tree.comparison.application.service.interfaces.ComparisonCustomListService;
@@ -20,13 +23,10 @@ import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeCreat
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeIfCreationData;
 import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeBlockService;
 import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeIfService;
-import org.gfinnovation.dealsafe.modules.tree._shared.domain.Node;
-import org.gfinnovation.dealsafe.modules.tree._shared.domain.NodeTree;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeBlock;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeIf;
 import org.gfinnovation.dealsafe.modules.tree.root.application.service.interfaces.RootTreeDynamicService;
 import org.gfinnovation.dealsafe.modules.tree.root.application.service.interfaces.RootTreeStaticService;
-import org.gfinnovation.dealsafe.modules.tree._shared.domain.RootTree;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeDynamic;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeStatic;
 import org.slf4j.MDC;
@@ -214,7 +214,7 @@ public class TreeTest {
      */
 
     @PostMapping("tree1234")
-    public ResponseEntity<RootTree<?>> createTree(@RequestBody RootTree<?> root) {
+    public ResponseEntity<RootTree<?>> createTree(@RequestBody RootTree<?> root) throws SystemGlobalException {
         MDC.put("userId", UUID.randomUUID().toString());
         MDC.put("whitelabelId", UUID.randomUUID().toString());
         MDC.put("requestId", UUID.randomUUID().toString());
@@ -224,12 +224,12 @@ public class TreeTest {
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new AdapterException("An error occurred while creating a tree");
+            throw new AdapterException("An error occurred while creating a tree", e);
         }
     }
 
     @Transactional
-    protected void processNode(Node<?> parentEntity, Node<?> tree) {
+    protected void processNode(Node<?> parentEntity, Node<?> tree) throws SystemGlobalException {
         switch (tree.getNodeType()) {
             case ROOT_STATIC -> {
                 for (NodeTree<?> node : ((RootTreeStatic) tree).getNodes()) {
@@ -266,7 +266,7 @@ public class TreeTest {
         }
     }
 
-    protected Node<?> processNode2(Node<?> parent, Node<?> node, NodeTreeIf.SetNode setNode) {
+    protected Node<?> processNode2(Node<?> parent, Node<?> node, NodeTreeIf.SetNode setNode) throws SystemGlobalException {
         switch (node.getNodeType()) {
             case NODE_BLOCK -> {
                 return this.nodeTreeBlockService.createBlock(

@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
+import org.gfinnovation.dealsafe._shared.infrastructure.repository.exception.EntityNotFound;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.application.service.interfaces.CompanyListService;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.domain.CompanyList;
 import org.gfinnovation.dealsafe.modules.input.adapter.web.request.CreateInputData;
@@ -78,7 +80,7 @@ public class DeleteNodeBlockUseCaseTest extends GenericTest {
     @Test
     @DisplayName("Should create a tree and then validate a json.")
     @Transactional
-    public void testeTree() throws JsonProcessingException {
+    public void testeTree() throws JsonProcessingException, SystemGlobalException {
 
         String json = """
                 {
@@ -185,11 +187,11 @@ public class DeleteNodeBlockUseCaseTest extends GenericTest {
 
         RootTree<?> rootTree = this.rootTreeDynamic.read(createdRoot.getId());
 
-        assertThrows(RuntimeException.class, () -> nodeTreeIfService.read(nodeIf1.getId()));
+        assertThrows(EntityNotFound.class, () -> nodeTreeIfService.read(nodeIf1.getId()));
 
         this.rootTreeDynamic.delete(createdRoot.getId());
 
-        assertThrows(RuntimeException.class, () -> rootTreeDynamic.read(createdRoot.getId()));
+        assertThrows(EntityNotFound.class, () -> rootTreeDynamic.read(createdRoot.getId()));
 
         System.out.println("Teste");
     }

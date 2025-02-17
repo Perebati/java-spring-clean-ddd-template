@@ -1,6 +1,7 @@
 package org.gfinnovation.dealsafe.modules.tree.comparison.application.usecase.command;
 
 import org.gfinnovation.dealsafe._shared.application.usecase.UseCase;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonSingularRecord;
 import org.gfinnovation.dealsafe.modules.tree.comparison.application.service.interfaces.ComparisonSingularService;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
@@ -19,7 +20,7 @@ public class CreateComparisonSingular extends UseCase<ComparisonSingularRecord, 
     }
 
     @Override
-    public ComparisonSingular execute(ComparisonSingularRecord input) {
+    public ComparisonSingular execute(ComparisonSingularRecord input) throws SystemGlobalException {
         return this.service.create(input);
     }
 }

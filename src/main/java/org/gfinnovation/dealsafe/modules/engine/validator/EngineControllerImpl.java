@@ -33,7 +33,7 @@ public class EngineControllerImpl implements EngineController {
 
     @Override
     public ResponseEntity<Boolean> validateJson(@NonNull UUID id,
-                                                @NonNull JsonNode jsonNode) {
+                                                @NonNull JsonNode jsonNode) throws SystemGlobalException {
         try {
             ObjectMapper mapper = new ObjectMapper();
 
@@ -49,7 +49,7 @@ public class EngineControllerImpl implements EngineController {
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ApplicationException("Something went wrong while validating the json node");
+            throw new ApplicationException("Something went wrong while validating the json node", e);
         }
     }
 }

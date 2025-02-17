@@ -9,7 +9,7 @@ import org.gfinnovation.dealsafe.exception.SystemGlobalException;
  * @since v1.0 (06/02/2025)
  */
 public class AdapterException extends SystemGlobalException {
-    public AdapterException(String message) {
-        super(message);
+    public AdapterException(String message, Throwable cause) {
+        super(message, cause);
     }
 }

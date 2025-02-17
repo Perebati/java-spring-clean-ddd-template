@@ -16,7 +16,7 @@ public class ObjectMerger {
      * @param <A>    tipo do objeto de origem
      * @param <B>    tipo do objeto de destino
      */
-    public static <A, B> B mergeObjects(A source, B target) {
+    public static <A, B> B mergeObjects(A source, B target) throws SystemGlobalException {
         if (source == null || target == null) {
             return target;
         }
@@ -46,7 +46,7 @@ public class ObjectMerger {
                     targetField.set(target, value);
                 }
             } catch (IllegalAccessException e) {
-                throw new SystemGlobalException("Something went wrong while merging objects in " + sourceClass.getName());
+                throw new SystemGlobalException("Something went wrong while merging objects in " + sourceClass.getName(), e);
             }
         }
 

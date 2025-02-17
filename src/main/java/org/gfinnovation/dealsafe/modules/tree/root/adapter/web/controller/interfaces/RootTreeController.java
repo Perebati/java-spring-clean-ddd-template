@@ -7,7 +7,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.coyote.BadRequestException;
-import org.gfinnovation.dealsafe.exception.models.DomainException;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.modules.tree.root.adapter.web.request.RootCreationDynamicInputDTO;
 import org.gfinnovation.dealsafe.modules.tree.root.adapter.web.request.RootCreationPredefinedInputDTO;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeDynamic;
@@ -38,7 +38,7 @@ public interface RootTreeController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
     @PostMapping("/root/predefind-input")
-    ResponseEntity<RootTreeStatic> createRootPredefined(@RequestBody RootCreationPredefinedInputDTO request) throws DomainException, BadRequestException;
+    ResponseEntity<RootTreeStatic> createRootPredefined(@RequestBody RootCreationPredefinedInputDTO request) throws SystemGlobalException, BadRequestException;
 
     @Operation(
             summary = "Cadastro de root de árvore com input dinâmico",
@@ -49,5 +49,5 @@ public interface RootTreeController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
     @PostMapping("/root/dynamic-input")
-    ResponseEntity<RootTreeDynamic> createRootDynamic(@RequestBody RootCreationDynamicInputDTO request) throws DomainException, BadRequestException;
+    ResponseEntity<RootTreeDynamic> createRootDynamic(@RequestBody RootCreationDynamicInputDTO request) throws SystemGlobalException, BadRequestException;
 }

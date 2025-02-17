@@ -9,7 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.gfinnovation.dealsafe._shared.domain.GenericBusinessClass;
-import org.gfinnovation.dealsafe.exception.models.ApplicationException;
+import org.gfinnovation.dealsafe.exception.models.FailedRequestException;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.exception.IllegalFieldException;
 import org.gfinnovation.dealsafe.utils.annotations.Default;
 import org.springframework.validation.annotation.Validated;
@@ -53,26 +53,26 @@ public class Input extends GenericBusinessClass {
     public Input(
             @NotNull @Size(min = 4) String name,
             @NotNull @Size(min = 4) String json
-    ) {
+    ) throws FailedRequestException, IllegalFieldException {
         this.name = name;
         this.parseJson(json);
         validate();
     }
 
-    private void validate() {
+    private void validate() throws FailedRequestException {
         if (this.name == null || this.name.length() < 4 || this.name.length() > 100) {
-            throw new ApplicationException("O nome do input deve ter entre 4 e 100 caracteres.");
+            throw new FailedRequestException("O nome do input deve ter entre 4 e 100 caracteres.", null);
         }
     }
 
 
-    public void parseJson(String json) {
+    public void parseJson(String json) throws IllegalFieldException {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode rootNode = objectMapper.readTree(json);
             mapJsonToFields("", rootNode, fields);
         } catch (Exception e) {
-            throw new IllegalFieldException("Error processing Json");
+            throw new IllegalFieldException("Error processing Json", e);
         }
     }
 
@@ -107,17 +107,17 @@ public class Input extends GenericBusinessClass {
     }
 
     //TODO: Estes dois métodos abaixo precisam de reajustes
-    public void validateJsonPath(String jsonPath) {
+    public void validateJsonPath(String jsonPath) throws IllegalFieldException {
         if (jsonPath.startsWith("/")) jsonPath = jsonPath.replaceFirst("^[/.]", "");
 
         jsonPath = jsonPath.replaceAll("/", ".");
 
         if (!fields.containsKey(jsonPath)) {
-            throw new IllegalFieldException("Specified path does not exist: " + jsonPath);
+            throw new IllegalFieldException("Specified path does not exist: " + jsonPath, null);
         }
     }
 
-    public void validateJsonPathAndType(String jsonPath, Object variable) {
+    public void validateJsonPathAndType(String jsonPath, Object variable) throws IllegalFieldException {
         if (jsonPath.startsWith("/")) jsonPath = jsonPath.replaceFirst("^[/.]", "");
 
         jsonPath = jsonPath.replaceAll("/", ".");
@@ -129,7 +129,7 @@ public class Input extends GenericBusinessClass {
         boolean isTypeValid = validateType(variable, expectedType);
 
         if (!isTypeValid) {
-            throw new IllegalFieldException("Variable type does not match expected type: " + expectedType);
+            throw new IllegalFieldException("Variable type does not match expected type: " + expectedType, null);
         }
     }
 

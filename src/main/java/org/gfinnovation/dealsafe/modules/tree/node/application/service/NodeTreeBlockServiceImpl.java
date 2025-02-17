@@ -67,7 +67,7 @@ class NodeTreeBlockServiceImpl
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ApplicationException("Something went wrong creating a node block.");
+            throw new ApplicationException("Something went wrong creating a node block.", e);
         }
     }
 
@@ -79,7 +79,7 @@ class NodeTreeBlockServiceImpl
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ApplicationException("Something went wrong updating a node block.");
+            throw new ApplicationException("Something went wrong updating a node block.", e);
         }
     }
 }

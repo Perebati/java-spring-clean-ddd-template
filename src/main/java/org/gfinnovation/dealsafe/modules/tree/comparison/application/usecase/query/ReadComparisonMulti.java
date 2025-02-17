@@ -1,6 +1,7 @@
 package org.gfinnovation.dealsafe.modules.tree.comparison.application.usecase.query;
 
 import org.gfinnovation.dealsafe._shared.application.usecase.UseCase;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.modules.tree.comparison.application.service.interfaces.ComparisonMultiService;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonMulti;
 import org.springframework.stereotype.Component;
@@ -21,7 +22,7 @@ public class ReadComparisonMulti extends UseCase<UUID, Optional<ComparisonMulti>
     }
 
     @Override
-    public Optional<ComparisonMulti> execute(UUID input) {
+    public Optional<ComparisonMulti> execute(UUID input) throws SystemGlobalException {
         return service.findById(input);
     }
 }

@@ -37,7 +37,7 @@ class CompanyListServiceImpl
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ApplicationException("Something went wrong creating a company list.");
+            throw new ApplicationException("Something went wrong creating a company list.", e);
         }
     }
 
@@ -48,7 +48,7 @@ class CompanyListServiceImpl
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ApplicationException("Something went wrong updating a company list.");
+            throw new ApplicationException("Something went wrong updating a company list.", e);
         }
     }
 }

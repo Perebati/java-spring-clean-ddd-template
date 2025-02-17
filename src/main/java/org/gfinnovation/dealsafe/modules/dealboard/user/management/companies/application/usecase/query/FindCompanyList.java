@@ -1,6 +1,7 @@
 package org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.application.usecase.query;
 
 import org.gfinnovation.dealsafe._shared.application.usecase.UseCase;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.application.service.interfaces.CompanyListService;
 import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.domain.CompanyList;
 import org.springframework.stereotype.Component;
@@ -15,7 +16,7 @@ public class FindCompanyList extends UseCase<UUID, Optional<CompanyList>, Compan
     }
 
     @Override
-    public Optional<CompanyList> execute(UUID input) {
+    public Optional<CompanyList> execute(UUID input) throws SystemGlobalException {
         return this.service.findById(input);
     }
 }

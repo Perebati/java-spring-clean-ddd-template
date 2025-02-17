@@ -79,13 +79,13 @@ class NodeTreeRepositoryImpl<T extends NodeTree<NodeInput>>
             }
             return nodeRepo.read(createdNodeEntity.getId(), auth);
         } catch (Exception e) {
-            throw new InfrastructureException("An error has occurred setting up a new node.");
+            throw new InfrastructureException("An error has occurred setting up a new node.", e);
         }
     }
 
     private Node<?> readParent(Node<?> parent,
                                RepositoryAuth auth,
-                               T createdEntity) throws InfrastructureException {
+                               T createdEntity) throws SystemGlobalException {
         switch (parent.getNodeType()) {
             case Node.NodeType.ROOT_STATIC:
                 RootTreeStatic parent_static = this.rootTreeStaticRepository.read(parent.getId(), auth);
@@ -106,12 +106,12 @@ class NodeTreeRepositoryImpl<T extends NodeTree<NodeInput>>
                 return this.nodeTreeIfRepository.read(parent.getId(), auth);
 
             default:
-                throw new InfrastructureException("Can't read node of type: " + parent.getNodeType());
+                throw new InfrastructureException("Can't read node of type: " + parent.getNodeType(), null);
         }
     }
 
     private void updateParent(Node<?> parentEntity,
-                              RepositoryAuth auth) throws InfrastructureException {
+                              RepositoryAuth auth) throws SystemGlobalException {
         switch (parentEntity.getNodeType()) {
             case Node.NodeType.ROOT_STATIC:
                 RootTreeStatic parentStatic = (RootTreeStatic) parentEntity;
@@ -134,7 +134,7 @@ class NodeTreeRepositoryImpl<T extends NodeTree<NodeInput>>
                 break;
 
             default:
-                throw new InfrastructureException("Can't update a node of type: " + parentEntity.getNodeType());
+                throw new InfrastructureException("Can't update a node of type: " + parentEntity.getNodeType(), null);
         }
     }
 
@@ -158,7 +158,7 @@ class NodeTreeRepositoryImpl<T extends NodeTree<NodeInput>>
                     break;
             }
         } catch (Exception e) {
-            throw new InfrastructureException("An error has occurred when inserting a node inside an if node.");
+            throw new InfrastructureException("An error has occurred when inserting a node inside an if node.", e);
         }
     }
 }

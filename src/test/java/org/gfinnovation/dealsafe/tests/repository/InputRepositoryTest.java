@@ -1,5 +1,6 @@
 package org.gfinnovation.dealsafe.tests.repository;
 
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.modules.input.domain.Input;
 import org.gfinnovation.dealsafe.modules.input.domain.factory.interfaces.InputFactory;
 import org.gfinnovation.dealsafe.modules.input.infrastructure.repository.interfaces.InputRepository;
@@ -46,7 +47,7 @@ public class InputRepositoryTest extends GenericBusinessRepositoryTest<Input> {
     private InputFactory inputFactory;
 
     @Override
-    protected Input createEntity() {
+    protected Input createEntity() throws SystemGlobalException {
 
         return this.inputFactory.produce("TestInputH2", json);
     }

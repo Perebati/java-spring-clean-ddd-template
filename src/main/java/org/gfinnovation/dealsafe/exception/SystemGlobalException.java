@@ -6,8 +6,8 @@ package org.gfinnovation.dealsafe.exception;
  * @class SystemGlobalException
  * @since v1.0 (06/02/2025)
  */
-public class SystemGlobalException extends RuntimeException {
-    public SystemGlobalException(String message) {
-        super(message);
+public class SystemGlobalException extends Exception {
+    public SystemGlobalException(String message, Throwable cause) {
+        super(message, cause);
     }
 }

@@ -42,7 +42,7 @@ class NodeTreeServiceImpl<T extends NodeTree<NodeInput>>
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ApplicationException("Something went wrong creating a new node");
+            throw new ApplicationException("Something went wrong creating a new node", e);
         }
     }
 
@@ -53,7 +53,7 @@ class NodeTreeServiceImpl<T extends NodeTree<NodeInput>>
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ApplicationException("Something went wrong creating a new node");
+            throw new ApplicationException("Something went wrong creating a new node", e);
         }
     }
 }

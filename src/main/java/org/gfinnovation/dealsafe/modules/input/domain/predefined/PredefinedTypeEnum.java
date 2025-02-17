@@ -29,7 +29,7 @@ public enum PredefinedTypeEnum {
         try {
             return clazz.getDeclaredField(fieldName);
         } catch (NoSuchFieldException e) {
-            throw new FailedRequestException("Field '" + fieldName + "' not found in class " + clazz.getSimpleName());
+            throw new FailedRequestException("Field '" + fieldName + "' not found in class " + clazz.getSimpleName(), e);
         }
     }
 
@@ -43,7 +43,7 @@ public enum PredefinedTypeEnum {
      * @since v1.0 (30/11/2024)
      */
 
-    public void validateJsonPath(PredefinedTypeEnum predefinedTypeEnum, String jsonPath) throws NoSuchFieldException {
+    public void validateJsonPath(PredefinedTypeEnum predefinedTypeEnum, String jsonPath) throws FailedRequestException {
         jsonPath = jsonPath.replaceFirst("^[/.]", "");
         String[] fields = jsonPath.split("[/.]");
 

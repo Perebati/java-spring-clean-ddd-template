@@ -50,7 +50,7 @@ class RootTreeServiceImpl
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ApplicationException("something went wrong reading a generic root.");
+            throw new ApplicationException("something went wrong reading a generic root.", e);
         }
     }
 
@@ -69,7 +69,7 @@ class RootTreeServiceImpl
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ApplicationException("Something went wrong find a root by node id.");
+            throw new ApplicationException("Something went wrong find a root by node id.", e);
         }
     }
 }

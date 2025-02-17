@@ -47,7 +47,7 @@ public class GlobalExceptionHandler {
                 MDC.get("requestId"),
                 MDC.get("methodId"));
 
-        logger.error(ex.getMessage());
+        logger.error(String.valueOf(ex.getCause()));
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
     }
 
@@ -59,7 +59,7 @@ public class GlobalExceptionHandler {
                 MDC.get("requestId"),
                 MDC.get("methodId"));
 
-        logger.error(ex.getMessage());
+        logger.error(String.valueOf(ex.getCause()));
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
     }
 
@@ -71,7 +71,7 @@ public class GlobalExceptionHandler {
                 MDC.get("requestId"),
                 MDC.get("methodId"));
 
-        logger.error(ex.getMessage());
+        logger.error(String.valueOf(ex.getCause()));
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
     }
 
@@ -83,7 +83,7 @@ public class GlobalExceptionHandler {
                 MDC.get("requestId"),
                 MDC.get("methodId"));
 
-        logger.error(ex.getMessage());
+        logger.error(String.valueOf(ex.getCause()));
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
     }
 
@@ -95,7 +95,7 @@ public class GlobalExceptionHandler {
                 MDC.get("requestId"),
                 MDC.get("methodId"));
 
-        logger.error(ex.getMessage());
+        logger.error(String.valueOf(ex.getCause()));
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 
@@ -108,7 +108,6 @@ public class GlobalExceptionHandler {
                 MDC.get("methodId"));
 
         logger.error(ex.getCause().getMessage());
-
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 
@@ -121,7 +120,6 @@ public class GlobalExceptionHandler {
                 MDC.get("methodId"));
 
         logger.error(ex.getCause().getMessage());
-
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 
@@ -134,7 +132,6 @@ public class GlobalExceptionHandler {
                 MDC.get("methodId"));
 
         logger.error(ex.getCause().getMessage());
-
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 
@@ -146,8 +143,7 @@ public class GlobalExceptionHandler {
                 MDC.get("requestId"),
                 MDC.get("methodId"));
 
-        logger.error(ex.getCause().getMessage());
-
+        logger.error(String.valueOf(ex.getCause()));
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong. Error is likely unmapped, please contact support.");
     }
 

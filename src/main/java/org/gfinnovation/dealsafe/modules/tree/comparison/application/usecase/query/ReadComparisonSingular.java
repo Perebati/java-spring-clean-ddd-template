@@ -1,6 +1,7 @@
 package org.gfinnovation.dealsafe.modules.tree.comparison.application.usecase.query;
 
 import org.gfinnovation.dealsafe._shared.application.usecase.UseCase;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.modules.tree.comparison.application.service.interfaces.ComparisonSingularService;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
 import org.springframework.stereotype.Component;
@@ -21,7 +22,7 @@ public class ReadComparisonSingular extends UseCase<UUID, Optional<ComparisonSin
     }
 
     @Override
-    public Optional<ComparisonSingular> execute(UUID input) {
+    public Optional<ComparisonSingular> execute(UUID input) throws SystemGlobalException {
         return this.service.findById(input);
     }
 }

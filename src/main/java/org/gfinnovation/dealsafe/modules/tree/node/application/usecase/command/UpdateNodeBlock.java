@@ -1,6 +1,7 @@
 package org.gfinnovation.dealsafe.modules.tree.node.application.usecase.command;
 
 import org.gfinnovation.dealsafe._shared.application.usecase.UseCase2Inputs;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeTreeBlockData;
 import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeBlockService;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeBlock;
@@ -21,7 +22,7 @@ public class UpdateNodeBlock extends UseCase2Inputs<UUID, NodeTreeBlockData, Nod
     }
 
     @Override
-    public NodeTreeBlock execute(UUID id, NodeTreeBlockData input) {
+    public NodeTreeBlock execute(UUID id, NodeTreeBlockData input) throws SystemGlobalException {
         return this.service.updateBlock(id, input);
     }
 }

@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe.modules.input.application.usecase.query;
 
 import org.gfinnovation.dealsafe._shared.application.usecase.UseCase;
-import org.gfinnovation.dealsafe.exception.models.ApplicationException;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.InputService;
 import org.gfinnovation.dealsafe.modules.input.domain.Input;
 import org.springframework.stereotype.Component;
@@ -22,7 +22,7 @@ public class FindInputUseCase extends UseCase<UUID, Optional<Input>, InputServic
     }
 
     @Override
-    public Optional<Input> execute(UUID input) throws ApplicationException {
+    public Optional<Input> execute(UUID input) throws SystemGlobalException {
         return this.service.findById(input);
     }
 }

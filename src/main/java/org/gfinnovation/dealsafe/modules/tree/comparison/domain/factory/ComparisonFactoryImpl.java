@@ -1,10 +1,10 @@
 package org.gfinnovation.dealsafe.modules.tree.comparison.domain.factory;
 
 import jakarta.validation.ValidationException;
-import org.apache.coyote.BadRequestException;
 import org.gfinnovation.dealsafe._shared.infrastructure.repository.exception.EntityNotFound;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.DomainException;
+import org.gfinnovation.dealsafe.exception.models.FailedRequestException;
 import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.InputService;
 import org.gfinnovation.dealsafe.modules.input.domain.Input;
 import org.gfinnovation.dealsafe.modules.input.domain.predefined.PredefinedTypeEnum;
@@ -71,15 +71,11 @@ public class ComparisonFactoryImpl implements ComparisonFactory {
             Object rootTreeEntity = this.rootTreeService
                     .readGenericRoot(this.rootTreeService
                             .findRootIdByNodeId(parent.getId())
-                            .orElseThrow(() -> new EntityNotFound("Root parent not found!")));
+                            .orElseThrow(() -> new EntityNotFound("Root parent not found!", null)));
 
             if (rootTreeEntity instanceof RootTreeStatic) {
                 PredefinedTypeEnum predefinedTypeEnum = ((RootTreeStatic) rootTreeEntity).getInput_type();
-                try {
-                    predefinedTypeEnum.validateJsonPath(predefinedTypeEnum, jsonPath);
-                } catch (NoSuchFieldException e) {
-                    throw new IllegalFieldException("Field not found: " + e.getMessage());
-                }
+                predefinedTypeEnum.validateJsonPath(predefinedTypeEnum, jsonPath);
             } else if (rootTreeEntity instanceof RootTreeDynamic) {
                 Input input = this.inputService.read(((RootTreeDynamic) rootTreeEntity).getDynamicInputId());
                 input.validateJsonPathAndType(jsonPath, variable);
@@ -89,7 +85,7 @@ public class ComparisonFactoryImpl implements ComparisonFactory {
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new DomainException("Something went wrong creating a singular comparison operation.");
+            throw new DomainException("Something went wrong creating a singular comparison operation.", e);
         }
     }
 
@@ -107,7 +103,7 @@ public class ComparisonFactoryImpl implements ComparisonFactory {
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new DomainException("Something went wrong creating a multi comparison operation.");
+            throw new DomainException("Something went wrong creating a multi comparison operation.", e);
         }
     }
 
@@ -125,21 +121,21 @@ public class ComparisonFactoryImpl implements ComparisonFactory {
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new DomainException("Something went wrong creating a custom comparison operation.");
+            throw new DomainException("Something went wrong creating a custom comparison operation.", e);
         }
     }
 
-    private void validateComparison(String jsonPath, Node<?> parent) throws BadRequestException {
+    private void validateComparison(String jsonPath, Node<?> parent) throws SystemGlobalException {
         Object rootTreeEntity = this.rootTreeService
                 .readGenericRoot(this.rootTreeService
                         .findRootIdByNodeId(parent.getId())
-                        .orElseThrow(() -> new EntityNotFound("Root parent not found!")));
+                        .orElseThrow(() -> new EntityNotFound("Root parent not found!", null)));
         if (rootTreeEntity instanceof RootTreeStatic) {
             PredefinedTypeEnum predefinedTypeEnum = ((RootTreeStatic) rootTreeEntity).getInput_type();
             try {
                 predefinedTypeEnum.validateJsonPath(predefinedTypeEnum, jsonPath);
-            } catch (NoSuchFieldException e) {
-                throw new IllegalFieldException("Field not found: " + e.getMessage());
+            } catch (FailedRequestException e) {
+                throw new IllegalFieldException("Field not found: " + e.getMessage(), e);
             }
         } else if (rootTreeEntity instanceof RootTreeDynamic) {
             Input input = this.inputService.read(((RootTreeDynamic) rootTreeEntity).getDynamicInputId());

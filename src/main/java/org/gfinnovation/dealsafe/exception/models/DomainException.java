@@ -9,7 +9,7 @@ import org.gfinnovation.dealsafe.exception.SystemGlobalException;
  * @since 08/11/2024
  */
 public class DomainException extends SystemGlobalException {
-    public DomainException(String message) {
-        super(message);
+    public DomainException(String message, Throwable cause) {
+        super(message, cause);
     }
 }

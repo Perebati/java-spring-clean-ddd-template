@@ -1,6 +1,7 @@
 package org.gfinnovation.dealsafe.tests.repository;
 
 import org.gfinnovation.dealsafe._shared.infrastructure.repository.interfaces.GenericBusinessRepository;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.modules.input.domain.predefined.PredefinedTypeEnum;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeBlock;
 import org.gfinnovation.dealsafe.modules.tree.node.infrastructure.repository.interfaces.NodeTreeBlockRepository;
@@ -30,7 +31,7 @@ public class NodeTreeBlockRepositoryTest extends GenericBusinessRepositoryTest<N
 
 
     @Override
-    protected NodeTreeBlock createEntity() {
+    protected NodeTreeBlock createEntity() throws SystemGlobalException {
         RootTreeStatic rootTreeStatic = this.rootTreeStaticRepository.create(new RootTreeStatic("RootTestH2", PredefinedTypeEnum.TESTE), repositoryAuth);
         return new NodeTreeBlock("NodeTestH2", rootTreeStatic);
     }

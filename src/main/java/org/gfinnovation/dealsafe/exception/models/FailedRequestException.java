@@ -9,7 +9,7 @@ import org.gfinnovation.dealsafe.exception.SystemGlobalException;
  * @since v1.0 (06/02/2025)
  */
 public class FailedRequestException extends SystemGlobalException {
-    public FailedRequestException(String message) {
-        super(message);
+    public FailedRequestException(String message, Throwable cause) {
+        super(message, cause);
     }
 }

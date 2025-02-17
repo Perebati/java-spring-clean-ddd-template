@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.modules.input.adapter.web.request.CreateInputData;
 import org.gfinnovation.dealsafe.modules.input.application.usecase.command.CreateInputUseCase;
 import org.gfinnovation.dealsafe.modules.input.domain.Input;
@@ -34,7 +35,7 @@ public class InputUseCaseTests extends GenericTest {
     @Test
     @DisplayName("Should create an input and then validate it.")
     @Transactional
-    public void test() throws JsonProcessingException {
+    public void test() throws JsonProcessingException, SystemGlobalException {
         String json = """
                 {
                   "nome": "João",

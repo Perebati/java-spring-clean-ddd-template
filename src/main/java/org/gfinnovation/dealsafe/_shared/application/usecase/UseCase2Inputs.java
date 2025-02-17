@@ -1,6 +1,6 @@
 package org.gfinnovation.dealsafe._shared.application.usecase;
 
-import org.gfinnovation.dealsafe.exception.models.ApplicationException;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 
 /**
  * @author Lucas Batista Pereira
@@ -16,5 +16,5 @@ public abstract class UseCase2Inputs<IN1, IN2, OUT, SERVICE> {
         this.service = service;
     }
 
-    public abstract OUT execute(IN1 input1, IN2 input2) throws ApplicationException;
+    public abstract OUT execute(IN1 input1, IN2 input2) throws SystemGlobalException;
 }

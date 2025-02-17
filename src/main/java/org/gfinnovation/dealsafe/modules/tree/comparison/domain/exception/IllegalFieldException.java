@@ -10,7 +10,7 @@ import org.gfinnovation.dealsafe.exception.SystemGlobalException;
  */
 
 public class IllegalFieldException extends SystemGlobalException {
-    public IllegalFieldException(String message) {
-        super(message);
+    public IllegalFieldException(String message, Throwable cause) {
+        super(message, cause);
     }
 }

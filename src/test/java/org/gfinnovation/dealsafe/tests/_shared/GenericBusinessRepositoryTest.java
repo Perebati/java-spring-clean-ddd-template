@@ -5,6 +5,7 @@ import org.apache.coyote.BadRequestException;
 import org.gfinnovation.dealsafe._shared.domain.GenericClass;
 import org.gfinnovation.dealsafe._shared.infrastructure.RepositoryAuth;
 import org.gfinnovation.dealsafe._shared.infrastructure.repository.interfaces.GenericBusinessRepository;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.InfrastructureException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,7 +31,7 @@ public abstract class GenericBusinessRepositoryTest<
     protected GenericBusinessRepository<E> repository;
     protected RepositoryAuth repositoryAuth;
 
-    protected abstract E createEntity() throws BadRequestException;
+    protected abstract E createEntity() throws BadRequestException, SystemGlobalException;
 
     protected abstract GenericBusinessRepository<E> createRepository();
 
@@ -108,7 +109,7 @@ public abstract class GenericBusinessRepositoryTest<
         E createdEntity = repository.create(entity, repositoryAuth);
         repository.delete(createdEntity.getId(), repositoryAuth);
 
-        Exception exception = assertThrows(RuntimeException.class, () -> repository.update(createdEntity, repositoryAuth));
+            Exception exception = assertThrows(SystemGlobalException.class, () -> repository.update(createdEntity, repositoryAuth));
         assertNotNull(exception, "Deveria ser lançada uma exceção ao tentar atualizar uma entidade deletada.");
         } catch (Exception e) {
             throw new RuntimeException(e);

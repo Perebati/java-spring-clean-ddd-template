@@ -1,5 +1,7 @@
 package org.gfinnovation.dealsafe._shared.application.usecase;
 
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
+
 /**
  * UseCase for null output.
  *
@@ -14,5 +16,5 @@ public abstract class NullOutputUseCase<IN, SERVICE> {
         this.service = service;
     }
 
-    public abstract void execute(IN input);
+    public abstract void execute(IN input) throws SystemGlobalException;
 }

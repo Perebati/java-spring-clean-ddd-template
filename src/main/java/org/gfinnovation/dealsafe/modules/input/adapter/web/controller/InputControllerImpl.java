@@ -37,7 +37,7 @@ class InputControllerImpl implements InputController {
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new AdapterException("Unexpected error in input creation.");
+            throw new AdapterException("Unexpected error in input creation.", e);
         }
     }
 
@@ -49,7 +49,7 @@ class InputControllerImpl implements InputController {
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new AdapterException("Unexpected error in input reading.");
+            throw new AdapterException("Unexpected error in input reading.", e);
         }
     }
 }

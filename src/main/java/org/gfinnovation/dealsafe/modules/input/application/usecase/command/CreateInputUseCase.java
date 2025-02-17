@@ -1,7 +1,7 @@
 package org.gfinnovation.dealsafe.modules.input.application.usecase.command;
 
 import org.gfinnovation.dealsafe._shared.application.usecase.UseCase;
-import org.gfinnovation.dealsafe.exception.models.ApplicationException;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.modules.input.adapter.web.request.CreateInputData;
 import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.InputService;
 import org.gfinnovation.dealsafe.modules.input.domain.Input;
@@ -20,7 +20,7 @@ public class CreateInputUseCase extends UseCase<CreateInputData, Input, InputSer
     }
 
     @Override
-    public Input execute(CreateInputData input) throws ApplicationException {
+    public Input execute(CreateInputData input) throws SystemGlobalException {
         return this.service.createInput(input);
     }
 }

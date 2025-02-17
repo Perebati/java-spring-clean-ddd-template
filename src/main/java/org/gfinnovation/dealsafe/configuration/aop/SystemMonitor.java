@@ -42,7 +42,7 @@ public class SystemMonitor {
         String companyId = MDC.get("whitelabelId");
 
         if (companyId == null || userId == null) {
-            throw new FailedRequestException("Unauthorized request");
+            throw new FailedRequestException("Unauthorized request", null);
         }
         try {
             return joinPoint.proceed();

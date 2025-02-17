@@ -3,9 +3,9 @@ package org.gfinnovation.dealsafe._shared.application;
 import org.gfinnovation.dealsafe._shared.application.interfaces.GenericService;
 import org.gfinnovation.dealsafe._shared.domain.GenericBusinessClass;
 import org.gfinnovation.dealsafe._shared.infrastructure.repository.interfaces.GenericBusinessRepository;
-import org.gfinnovation.dealsafe.utils.converter.ObjectMerger;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.ApplicationException;
+import org.gfinnovation.dealsafe.utils.converter.ObjectMerger;
 
 import java.util.List;
 import java.util.Optional;
@@ -47,7 +47,7 @@ public abstract class GenericServiceImpl
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ApplicationException("Something went wrong reading an entity.");
+            throw new ApplicationException("Something went wrong reading an entity.", e);
         }
     }
 
@@ -57,7 +57,7 @@ public abstract class GenericServiceImpl
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ApplicationException("Something went wrong finding an entity.");
+            throw new ApplicationException("Something went wrong finding an entity.", e);
         }
     }
 
@@ -67,7 +67,7 @@ public abstract class GenericServiceImpl
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ApplicationException("Something went wrong reading all entities.");
+            throw new ApplicationException("Something went wrong reading all entities.", e);
         }
     }
 
@@ -77,7 +77,7 @@ public abstract class GenericServiceImpl
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ApplicationException("Something went wrong reading all entities by id.");
+            throw new ApplicationException("Something went wrong reading all entities by id.", e);
         }
     }
 
@@ -87,7 +87,7 @@ public abstract class GenericServiceImpl
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ApplicationException("Something went wrong checking an entity.");
+            throw new ApplicationException("Something went wrong checking an entity.", e);
         }
     }
 
@@ -97,7 +97,7 @@ public abstract class GenericServiceImpl
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ApplicationException("Something went wrong checking all entities by ids.");
+            throw new ApplicationException("Something went wrong checking all entities by ids.", e);
         }
     }
 
@@ -113,7 +113,7 @@ public abstract class GenericServiceImpl
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ApplicationException("Something went wrong creating an entity.");
+            throw new ApplicationException("Something went wrong creating an entity.", e);
         }
     }
 
@@ -125,7 +125,7 @@ public abstract class GenericServiceImpl
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ApplicationException("Something went wrong updating an entity.");
+            throw new ApplicationException("Something went wrong updating an entity.", e);
         }
     }
 
@@ -135,7 +135,7 @@ public abstract class GenericServiceImpl
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ApplicationException("Something went wrong deleting an entity.");
+            throw new ApplicationException("Something went wrong deleting an entity.", e);
         }
     }
 
@@ -147,7 +147,7 @@ public abstract class GenericServiceImpl
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ApplicationException("Something went wrong async updating an entity.");
+            throw new ApplicationException("Something went wrong async updating an entity.", e);
         }
     }
 
@@ -157,7 +157,7 @@ public abstract class GenericServiceImpl
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ApplicationException("Something went wrong async deleting an entity.");
+            throw new ApplicationException("Something went wrong async deleting an entity.", e);
         }
     }
 }

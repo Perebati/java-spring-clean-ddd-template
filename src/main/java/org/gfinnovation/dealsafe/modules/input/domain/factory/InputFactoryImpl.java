@@ -22,7 +22,7 @@ class InputFactoryImpl implements InputFactory {
         try {
             return new Input(name, json);
         } catch (Exception e) {
-            throw new DomainException("Something went wrong creating an input.");
+            throw new DomainException("Something went wrong creating an input.", e);
         }
     }
 }

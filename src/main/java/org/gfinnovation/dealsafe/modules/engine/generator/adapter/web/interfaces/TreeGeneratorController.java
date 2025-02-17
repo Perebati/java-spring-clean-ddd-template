@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.modules.tree._shared.domain.RootTree;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,5 +34,5 @@ public interface TreeGeneratorController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
     @PostMapping("tree")
-    ResponseEntity<RootTree<?>> createTree(@RequestBody RootTree<?> request);
+    ResponseEntity<RootTree<?>> createTree(@RequestBody RootTree<?> request) throws SystemGlobalException;
 }

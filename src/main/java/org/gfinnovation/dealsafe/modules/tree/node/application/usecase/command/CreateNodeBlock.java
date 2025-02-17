@@ -1,6 +1,7 @@
 package org.gfinnovation.dealsafe.modules.tree.node.application.usecase.command;
 
 import org.gfinnovation.dealsafe._shared.application.usecase.UseCase;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeCreationData;
 import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeBlockService;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeBlock;
@@ -19,7 +20,7 @@ public class CreateNodeBlock extends UseCase<NodeCreationData, NodeTreeBlock, No
     }
 
     @Override
-    public NodeTreeBlock execute(NodeCreationData input) {
+    public NodeTreeBlock execute(NodeCreationData input) throws SystemGlobalException {
         return service.createBlock(input);
     }
 }

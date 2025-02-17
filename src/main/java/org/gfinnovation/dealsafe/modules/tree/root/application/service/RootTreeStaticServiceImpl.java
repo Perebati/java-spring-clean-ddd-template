@@ -61,7 +61,7 @@ class RootTreeStaticServiceImpl
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ApplicationException("Something went wrong creating a static root.");
+            throw new ApplicationException("Something went wrong creating a static root.", e);
         }
     }
 
@@ -80,7 +80,7 @@ class RootTreeStaticServiceImpl
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ApplicationException("Something went wrong deleting a static root.");
+            throw new ApplicationException("Something went wrong deleting a static root.", e);
         }
     }
 }

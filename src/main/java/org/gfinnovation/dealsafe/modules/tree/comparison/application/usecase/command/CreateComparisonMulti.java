@@ -1,6 +1,7 @@
 package org.gfinnovation.dealsafe.modules.tree.comparison.application.usecase.command;
 
 import org.gfinnovation.dealsafe._shared.application.usecase.UseCase;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonMultiRecord;
 import org.gfinnovation.dealsafe.modules.tree.comparison.application.service.interfaces.ComparisonMultiService;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonMulti;
@@ -19,7 +20,7 @@ public class CreateComparisonMulti extends UseCase<ComparisonMultiRecord, Compar
     }
 
     @Override
-    public ComparisonMulti execute(ComparisonMultiRecord input) {
+    public ComparisonMulti execute(ComparisonMultiRecord input) throws SystemGlobalException {
         return this.service.create(input);
     }
 }

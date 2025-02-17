@@ -1,9 +1,12 @@
 package org.gfinnovation.dealsafe.modules.engine.generator.application.service;
 
 import jakarta.transaction.Transactional;
-import org.gfinnovation.dealsafe.modules.engine.generator.application.service.interfaces.TreeGeneratorService;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.AdapterException;
+import org.gfinnovation.dealsafe.modules.engine.generator.application.service.interfaces.TreeGeneratorService;
+import org.gfinnovation.dealsafe.modules.tree._shared.domain.Node;
+import org.gfinnovation.dealsafe.modules.tree._shared.domain.NodeTree;
+import org.gfinnovation.dealsafe.modules.tree._shared.domain.RootTree;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonMultiRecord;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonSingularRecord;
 import org.gfinnovation.dealsafe.modules.tree.comparison.application.service.interfaces.ComparisonCustomListService;
@@ -16,13 +19,10 @@ import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeCreat
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeIfCreationData;
 import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeBlockService;
 import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeIfService;
-import org.gfinnovation.dealsafe.modules.tree._shared.domain.Node;
-import org.gfinnovation.dealsafe.modules.tree._shared.domain.NodeTree;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeBlock;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeIf;
 import org.gfinnovation.dealsafe.modules.tree.root.application.service.interfaces.RootTreeDynamicService;
 import org.gfinnovation.dealsafe.modules.tree.root.application.service.interfaces.RootTreeStaticService;
-import org.gfinnovation.dealsafe.modules.tree._shared.domain.RootTree;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeDynamic;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeStatic;
 import org.springframework.stereotype.Service;
@@ -60,7 +60,7 @@ class TreeGeneratorServiceImpl implements TreeGeneratorService {
     }
 
     @Transactional
-    public RootTree<?> createTree(RootTree<?> root) {
+    public RootTree<?> createTree(RootTree<?> root) throws SystemGlobalException {
         try {
             if(root.getNodeType().equals(Node.NodeType.ROOT_STATIC)){
                 RootTreeStatic rootTreeStatic = this.rootTreeStatic.create(root.getName(), ((RootTreeStatic) root).getInput_type());
@@ -76,7 +76,7 @@ class TreeGeneratorServiceImpl implements TreeGeneratorService {
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new AdapterException("An error occurred while creating a tree");
+            throw new AdapterException("An error occurred while creating a tree", e);
         }
     }
 
@@ -86,7 +86,7 @@ class TreeGeneratorServiceImpl implements TreeGeneratorService {
      * @param parentEntity Parent entity.
      * @param tree Tree node.
      */
-    protected void processNode(Node<?> parentEntity, Node<?> tree) {
+    protected void processNode(Node<?> parentEntity, Node<?> tree) throws SystemGlobalException {
         switch (tree.getNodeType()) {
             case ROOT_STATIC -> {
                 for(NodeTree<?> node: ((RootTreeStatic) tree).getNodes()){
@@ -130,7 +130,7 @@ class TreeGeneratorServiceImpl implements TreeGeneratorService {
      * @param setNode Set node.
      * @return Node
      */
-    protected Node<?> processChild(Node<?> parent, Node<?> node, NodeTreeIf.SetNode setNode) {
+    protected Node<?> processChild(Node<?> parent, Node<?> node, NodeTreeIf.SetNode setNode) throws SystemGlobalException {
         switch (node.getNodeType()){
             case NODE_BLOCK -> {
                 return this.nodeTreeBlockService.createBlock(

@@ -61,7 +61,7 @@ public class RootTreeDynamicServiceImpl
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ApplicationException("Something went wrong creating a dynamic root.");
+            throw new ApplicationException("Something went wrong creating a dynamic root.", e);
         }
     }
 
@@ -79,7 +79,7 @@ public class RootTreeDynamicServiceImpl
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ApplicationException("Something went wrong deleting a dynamic root.");
+            throw new ApplicationException("Something went wrong deleting a dynamic root.", e);
         }
     }
 }

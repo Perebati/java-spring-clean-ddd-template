@@ -58,7 +58,7 @@ class InputServiceImpl
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
-            throw new ApplicationException("Something went wrong creating an input.");
+            throw new ApplicationException("Something went wrong creating an input.", e);
         }
     }
 }

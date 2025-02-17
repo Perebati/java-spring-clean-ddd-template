@@ -34,7 +34,7 @@ public class ActionOperationFactoryImpl implements ActionOperationFactory {
         try {
             return new ActionOperation(url, message);
         } catch (Exception e) {
-            throw new DomainException("Something went wrong creating an action operation.");
+            throw new DomainException("Something went wrong creating an action operation.", e);
         }
     }
 }

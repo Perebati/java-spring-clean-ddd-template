@@ -1,5 +1,6 @@
 package org.gfinnovation.dealsafe.modules.engine.generator.application.service.interfaces;
 
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.modules.tree._shared.domain.RootTree;
 
 /**
@@ -10,5 +11,5 @@ import org.gfinnovation.dealsafe.modules.tree._shared.domain.RootTree;
  */
 
 public interface TreeGeneratorService {
-    RootTree<?> createTree(RootTree<?> root);
+    RootTree<?> createTree(RootTree<?> root) throws SystemGlobalException;
 }

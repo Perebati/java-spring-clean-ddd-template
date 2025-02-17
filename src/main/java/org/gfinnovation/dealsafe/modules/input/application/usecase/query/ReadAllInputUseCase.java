@@ -1,6 +1,7 @@
 package org.gfinnovation.dealsafe.modules.input.application.usecase.query;
 
 import org.gfinnovation.dealsafe._shared.application.usecase.NullInputUseCase;
+import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.InputService;
 import org.gfinnovation.dealsafe.modules.input.domain.Input;
 import org.springframework.stereotype.Component;
@@ -21,7 +22,7 @@ public class ReadAllInputUseCase extends NullInputUseCase<List<Input>, InputServ
     }
 
     @Override
-    public List<Input> execute() {
+    public List<Input> execute() throws SystemGlobalException {
         return this.service.readAll().get();
     }
 }
