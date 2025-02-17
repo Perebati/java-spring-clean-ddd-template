@@ -9,10 +9,9 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.gfinnovation.dealsafe.exception.models.DomainException;
-import org.gfinnovation.dealsafe.modules.tree._shared.domain.NodeTree;
 import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
 import org.gfinnovation.dealsafe.modules.tree._shared.domain.Node;
+import org.gfinnovation.dealsafe.modules.tree._shared.domain.NodeTree;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonCustomList;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonMulti;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
@@ -20,6 +19,8 @@ import org.gfinnovation.dealsafe.utils.annotations.Default;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 /**
  * @author Lucas Batista Pereira
@@ -77,12 +78,18 @@ public class NodeTreeBlock extends NodeTree<NodeInput> {
     }
 
     public void addNode(NodeTree<NodeInput> node) {
-        try {
-            this.nodes.add(node);
-            node.setParent(this);
-        } catch (Exception e) {
-            throw new DomainException("Error adding node to parent");
-        }
+        this.nodes.add(node);
+        node.setParent(this);
+    }
+
+    public void removeNode(UUID nodeId) {
+        Optional<NodeTree<NodeInput>> nodeOpt = nodes.stream()
+                .filter(n -> n.getId().equals(nodeId))
+                .findFirst();
+        nodeOpt.ifPresent(node -> {
+            nodes.remove(node);
+            node.setParent(null);
+        });
     }
 
     @Override

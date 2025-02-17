@@ -20,6 +20,8 @@ import org.gfinnovation.dealsafe.utils.annotations.Default;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 /**
  * It sets off what type of tree will be build using nodes.
@@ -74,12 +76,18 @@ public class RootTree<T extends NodeInput> extends Node<T> {
     }
 
     public void addNode(NodeTree<T> node) {
-        try {
-            this.nodes.add(node);
-            node.setParent(this);
-        } catch (Exception e) {
-            throw new RuntimeException("Error adding node to branch");
-        }
+        this.nodes.add(node);
+        node.setParent(this);
+    }
+
+    public void removeNode(UUID nodeId) {
+        Optional<NodeTree<T>> nodeOpt = nodes.stream()
+                .filter(n -> n.getId().equals(nodeId))
+                .findFirst();
+        nodeOpt.ifPresent(node -> {
+            nodes.remove(node);
+            node.setParent(null);
+        });
     }
 
     @Override

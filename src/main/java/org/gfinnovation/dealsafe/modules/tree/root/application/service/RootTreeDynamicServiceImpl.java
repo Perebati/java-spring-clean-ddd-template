@@ -5,6 +5,7 @@ import org.gfinnovation.dealsafe._shared.application.GenericServiceImpl;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.ApplicationException;
 import org.gfinnovation.dealsafe.exception.models.InfrastructureException;
+import org.gfinnovation.dealsafe.modules.tree._shared.infrastructure.repository.interfaces.NodeRepository;
 import org.gfinnovation.dealsafe.modules.tree.root.application.service.interfaces.RootTreeDynamicService;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeDynamic;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.factory.interfaces.RootTreeFactory;
@@ -25,14 +26,17 @@ public class RootTreeDynamicServiceImpl
         extends GenericServiceImpl<RootTreeDynamic, RootTreeDynamicRepository>
         implements RootTreeDynamicService {
     private final RootTreeFactory rootTreeFactory;
+    private final NodeRepository nodeRepository;
 
     @Autowired
     public RootTreeDynamicServiceImpl(
             RootTreeDynamicRepository repository,
-            RootTreeFactory rootTreeFactory
+            RootTreeFactory rootTreeFactory,
+            NodeRepository nodeRepository
     ) {
         super(repository);
         this.rootTreeFactory = rootTreeFactory;
+        this.nodeRepository = nodeRepository;
     }
 
     /**
@@ -58,6 +62,24 @@ public class RootTreeDynamicServiceImpl
             throw e;
         } catch (Exception e) {
             throw new ApplicationException("Something went wrong creating a dynamic root.");
+        }
+    }
+
+    /**
+     * Deletes a Root node by its id.
+     *
+     * @param id Identification of given root node.
+     * @throws ApplicationException    Thrown when an error occurs on business level.
+     * @throws InfrastructureException Thrown when an error occurs on repository level.
+     */
+    @Override
+    public void delete(UUID id) throws SystemGlobalException {
+        try {
+            this.nodeRepository.deleteNode(id, getRepositoryAuth());
+        } catch (SystemGlobalException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new ApplicationException("Something went wrong deleting a dynamic root.");
         }
     }
 }

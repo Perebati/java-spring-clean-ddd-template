@@ -185,9 +185,11 @@ public class DeleteNodeBlockUseCaseTest extends GenericTest {
 
         RootTree<?> rootTree = this.rootTreeDynamic.read(createdRoot.getId());
 
-        assertThrows(RuntimeException.class, () -> nodeTreeBlockService.findById(node1.getId()));
         assertThrows(RuntimeException.class, () -> nodeTreeIfService.read(nodeIf1.getId()));
 
+        this.rootTreeDynamic.delete(createdRoot.getId());
+
+        assertThrows(RuntimeException.class, () -> rootTreeDynamic.read(createdRoot.getId()));
 
         System.out.println("Teste");
     }

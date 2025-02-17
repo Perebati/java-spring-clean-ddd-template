@@ -25,8 +25,6 @@ import org.gfinnovation.dealsafe.modules.tree.root.infrastructure.repository.int
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.UUID;
-
 /**
  * @author Lucas Batista Pereira
  * @version v1.0
@@ -161,45 +159,6 @@ class NodeTreeRepositoryImpl<T extends NodeTree<NodeInput>>
             }
         } catch (Exception e) {
             throw new InfrastructureException("An error has occurred when inserting a node inside an if node.");
-        }
-    }
-
-    @Transactional
-    public void deleteNode(UUID id,
-                           RepositoryAuth auth) throws SystemGlobalException {
-        try {
-            if (id == null) {
-                return;
-            }
-
-            NodeTree<NodeInput> parent = this.read(id, auth);
-
-            switch (parent.getNodeType()) {
-                case NODE_IF -> {
-                    NodeTreeIf nodeIf = this.nodeTreeIfRepository.read(id, auth);
-                    for (NodeTree<NodeInput> node : nodeIf.getConditionalNodes()) {
-                        this.deleteNode(node.getId(), auth);
-                    }
-                    for (NodeTree<NodeInput> node : nodeIf.getThenNodes()) {
-                        this.deleteNode(node.getId(), auth);
-                    }
-                    for (NodeTree<NodeInput> node : nodeIf.getElseNodes()) {
-                        this.deleteNode(node.getId(), auth);
-                    }
-                    this.delete(id, auth);
-                }
-
-                case NODE_BLOCK -> {
-                    NodeTreeBlock nodeBlock = this.nodeTreeBlockRepository.read(id, auth);
-                    for (NodeTree<NodeInput> node : nodeBlock.getNodes()) {
-                        this.deleteNode(node.getId(), auth);
-                    }
-                    this.delete(id, auth);
-                }
-                case null, default -> this.delete(id, auth);
-            }
-        } catch (Exception e) {
-            throw new InfrastructureException("An error has occurred when deleting a node.");
         }
     }
 }

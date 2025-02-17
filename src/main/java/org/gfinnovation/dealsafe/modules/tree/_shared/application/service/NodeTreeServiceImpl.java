@@ -7,6 +7,7 @@ import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
 import org.gfinnovation.dealsafe.modules.tree._shared.application.service.interfaces.NodeTreeService;
 import org.gfinnovation.dealsafe.modules.tree._shared.domain.Node;
 import org.gfinnovation.dealsafe.modules.tree._shared.domain.NodeTree;
+import org.gfinnovation.dealsafe.modules.tree._shared.infrastructure.repository.interfaces.NodeRepository;
 import org.gfinnovation.dealsafe.modules.tree._shared.infrastructure.repository.interfaces.NodeTreeRepository;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeIf;
 import org.springframework.stereotype.Service;
@@ -24,9 +25,12 @@ import java.util.UUID;
 class NodeTreeServiceImpl<T extends NodeTree<NodeInput>>
         extends GenericServiceImpl<NodeTree<NodeInput>, NodeTreeRepository<T>>
         implements NodeTreeService<T> {
+    private final NodeRepository nodeRepository;
 
-    protected NodeTreeServiceImpl(NodeTreeRepository<T> repository) {
+    protected NodeTreeServiceImpl(NodeTreeRepository<T> repository,
+                                  NodeRepository nodeRepository) {
         super(repository);
+        this.nodeRepository = nodeRepository;
     }
 
     @Override
@@ -45,7 +49,7 @@ class NodeTreeServiceImpl<T extends NodeTree<NodeInput>>
     @Override
     public void deleteNode(UUID id) throws SystemGlobalException {
         try {
-            this.repository.deleteNode(id, getRepositoryAuth());
+            this.nodeRepository.deleteNode(id, getRepositoryAuth());
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {

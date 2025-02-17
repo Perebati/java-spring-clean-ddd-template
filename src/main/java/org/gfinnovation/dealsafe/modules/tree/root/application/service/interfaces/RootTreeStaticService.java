@@ -5,6 +5,8 @@ import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.modules.input.domain.predefined.PredefinedTypeEnum;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeStatic;
 
+import java.util.UUID;
+
 /**
  * @author Lucas Batista Pereira
  * @version v1.1
@@ -16,4 +18,6 @@ public interface RootTreeStaticService extends GenericService<RootTreeStatic> {
             String name,
             PredefinedTypeEnum static_input
     ) throws SystemGlobalException;
+
+    void delete(UUID id) throws SystemGlobalException;
 }

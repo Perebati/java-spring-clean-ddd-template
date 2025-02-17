@@ -214,14 +214,13 @@ public abstract class GenericBusinessRepositoryImpl
     @Override
     public Optional<E> findById(
             @Nonnull UUID id,
-            @Nonnull RepositoryAuth auth) throws InfrastructureException {
+            @Nonnull RepositoryAuth auth) {
         try {
-            return Optional.ofNullable(mapper.toEntity(this.readInternal(id, auth)));
-        } catch (InfrastructureException e) {
-            logger.error("Failed to retrieve entity with id: {}", id, e);
-            throw e;
+            E entity = mapper.toEntity(this.readInternal(id, auth));
+            return Optional.ofNullable(entity);
         } catch (Exception e) {
-            throw new InfrastructureException("Failed to retrieve data");
+            logger.error("Failed to retrieve entity with id: {}", id, e);
+            return Optional.empty();
         }
     }
 

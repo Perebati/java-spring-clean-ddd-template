@@ -9,9 +9,9 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.gfinnovation.dealsafe.modules.tree._shared.domain.NodeTree;
 import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
 import org.gfinnovation.dealsafe.modules.tree._shared.domain.Node;
+import org.gfinnovation.dealsafe.modules.tree._shared.domain.NodeTree;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonCustomList;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonMulti;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
@@ -19,6 +19,8 @@ import org.gfinnovation.dealsafe.utils.annotations.Default;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 /**
  * @author Lucas Batista Pereira
@@ -89,14 +91,47 @@ public class NodeTreeIf extends NodeTree<NodeInput> {
 
     public void addConditionalNode(NodeTree<NodeInput> node) {
         conditionalNodes.add(node);
+        node.setParent(this);
     }
 
     public void addThenNode(NodeTree<NodeInput> node) {
         thenNodes.add(node);
+        node.setParent(this);
     }
 
     public void addElseNode(NodeTree<NodeInput> node) {
         elseNodes.add(node);
+        node.setParent(this);
+    }
+
+    public void removeConditionalNode(UUID nodeId) {
+        Optional<NodeTree<NodeInput>> nodeOpt = conditionalNodes.stream()
+                .filter(n -> n.getId().equals(nodeId))
+                .findFirst();
+        nodeOpt.ifPresent(node -> {
+            conditionalNodes.remove(node);
+            node.setParent(null);
+        });
+    }
+
+    public void removeThenNode(UUID nodeId) {
+        Optional<NodeTree<NodeInput>> nodeOpt = thenNodes.stream()
+                .filter(n -> n.getId().equals(nodeId))
+                .findFirst();
+        nodeOpt.ifPresent(node -> {
+            thenNodes.remove(node);
+            node.setParent(null);
+        });
+    }
+
+    public void removeElseNode(UUID nodeId) {
+        Optional<NodeTree<NodeInput>> nodeOpt = elseNodes.stream()
+                .filter(n -> n.getId().equals(nodeId))
+                .findFirst();
+        nodeOpt.ifPresent(node -> {
+            elseNodes.remove(node);
+            node.setParent(null);
+        });
     }
 
     @Override

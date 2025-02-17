@@ -17,4 +17,6 @@ public interface RootTreeDynamicService extends GenericService<RootTreeDynamic> 
             String name,
             UUID dynamic_input
     ) throws SystemGlobalException;
+
+    void delete(UUID id) throws SystemGlobalException;
 }
