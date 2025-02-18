@@ -14,7 +14,7 @@ import java.util.UUID;
 
 public abstract class GenericTest {
 
-    public static PostgreSQLContainer<?> postgresContainer = new PostgreSQLContainer<>("postgres:latest")
+    public static PostgreSQLContainer<?> postgresContainer = new PostgreSQLContainer<>("postgres:15")
             .withDatabaseName("test")
             .withUsername("postgres")
             .withPassword("postgres");
