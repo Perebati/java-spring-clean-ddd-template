@@ -7,13 +7,13 @@ spring:
   application:
     name: Dealsafe-Dev
   datasource:
-    url: jdbc:postgresql://localhost:5432/motorRegra?createDatabaseIfNotExist=true&useSSL=false
+    url: jdbc:postgresql://localhost:5432/dealsafe?useSSL=false
     username: postgres
     password: postgres
     driverClassName: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
@@ -23,6 +23,10 @@ spring:
     authentication:
       username: neo4j
       password: password
+  flyway:
+    enabled: true
+    locations: classpath:migration
+    baseline-on-migrate: false
 
   data:
     mongodb:
