@@ -1,7 +1,6 @@
 package org.gfinnovation.dealsafe._shared.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -22,10 +21,8 @@ import java.util.UUID;
 @Data
 public abstract class GenericBusinessClass extends GenericClass {
     @JsonIgnore
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private UUID userId;
 
     @JsonIgnore
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private UUID whitelabelId;
 }

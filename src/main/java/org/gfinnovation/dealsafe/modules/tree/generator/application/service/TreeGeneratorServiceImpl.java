@@ -1,9 +1,9 @@
-package org.gfinnovation.dealsafe.modules.engine.generator.application.service;
+package org.gfinnovation.dealsafe.modules.tree.generator.application.service;
 
 import jakarta.transaction.Transactional;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.AdapterException;
-import org.gfinnovation.dealsafe.modules.engine.generator.application.service.interfaces.TreeGeneratorService;
+import org.gfinnovation.dealsafe.modules.tree.generator.application.service.interfaces.TreeGeneratorService;
 import org.gfinnovation.dealsafe.modules.tree._shared.domain.Node;
 import org.gfinnovation.dealsafe.modules.tree._shared.domain.NodeTree;
 import org.gfinnovation.dealsafe.modules.tree._shared.domain.RootTree;
@@ -174,4 +174,13 @@ class TreeGeneratorServiceImpl implements TreeGeneratorService {
             }
         }
     }
+
+    /*
+        O usuario passa o Id do nó da arvore
+        O sistema busca o nó
+        O sistema verifica se o nó é do tipo ROOT_Static ou Root_Dynamic
+        O sistema deleta todos os nós filhos do nó raiz
+        O sistema sobrescreve o nó raiz de acordo com o input do usuário
+        O sistema usa árvore de entrada para gerar a nova árvore
+     */
 }

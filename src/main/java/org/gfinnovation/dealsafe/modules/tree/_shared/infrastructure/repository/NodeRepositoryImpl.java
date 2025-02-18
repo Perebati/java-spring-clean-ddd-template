@@ -152,7 +152,7 @@ class NodeRepositoryImpl
                 this.rootTreeDynamicRepository.update(parentDynamic, auth);
             }
             default -> {
-                // Sem ação para outros tipos
+                throw new SystemGlobalException("Can't remove child from parent of type: " + parent.getNodeType(), null);
             }
         }
     }

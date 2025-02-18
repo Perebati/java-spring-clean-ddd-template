@@ -1,8 +1,8 @@
-package org.gfinnovation.dealsafe.modules.engine.generator.application.usecase;
+package org.gfinnovation.dealsafe.modules.tree.generator.application.usecase;
 
 import org.gfinnovation.dealsafe._shared.application.usecase.UseCase;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
-import org.gfinnovation.dealsafe.modules.engine.generator.application.service.interfaces.TreeGeneratorService;
+import org.gfinnovation.dealsafe.modules.tree.generator.application.service.interfaces.TreeGeneratorService;
 import org.gfinnovation.dealsafe.modules.tree._shared.domain.RootTree;
 import org.springframework.stereotype.Component;
 

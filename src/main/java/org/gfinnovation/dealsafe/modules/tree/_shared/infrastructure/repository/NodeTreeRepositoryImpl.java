@@ -41,7 +41,6 @@ class NodeTreeRepositoryImpl<T extends NodeTree<NodeInput>>
     private final NodeTreeBlockRepository nodeTreeBlockRepository;
     private final NodeTreeIfRepository nodeTreeIfRepository;
 
-
     public NodeTreeRepositoryImpl(
             NodeTreeMapper mapper,
             EntityManager entityManager,

@@ -23,18 +23,14 @@ public abstract class GenericClass {
     private UUID id;
 
     @JsonIgnore
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDateTime createdAt;
 
     @JsonIgnore
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDateTime updatedAt;
 
     @JsonIgnore
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDateTime deletedAt;
 
     @JsonIgnore
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private boolean deleted;
 }

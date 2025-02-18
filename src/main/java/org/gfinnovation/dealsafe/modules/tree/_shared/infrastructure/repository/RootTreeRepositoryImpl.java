@@ -90,33 +90,22 @@ class RootTreeRepositoryImpl
         try {
             String sql = """
                         WITH RECURSIVE hierarchy AS (
-                        SELECT
-                            n.id AS node_id,
-                            n.parent_id,
-                            n.parent_type
-                        FROM
-                            tree_node n
-                        WHERE
-                            n.id = :nodeId
+                        SELECT n.id AS node_id,
+                               n.parent_id,
+                               n.parent_type
+                        FROM tree_node n
+                        WHERE n.id = :nodeId
                         UNION ALL
-                        SELECT
-                            n2.id AS node_id,
-                            n2.parent_id,
-                            n2.parent_type
-                        FROM
-                            hierarchy h
-                        JOIN
-                            tree_node n2 ON n2.id = h.parent_id
-                        WHERE
-                            h.parent_type = 'NODE' AND h.parent_id IS NOT NULL
-                    )
-                    SELECT
-                        h.parent_id AS root_id
-                    FROM
-                        hierarchy h
-                    WHERE
-                        h.parent_type = 'ROOT'
-                    LIMIT 1
+                        SELECT n2.id AS node_id,
+                               n2.parent_id,
+                               n2.parent_type
+                        FROM hierarchy h
+                        JOIN tree_node n2 ON n2.id = h.parent_id
+                        WHERE h.parent_type = 'NODE' AND h.parent_id IS NOT NULL)
+                        SELECT h.parent_id AS root_id
+                        FROM hierarchy h
+                        WHERE h.parent_type = 'ROOT'
+                        LIMIT 1
                     """;
 
             Query query = entityManager.createNativeQuery(sql);

@@ -1,11 +1,11 @@
-package org.gfinnovation.dealsafe.modules.engine.generator.adapter.web;
+package org.gfinnovation.dealsafe.modules.tree.generator.adapter.web;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.AdapterException;
-import org.gfinnovation.dealsafe.modules.engine.generator.adapter.web.interfaces.TreeGeneratorController;
-import org.gfinnovation.dealsafe.modules.engine.generator.application.usecase.CreateTreeUseCase;
+import org.gfinnovation.dealsafe.modules.tree.generator.adapter.web.interfaces.TreeGeneratorController;
+import org.gfinnovation.dealsafe.modules.tree.generator.application.usecase.CreateTreeUseCase;
 import org.gfinnovation.dealsafe.modules.tree._shared.domain.RootTree;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
