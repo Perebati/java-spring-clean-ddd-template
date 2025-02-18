@@ -2,6 +2,11 @@ server:
   port: ${SERVER_PORT}
   servlet:
     context-path: ${SERVER_SERVLET_CONTEXT_PATH}
+  ssl:
+    enabled: true
+    key-store: ${SSl_KEY_STORE}
+    key-store-password: ${SSL_KEY_STORE_PASSWORD}
+    key-password: ${SSL_KEY_PASSWORD}
 
 spring:
   application:
