@@ -1,12 +1,16 @@
 package org.gfinnovation.dealsafe.modules.tree.generator.application.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.AdapterException;
-import org.gfinnovation.dealsafe.modules.tree.generator.application.service.interfaces.TreeGeneratorService;
+import org.gfinnovation.dealsafe.exception.models.FailedRequestException;
+import org.gfinnovation.dealsafe.modules.tree._shared.application.service.interfaces.NodeService;
+import org.gfinnovation.dealsafe.modules.tree._shared.application.service.interfaces.RootTreeService;
 import org.gfinnovation.dealsafe.modules.tree._shared.domain.Node;
 import org.gfinnovation.dealsafe.modules.tree._shared.domain.NodeTree;
 import org.gfinnovation.dealsafe.modules.tree._shared.domain.RootTree;
+import org.gfinnovation.dealsafe.modules.tree._shared.domain.RootTreeHistory;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonMultiRecord;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonSingularRecord;
 import org.gfinnovation.dealsafe.modules.tree.comparison.application.service.interfaces.ComparisonCustomListService;
@@ -15,6 +19,7 @@ import org.gfinnovation.dealsafe.modules.tree.comparison.application.service.int
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonCustomList;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonMulti;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
+import org.gfinnovation.dealsafe.modules.tree.generator.application.service.interfaces.TreeGeneratorService;
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeCreationData;
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeIfCreationData;
 import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeBlockService;
@@ -26,6 +31,8 @@ import org.gfinnovation.dealsafe.modules.tree.root.application.service.interface
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeDynamic;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeStatic;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 /**
  * @author Lucas Batista Pereira
@@ -42,14 +49,17 @@ class TreeGeneratorServiceImpl implements TreeGeneratorService {
     private final ComparisonCustomListService comparisonCustomListService;
     private final RootTreeDynamicService rootTreeDynamic;
     private final RootTreeStaticService rootTreeStatic;
-
+    private final RootTreeService rootTreeService;
+    private final NodeService nodeService;
     public TreeGeneratorServiceImpl(NodeTreeBlockService nodeTreeBlockService,
                                     NodeTreeIfService nodeTreeIfService,
                                     ComparisonSingularService comparisonSingularService,
                                     ComparisonMultiService comparisonMultiService,
                                     ComparisonCustomListService comparisonCustomListService,
                                     RootTreeDynamicService rootTreeDynamic,
-                                    RootTreeStaticService rootTreeStatic) {
+                                    RootTreeStaticService rootTreeStatic,
+                                    RootTreeService rootTreeService,
+                                    NodeService nodeService) {
         this.nodeTreeBlockService = nodeTreeBlockService;
         this.nodeTreeIfService = nodeTreeIfService;
         this.comparisonSingularService = comparisonSingularService;
@@ -57,6 +67,8 @@ class TreeGeneratorServiceImpl implements TreeGeneratorService {
         this.comparisonCustomListService = comparisonCustomListService;
         this.rootTreeDynamic = rootTreeDynamic;
         this.rootTreeStatic = rootTreeStatic;
+        this.rootTreeService = rootTreeService;
+        this.nodeService = nodeService;
     }
 
     @Transactional
@@ -175,12 +187,95 @@ class TreeGeneratorServiceImpl implements TreeGeneratorService {
         }
     }
 
-    /*
-        O usuario passa o Id do nó da arvore
-        O sistema busca o nó
-        O sistema verifica se o nó é do tipo ROOT_Static ou Root_Dynamic
-        O sistema deleta todos os nós filhos do nó raiz
-        O sistema sobrescreve o nó raiz de acordo com o input do usuário
-        O sistema usa árvore de entrada para gerar a nova árvore
-     */
+    @Transactional
+    public RootTree<?> updateTree(UUID id, RootTree<?> root) throws SystemGlobalException {
+        try {
+            return switch (root.getNodeType()) {
+                case ROOT_STATIC -> updateStaticTree(id, root);
+                case ROOT_DYNAMIC -> updateDynamicTree(id, root);
+                default -> throw new FailedRequestException(
+                        "The tree type of input does not match the tree type in the database", null);
+            };
+        } catch (SystemGlobalException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new AdapterException("An error occurred while updating a tree", e);
+        }
+    }
+
+    private RootTreeStatic updateStaticTree(UUID id, RootTree<?> root) throws SystemGlobalException {
+        RootTreeStatic tree = this.rootTreeStatic.read(id);
+        if (!tree.getNodeType().equals(Node.NodeType.ROOT_STATIC)) {
+            throw new FailedRequestException(
+                    "The tree type of input does not match the tree type in the database", null);
+        }
+        this.updateTreeData(tree, root);
+        return this.rootTreeStatic.read(tree.getId());
+    }
+
+    private RootTreeDynamic updateDynamicTree(UUID id, RootTree<?> root) throws SystemGlobalException {
+        RootTreeDynamic tree = this.rootTreeDynamic.read(id);
+        if (!tree.getNodeType().equals(Node.NodeType.ROOT_DYNAMIC)) {
+            throw new FailedRequestException(
+                    "The tree type of input does not match the tree type in the database", null);
+        }
+        this.updateTreeData(tree, root);
+        return this.rootTreeDynamic.read(tree.getId());
+    }
+
+    private void updateTreeData(RootTree<?> tree, RootTree<?> root) throws SystemGlobalException {
+        tree.updateData(root.getName(), null);
+        tree.getNodes().forEach(node -> {
+            try {
+                this.nodeService.deleteNode(node.getId());
+            } catch (SystemGlobalException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        processNode(tree, root);
+        this.rootTreeService.addHistoryToTree(tree.getId(), tree);
+    }
+
+    @Transactional
+    public RootTree<?> reverseTree(UUID treeId, UUID historyId) throws SystemGlobalException {
+        try {
+            RootTree<?> baseTree = this.rootTreeStatic.read(treeId);
+            RootTreeHistory history = baseTree.findHistoryById(historyId)
+                    .orElseThrow(() -> new FailedRequestException("History not found", null));
+            String json = history.getJson();
+
+            ObjectMapper mapper = new ObjectMapper();
+            RootTree<?> rootObject;
+            try {
+                rootObject = mapper.readValue(json, RootTree.class);
+            } catch (Exception e) {
+                throw new FailedRequestException("The json is not a valid tree", e);
+            }
+
+            return switch (baseTree.getNodeType()) {
+                case ROOT_STATIC -> reverseStaticTree(treeId, rootObject);
+                case ROOT_DYNAMIC -> reverseDynamicTree(treeId, rootObject);
+                default -> throw new FailedRequestException(
+                        "The tree type of input does not match the tree type in the database", null);
+            };
+        } catch (SystemGlobalException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new AdapterException("An error occurred while reversing a tree", e);
+        }
+    }
+
+    private RootTreeStatic reverseStaticTree(UUID treeId, RootTree<?> rootObject) throws SystemGlobalException {
+        RootTreeStatic tree = this.rootTreeStatic.read(treeId);
+        tree.updateData(rootObject.getName(), rootObject.getVersion());
+        processNode(tree, rootObject);
+        return this.rootTreeStatic.read(tree.getId());
+    }
+
+    private RootTreeDynamic reverseDynamicTree(UUID treeId, RootTree<?> rootObject) throws SystemGlobalException {
+        RootTreeDynamic tree = this.rootTreeDynamic.read(treeId);
+        tree.updateData(rootObject.getName(), rootObject.getVersion());
+        processNode(tree, rootObject);
+        return this.rootTreeDynamic.read(tree.getId());
+    }
 }

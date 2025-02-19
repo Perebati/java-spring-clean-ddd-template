@@ -20,10 +20,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @DiscriminatorValue(NodeEntity.DISCRIMINATOR_COMPARISON_MULTI)
 @Table(
-        name = "tree_root_node_condition_comparison_multi",
-        indexes = {
-                @Index(name = "idx_tree_comparison_multi_id", columnList = "id")
-        }
+        name = "tree_root_node_condition_comparison_multi"
 )
 public class ComparisonMultiEntity extends NodeTreeEntity {
     @Enumerated(EnumType.STRING)

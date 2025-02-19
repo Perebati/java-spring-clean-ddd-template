@@ -3,12 +3,8 @@ package org.gfinnovation.dealsafe.modules.tree._shared.domain;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.gfinnovation.dealsafe._shared.domain.GenericBusinessClass;
-import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonCustomList;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonMulti;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
@@ -25,7 +21,7 @@ import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeStatic;
  */
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.DEDUCTION
@@ -44,6 +40,7 @@ public class Node<T extends NodeInput> extends GenericBusinessClass implements N
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private NodeType nodeType;
 
+    @Override
     public boolean traverse(T inputData) {
         return false;
     }

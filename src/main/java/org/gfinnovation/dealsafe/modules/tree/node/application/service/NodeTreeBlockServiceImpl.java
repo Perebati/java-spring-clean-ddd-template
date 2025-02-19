@@ -5,6 +5,7 @@ import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.ApplicationException;
 import org.gfinnovation.dealsafe.modules.tree._shared.application.service.interfaces.NodeService;
 import org.gfinnovation.dealsafe.modules.tree._shared.application.service.interfaces.NodeTreeService;
+import org.gfinnovation.dealsafe.modules.tree._shared.application.service.interfaces.RootTreeService;
 import org.gfinnovation.dealsafe.modules.tree._shared.domain.Node;
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeCreationData;
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeTreeBlockData;
@@ -34,18 +35,21 @@ class NodeTreeBlockServiceImpl
     private final NodeTreeFactory nodeTreeFactory;
     private final NodeService nodeService;
     private final NodeTreeService<NodeTreeBlock> nodeTreeService;
+    private final RootTreeService rootTreeService;
 
     @Autowired
     public NodeTreeBlockServiceImpl(
             NodeTreeBlockRepository nodeTreeBlockRepository,
             NodeTreeFactory nodeTreeFactory,
             NodeService nodeService,
-            NodeTreeService<NodeTreeBlock> nodeTreeService
+            NodeTreeService<NodeTreeBlock> nodeTreeService,
+            RootTreeService rootTreeService
     ) {
         super(nodeTreeBlockRepository);
         this.nodeTreeFactory = nodeTreeFactory;
         this.nodeService = nodeService;
         this.nodeTreeService = nodeTreeService;
+        this.rootTreeService = rootTreeService;
     }
 
     /**
@@ -75,7 +79,9 @@ class NodeTreeBlockServiceImpl
     public NodeTreeBlock updateBlock(UUID id,
                                      NodeTreeBlockData nodeTreeBlockData) throws SystemGlobalException {
         try {
-            return this.update(id, nodeTreeBlockData);
+            this.update(id, nodeTreeBlockData);
+            this.rootTreeService.keepHistory(id);
+            return this.read(id);
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {

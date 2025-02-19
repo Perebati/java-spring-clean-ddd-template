@@ -19,7 +19,6 @@ import org.gfinnovation.dealsafe._shared.infrastructure.GenericBusinessEntity;
 @Table(
         name = "tree",
         indexes = {
-                @Index(name = "idx_tree", columnList = "id", unique = true),
                 @Index(name = "idx_tree_user_id", columnList = "user_id"),
                 @Index(name = "idx_tree_whiteLabel_id", columnList = "whiteLabel_id")
         }

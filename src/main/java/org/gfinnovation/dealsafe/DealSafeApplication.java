@@ -7,6 +7,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 /*
 TODO: Adotar flyway quando o projeto for pra produção.
 TODO: Todo erro deve ter 'e'.
+TODO: Fazer com que todos os services das classes que estendam Node herdam de NodeService.
  */
 @SpringBootApplication
 @EnableAsync

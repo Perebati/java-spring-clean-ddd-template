@@ -19,17 +19,14 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @DiscriminatorValue(NodeEntity.DISCRIMINATOR_IF)
 @Table(
-        name = "tree_node_if",
-        indexes = {
-                @Index(name = "idx_tree_node_if_id", columnList = "id")
-        }
+        name = "tree_node_if"
 )
 public class NodeTreeIfEntity extends NodeTreeEntity {
     @OneToMany(cascade = {CascadeType.REMOVE, CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JoinTable(
             name = "_relation_if_x_cond",
-            joinColumns = @JoinColumn(name = "if_id"),
-            inverseJoinColumns = @JoinColumn(name = "node_id")
+            joinColumns = @JoinColumn(name = "if_id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "node_id", nullable = false)
     )
     @OrderColumn(name = "condition_order")
     private List<NodeTreeEntity> conditionalNodes;
@@ -37,8 +34,8 @@ public class NodeTreeIfEntity extends NodeTreeEntity {
     @OneToMany(cascade = {CascadeType.REMOVE, CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JoinTable(
             name = "_relation_if_x_then",
-            joinColumns = @JoinColumn(name = "if_id"),
-            inverseJoinColumns = @JoinColumn(name = "node_id")
+            joinColumns = @JoinColumn(name = "if_id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "node_id", nullable = false)
     )
     @OrderColumn(name = "then_order")
     private List<NodeTreeEntity> thenNodes;
@@ -46,8 +43,8 @@ public class NodeTreeIfEntity extends NodeTreeEntity {
     @OneToMany(cascade = {CascadeType.REMOVE, CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JoinTable(
             name = "_relation_if_x_else",
-            joinColumns = @JoinColumn(name = "if_id"),
-            inverseJoinColumns = @JoinColumn(name = "node_id")
+            joinColumns = @JoinColumn(name = "if_id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "node_id", nullable = false)
     )
     @OrderColumn(name = "else_order")
     private List<NodeTreeEntity> elseNodes;

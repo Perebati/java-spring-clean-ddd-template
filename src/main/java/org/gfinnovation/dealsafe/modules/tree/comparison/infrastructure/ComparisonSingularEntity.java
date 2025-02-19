@@ -17,10 +17,7 @@ import org.gfinnovation.dealsafe.modules.tree._shared.infrastructure.NodeTreeEnt
 @EqualsAndHashCode(callSuper = true)
 @DiscriminatorValue(NodeEntity.DISCRIMINATOR_COMPARISON_SINGULAR)
 @Table(
-        name = "tree_root_node_condition_comparison_singular",
-        indexes = {
-                @Index(name = "idx_tree_comparison_singular_id", columnList = "id")
-        }
+        name = "tree_root_node_condition_comparison_singular"
 )
 public class ComparisonSingularEntity extends NodeTreeEntity {
     @Enumerated(EnumType.STRING)

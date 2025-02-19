@@ -11,6 +11,7 @@ import org.gfinnovation.dealsafe.modules.dealboard.user.management.companies.dom
 import org.gfinnovation.dealsafe.modules.input.adapter.web.request.CreateInputData;
 import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.InputService;
 import org.gfinnovation.dealsafe.modules.input.domain.Input;
+import org.gfinnovation.dealsafe.modules.tree._shared.application.service.interfaces.NodeService;
 import org.gfinnovation.dealsafe.modules.tree._shared.application.service.interfaces.NodeTreeService;
 import org.gfinnovation.dealsafe.modules.tree._shared.domain.NodeTree;
 import org.gfinnovation.dealsafe.modules.tree._shared.domain.RootTree;
@@ -53,6 +54,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class DeleteNodeBlockUseCaseTest extends GenericTest {
     @Autowired
     private NodeTreeService<?> nodeTreeService;
+
+    @Autowired
+    private NodeService nodeService;
 
     @Autowired
     private NodeTreeBlockService nodeTreeBlockService;
@@ -183,13 +187,13 @@ public class DeleteNodeBlockUseCaseTest extends GenericTest {
         );
         assertNotNull(comparisonCustomList, "ComparisonCustomList should not be null");
 
-        this.nodeTreeService.deleteNode(node1.getId());
+        this.nodeService.deleteNode(node1.getId());
 
         RootTree<?> rootTree = this.rootTreeDynamic.read(createdRoot.getId());
 
         assertThrows(EntityNotFound.class, () -> nodeTreeIfService.read(nodeIf1.getId()));
 
-        this.rootTreeDynamic.delete(createdRoot.getId());
+        this.nodeService.deleteNode(createdRoot.getId());
 
         assertThrows(EntityNotFound.class, () -> rootTreeDynamic.read(createdRoot.getId()));
 

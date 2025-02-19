@@ -4,11 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
+import lombok.*;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonCustomList;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonMulti;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingular;
@@ -30,7 +26,7 @@ import java.util.UUID;
  */
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.DEDUCTION
@@ -73,11 +69,6 @@ public class NodeTree<T extends NodeInput> extends Node<T> {
                 this.parentType = ParentType.NODE;
             }
         }
-    }
-
-    @Override
-    public boolean traverse(T inputData) {
-        return false;
     }
 
     public enum ParentType {

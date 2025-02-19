@@ -2,12 +2,10 @@ package org.gfinnovation.dealsafe.modules.tree._shared.application.service.inter
 
 import org.gfinnovation.dealsafe._shared.application.interfaces.GenericService;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
-import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
 import org.gfinnovation.dealsafe.modules.tree._shared.domain.Node;
+import org.gfinnovation.dealsafe.modules.tree._shared.domain.NodeInput;
 import org.gfinnovation.dealsafe.modules.tree._shared.domain.NodeTree;
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeIf;
-
-import java.util.UUID;
 
 /**
  * @author Lucas Batista Pereira
@@ -15,11 +13,8 @@ import java.util.UUID;
  * @class NodeTreeService
  * @since v1.0 (10/02/2025)
  */
-public interface NodeTreeService<T extends NodeTree<NodeInput>>
-        extends GenericService<NodeTree<NodeInput>> {
+public interface NodeTreeService<T extends NodeTree<NodeInput>> extends GenericService<NodeTree<NodeInput>> {
     T createNode(T newNode,
                  Node<?> parent,
                  NodeTreeIf.SetNode nodeSet) throws SystemGlobalException;
-
-    void deleteNode(UUID id) throws SystemGlobalException;
 }

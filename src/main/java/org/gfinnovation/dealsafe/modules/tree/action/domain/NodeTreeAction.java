@@ -3,8 +3,8 @@ package org.gfinnovation.dealsafe.modules.tree.action.domain;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
-import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
 import org.gfinnovation.dealsafe.modules.tree._shared.domain.Node;
+import org.gfinnovation.dealsafe.modules.tree._shared.domain.NodeInput;
 import org.gfinnovation.dealsafe.modules.tree._shared.domain.NodeTree;
 
 /**

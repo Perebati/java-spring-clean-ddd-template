@@ -7,8 +7,9 @@ import org.gfinnovation.dealsafe._shared.infrastructure.repository.GenericBusine
 import org.gfinnovation.dealsafe._shared.infrastructure.repository.interfaces.GenericBusinessRepository;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.InfrastructureException;
-import org.gfinnovation.dealsafe.modules.input.domain.NodeInput;
+import org.gfinnovation.dealsafe.modules.tree._shared.application.service.interfaces.RootTreeService;
 import org.gfinnovation.dealsafe.modules.tree._shared.domain.Node;
+import org.gfinnovation.dealsafe.modules.tree._shared.domain.NodeInput;
 import org.gfinnovation.dealsafe.modules.tree._shared.domain.NodeTree;
 import org.gfinnovation.dealsafe.modules.tree._shared.infrastructure.NodeTreeEntity;
 import org.gfinnovation.dealsafe.modules.tree._shared.infrastructure.mapper.NodeTreeMapper;
@@ -40,6 +41,7 @@ class NodeTreeRepositoryImpl<T extends NodeTree<NodeInput>>
     private final RootTreeDynamicRepository rootTreeDynamicRepository;
     private final NodeTreeBlockRepository nodeTreeBlockRepository;
     private final NodeTreeIfRepository nodeTreeIfRepository;
+    private final RootTreeService rootTreeService;
 
     public NodeTreeRepositoryImpl(
             NodeTreeMapper mapper,
@@ -48,13 +50,14 @@ class NodeTreeRepositoryImpl<T extends NodeTree<NodeInput>>
             RootTreeStaticRepository rootTreeStaticRepository,
             RootTreeDynamicRepository rootTreeDynamicRepository,
             NodeTreeBlockRepository nodeTreeBlockRepository,
-            NodeTreeIfRepository nodeTreeIfRepository) {
+            NodeTreeIfRepository nodeTreeIfRepository, RootTreeService rootTreeService) {
         super(mapper, new SimpleJpaRepository<>(NodeTreeEntity.class, entityManager), NodeTreeEntity.class);
         this.nodeRepositoryFactory = nodeRepositoryFactory;
         this.rootTreeStaticRepository = rootTreeStaticRepository;
         this.rootTreeDynamicRepository = rootTreeDynamicRepository;
         this.nodeTreeBlockRepository = nodeTreeBlockRepository;
         this.nodeTreeIfRepository = nodeTreeIfRepository;
+        this.rootTreeService = rootTreeService;
     }
 
     @Transactional
@@ -74,8 +77,9 @@ class NodeTreeRepositoryImpl<T extends NodeTree<NodeInput>>
                 this.updateParent(parentEntity, auth);
             } else {
                 this.updateParent(parentEntity, auth);
-
             }
+
+            this.rootTreeService.keepHistory(createdNodeEntity.getId());
             return nodeRepo.read(createdNodeEntity.getId(), auth);
         } catch (Exception e) {
             throw new InfrastructureException("An error has occurred setting up a new node.", e);

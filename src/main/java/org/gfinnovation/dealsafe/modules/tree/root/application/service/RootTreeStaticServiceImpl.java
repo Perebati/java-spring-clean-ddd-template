@@ -4,15 +4,12 @@ import org.gfinnovation.dealsafe._shared.application.GenericServiceImpl;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.ApplicationException;
 import org.gfinnovation.dealsafe.modules.input.domain.predefined.PredefinedTypeEnum;
-import org.gfinnovation.dealsafe.modules.tree._shared.infrastructure.repository.interfaces.NodeRepository;
 import org.gfinnovation.dealsafe.modules.tree.root.application.service.interfaces.RootTreeStaticService;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeStatic;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.factory.interfaces.RootTreeFactory;
 import org.gfinnovation.dealsafe.modules.tree.root.infrastructure.repository.interfaces.RootTreeStaticRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.UUID;
 
 /**
  * @author Lucas Batista Pereira
@@ -25,17 +22,14 @@ class RootTreeStaticServiceImpl
         extends GenericServiceImpl<RootTreeStatic, RootTreeStaticRepository>
         implements RootTreeStaticService {
     private final RootTreeFactory rootTreeFactory;
-    private final NodeRepository nodeRepository;
 
     @Autowired
     protected RootTreeStaticServiceImpl(
             RootTreeStaticRepository repository,
-            RootTreeFactory rootTreeFactory,
-            NodeRepository nodeRepository
+            RootTreeFactory rootTreeFactory
     ) {
         super(repository);
         this.rootTreeFactory = rootTreeFactory;
-        this.nodeRepository = nodeRepository;
     }
 
     /**
@@ -62,25 +56,6 @@ class RootTreeStaticServiceImpl
             throw e;
         } catch (Exception e) {
             throw new ApplicationException("Something went wrong creating a static root.", e);
-        }
-    }
-
-    /**
-     * Deletes a Root node that references a static input by its type.
-     *
-     * @param id Identification of given root node.
-     * @throws ApplicationException  Thrown when an error occurs on business level.
-     * @throws SystemGlobalException Thrown when an error occurs on system level.
-     * @since v1.0 (30/11/2024)
-     */
-    @Override
-    public void delete(UUID id) throws SystemGlobalException {
-        try {
-            this.nodeRepository.delete(id, getRepositoryAuth());
-        } catch (SystemGlobalException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new ApplicationException("Something went wrong deleting a static root.", e);
         }
     }
 }

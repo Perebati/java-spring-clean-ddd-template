@@ -19,10 +19,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @DiscriminatorValue(NodeEntity.DISCRIMINATOR_BLOCK)
 @Table(
-        name = "tree_node_block",
-        indexes = {
-                @Index(name = "idx_tree_node_block_id", columnList = "id")
-        }
+        name = "tree_node_block"
 )
 public class NodeTreeBlockEntity extends NodeTreeEntity {
     @Column(name = "name", nullable = false)
@@ -31,8 +28,8 @@ public class NodeTreeBlockEntity extends NodeTreeEntity {
     @OneToMany(cascade = {CascadeType.REMOVE, CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JoinTable(
             name = "_relation_block_x_node",
-            joinColumns = @JoinColumn(name = "parent_id"),
-            inverseJoinColumns = @JoinColumn(name = "node_id")
+            joinColumns = @JoinColumn(name = "parent_id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "node_id", nullable = false)
     )
     @OrderColumn(name = "node_order")
     private List<NodeTreeEntity> nodes;

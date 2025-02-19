@@ -18,10 +18,7 @@ import org.gfinnovation.dealsafe.modules.tree._shared.infrastructure.RootTreeEnt
 @EqualsAndHashCode(callSuper = true)
 @PrimaryKeyJoinColumn(name = "id", foreignKey = @ForeignKey(name = "fk_static_root_x_root"))
 @Table(
-        name = "tree_root_static",
-        indexes = {
-                @Index(name = "idx_tree_root_static_id", columnList = "id")
-        }
+        name = "tree_root_static"
 )
 @DiscriminatorValue(NodeEntity.DISCRIMINATOR_STATIC)
 public class RootTreeStaticEntity extends RootTreeEntity {

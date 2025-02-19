@@ -4,7 +4,7 @@ import jakarta.transaction.Transactional;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.InfrastructureException;
 import org.gfinnovation.dealsafe.modules.input.domain.predefined.PredefinedTypeEnum;
-import org.gfinnovation.dealsafe.modules.tree._shared.application.service.interfaces.NodeTreeService;
+import org.gfinnovation.dealsafe.modules.tree._shared.application.service.interfaces.NodeService;
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeCreationData;
 import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeTreeBlockData;
 import org.gfinnovation.dealsafe.modules.tree.node.application.service.interfaces.NodeTreeBlockService;
@@ -37,7 +37,7 @@ public class NodeTreeBlockServiceTest extends GenericTest {
     private RootTreeStaticService rootTreeStaticService;
 
     @Autowired
-    private NodeTreeService<?> nodeTreeService;
+    private NodeService nodeService;
 
     @Test
     @Transactional
@@ -92,7 +92,7 @@ public class NodeTreeBlockServiceTest extends GenericTest {
         assertEquals(nodeBlockName, nodeTreeBlock.getName());
         assertEquals(nodeTreeBlock.getParentId(), rootTreeStatic.getId());
 
-        this.nodeTreeService.deleteNode(nodeTreeBlock.getId());
+        this.nodeService.deleteNode(nodeTreeBlock.getId());
 
         assertThrows(InfrastructureException.class, () -> this.nodeTreeBlockService.read(nodeTreeBlock.getId()));
     }

@@ -21,7 +21,7 @@ import java.util.UUID;
 @Table(
         name = "tree_root_node_condition_comparison_custom",
         indexes = {
-                @Index(name = "idx_tree_comparison_custom_id", columnList = "id")
+                @Index(name = "idx_tree_comparison_custom_list_id", columnList = "custom_list_id")
         }
 )
 public class ComparisonCustomListEntity extends NodeTreeEntity {

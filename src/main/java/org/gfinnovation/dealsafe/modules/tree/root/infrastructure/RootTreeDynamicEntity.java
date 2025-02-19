@@ -19,10 +19,7 @@ import java.util.UUID;
 @EqualsAndHashCode(callSuper = true)
 @PrimaryKeyJoinColumn(name = "id", foreignKey = @ForeignKey(name = "fk_dynamic_root_x_root"))
 @Table(
-        name = "tree_root_dynamic",
-        indexes = {
-                @Index(name = "idx_tree_root_dynamic_id", columnList = "id")
-        }
+        name = "tree_root_dynamic"
 )
 @DiscriminatorValue(NodeEntity.DISCRIMINATOR_DYNAMIC)
 public class RootTreeDynamicEntity extends RootTreeEntity {

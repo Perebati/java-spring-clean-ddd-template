@@ -20,7 +20,6 @@ import java.util.UUID;
 @Table(
         name = "tree_node",
         indexes = {
-                @Index(name = "idx_tree_node_id", columnList = "id", unique = true),
                 @Index(name = "idx_tree_node_parent_id", columnList = "parent_id")
         }
 )

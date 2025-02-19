@@ -14,7 +14,6 @@
     <artifactId>dealsafe</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
-
     <name>dealsafe</name>
     <description>dealsafe</description>
 
@@ -75,6 +74,12 @@
                 <spring.profiles.active>prod</spring.profiles.active>
             </properties>
         </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <spring.profiles.active>test</spring.profiles.active>
+            </properties>
+        </profile>
     </profiles>
 
     <dependencies>
@@ -110,6 +115,13 @@
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
             <optional>true</optional>
+        </dependency>
+
+        <!-- Apache Fixed Version (InfiniteLoop/StackOverflow bug) -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-compress</artifactId>
+            <version>1.26.0</version>
         </dependency>
 
         <!-- Spring Boot BOM -->

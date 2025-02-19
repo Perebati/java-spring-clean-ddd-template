@@ -143,7 +143,7 @@ public abstract class GenericBusinessRepositoryImpl
             RepositoryAuth auth) throws InfrastructureException {
         try {
             return this.findById(id, auth.whitelabelId(), entityClass).orElseThrow(() ->
-                            new EntityNotFound("Entity not found with id: " + id, null));
+                            new EntityNotFound("Entity " + entityClass.getSimpleName() + " not found with id: " + id, null));
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
