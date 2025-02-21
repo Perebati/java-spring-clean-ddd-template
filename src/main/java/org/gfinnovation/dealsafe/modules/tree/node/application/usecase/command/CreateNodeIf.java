@@ -21,6 +21,6 @@ public class CreateNodeIf extends UseCase<NodeIfCreationData, NodeTreeIf, NodeTr
 
     @Override
     public NodeTreeIf execute(NodeIfCreationData input) throws SystemGlobalException {
-        return this.service.createIf(input);
+        return this.service.createIf(input, true);
     }
 }

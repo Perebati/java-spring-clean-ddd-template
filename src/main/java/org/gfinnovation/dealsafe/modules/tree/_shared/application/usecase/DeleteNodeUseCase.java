@@ -23,6 +23,6 @@ public class DeleteNodeUseCase extends NullOutputUseCase<UUID, NodeService> {
 
     @Override
     public void execute(UUID id) throws SystemGlobalException {
-        service.deleteNode(id);
+        service.deleteNode(id, true);
     }
 }

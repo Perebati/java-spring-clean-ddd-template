@@ -6,5 +6,5 @@ import org.gfinnovation.dealsafe.modules.tree.node.adapter.web.request.NodeIfCre
 import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeIf;
 
 public interface NodeTreeIfService extends GenericService<NodeTreeIf> {
-    NodeTreeIf createIf(NodeIfCreationData nodeCreationData) throws SystemGlobalException;
+    NodeTreeIf createIf(NodeIfCreationData nodeCreationData, Boolean keepHistory) throws SystemGlobalException;
 }

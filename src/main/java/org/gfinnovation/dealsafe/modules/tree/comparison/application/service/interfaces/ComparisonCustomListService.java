@@ -2,10 +2,8 @@ package org.gfinnovation.dealsafe.modules.tree.comparison.application.service.in
 
 import org.gfinnovation.dealsafe._shared.application.interfaces.GenericService;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
+import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonCustomListRecord;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonCustomList;
-import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeIf;
-
-import java.util.UUID;
 
 /**
  * @author Lucas Batista Pereira
@@ -14,11 +12,6 @@ import java.util.UUID;
  * @since v1.0 (06/02/2025)
  */
 public interface ComparisonCustomListService extends GenericService<ComparisonCustomList> {
-    ComparisonCustomList create(
-            ComparisonCustomList.ComparisonCustomListEnum type,
-            String jsonPath,
-            UUID customListId,
-            UUID parentId,
-            NodeTreeIf.SetNode position
-    ) throws SystemGlobalException;
+    ComparisonCustomList createComparison(ComparisonCustomListRecord request,
+                                          Boolean keepHistory) throws SystemGlobalException;
 }

@@ -23,6 +23,11 @@ import java.util.Optional;
 import java.util.UUID;
 
 /**
+ * NodeIfs are a special type of Node that can fork the way of how the validation tree
+ * is traversed.
+ * It's based on the same principle of a common If in any programming language, there a CONDITIONAL
+ * block, a THEN block and an ELSE block, base on boolean operations, the way will differ from input to input.
+ *
  * @author Lucas Batista Pereira
  * @version v1.0
  * @class NodeTreeIf

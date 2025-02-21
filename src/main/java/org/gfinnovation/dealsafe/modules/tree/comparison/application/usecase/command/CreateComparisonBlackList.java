@@ -23,12 +23,12 @@ public class CreateComparisonBlackList extends UseCase<ComparisonCustomListRecor
     @Override
     @Transactional
     public ComparisonCustomList execute(ComparisonCustomListRecord input) throws SystemGlobalException {
-        return this.service.create(
-                ComparisonCustomList.ComparisonCustomListEnum.NOT_CONTAINS,
-                input.jsonPath(),
-                input.comparisonListId(),
-                input.parentId(),
-                input.position()
+        return this.service.createComparison(
+                new ComparisonCustomListRecord(ComparisonCustomList.ComparisonCustomListEnum.NOT_CONTAINS,
+                        input.jsonPath(),
+                        input.comparisonListId(),
+                        input.parentId(),
+                        input.position()), true
         );
     }
 }

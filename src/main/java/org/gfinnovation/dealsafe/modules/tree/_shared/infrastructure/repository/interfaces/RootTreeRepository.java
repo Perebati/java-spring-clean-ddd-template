@@ -19,5 +19,5 @@ import java.util.UUID;
 public interface RootTreeRepository extends GenericBusinessRepository<RootTree<NodeInput>> {
     Object readGenericRoot(@NotNull UUID id, @NotNull RepositoryAuth auth) throws SystemGlobalException;
 
-    Optional<UUID> findRootIdByNodeId(UUID nodeId) throws SystemGlobalException;
+    Optional<UUID> findRootIdByNodeId(@NotNull UUID node_id) throws SystemGlobalException;
 }

@@ -40,8 +40,8 @@ class RootTreeControllerImpl implements RootTreeController {
             return ResponseEntity.status(HttpStatus.CREATED).body(
                     this.rootTreeStaticService.create(
                             request.name(),
-                            request.type()
-                    ));
+                            request.type(),
+                             true));
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
@@ -56,7 +56,8 @@ class RootTreeControllerImpl implements RootTreeController {
             return ResponseEntity.status(HttpStatus.CREATED).body(
                     this.rootTreeDynamicService.create(
                             request.name(),
-                            request.dynamicInput_id()
+                            request.dynamicInput_id(),
+                            true
                     ));
         } catch (SystemGlobalException e) {
             throw e;

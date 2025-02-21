@@ -86,7 +86,7 @@ class RootTreeRepositoryImpl
      * @since v1.0 (30/11/2024)
      */
     @Override
-    public Optional<UUID> findRootIdByNodeId(UUID node_id) throws SystemGlobalException {
+    public Optional<UUID> findRootIdByNodeId(@NotNull UUID node_id) throws SystemGlobalException {
         try {
             String sql = """
                         WITH RECURSIVE hierarchy AS (

@@ -21,6 +21,6 @@ public class CreateNodeBlock extends UseCase<NodeCreationData, NodeTreeBlock, No
 
     @Override
     public NodeTreeBlock execute(NodeCreationData input) throws SystemGlobalException {
-        return service.createBlock(input);
+        return service.createBlock(input, true);
     }
 }

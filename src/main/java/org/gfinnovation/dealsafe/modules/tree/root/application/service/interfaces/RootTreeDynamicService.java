@@ -13,8 +13,5 @@ import java.util.UUID;
  * @since v1.0 (06/02/2025)
  */
 public interface RootTreeDynamicService extends GenericService<RootTreeDynamic> {
-    RootTreeDynamic create(
-            String name,
-            UUID dynamic_input
-    ) throws SystemGlobalException;
+    RootTreeDynamic create(String name, UUID dynamic_input, Boolean keepHistory) throws SystemGlobalException;
 }

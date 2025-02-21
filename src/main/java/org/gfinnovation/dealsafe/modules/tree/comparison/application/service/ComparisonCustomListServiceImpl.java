@@ -1,22 +1,24 @@
 package org.gfinnovation.dealsafe.modules.tree.comparison.application.service;
 
+import jakarta.transaction.Transactional;
 import org.gfinnovation.dealsafe._shared.application.GenericServiceImpl;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.ApplicationException;
 import org.gfinnovation.dealsafe.modules.tree._shared.application.service.interfaces.NodeService;
 import org.gfinnovation.dealsafe.modules.tree._shared.application.service.interfaces.NodeTreeService;
+import org.gfinnovation.dealsafe.modules.tree._shared.application.service.interfaces.RootTreeService;
 import org.gfinnovation.dealsafe.modules.tree._shared.domain.Node;
+import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonCustomListRecord;
 import org.gfinnovation.dealsafe.modules.tree.comparison.application.service.interfaces.ComparisonCustomListService;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonCustomList;
 import org.gfinnovation.dealsafe.modules.tree.comparison.domain.factory.interfaces.ComparisonFactory;
 import org.gfinnovation.dealsafe.modules.tree.comparison.infrastructure.repository.interfaces.ComparisonCustomListRepository;
-import org.gfinnovation.dealsafe.modules.tree.node.domain.NodeTreeIf;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
-
 /**
+ * Handles Writing/Reading operations of a comparison that uses a custom list.
+ * This can be useful if the custom list is, for example, a blacklist.
+ *
  * @author Lucas Batista Pereira
  * @version v1.1
  * @class ComparisonCustomListServiceImpl
@@ -27,32 +29,44 @@ class ComparisonCustomListServiceImpl
         extends GenericServiceImpl<ComparisonCustomList, ComparisonCustomListRepository>
         implements ComparisonCustomListService {
     private final NodeService nodeService;
-    private final ComparisonFactory comparisonFactory;
+    private final RootTreeService rootTreeService;
     private final NodeTreeService<ComparisonCustomList> nodeTreeService;
 
-    @Autowired
-    protected ComparisonCustomListServiceImpl(
-            ComparisonCustomListRepository repository,
-            NodeService nodeService,
-            ComparisonFactory comparisonFactory,
-            NodeTreeService<ComparisonCustomList> nodeTreeService) {
+    private final ComparisonFactory comparisonFactory;
+
+    protected ComparisonCustomListServiceImpl(ComparisonCustomListRepository repository,
+                                              NodeService nodeService,
+                                              RootTreeService rootTreeService,
+                                              NodeTreeService<ComparisonCustomList> nodeTreeService,
+                                              ComparisonFactory comparisonFactory) {
         super(repository);
         this.nodeService = nodeService;
-        this.comparisonFactory = comparisonFactory;
+        this.rootTreeService = rootTreeService;
         this.nodeTreeService = nodeTreeService;
+        this.comparisonFactory = comparisonFactory;
     }
 
-    public ComparisonCustomList create(
-            ComparisonCustomList.ComparisonCustomListEnum type,
-            String jsonPath,
-            UUID customListId,
-            UUID parentId,
-            NodeTreeIf.SetNode position
-    ) throws SystemGlobalException {
+    /**
+     * Handles creation of a comparison that operates upon a custom list of variables.
+     *
+     * @param request Record containing all data for Comparison creation.
+     * @return ComparisonCustomList
+     * @throws SystemGlobalException Standard DealSafe error.
+     */
+    @Override
+    @Transactional
+    public ComparisonCustomList createComparison(ComparisonCustomListRecord request,
+                                                 Boolean keepHistory) throws SystemGlobalException {
         try {
-            Node<?> parent = this.nodeService.read(parentId);
-            ComparisonCustomList newOperation = this.comparisonFactory.produce(type, jsonPath, customListId, parent);
-            return this.nodeTreeService.createNode(newOperation, parent, position);
+            Node<?> parent = this.nodeService.read(request.parentId());
+            ComparisonCustomList newOperation = this.comparisonFactory.produce(
+                    request.type(),
+                    request.jsonPath(),
+                    request.comparisonListId(),
+                    parent);
+            newOperation = this.nodeTreeService.createNode(newOperation, parent, request.position());
+            if(keepHistory) this.rootTreeService.keepHistory(newOperation.getId());
+            return newOperation;
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {

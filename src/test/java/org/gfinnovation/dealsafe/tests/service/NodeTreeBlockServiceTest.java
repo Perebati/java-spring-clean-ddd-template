@@ -44,10 +44,10 @@ public class NodeTreeBlockServiceTest extends GenericTest {
     public void createNodeBlock() throws SystemGlobalException {
         String nodeBlockName = "test";
 
-        RootTreeStatic rootTreeStatic = this.rootTreeStaticService.create("teste", PredefinedTypeEnum.TESTE);
+        RootTreeStatic rootTreeStatic = this.rootTreeStaticService.create("teste", PredefinedTypeEnum.TESTE, true);
 
         NodeTreeBlock nodeTreeBlock = this.nodeTreeBlockService.createBlock(new NodeCreationData(
-                nodeBlockName, rootTreeStatic.getId(), null));
+                nodeBlockName, rootTreeStatic.getId(), null), true);
 
         assertNotNull(nodeTreeBlock);
         assertNotNull(nodeTreeBlock.getId());
@@ -61,17 +61,17 @@ public class NodeTreeBlockServiceTest extends GenericTest {
         String nodeBlockName1 = "test 1";
         String nodeBlockName2 = "test 2";
 
-        RootTreeStatic rootTreeStatic = this.rootTreeStaticService.create("teste", PredefinedTypeEnum.TESTE);
+        RootTreeStatic rootTreeStatic = this.rootTreeStaticService.create("teste", PredefinedTypeEnum.TESTE, true);
 
         NodeTreeBlock nodeTreeBlock = this.nodeTreeBlockService.createBlock(new NodeCreationData(
-                nodeBlockName1, rootTreeStatic.getId(), null));
+                nodeBlockName1, rootTreeStatic.getId(), null), true);
 
         assertNotNull(nodeTreeBlock);
         assertNotNull(nodeTreeBlock.getId());
         assertEquals(nodeBlockName1, nodeTreeBlock.getName());
         assertEquals(nodeTreeBlock.getParentId(), rootTreeStatic.getId());
 
-        nodeTreeBlock = this.nodeTreeBlockService.updateBlock(nodeTreeBlock.getId(), new NodeTreeBlockData(nodeBlockName2));
+        nodeTreeBlock = this.nodeTreeBlockService.updateBlock(nodeTreeBlock.getId(), new NodeTreeBlockData(nodeBlockName2), true);
 
         assertNotNull(nodeTreeBlock);
         assertEquals(nodeBlockName2, nodeTreeBlock.getName());
@@ -82,17 +82,17 @@ public class NodeTreeBlockServiceTest extends GenericTest {
     public void deleteNodeBlock() throws SystemGlobalException {
         String nodeBlockName = "test";
 
-        RootTreeStatic rootTreeStatic = this.rootTreeStaticService.create("teste", PredefinedTypeEnum.TESTE);
+        RootTreeStatic rootTreeStatic = this.rootTreeStaticService.create("teste", PredefinedTypeEnum.TESTE, true);
 
         NodeTreeBlock nodeTreeBlock = this.nodeTreeBlockService.createBlock(new NodeCreationData(
-                nodeBlockName, rootTreeStatic.getId(), null));
+                nodeBlockName, rootTreeStatic.getId(), null), true);
 
         assertNotNull(nodeTreeBlock);
         assertNotNull(nodeTreeBlock.getId());
         assertEquals(nodeBlockName, nodeTreeBlock.getName());
         assertEquals(nodeTreeBlock.getParentId(), rootTreeStatic.getId());
 
-        this.nodeService.deleteNode(nodeTreeBlock.getId());
+        this.nodeService.deleteNode(nodeTreeBlock.getId(), true);
 
         assertThrows(InfrastructureException.class, () -> this.nodeTreeBlockService.read(nodeTreeBlock.getId()));
     }

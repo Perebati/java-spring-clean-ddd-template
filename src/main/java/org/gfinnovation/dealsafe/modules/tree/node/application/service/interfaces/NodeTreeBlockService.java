@@ -15,7 +15,6 @@ import java.util.UUID;
  * @since v1.0 (30/11/2024)
  */
 public interface NodeTreeBlockService extends GenericService<NodeTreeBlock> {
-    NodeTreeBlock createBlock(NodeCreationData nodeCreationData) throws SystemGlobalException;
-    NodeTreeBlock updateBlock(UUID id,
-                              NodeTreeBlockData nodeTreeBlockData) throws SystemGlobalException;
+    NodeTreeBlock createBlock(NodeCreationData nodeCreationData, Boolean keepHistory) throws SystemGlobalException;
+    NodeTreeBlock updateBlock(UUID id, NodeTreeBlockData nodeTreeBlockData, Boolean keepHistory) throws SystemGlobalException;
 }

@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since v1.0 (04/11/2024)
  */
 @RestController
-@RequestMapping("tree")
+@RequestMapping("tree/node/root")
 @Tag(name = "Árvore - Raiz")
 @SecurityRequirement(name = "BearerAuth")
 public interface RootTreeController {
@@ -37,7 +37,7 @@ public interface RootTreeController {
             @ApiResponse(responseCode = "400", description = "Requisição inválida", content = @Content),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
-    @PostMapping("/root/predefind-input")
+    @PostMapping("predefind-input")
     ResponseEntity<RootTreeStatic> createRootPredefined(@RequestBody RootCreationPredefinedInputDTO request) throws SystemGlobalException, BadRequestException;
 
     @Operation(
@@ -48,6 +48,6 @@ public interface RootTreeController {
             @ApiResponse(responseCode = "400", description = "Requisição inválida", content = @Content),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
     })
-    @PostMapping("/root/dynamic-input")
+    @PostMapping("dynamic-input")
     ResponseEntity<RootTreeDynamic> createRootDynamic(@RequestBody RootCreationDynamicInputDTO request) throws SystemGlobalException, BadRequestException;
 }

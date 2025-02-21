@@ -12,8 +12,5 @@ import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeStatic;
  * @since v1.0 (06/02/2025)
  */
 public interface RootTreeStaticService extends GenericService<RootTreeStatic> {
-    RootTreeStatic create(
-            String name,
-            PredefinedTypeEnum static_input
-    ) throws SystemGlobalException;
+    RootTreeStatic create(String name, PredefinedTypeEnum static_input, Boolean keepHistory) throws SystemGlobalException;
 }

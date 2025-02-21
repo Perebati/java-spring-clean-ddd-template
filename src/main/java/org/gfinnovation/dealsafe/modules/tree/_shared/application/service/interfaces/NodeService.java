@@ -15,5 +15,5 @@ import java.util.UUID;
  */
 
 public interface NodeService extends GenericService<Node<NodeInput>> {
-    void deleteNode(UUID id) throws SystemGlobalException;
+    void deleteNode(UUID id, Boolean keepHistory) throws SystemGlobalException;
 }

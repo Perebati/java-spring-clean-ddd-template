@@ -23,6 +23,6 @@ public class UpdateNodeBlock extends UseCase2Inputs<UUID, NodeTreeBlockData, Nod
 
     @Override
     public NodeTreeBlock execute(UUID id, NodeTreeBlockData input) throws SystemGlobalException {
-        return this.service.updateBlock(id, input);
+        return this.service.updateBlock(id, input, true);
     }
 }

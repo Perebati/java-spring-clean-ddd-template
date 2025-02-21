@@ -12,7 +12,6 @@ import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonMulti;
  * @since v1.0 (06/02/2025)
  */
 public interface ComparisonMultiService extends GenericService<ComparisonMulti> {
-    ComparisonMulti create(
-            ComparisonMultiRecord input
-    ) throws SystemGlobalException;
+    ComparisonMulti createComparison(ComparisonMultiRecord input,
+                                     Boolean keepHistory) throws SystemGlobalException;
 }

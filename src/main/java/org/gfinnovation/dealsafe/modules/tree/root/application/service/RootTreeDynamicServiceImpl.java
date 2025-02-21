@@ -1,10 +1,10 @@
 package org.gfinnovation.dealsafe.modules.tree.root.application.service;
 
-import jakarta.validation.ValidationException;
+import jakarta.transaction.Transactional;
 import org.gfinnovation.dealsafe._shared.application.GenericServiceImpl;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.ApplicationException;
-import org.gfinnovation.dealsafe.exception.models.InfrastructureException;
+import org.gfinnovation.dealsafe.modules.tree._shared.application.service.interfaces.RootTreeService;
 import org.gfinnovation.dealsafe.modules.tree.root.application.service.interfaces.RootTreeDynamicService;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeDynamic;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.factory.interfaces.RootTreeFactory;
@@ -24,14 +24,17 @@ import java.util.UUID;
 public class RootTreeDynamicServiceImpl
         extends GenericServiceImpl<RootTreeDynamic, RootTreeDynamicRepository>
         implements RootTreeDynamicService {
+    private final RootTreeService rootTreeService;
     private final RootTreeFactory rootTreeFactory;
 
     @Autowired
     public RootTreeDynamicServiceImpl(
             RootTreeDynamicRepository repository,
+            RootTreeService rootTreeService,
             RootTreeFactory rootTreeFactory
     ) {
         super(repository);
+        this.rootTreeService = rootTreeService;
         this.rootTreeFactory = rootTreeFactory;
     }
 
@@ -41,19 +44,15 @@ public class RootTreeDynamicServiceImpl
      * @param name          Name of given root node.
      * @param dynamic_input Identification of referenced dynamic input.
      * @return RootTreeDynamic
-     * @throws ApplicationException    Thrown when an error occurs on business level.
-     * @throws ValidationException     Thrown when an error occurs on factory level.
-     * @throws InfrastructureException Thrown when an error occurs on repository level.
+     * @throws SystemGlobalException DealSafe standard error.
      */
     @Override
-    public RootTreeDynamic create(String name, UUID dynamic_input) throws SystemGlobalException {
+    @Transactional
+    public RootTreeDynamic create(String name, UUID dynamic_input, Boolean keepHistory) throws SystemGlobalException {
         try {
-            return this.repository
-                    .create(rootTreeFactory
-                            .produce(
-                                    name,
-                                    dynamic_input
-                            ), getRepositoryAuth());
+            RootTreeDynamic newRoot = this.repository.create(rootTreeFactory.produce(name, dynamic_input), getRepositoryAuth());
+            if(keepHistory) this.rootTreeService.keepHistory(newRoot.getId());
+            return newRoot;
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {

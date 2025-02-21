@@ -1,5 +1,6 @@
 package org.gfinnovation.dealsafe.modules.tree.node.application.service;
 
+import jakarta.transaction.Transactional;
 import org.gfinnovation.dealsafe._shared.application.GenericServiceImpl;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.ApplicationException;
@@ -22,6 +23,7 @@ import java.util.UUID;
  * Handles business operations of Nodes in the validation tree.
  * Every node has a parent, that being either a Root or another Node.
  * Each node can have linked operations.
+ * Every writing operation for NodeBlock should be defined here.
  *
  * @author Lucas Batista Pereira
  * @version v1.0
@@ -32,10 +34,11 @@ import java.util.UUID;
 class NodeTreeBlockServiceImpl
         extends GenericServiceImpl<NodeTreeBlock, NodeTreeBlockRepository>
         implements NodeTreeBlockService {
-    private final NodeTreeFactory nodeTreeFactory;
     private final NodeService nodeService;
-    private final NodeTreeService<NodeTreeBlock> nodeTreeService;
     private final RootTreeService rootTreeService;
+    private final NodeTreeService<NodeTreeBlock> nodeTreeService;
+
+    private final NodeTreeFactory nodeTreeFactory;
 
     @Autowired
     public NodeTreeBlockServiceImpl(
@@ -53,21 +56,23 @@ class NodeTreeBlockServiceImpl
     }
 
     /**
-     * Handles the creation of a Node.
-     * Every Node needs a parent, in this case the parent can be either an RootNode or a common Node.
-     * ParentId can either belong to a Root or a Node, this method supports both.
+     * Handles creation operation of a Node of type BLOCK.
+     * It checks if parent node exists by reading it. Then creates a new node based on input.
+     * Lastly, it keeps track of tree structure via Tree History.
      *
-     * @throws ApplicationException Thrown when an error occurs on business level.
-     * @author Lucas Batista Pereira
-     * @since v1.0 (30/11/2024)
+     * @param nodeCreationData Customized Input data for NodeBlock creation.
+     * @return NodeTreeBlock
+     * @throws SystemGlobalException DealSafe standard error.
      */
-
     @Override
-    public NodeTreeBlock createBlock(NodeCreationData nodeCreationData) throws SystemGlobalException {
+    @Transactional
+    public NodeTreeBlock createBlock(NodeCreationData nodeCreationData, Boolean keepHistory) throws SystemGlobalException {
         try {
             Node<?> parent = this.nodeService.read(nodeCreationData.parent_id());
             NodeTreeBlock newNode = this.nodeTreeFactory.produceBlock(nodeCreationData.name(), parent);
-            return this.read(this.nodeTreeService.createNode(newNode, parent, nodeCreationData.position()).getId());
+            newNode = this.nodeTreeService.createNode(newNode, parent, nodeCreationData.position());
+            if(keepHistory) this.rootTreeService.keepHistory(newNode.getId());
+            return newNode;
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {
@@ -75,13 +80,22 @@ class NodeTreeBlockServiceImpl
         }
     }
 
+    /**
+     * Handles updates in NodeTreeBlock via customized input, it also keeps track
+     * of tree history.
+     *
+     * @param id NodeBlock id.
+     * @param nodeTreeBlockData Customized input for update operation.
+     * @return NodeTreeBlock
+     * @throws SystemGlobalException DealSafe standard error.
+     */
     @Override
-    public NodeTreeBlock updateBlock(UUID id,
-                                     NodeTreeBlockData nodeTreeBlockData) throws SystemGlobalException {
+    @Transactional
+    public NodeTreeBlock updateBlock(UUID id, NodeTreeBlockData nodeTreeBlockData, Boolean keepHistory) throws SystemGlobalException {
         try {
-            this.update(id, nodeTreeBlockData);
-            this.rootTreeService.keepHistory(id);
-            return this.read(id);
+            NodeTreeBlock updatedNode = this.update(id, nodeTreeBlockData);
+            if(keepHistory) this.rootTreeService.keepHistory(id);
+            return updatedNode;
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {

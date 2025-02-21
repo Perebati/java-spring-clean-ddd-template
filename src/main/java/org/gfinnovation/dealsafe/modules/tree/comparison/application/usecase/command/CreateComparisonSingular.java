@@ -21,6 +21,6 @@ public class CreateComparisonSingular extends UseCase<ComparisonSingularRecord, 
 
     @Override
     public ComparisonSingular execute(ComparisonSingularRecord input) throws SystemGlobalException {
-        return this.service.create(input);
+        return this.service.createComparison(input, true);
     }
 }

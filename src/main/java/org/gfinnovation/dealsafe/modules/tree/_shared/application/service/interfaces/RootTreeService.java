@@ -19,7 +19,5 @@ public interface RootTreeService extends GenericService<RootTree<NodeInput>> {
 
     Optional<UUID> findRootIdByNodeId(UUID node_id) throws SystemGlobalException;
 
-    void addHistoryToTree(UUID id, RootTree<?> json) throws SystemGlobalException;
-
     void keepHistory(UUID id) throws SystemGlobalException;
 }

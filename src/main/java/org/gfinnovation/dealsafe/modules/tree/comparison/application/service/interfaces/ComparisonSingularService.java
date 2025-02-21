@@ -12,7 +12,6 @@ import org.gfinnovation.dealsafe.modules.tree.comparison.domain.ComparisonSingul
  * @since v1.0 (30/11/2024)
  */
 public interface ComparisonSingularService extends GenericService<ComparisonSingular> {
-    ComparisonSingular create(
-            ComparisonSingularRecord input
-    ) throws SystemGlobalException;
+    ComparisonSingular createComparison(ComparisonSingularRecord input,
+                                        Boolean keepHistory) throws SystemGlobalException;
 }

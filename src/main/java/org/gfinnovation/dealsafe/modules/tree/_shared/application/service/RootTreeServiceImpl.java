@@ -1,16 +1,18 @@
 package org.gfinnovation.dealsafe.modules.tree._shared.application.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.transaction.Transactional;
 import org.gfinnovation.dealsafe._shared.application.GenericServiceImpl;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.ApplicationException;
 import org.gfinnovation.dealsafe.exception.models.InfrastructureException;
 import org.gfinnovation.dealsafe.modules.tree._shared.application.service.interfaces.RootTreeService;
+import org.gfinnovation.dealsafe.modules.tree._shared.domain.Node;
 import org.gfinnovation.dealsafe.modules.tree._shared.domain.NodeInput;
 import org.gfinnovation.dealsafe.modules.tree._shared.domain.RootTree;
 import org.gfinnovation.dealsafe.modules.tree._shared.domain.RootTreeHistory;
 import org.gfinnovation.dealsafe.modules.tree._shared.infrastructure.repository.interfaces.RootTreeRepository;
+import org.gfinnovation.dealsafe.modules.tree.root.infrastructure.repository.interfaces.RootTreeDynamicRepository;
+import org.gfinnovation.dealsafe.modules.tree.root.infrastructure.repository.interfaces.RootTreeStaticRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -31,9 +33,15 @@ import java.util.UUID;
 class RootTreeServiceImpl
         extends GenericServiceImpl<RootTree<NodeInput>, RootTreeRepository>
         implements RootTreeService {
+    private final RootTreeDynamicRepository rootTreeDynamicRepository;
+    private final RootTreeStaticRepository rootTreeStaticRepository;
 
-    protected RootTreeServiceImpl(RootTreeRepository repository) {
+    protected RootTreeServiceImpl(RootTreeRepository repository,
+                                  RootTreeDynamicRepository rootTreeDynamicRepository,
+                                  RootTreeStaticRepository rootTreeStaticRepository) {
         super(repository);
+        this.rootTreeDynamicRepository = rootTreeDynamicRepository;
+        this.rootTreeStaticRepository = rootTreeStaticRepository;
     }
 
     /**
@@ -76,34 +84,23 @@ class RootTreeServiceImpl
         }
     }
 
-
-    //TODO: Manter transactions a nível repository
-    @Transactional
-    public void addHistoryToTree(UUID id, RootTree<?> root) throws SystemGlobalException {
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            String json = mapper.writeValueAsString(root);
-
-            root.addHistory(new RootTreeHistory(json, root.getVersion()));
-            this.update(root.getId(), root);
-        } catch (SystemGlobalException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new ApplicationException("Something went wrong adding history to tree.", e);
-        }
-    }
-
-    @Transactional
+    @Override
     public void keepHistory(UUID id) throws SystemGlobalException {
         try {
-            UUID rootTreeId = this.repository.findRootIdByNodeId(id).orElseThrow(
-                    () -> new ApplicationException("Root not found.", null));
+            Optional<UUID> rootTreeId = this.repository.findRootIdByNodeId(id);
 
-            RootTree<?> rootTree = this.read(rootTreeId);
-            ObjectMapper mapper = new ObjectMapper();
-            String json = mapper.writeValueAsString(rootTree);
-            rootTree.addHistory(new RootTreeHistory(json, rootTree.getName()));
-            this.update(rootTree.getId(), rootTree);
+            if (rootTreeId.isPresent()) {
+                RootTree<?> rootTree = this.read(rootTreeId.get());
+                ObjectMapper mapper = new ObjectMapper();
+                String json;
+                if(rootTree.getNodeType().equals(Node.NodeType.ROOT_STATIC)){
+                    json = mapper.writeValueAsString(this.rootTreeStaticRepository.read(rootTreeId.get(), getRepositoryAuth()));
+                } else {
+                    json = mapper.writeValueAsString(this.rootTreeDynamicRepository.read(rootTreeId.get(), getRepositoryAuth()));
+                }
+                rootTree.addHistory(new RootTreeHistory(json, rootTree.getName()));
+                this.update(rootTree.getId(), rootTree);
+            }
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {

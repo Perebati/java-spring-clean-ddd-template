@@ -1,9 +1,11 @@
 package org.gfinnovation.dealsafe.modules.tree.root.application.service;
 
+import jakarta.transaction.Transactional;
 import org.gfinnovation.dealsafe._shared.application.GenericServiceImpl;
 import org.gfinnovation.dealsafe.exception.SystemGlobalException;
 import org.gfinnovation.dealsafe.exception.models.ApplicationException;
 import org.gfinnovation.dealsafe.modules.input.domain.predefined.PredefinedTypeEnum;
+import org.gfinnovation.dealsafe.modules.tree._shared.application.service.interfaces.RootTreeService;
 import org.gfinnovation.dealsafe.modules.tree.root.application.service.interfaces.RootTreeStaticService;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.RootTreeStatic;
 import org.gfinnovation.dealsafe.modules.tree.root.domain.factory.interfaces.RootTreeFactory;
@@ -21,14 +23,17 @@ import org.springframework.stereotype.Service;
 class RootTreeStaticServiceImpl
         extends GenericServiceImpl<RootTreeStatic, RootTreeStaticRepository>
         implements RootTreeStaticService {
+    private final RootTreeService rootTreeService;
     private final RootTreeFactory rootTreeFactory;
 
     @Autowired
     protected RootTreeStaticServiceImpl(
             RootTreeStaticRepository repository,
+            RootTreeService rootTreeService,
             RootTreeFactory rootTreeFactory
     ) {
         super(repository);
+        this.rootTreeService = rootTreeService;
         this.rootTreeFactory = rootTreeFactory;
     }
 
@@ -43,15 +48,12 @@ class RootTreeStaticServiceImpl
      * @since v1.0 (30/11/2024)
      */
     @Override
-    public RootTreeStatic create(String name, PredefinedTypeEnum static_input) throws SystemGlobalException {
+    @Transactional
+    public RootTreeStatic create(String name, PredefinedTypeEnum static_input, Boolean keepHistory) throws SystemGlobalException {
         try {
-            return this.repository
-                    .create(
-                            rootTreeFactory
-                                    .produce(
-                                            name,
-                                            static_input
-                                    ), getRepositoryAuth());
+            RootTreeStatic newNode = this.repository.create(rootTreeFactory.produce(name, static_input), getRepositoryAuth());
+            if(keepHistory) this.rootTreeService.keepHistory(newNode.getId());
+            return newNode;
         } catch (SystemGlobalException e) {
             throw e;
         } catch (Exception e) {

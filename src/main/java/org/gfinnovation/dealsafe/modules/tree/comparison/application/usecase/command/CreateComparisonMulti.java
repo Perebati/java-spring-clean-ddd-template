@@ -21,6 +21,6 @@ public class CreateComparisonMulti extends UseCase<ComparisonMultiRecord, Compar
 
     @Override
     public ComparisonMulti execute(ComparisonMultiRecord input) throws SystemGlobalException {
-        return this.service.create(input);
+        return this.service.createComparison(input, true);
     }
 }

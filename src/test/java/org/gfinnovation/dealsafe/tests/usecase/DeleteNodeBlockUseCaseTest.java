@@ -15,6 +15,7 @@ import org.gfinnovation.dealsafe.modules.tree._shared.application.service.interf
 import org.gfinnovation.dealsafe.modules.tree._shared.application.service.interfaces.NodeTreeService;
 import org.gfinnovation.dealsafe.modules.tree._shared.domain.NodeTree;
 import org.gfinnovation.dealsafe.modules.tree._shared.domain.RootTree;
+import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonCustomListRecord;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonMultiRecord;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonSingularRecord;
 import org.gfinnovation.dealsafe.modules.tree.comparison.application.service.interfaces.ComparisonCustomListService;
@@ -111,89 +112,91 @@ public class DeleteNodeBlockUseCaseTest extends GenericTest {
         Input input = inputService.createInput(new CreateInputData("Example", rootNode));
         assertNotNull(input, "Input should not be null");
 
-        RootTreeDynamic createdRoot = rootTreeDynamic.create("ROOT Teste", input.getId());
+        RootTreeDynamic createdRoot = rootTreeDynamic.create("ROOT Teste", input.getId(), true);
         assertNotNull(createdRoot, "root should not be null");
         assertNotNull(createdRoot.getId(), "ID root should not be null");
 
-        NodeTree<?> node1 = nodeTreeBlockService.createBlock(new NodeCreationData("NODE 1", createdRoot.getId(), null));
+        NodeTree<?> node1 = nodeTreeBlockService.createBlock(new NodeCreationData("NODE 1", createdRoot.getId(), null), true);
         assertNotNull(node1, "NODE 1 should not be null");
 
-        NodeTree<?> node2 = nodeTreeBlockService.createBlock(new NodeCreationData("NODE 3", createdRoot.getId(), null));
+        NodeTree<?> node2 = nodeTreeBlockService.createBlock(new NodeCreationData("NODE 3", createdRoot.getId(), null), true);
         assertNotNull(node2, "NODE 3 should not be null");
 
-        NodeTree<?> createdNode2 = nodeTreeBlockService.createBlock(new NodeCreationData("NODE 2", node1.getId(), null));
+        NodeTree<?> createdNode2 = nodeTreeBlockService.createBlock(new NodeCreationData("NODE 2", node1.getId(), null), true);
         assertNotNull(createdNode2, "NODE 2 should not be null");
 
-        NodeTree<?> nodeIf1 = nodeTreeIfService.createIf(new NodeIfCreationData(node1.getId(), null));
+        NodeTree<?> nodeIf1 = nodeTreeIfService.createIf(new NodeIfCreationData(node1.getId(), null), true);
         assertNotNull(nodeIf1, "NODE IF 1 should not be null");
 
-        NodeTree<?> nodeIf2 = nodeTreeIfService.createIf(new NodeIfCreationData(nodeIf1.getId(), NodeTreeIf.SetNode.CONDITIONAL));
+        NodeTree<?> nodeIf2 = nodeTreeIfService.createIf(new NodeIfCreationData(nodeIf1.getId(), NodeTreeIf.SetNode.CONDITIONAL), true);
         assertNotNull(nodeIf2, "NODE IF 2 should not be null");
 
-        NodeTree<?> node4 = nodeTreeBlockService.createBlock(new NodeCreationData("NODE 5", nodeIf1.getId(), NodeTreeIf.SetNode.THEN));
+        NodeTree<?> node4 = nodeTreeBlockService.createBlock(new NodeCreationData("NODE 5", nodeIf1.getId(), NodeTreeIf.SetNode.THEN), true);
         assertNotNull(node4, "NODE 5 should not be null");
 
-        NodeTree<?> node5 = nodeTreeBlockService.createBlock(new NodeCreationData("NODE 6", nodeIf1.getId(), NodeTreeIf.SetNode.ELSE));
+        NodeTree<?> node5 = nodeTreeBlockService.createBlock(new NodeCreationData("NODE 6", nodeIf1.getId(), NodeTreeIf.SetNode.ELSE), true);
         assertNotNull(node5, "NODE 6 should not be null");
 
-        NodeTree<?> nodeIf3 = nodeTreeIfService.createIf(new NodeIfCreationData(nodeIf1.getId(), null));
+        NodeTree<?> nodeIf3 = nodeTreeIfService.createIf(new NodeIfCreationData(nodeIf1.getId(), null), true);
         assertNotNull(nodeIf3, "NODE IF 3 should not be null");
 
-        ComparisonSingular comparisonSingular = comparisonSingularService.create(new ComparisonSingularRecord(
+        ComparisonSingular comparisonSingular = comparisonSingularService.createComparison(new ComparisonSingularRecord(
                 ComparisonSingular.ComparisonSingularTypeEnum.EQUAL,
                 "endereco$bairro@",
                 "Centro",
                 nodeIf3.getParentId(),
                 NodeTreeIf.SetNode.CONDITIONAL
-        ));
+        ), true);
         assertNotNull(comparisonSingular, "ComparisonSingular should not be null");
 
-        ComparisonSingular comparisonSingular2 = comparisonSingularService.create(new ComparisonSingularRecord(
+        ComparisonSingular comparisonSingular2 = comparisonSingularService.createComparison(new ComparisonSingularRecord(
                 ComparisonSingular.ComparisonSingularTypeEnum.EQUAL,
                 ".endereco*bairro/",
                 "Centro",
                 nodeIf3.getParentId(),
                 NodeTreeIf.SetNode.CONDITIONAL
-        ));
+        ), true);
         assertNotNull(comparisonSingular2, "ComparisonSingular2 should not be null");
 
-        ComparisonSingular comparisonSingular3 = comparisonSingularService.create(new ComparisonSingularRecord(
+        ComparisonSingular comparisonSingular3 = comparisonSingularService.createComparison(new ComparisonSingularRecord(
                 ComparisonSingular.ComparisonSingularTypeEnum.EQUAL,
                 "/endereco.bairro$",
                 "Centro",
                 nodeIf3.getParentId(),
                 NodeTreeIf.SetNode.CONDITIONAL
-        ));
+        ), true);
         assertNotNull(comparisonSingular3, "ComparisonSingular3 should not be null");
 
-        ComparisonMulti comparisonMulti = comparisonMultiService.create(new ComparisonMultiRecord(
+        ComparisonMulti comparisonMulti = comparisonMultiService.createComparison(new ComparisonMultiRecord(
                 ComparisonMulti.ComparisonMultiTypeEnum.NOT_CONTAINS,
                 ".CPF/",
                 List.of("11330176650"),
                 nodeIf3.getParentId(),
                 NodeTreeIf.SetNode.CONDITIONAL
-        ));
+        ), true);
         assertNotNull(comparisonMulti, "ComparisonMulti should not be null");
 
         CompanyList companyList = companyListService.createCompanyList("Dealboard", List.of("11330176650"));
         assertNotNull(companyList, "CompanyList should not be null");
 
-        ComparisonCustomList comparisonCustomList = comparisonCustomListService.create(
-                ComparisonCustomList.ComparisonCustomListEnum.NOT_CONTAINS,
-                "/CPF",
-                companyList.getId(),
-                nodeIf3.getParentId(),
-                NodeTreeIf.SetNode.ELSE
+        ComparisonCustomList comparisonCustomList = this.comparisonCustomListService.createComparison(
+                new ComparisonCustomListRecord(
+                        ComparisonCustomList.ComparisonCustomListEnum.CONTAINS,
+                        "/CPF",
+                        companyList.getId(),
+                        nodeIf3.getParentId(),
+                        NodeTreeIf.SetNode.ELSE
+                ), true
         );
         assertNotNull(comparisonCustomList, "ComparisonCustomList should not be null");
 
-        this.nodeService.deleteNode(node1.getId());
+        this.nodeService.deleteNode(node1.getId(), true);
 
         RootTree<?> rootTree = this.rootTreeDynamic.read(createdRoot.getId());
 
         assertThrows(EntityNotFound.class, () -> nodeTreeIfService.read(nodeIf1.getId()));
 
-        this.nodeService.deleteNode(createdRoot.getId());
+        this.nodeService.deleteNode(createdRoot.getId(), true);
 
         assertThrows(EntityNotFound.class, () -> rootTreeDynamic.read(createdRoot.getId()));
 

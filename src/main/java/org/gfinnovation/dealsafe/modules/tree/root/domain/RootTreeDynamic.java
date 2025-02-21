@@ -1,14 +1,20 @@
 package org.gfinnovation.dealsafe.modules.tree.root.domain;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.gfinnovation.dealsafe.modules.tree._shared.domain.NodeInput;
 import org.gfinnovation.dealsafe.modules.tree._shared.domain.NodeTree;
 import org.gfinnovation.dealsafe.modules.tree._shared.domain.RootTree;
 import org.gfinnovation.dealsafe.utils.annotations.Default;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -43,7 +49,17 @@ public class RootTreeDynamic extends RootTree<NodeInput> {
             UUID dynamicInputId,
             LinkedList<NodeTree<NodeInput>> nodes
     ) {
-        super(name, NodeType.ROOT_STATIC, nodes);
+        super(name, NodeType.ROOT_DYNAMIC, nodes);
+        this.dynamicInputId = dynamicInputId;
+    }
+
+    @JsonCreator
+    public RootTreeDynamic(
+            @JsonProperty("name") String name,
+            @JsonProperty("dynamicInputId") UUID dynamicInputId,
+            @JsonProperty("nodes") List<NodeTree<NodeInput>> nodes
+    ) {
+        super(name, NodeType.ROOT_DYNAMIC, nodes);
         this.dynamicInputId = dynamicInputId;
     }
 

@@ -13,6 +13,7 @@ import org.gfinnovation.dealsafe.modules.input.application.service.interfaces.In
 import org.gfinnovation.dealsafe.modules.input.domain.Input;
 import org.gfinnovation.dealsafe.modules.tree._shared.domain.NodeInput;
 import org.gfinnovation.dealsafe.modules.tree._shared.domain.NodeTree;
+import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonCustomListRecord;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonMultiRecord;
 import org.gfinnovation.dealsafe.modules.tree.comparison.adpter.web.request.ComparisonSingularRecord;
 import org.gfinnovation.dealsafe.modules.tree.comparison.application.service.interfaces.ComparisonCustomListService;
@@ -91,66 +92,68 @@ public class TreeTest {
 
             Input input = this.inputService.createInput(new CreateInputData("Example", rootNode));
 
-            RootTreeDynamic createdRoot = this.rootTreeDynamic.create("ROOT Teste", input.getId());
+            RootTreeDynamic createdRoot = this.rootTreeDynamic.create("ROOT Teste", input.getId(), true);
 
-            NodeTree<?> node1 = this.nodeTreeBlockService.createBlock(new NodeCreationData("NODE 1", createdRoot.getId(), null));
+            NodeTree<?> node1 = this.nodeTreeBlockService.createBlock(new NodeCreationData("NODE 1", createdRoot.getId(), null), true);
 
-            NodeTree<?> node2 = this.nodeTreeBlockService.createBlock(new NodeCreationData("NODE 3", createdRoot.getId(), null));
+            NodeTree<?> node2 = this.nodeTreeBlockService.createBlock(new NodeCreationData("NODE 3", createdRoot.getId(), null), true);
 
-            NodeTree<?> createdNode2 = this.nodeTreeBlockService.createBlock(new NodeCreationData("NODE 2", node1.getId(), null));
+            NodeTree<?> createdNode2 = this.nodeTreeBlockService.createBlock(new NodeCreationData("NODE 2", node1.getId(), null), true);
 
-            NodeTree<?> nodeIf1 = this.nodeTreeIfService.createIf(new NodeIfCreationData(node1.getId(), null));
+            NodeTree<?> nodeIf1 = this.nodeTreeIfService.createIf(new NodeIfCreationData(node1.getId(), null), true);
 
-            NodeTree<?> nodeIf2 = this.nodeTreeIfService.createIf(new NodeIfCreationData(nodeIf1.getId(), NodeTreeIf.SetNode.CONDITIONAL));
+            NodeTree<?> nodeIf2 = this.nodeTreeIfService.createIf(new NodeIfCreationData(nodeIf1.getId(), NodeTreeIf.SetNode.CONDITIONAL), true);
 
-            NodeTree<?> node4 = this.nodeTreeBlockService.createBlock(new NodeCreationData("NODE 5", nodeIf1.getId(), NodeTreeIf.SetNode.THEN));
+            NodeTree<?> node4 = this.nodeTreeBlockService.createBlock(new NodeCreationData("NODE 5", nodeIf1.getId(), NodeTreeIf.SetNode.THEN), true);
 
-            NodeTree<?> node5 = this.nodeTreeBlockService.createBlock(new NodeCreationData("NODE 6", nodeIf1.getId(), NodeTreeIf.SetNode.ELSE));
+            NodeTree<?> node5 = this.nodeTreeBlockService.createBlock(new NodeCreationData("NODE 6", nodeIf1.getId(), NodeTreeIf.SetNode.ELSE), true);
 
-            NodeTree<?> nodeIf3 = this.nodeTreeIfService.createIf(new NodeIfCreationData(nodeIf1.getId(), null));
+            NodeTree<?> nodeIf3 = this.nodeTreeIfService.createIf(new NodeIfCreationData(nodeIf1.getId(), null), true);
 
-            ComparisonSingular comparisonSingular = this.comparisonSingularService.create(new ComparisonSingularRecord(
+            ComparisonSingular comparisonSingular = this.comparisonSingularService.createComparison(new ComparisonSingularRecord(
                     ComparisonSingular.ComparisonSingularTypeEnum.EQUAL,
                     "endereco$bairro@",
                     "Centro",
                     nodeIf3.getParentId(),
                     NodeTreeIf.SetNode.CONDITIONAL
-            ));
+            ), true);
 
-            ComparisonSingular comparisonSingular2 = this.comparisonSingularService.create(new ComparisonSingularRecord(
+            ComparisonSingular comparisonSingular2 = this.comparisonSingularService.createComparison(new ComparisonSingularRecord(
                     ComparisonSingular.ComparisonSingularTypeEnum.EQUAL,
                     ".endereco*bairro/",
                     "Centro",
                     nodeIf3.getParentId(),
                     NodeTreeIf.SetNode.CONDITIONAL
-            ));
+            ), true);
 
-            ComparisonSingular comparisonSingular3 = this.comparisonSingularService.create(new ComparisonSingularRecord(
+            ComparisonSingular comparisonSingular3 = this.comparisonSingularService.createComparison(new ComparisonSingularRecord(
                     ComparisonSingular.ComparisonSingularTypeEnum.EQUAL,
                     "/endereco.bairro$",
                     "Centro",
                     nodeIf3.getParentId(),
                     NodeTreeIf.SetNode.CONDITIONAL
-            ));
+            ), true);
 
-            ComparisonMulti comparisonMulti = this.comparisonMultiService.create(new ComparisonMultiRecord(
+            ComparisonMulti comparisonMulti = this.comparisonMultiService.createComparison(new ComparisonMultiRecord(
                     ComparisonMulti.ComparisonMultiTypeEnum.CONTAINS,
                     ".CPF/",
                     List.of("11330176650"),
                     nodeIf3.getParentId(),
                     NodeTreeIf.SetNode.CONDITIONAL
-            ));
+            ), true);
 
             CompanyList companyList = this.companyListService.createCompanyList(
                     "Dealboard",
                     List.of("11330176650"));
 
-            ComparisonCustomList comparisonCustomList = this.comparisonCustomListService.create(
-                    ComparisonCustomList.ComparisonCustomListEnum.CONTAINS,
-                    "/CPF",
-                    companyList.getId(),
-                    nodeIf3.getParentId(),
-                    NodeTreeIf.SetNode.ELSE
+            ComparisonCustomList comparisonCustomList = this.comparisonCustomListService.createComparison(
+                    new ComparisonCustomListRecord(
+                            ComparisonCustomList.ComparisonCustomListEnum.CONTAINS,
+                            "/CPF",
+                            companyList.getId(),
+                            nodeIf3.getParentId(),
+                            NodeTreeIf.SetNode.ELSE
+                    ), true
             );
             JsonNode jsonNode = mapper.readTree(json);
 

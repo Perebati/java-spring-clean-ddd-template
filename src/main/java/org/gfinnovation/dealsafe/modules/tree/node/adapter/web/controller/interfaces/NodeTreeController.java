@@ -25,7 +25,7 @@ import java.util.UUID;
  * @since v1.0 (04/11/2024)
  */
 @RestController
-@RequestMapping("tree")
+@RequestMapping("tree/node")
 @Tag(name = "Árvore - Nó")
 @SecurityRequirement(name = "BearerAuth")
 public interface NodeTreeController {
@@ -86,15 +86,4 @@ public interface NodeTreeController {
     @PutMapping("/node-block/{id}")
     ResponseEntity<NodeTreeBlock> updateNodeBlock(@PathVariable UUID id,
                                                   @RequestBody NodeTreeBlockData request) throws SystemGlobalException;
-
-    @Operation(
-            summary = "Deleta de nó na árvore",
-            description = "Realiza a deleção de um nó na árvore.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Sucesso!"),
-            @ApiResponse(responseCode = "400", description = "Requisição inválida", content = @Content),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
-    })
-    @DeleteMapping("/node/{id}")
-    ResponseEntity<Void> deleteNode(@PathVariable UUID id) throws SystemGlobalException;
 }

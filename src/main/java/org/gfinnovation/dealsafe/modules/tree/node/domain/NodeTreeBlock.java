@@ -20,6 +20,9 @@ import java.util.Optional;
 import java.util.UUID;
 
 /**
+ * An BlockNode holds many more Nodes inside, can be useful if there's a series of actions or validations that
+ * needs to be executed together.
+ *
  * @author Lucas Batista Pereira
  * @version v1.0
  * @class NodeTreeBlock
