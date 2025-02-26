@@ -10,5 +10,8 @@ spring:
     name: Dealsafe-Test
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     show-sql: true
+  liquibase:
+    enabled: true
+    change-log: db/changelog/db.changelog-master.xml

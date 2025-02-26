@@ -48,7 +48,7 @@
         <jjwt.version>0.11.5</jjwt.version>
         <neo4j.driver.version>5.22.0</neo4j.driver.version>
         <spring.data.neo4j.version>7.4.2</spring.data.neo4j.version>
-        <flywaydb.version>9.22.3</flywaydb.version>
+        <liquibase.version>4.31.1</liquibase.version>
 
         <!-- Plugin version -->
         <maven.compiler.plugin.version>3.13.0</maven.compiler.plugin.version>
@@ -158,11 +158,16 @@
         </dependency>
 
         <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
-            <version>${flywaydb.version}</version>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>${liquibase.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.liquibase.ext</groupId>
+            <artifactId>liquibase-hibernate6</artifactId>
+            <version>${liquibase.version}</version>
+        </dependency>
 
         <!-- Spring Security  -->
         <dependency>
@@ -334,6 +339,15 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>4.31.1</version>
+                <configuration>
+                <propertyFile>liquibase.properties</propertyFile>
                 </configuration>
             </plugin>
         </plugins>

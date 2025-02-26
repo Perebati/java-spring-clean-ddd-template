@@ -2,11 +2,6 @@ server:
   port: ${SERVER_PORT}
   servlet:
     context-path: ${SERVER_SERVLET_CONTEXT_PATH}
-  ssl:
-    enabled: true
-    key-store: ${SSl_KEY_STORE}
-    key-store-password: ${SSL_KEY_STORE_PASSWORD}
-    key-password: ${SSL_KEY_PASSWORD}
 
 spring:
   application:
@@ -18,11 +13,14 @@ spring:
     driverClassName: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO}
+      ddl-auto: validate
     properties:
       hibernate:
         dialect: ${SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT}
         default_schema: ${SPRING_JPA_PROPERTIES_HIBERNATE_DEFAULT_SCHEMA}
+  liquibase:
+    enabled: true
+    change-log: db/changelog/db.changelog-master.xml
   data:
     mongodb:
       host: ${DATA_MONGODB_HOST}

@@ -1,0 +1,440 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet author="lucas (generated)" id="1740576926264-1">
+        <createTable tableName="_relation_block_x_node">
+            <column name="parent_id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="_relation_block_x_nodePK"/>
+            </column>
+            <column name="node_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="node_order" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="_relation_block_x_nodePK"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-2">
+        <createTable tableName="_relation_deal_x_cnpjs">
+            <column name="blacklist_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cnpj" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-3">
+        <createTable tableName="_relation_if_x_cond">
+            <column name="if_id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="_relation_if_x_condPK"/>
+            </column>
+            <column name="node_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="condition_order" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="_relation_if_x_condPK"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-4">
+        <createTable tableName="_relation_if_x_else">
+            <column name="if_id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="_relation_if_x_elsePK"/>
+            </column>
+            <column name="node_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="else_order" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="_relation_if_x_elsePK"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-5">
+        <createTable tableName="_relation_if_x_then">
+            <column name="if_id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="_relation_if_x_thenPK"/>
+            </column>
+            <column name="node_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="then_order" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="_relation_if_x_thenPK"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-6">
+        <createTable tableName="_relation_mulitComp_x_vars">
+            <column name="comparison_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="expected_vars" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-7">
+        <createTable tableName="_relation_root_x_history">
+            <column name="root_id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="_relation_root_x_historyPK"/>
+            </column>
+            <column name="history_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="history_order" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="_relation_root_x_historyPK"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-8">
+        <createTable tableName="_relation_root_x_node">
+            <column name="root_id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="_relation_root_x_nodePK"/>
+            </column>
+            <column name="node_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="node_order" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="_relation_root_x_nodePK"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-9">
+        <createTable tableName="dealboard_companyList">
+            <column name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="dealboard_companyListPK"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP(6) WITHOUT TIME ZONE"/>
+            <column name="deleted" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="TIMESTAMP(6) WITHOUT TIME ZONE"/>
+            <column name="updated_at" type="TIMESTAMP(6) WITHOUT TIME ZONE"/>
+            <column name="user_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="whiteLabel_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-10">
+        <createTable tableName="input_dynamic">
+            <column name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="input_dynamicPK"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP(6) WITHOUT TIME ZONE"/>
+            <column name="deleted" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="TIMESTAMP(6) WITHOUT TIME ZONE"/>
+            <column name="updated_at" type="TIMESTAMP(6) WITHOUT TIME ZONE"/>
+            <column name="user_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="whiteLabel_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="fields" type="TEXT"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-11">
+        <createTable tableName="tree">
+            <column name="type" type="VARCHAR(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="treePK"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP(6) WITHOUT TIME ZONE"/>
+            <column name="deleted" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="TIMESTAMP(6) WITHOUT TIME ZONE"/>
+            <column name="updated_at" type="TIMESTAMP(6) WITHOUT TIME ZONE"/>
+            <column name="user_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="whiteLabel_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="node_type" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-12">
+        <createTable tableName="tree_node">
+            <column name="parent_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="parent_type" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="tree_nodePK"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-13">
+        <createTable tableName="tree_node_action">
+            <column name="action_type" type="VARCHAR(255)"/>
+            <column name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="tree_node_actionPK"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-14">
+        <createTable tableName="tree_node_block">
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="tree_node_blockPK"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-15">
+        <createTable tableName="tree_node_if">
+            <column name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="tree_node_ifPK"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-16">
+        <createTable tableName="tree_root">
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="VARCHAR(255)"/>
+            <column name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="tree_rootPK"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-17">
+        <createTable tableName="tree_root_dynamic">
+            <column name="dynamic_input_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="tree_root_dynamicPK"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-18">
+        <createTable tableName="tree_root_history">
+            <column name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="tree_root_historyPK"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP(6) WITHOUT TIME ZONE"/>
+            <column name="deleted" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="TIMESTAMP(6) WITHOUT TIME ZONE"/>
+            <column name="updated_at" type="TIMESTAMP(6) WITHOUT TIME ZONE"/>
+            <column name="json" type="JSONB">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-19">
+        <createTable tableName="tree_root_node_condition_comparison_custom">
+            <column name="comparison_Type" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="custom_list_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="json_variable_path" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="tree_root_node_condition_comparison_customPK"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-20">
+        <createTable tableName="tree_root_node_condition_comparison_multi">
+            <column name="comparisonType" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="json_variable_path" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="tree_root_node_condition_comparison_multiPK"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-21">
+        <createTable tableName="tree_root_node_condition_comparison_singular">
+            <column name="comparison_type" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="expected_var" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="json_variable_path" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="tree_root_node_condition_comparison_singularPK"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-22">
+        <createTable tableName="tree_root_node_operation_action">
+            <column name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="tree_root_node_operation_actionPK"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP(6) WITHOUT TIME ZONE"/>
+            <column name="deleted" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="TIMESTAMP(6) WITHOUT TIME ZONE"/>
+            <column name="updated_at" type="TIMESTAMP(6) WITHOUT TIME ZONE"/>
+            <column name="user_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="whiteLabel_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="message" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="url" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-23">
+        <createTable tableName="tree_root_static">
+            <column name="input_type" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="tree_root_staticPK"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-24">
+        <addUniqueConstraint columnNames="node_id" constraintName="UC__RELATION_BLOCK_X_NODENODE_ID_COL" tableName="_relation_block_x_node"/>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-25">
+        <addUniqueConstraint columnNames="node_id" constraintName="UC__RELATION_IF_X_CONDNODE_ID_COL" tableName="_relation_if_x_cond"/>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-26">
+        <addUniqueConstraint columnNames="node_id" constraintName="UC__RELATION_IF_X_ELSENODE_ID_COL" tableName="_relation_if_x_else"/>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-27">
+        <addUniqueConstraint columnNames="node_id" constraintName="UC__RELATION_IF_X_THENNODE_ID_COL" tableName="_relation_if_x_then"/>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-28">
+        <addUniqueConstraint columnNames="history_id" constraintName="UC__RELATION_ROOT_X_HISTORYHISTORY_ID_COL" tableName="_relation_root_x_history"/>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-29">
+        <addUniqueConstraint columnNames="node_id" constraintName="UC__RELATION_ROOT_X_NODENODE_ID_COL" tableName="_relation_root_x_node"/>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-30">
+        <createIndex indexName="idx_cnpj" tableName="_relation_deal_x_cnpjs">
+            <column name="cnpj"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-31">
+        <createIndex indexName="idx_tree_comparison_custom_list_id" tableName="tree_root_node_condition_comparison_custom">
+            <column name="custom_list_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-32">
+        <createIndex indexName="idx_tree_node_parent_id" tableName="tree_node">
+            <column name="parent_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-33">
+        <createIndex indexName="idx_tree_user_id" tableName="tree">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-34">
+        <createIndex indexName="idx_tree_whiteLabel_id" tableName="tree">
+            <column name="whiteLabel_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-35">
+        <addForeignKeyConstraint baseColumnNames="id" baseTableName="tree_node_if" constraintName="FK21in0qcqp6ymvwgl19lfo94i5" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="tree_node" validate="true"/>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-36">
+        <addForeignKeyConstraint baseColumnNames="parent_id" baseTableName="_relation_block_x_node" constraintName="FK33ri4ei9qqj3rpw5l8e6wj2kh" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="tree_node_block" validate="true"/>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-37">
+        <addForeignKeyConstraint baseColumnNames="id" baseTableName="tree_root_node_condition_comparison_custom" constraintName="FK3knf954pb1elfcpr4cbj152ak" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="tree_node" validate="true"/>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-38">
+        <addForeignKeyConstraint baseColumnNames="node_id" baseTableName="_relation_if_x_else" constraintName="FK3q1yhm44fmww8agc9i9p4ulcc" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="tree_node" validate="true"/>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-39">
+        <addForeignKeyConstraint baseColumnNames="id" baseTableName="tree_root_node_condition_comparison_singular" constraintName="FK3sujlsald0m0cyx6xul82j27b" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="tree_node" validate="true"/>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-40">
+        <addForeignKeyConstraint baseColumnNames="node_id" baseTableName="_relation_root_x_node" constraintName="FK49ohn25d7dnc3wyk7uhnf6qmr" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="tree_node" validate="true"/>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-41">
+        <addForeignKeyConstraint baseColumnNames="if_id" baseTableName="_relation_if_x_cond" constraintName="FK4w4orxf5jee6re8tpdjjjqv3b" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="tree_node_if" validate="true"/>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-42">
+        <addForeignKeyConstraint baseColumnNames="if_id" baseTableName="_relation_if_x_then" constraintName="FK5m8hwksekjwrxaurpnhggt5j0" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="tree_node_if" validate="true"/>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-43">
+        <addForeignKeyConstraint baseColumnNames="comparison_id" baseTableName="_relation_mulitComp_x_vars" constraintName="FK6ap55q4dbipntjo8yoth6efga" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="tree_root_node_condition_comparison_multi" validate="true"/>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-44">
+        <addForeignKeyConstraint baseColumnNames="node_id" baseTableName="_relation_if_x_then" constraintName="FKaqpe8orknge995kom4mcpts68" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="tree_node" validate="true"/>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-45">
+        <addForeignKeyConstraint baseColumnNames="id" baseTableName="tree_node" constraintName="FKb1xwpw7xd3nmlm0pnqi8mslar" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="tree" validate="true"/>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-46">
+        <addForeignKeyConstraint baseColumnNames="id" baseTableName="tree_node_action" constraintName="FKd4k393wlylb5y279d8frdh011" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="tree_node" validate="true"/>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-47">
+        <addForeignKeyConstraint baseColumnNames="history_id" baseTableName="_relation_root_x_history" constraintName="FKe13qr7ggwv30opy41l16qeygd" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="tree_root_history" validate="true"/>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-48">
+        <addForeignKeyConstraint baseColumnNames="root_id" baseTableName="_relation_root_x_node" constraintName="FKgv5tjfrbhctlymm2d0yee25rk" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="tree_root" validate="true"/>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-49">
+        <addForeignKeyConstraint baseColumnNames="id" baseTableName="tree_node_block" constraintName="FKh3y04mbsy33smc66atm2dt75m" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="tree_node" validate="true"/>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-50">
+        <addForeignKeyConstraint baseColumnNames="root_id" baseTableName="_relation_root_x_history" constraintName="FKhm27wwxsw7o8qbm44bfktms74" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="tree_root" validate="true"/>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-51">
+        <addForeignKeyConstraint baseColumnNames="node_id" baseTableName="_relation_block_x_node" constraintName="FKi2tfdp23igjq6d49m4q48r9sd" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="tree_node" validate="true"/>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-52">
+        <addForeignKeyConstraint baseColumnNames="if_id" baseTableName="_relation_if_x_else" constraintName="FKikp499bbppgkhe5pbvkl5kibv" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="tree_node_if" validate="true"/>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-53">
+        <addForeignKeyConstraint baseColumnNames="node_id" baseTableName="_relation_if_x_cond" constraintName="FKm4lv8fm275nebcw263pkr5pgs" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="tree_node" validate="true"/>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-54">
+        <addForeignKeyConstraint baseColumnNames="id" baseTableName="tree_root_node_condition_comparison_multi" constraintName="FKn2eb8k9xi0htm2nmw39os2u9l" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="tree_node" validate="true"/>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-55">
+        <addForeignKeyConstraint baseColumnNames="id" baseTableName="tree_root" constraintName="FKosyjv1uvebi53hjdiaj2mrwro" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="tree" validate="true"/>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-56">
+        <addForeignKeyConstraint baseColumnNames="blacklist_id" baseTableName="_relation_deal_x_cnpjs" constraintName="FKt9dmn6cpu2jtewrwshni8m4o3" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="dealboard_companyList" validate="true"/>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-57">
+        <addForeignKeyConstraint baseColumnNames="id" baseTableName="tree_root_dynamic" constraintName="fk_dynamic_root_x_root" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="tree_root" validate="true"/>
+    </changeSet>
+    <changeSet author="lucas (generated)" id="1740576926264-58">
+        <addForeignKeyConstraint baseColumnNames="id" baseTableName="tree_root_static" constraintName="fk_static_root_x_root" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="tree_root" validate="true"/>
+    </changeSet>
+</databaseChangeLog>
