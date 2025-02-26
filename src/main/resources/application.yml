@@ -1,0 +1,43 @@
+#Global/Standard settings
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+  ssl:
+    enabled: false
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: none
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyComponentPathImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        default_schema: public
+        format_sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: false
+
+  neo4j:
+    uri: neo4j://localhost:7999
+    authentication:
+      username: neo4j
+      password: password
+  liquibase:
+    enabled: false
+
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: dealsafe_logs
+      username: mongoadmin
+      password: secret
+      authentication-database: admin
+
+jwt:
+  publicKey: ${JWT_PUBLIC_KEY}
+  privateKey: ${JWT_PRIVATE_KEY}
