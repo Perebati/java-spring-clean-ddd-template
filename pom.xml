@@ -17,7 +17,7 @@
 
     <name>Spring Boot DDD Template</name>
     <description>
-        A modern and robust template for Java backend development with Spring Boot,
+        A modern template for Java backend development with Spring Boot,
         applying Domain-Driven Design (DDD) and Clean Architecture principles.
         Features generic structures, multi-database support, and advanced monitoring.
     </description>
