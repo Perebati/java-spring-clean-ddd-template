@@ -7,10 +7,8 @@ server:
 
 spring:
   application:
-    name: Dealsafe-Test
+    name: app-test
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
-  liquibase:
-    enabled: false

@@ -7,9 +7,9 @@ server:
 
 spring:
   application:
-    name: Dealsafe-Dev
+    name: app-dev
   datasource:
-    url: jdbc:postgresql://localhost:5432/dealsafe?useSSL=false
+    url: jdbc:postgresql://localhost:5432/application-database?useSSL=false
     username: postgres
     password: postgres
     driverClassName: org.postgresql.Driver
@@ -33,15 +33,12 @@ spring:
     authentication:
       username: neo4j
       password: password
-  liquibase:
-    enabled: true
-    change-log: db/changelog/db.changelog-master.xml
 
   data:
     mongodb:
       host: localhost
       port: 27017
-      database: dealsafe_logs
+      database: app_logs
       username: mongoadmin
       password: secret
       authentication-database: admin

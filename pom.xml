@@ -10,51 +10,98 @@
         <relativePath/>
     </parent>
 
-    <groupId>org.gfinnovation</groupId>
-    <artifactId>dealsafe</artifactId>
+    <groupId>com.git</groupId>
+    <artifactId>spring_boot_ddd_template</artifactId>
     <version>1.0.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
-    <name>dealsafe</name>
-    <description>dealsafe</description>
-
-    <url/>
+    <name>Spring Boot DDD Template</name>
+    <description>
+        A modern and robust template for Java backend development with Spring Boot,
+        applying Domain-Driven Design (DDD) and Clean Architecture principles.
+        Features generic structures, multi-database support, and advanced monitoring.
+    </description>
+    <url>https://github.com/perebati/spring-boot-ddd-template</url>
+    <inceptionYear>2025</inceptionYear>
 
     <licenses>
-        <license/>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/licenses/MIT</url>
+            <distribution>repo</distribution>
+        </license>
     </licenses>
 
     <developers>
-        <developer/>
+        <developer>
+            <id>perebati</id>
+            <name>Lucas Batista Pereira</name>
+            <email>lucas.bpereira1999@gmail.com</email>
+            <roles>
+                <role>architect</role>
+                <role>developer</role>
+            </roles>
+            <timezone>America/Sao_Paulo</timezone>
+        </developer>
     </developers>
 
     <scm>
-        <connection/>
-        <developerConnection/>
-        <tag/>
-        <url/>
+        <connection>scm:git:git://github.com/perebati/spring-boot-ddd-template.git</connection>
+        <developerConnection>scm:git:ssh://github.com:perebati/spring-boot-ddd-template.git</developerConnection>
+        <tag>HEAD</tag>
+        <url>https://github.com/perebati/spring-boot-ddd-template</url>
     </scm>
+
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/perebati/spring-boot-ddd-template/issues</url>
+    </issueManagement>
 
     <!-- Version control -->
     <properties>
+        <!-- Java Configuration -->
         <java.version>21</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <!-- Dependency version -->
+        <!-- Spring Boot & Related -->
+        <spring-boot.version>3.4.1</spring-boot.version>
+        <spring-data-neo4j.version>7.4.2</spring-data-neo4j.version>
+
+        <!-- Core Dependencies -->
         <mapstruct.version>1.6.3</mapstruct.version>
-        <springdoc-openapi.version>2.7.0-RC1</springdoc-openapi.version>
-        <junit.jupiter.version>5.11.0</junit.jupiter.version>
-        <mockito.version>5.12.0</mockito.version>
-        <h2.version>2.3.232</h2.version>
-        <jackson.version>2.18.0</jackson.version>
-        <jjwt.version>0.11.5</jjwt.version>
-        <neo4j.driver.version>5.22.0</neo4j.driver.version>
-        <spring.data.neo4j.version>7.4.2</spring.data.neo4j.version>
-        <liquibase.version>4.31.1</liquibase.version>
-
-        <!-- Plugin version -->
-        <maven.compiler.plugin.version>3.13.0</maven.compiler.plugin.version>
         <lombok.version>1.18.34</lombok.version>
-        <mapstruct.processor.plugin.version>1.6.2</mapstruct.processor.plugin.version>
-        <lombok.mapstruct.binding.version>0.2.0</lombok.mapstruct.binding.version>
+        <jackson.version>2.18.0</jackson.version>
+
+        <!-- Documentation -->
+        <springdoc-openapi.version>2.7.0-RC1</springdoc-openapi.version>
+
+        <!-- Security -->
+        <jjwt.version>0.11.5</jjwt.version>
+
+        <!-- Database Drivers -->
+        <h2.version>2.3.232</h2.version>
+        <neo4j-driver.version>5.22.0</neo4j-driver.version>
+
+        <!-- Testing -->
+        <junit-jupiter.version>5.11.0</junit-jupiter.version>
+        <mockito.version>5.12.0</mockito.version>
+        <testcontainers.version>1.19.3</testcontainers.version>
+
+        <!-- Build Plugins -->
+        <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
+        <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
+        <maven-failsafe-plugin.version>3.2.5</maven-failsafe-plugin.version>
+        <jacoco-maven-plugin.version>0.8.11</jacoco-maven-plugin.version>
+
+        <!-- MapStruct Processor Configuration -->
+        <mapstruct-processor.version>1.6.2</mapstruct-processor.version>
+        <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
+
+        <!-- Apache Commons (Security Fix) -->
+        <commons-compress.version>1.26.0</commons-compress.version>
     </properties>
 
     <!-- System profiles (Dev is standard) -->
@@ -66,19 +113,64 @@
             </activation>
             <properties>
                 <spring.profiles.active>dev</spring.profiles.active>
+                <maven.test.skip>false</maven.test.skip>
+                <jacoco.skip>false</jacoco.skip>
             </properties>
         </profile>
         <profile>
             <id>prod</id>
             <properties>
                 <spring.profiles.active>prod</spring.profiles.active>
+                <maven.test.skip>false</maven.test.skip>
+                <jacoco.skip>true</jacoco.skip>
             </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-maven-plugin</artifactId>
+                        <configuration>
+                            <excludes>
+                                <exclude>
+                                    <groupId>org.springframework.boot</groupId>
+                                    <artifactId>spring-boot-devtools</artifactId>
+                                </exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
         <profile>
             <id>test</id>
             <properties>
                 <spring.profiles.active>test</spring.profiles.active>
+                <maven.test.skip>false</maven.test.skip>
+                <jacoco.skip>false</jacoco.skip>
             </properties>
+        </profile>
+        <profile>
+            <id>integration-test</id>
+            <properties>
+                <spring.profiles.active>test</spring.profiles.active>
+                <maven.test.skip>false</maven.test.skip>
+                <skipITs>false</skipITs>
+                <jacoco.skip>false</jacoco.skip>
+            </properties>
+        </profile>
+        <profile>
+            <id>coverage</id>
+            <properties>
+                <jacoco.skip>false</jacoco.skip>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
     </profiles>
 
@@ -117,11 +209,11 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- Apache Fixed Version (InfiniteLoop/StackOverflow bug) -->
+        <!-- Apache Fixed Version (Security: InfiniteLoop/StackOverflow bug) -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-compress</artifactId>
-            <version>1.26.0</version>
+            <version>${commons-compress.version}</version>
         </dependency>
 
         <!-- Spring Boot BOM -->
@@ -155,18 +247,6 @@
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-neo4j</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.liquibase</groupId>
-            <artifactId>liquibase-core</artifactId>
-            <version>${liquibase.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.liquibase.ext</groupId>
-            <artifactId>liquibase-hibernate6</artifactId>
-            <version>${liquibase.version}</version>
         </dependency>
 
         <!-- Spring Security  -->
@@ -219,11 +299,11 @@
             <version>${springdoc-openapi.version}</version>
         </dependency>
 
-        <!-- Test -->
+        <!-- Test Dependencies -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>${junit.jupiter.version}</version>
+            <version>${junit-jupiter.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -251,6 +331,7 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <version>${h2.version}</version>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -302,14 +383,20 @@
     </dependencies>
 
     <build>
+        <finalName>${project.artifactId}-${project.version}</finalName>
+        
         <plugins>
+            <!-- Maven Compiler Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven.compiler.plugin.version}</version>
+                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
-                    <source>11</source>
-                    <target>11</target>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <showWarnings>true</showWarnings>
+                    <showDeprecation>true</showDeprecation>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.projectlombok</groupId>
@@ -319,16 +406,18 @@
                         <path>
                             <groupId>org.mapstruct</groupId>
                             <artifactId>mapstruct-processor</artifactId>
-                            <version>${mapstruct.processor.plugin.version}</version>
+                            <version>${mapstruct-processor.version}</version>
                         </path>
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok-mapstruct-binding</artifactId>
-                            <version>${lombok.mapstruct.binding.version}</version>
+                            <version>${lombok-mapstruct-binding.version}</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
+
+            <!-- Spring Boot Maven Plugin -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -339,16 +428,104 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                    <executable>true</executable>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Maven Surefire Plugin (Unit Tests) -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+                <configuration>
+                    <includes>
+                        <include>**/*Test.java</include>
+                        <include>**/*Tests.java</include>
+                    </includes>
+                    <excludes>
+                        <exclude>**/*IT.java</exclude>
+                        <exclude>**/*IntegrationTest.java</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
 
+            <!-- Maven Failsafe Plugin (Integration Tests) -->
             <plugin>
-                <groupId>org.liquibase</groupId>
-                <artifactId>liquibase-maven-plugin</artifactId>
-                <version>4.31.1</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>${maven-failsafe-plugin.version}</version>
                 <configuration>
-                <propertyFile>liquibase.properties</propertyFile>
+                    <includes>
+                        <include>**/*IT.java</include>
+                        <include>**/*IntegrationTest.java</include>
+                    </includes>
                 </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- JaCoCo Maven Plugin (Code Coverage) -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco-maven-plugin.version}</version>
+                <configuration>
+                    <skip>${jacoco.skip}</skip>
+                    <excludes>
+                        <exclude>**/config/**</exclude>
+                        <exclude>**/configuration/**</exclude>
+                        <exclude>**/Application.class</exclude>
+                        <exclude>**/*Config.class</exclude>
+                        <exclude>**/*Configuration.class</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>check</id>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <rule>
+                                    <element>BUNDLE</element>
+                                    <limits>
+                                        <limit>
+                                            <counter>INSTRUCTION</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>0.80</minimum>
+                                        </limit>
+                                    </limits>
+                                </rule>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
